@@ -2,6 +2,7 @@ import "./styles.css";
 // Common Pages
 // import Product from "./Product";
 // import Notifications from "./Notifications";
+import SecurityPage from "./SecurityQuestions";
 import Homepage from "./Homepage.js";
 
 // Admin Pages
@@ -17,6 +18,7 @@ import CustomerNavbar from "./CustomerNavbar";
 import CustomerPanel from "./CustomerPanel";
 import ShoppingCart from "./ShoppingCart";
 import Checkout from "./Checkout";
+import SignupCustomer from "./SignUpCustomer";
 // import CustomerSettings from "./CustomerSettings";
 // import ViewAllProducts from "./ViewAllProducts";
 // import QueryForms from "./QueryForms";
@@ -44,14 +46,14 @@ export default function App() {
           {/* <Route path="/ViewCustomers" exact component={ViewCustomers} /> */}
 
           {/* Customer Pages */}
-          <Route path="/CustomerNavbar" exact component={CustomerNavbar} />
+          {/* <Route path="/CustomerNavbar" exact component={CustomerNavbar} />
           <Route path="/CustomerPanel" exact component={CustomerPanel} />
           <Route path="/ShoppingCart" exact component={ShoppingCart} />
-          <Route path="/Checkout" exact component={Checkout} />
+          <Route path="/Checkout" exact component={Checkout} /> */}
           {/* <Route path="/CustomerSettings" exact component={CustomerSettings} /> */}
           {/* <Route path="/ViewAllProducts" exact component={ViewAllProducts} /> */}
           {/* <Route path="/QueryForms" exact component={QueryForms} /> */}
-
+          {/* <SignupCustomer /> */}
           {/* Sellers Pages */}
           {/* <Route path="/" exact component={SellerPanel} /> */}
           {/* <Route path="/Tutorials" exact component={Tutorials} /> */}
@@ -59,7 +61,8 @@ export default function App() {
 
           {/* Common Pages */}
           {/* <Route path="/Notifications" exact component={Notifications} /> */}
-          <Homepage />
+          {/* <Homepage /> */}
+          <SecurityPage />
         </div>
       </Switch>
     </Router>
