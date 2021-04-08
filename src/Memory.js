@@ -4,16 +4,35 @@ import "./styles.css";
 import { Link } from "react-router-dom";
 
 const Memory = (props, panel) => {
+  panel = props.panel.split(" ").join("");
+  console.log(props.panel);
+  panel_string = `/${panel}`;
+
+  try {
+    page = props.page.split(" ").join("");
+    page_string = `/${page}`;
+  } catch {
+    page_string = "";
+  }
+
+  try {
+    current = props.current.split(" ").join("");
+    current_string = `/${current}`;
+  } catch {
+    current_string = "";
+  }
+
   return (
     <div className="memory">
       <span>
-        {/* <Link to="/${panel}">{props.panel}</Link> */}
-        <a href="#">{props.panel}/</a>
+        <Link to={panel_string}>{props.panel}</Link>
       </span>
-      <a href="#">{props.page}</a>
-      <span className="current-page">
-        <a href="#">{props.current}</a>
-      </span>
+      {page_string !== "" ? <Link to={page_string}>/{props.page}</Link> : null}
+      {current_string !== "" ? (
+        <span className="current-page">
+          <Link to={current_string}>/{props.current}</Link>
+        </span>
+      ) : null}
     </div>
   );
 };

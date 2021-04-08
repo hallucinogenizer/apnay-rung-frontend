@@ -3,8 +3,6 @@ import { useState } from "react";
 import SellerNavbar from "./SellerNavbar";
 import Memory from "./Memory";
 import BottomBar from "./BottomBar";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { Modal, Button } from "react-bootstrap";
 
 const Inventory = () => {
   const [state, setState] = useState([
@@ -34,27 +32,9 @@ const Inventory = () => {
   getData("https://apnay-rung-api.herokuapp.com/inventory/all").then(
     (response) => {
       console.log(response);
-      // const testing = response;
       setState(response);
     }
   );
-
-  const [show, setShow] = useState(false);
-  const [deleteIndex, setDeleteIndex] = useState();
-
-  const handleClose = () => setShow(false);
-  const handleShow = (index) => {
-    setDeleteIndex(index);
-    setShow(true);
-  };
-
-  const deleteRow = () => {
-    console.log(`Here`);
-    let copyofState = state.slice();
-    copyofState.splice(deleteIndex, 1);
-    setState(copyofState);
-    handleClose();
-  };
 
   const renderTableData = () => {
     return state.map((product, index) => {
@@ -76,11 +56,7 @@ const Inventory = () => {
               Update
             </a>
             |
-            <a
-              href="#delete"
-              className="link"
-              onClick={() => handleShow(index)}
-            >
+            <a href="#delete" className="link">
               Delete
             </a>
           </td>
@@ -111,28 +87,6 @@ const Inventory = () => {
         </table>
       </div>
       <BottomBar />
-      <Modal show={show} onHide={handleClose} className="delete-modal">
-        <Modal.Header closeButton>
-          <Modal.Title>Confirm Delete</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Are you sure you want to delete this product?</Modal.Body>
-        <Modal.Footer>
-          <Button
-            variant="secondary"
-            onClick={handleClose}
-            className="delete-secondary"
-          >
-            Don't Delete
-          </Button>
-          <Button
-            variant="primary"
-            onClick={() => deleteRow}
-            className="delete-primary"
-          >
-            Delete Product
-          </Button>
-        </Modal.Footer>
-      </Modal>
     </div>
   );
 };

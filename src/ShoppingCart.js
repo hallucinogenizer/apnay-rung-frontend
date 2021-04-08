@@ -7,15 +7,19 @@ import { useState } from "react";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 // import Modal from "react-bootstrap/Modal";
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
+// const [qty, setQuantity] = useState(1);
 
 const Counter = (props) => {
   const increment = () => {
     props.qtyFunc(props.qty + 1);
+    props.costFunc(props.totalBill + props.price);
   };
   const decrement = () => {
     props.qtyFunc(props.qty - 1);
+    props.costFunc(props.totalBill - props.price);
   };
 
   return (
@@ -50,25 +54,25 @@ const ShoppingCart = () => {
       {
         productID: "00199",
         productTitle: "Clay Pot",
-        quantity: 1,
+        quantity: 0,
         price: 200
       },
       {
         productID: "00199",
         productTitle: "Clay Pot",
-        quantity: 1,
+        quantity: 0,
         price: 200
       },
       {
         productID: "00199",
         productTitle: "Clay Pot",
-        quantity: 1,
+        quantity: 0,
         price: 200
       },
       {
         productID: "00199",
         productTitle: "Clay Pot",
-        quantity: 2,
+        quantity: 0,
         price: 200
       }
     ]
@@ -78,6 +82,7 @@ const ShoppingCart = () => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [total, setTotal] = useState(0);
 
   const renderTableData = () => {
     return state.products.map((product, index) => {
@@ -90,7 +95,13 @@ const ShoppingCart = () => {
           <td>{productTitle}</td>
           {/* <input className="text-center" type="number" min={quantity} /> */}
           <td>
-            <Counter qty={qty} qtyFunc={setQuantity} />
+            <Counter
+              qty={qty}
+              qtyFunc={setQuantity}
+              costFunc={setTotal}
+              totalBill={total}
+              price={price}
+            />
           </td>
           <td>PKR {price}</td>
           <td>PKR {qty * price}</td>
@@ -125,21 +136,25 @@ const ShoppingCart = () => {
           <tbody>{renderTableData()}</tbody>
         </table>
       </div>
-      <div className="totalBill">Total: Rs.900</div>
+      <div className="totalBill">Total: {total}</div>
       <div className="outer">
         <div className="inner">
-          <input
-            type="submit"
-            className="continueShopping-button"
-            value="Continue Shopping"
-          ></input>
+          <Link to="/Catalog">
+            <input
+              type="submit"
+              className="continueShopping-button"
+              value="Continue Shopping"
+            ></input>
+          </Link>
         </div>
         <div className="inner">
-          <input
-            type="submit"
-            className="checkout-button"
-            value="Checkout"
-          ></input>
+          <Link to="/Checkout">
+            <input
+              type="submit"
+              className="checkout-button"
+              value="Checkout"
+            ></input>
+          </Link>
         </div>
       </div>
       <BottomBar />

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import CustomerNavbar from "./CustomerNavbar";
 import Memory from "./Memory";
 import BottomBar from "./BottomBar";
+import { Link } from "react-router-dom";
 
 const Checkout = () => {
   let initialValue = {
@@ -202,6 +203,9 @@ const Checkout = () => {
           value="Confirm Order"
         ></input>
       </form>
+      <br />
+      <br />
+      <br />
       <BottomBar />
     </div>
   );

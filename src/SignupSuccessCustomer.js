@@ -1,6 +1,6 @@
 import Logo from "./css/logo.png";
 
-const SignupSuccess = () => {
+const SignupSuccessCustomer = () => {
   return (
     <div className="form-content-right">
       <div className="form-success">We have received your request!</div>
@@ -9,4 +9,4 @@ const SignupSuccess = () => {
   );
 };
 
-export default SignupSuccess;
+export default SignupSuccessCustomer;
