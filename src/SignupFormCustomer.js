@@ -64,88 +64,85 @@ const SignUpFormCustomer = ({ submitForm }) => {
     <div>
       <form onSubmit={submitHandler}>
         <img src={Logo} className="signup-img" alt="our logo" />
-        <div className="signup-heading">Sign up</div>
-        <div className="signup-btn-group">
-          <button type="button" className="btn btn-default">
+        <div className="signup-heading">
+          <p>Sign up</p>
+        </div>
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-secondary">
             Customer
           </button>
-          <button type="button" className="btn btn-default">
+          <button type="button" class="btn btn-secondary">
             Seller
           </button>
         </div>
-        <div className="form-inputs">
+        <br />
+        <span className="form-inputs">
           {/* <label htmlFor="name" className="form-label">
           </label> */}
           <input
             type="text"
             name="userName"
-            className="input-form-signup"
+            className="signup-label-form-left"
             placeholder="full name"
             value={values.userName}
             onChange={changeHandler}
           />
           {errors.userName && <p>{errors.userName} </p>}
-        </div>
-        <div className="form-inputs">
           <input
             type="email"
             name="email"
-            className="input-form-signup"
+            className="signup-label-form-right"
             placeholder="email"
             value={values.email}
             onChange={changeHandler}
           />
           {errors.email && <p>{errors.email} </p>}
-        </div>
-        <div className="form-inputs">
+        </span>
+        <span className="form-inputs">
           <input
             type="password"
             name="password"
-            className="input-form-signup"
+            className="signup-label-form-left"
             placeholder="password"
             value={values.password1}
             onChange={changeHandler}
           />
           {errors.password && <p>{errors.password} </p>}
-        </div>
-        <div className="form-inputs">
           <input
             type="password"
             name="password2"
-            className="input-form-signup"
+            className="signup-label-form-right"
             placeholder="re-type password"
             value={values.password2}
             onChange={changeHandler}
           />
           {errors.password2 && <p>{errors.password2} </p>}
-        </div>
-        <div className="form-inputs">
+        </span>
+        <span className="form-inputs">
           <input
             type="text"
             name="address"
-            className="input-form-signup"
+            className="signup-label-form-left"
             placeholder="Address"
             value={values.address}
             onChange={changeHandler}
           />
           {errors.address && <p>{errors.address} </p>}
-        </div>
-        <div className="form-inputs">
           <input
             type="number"
             name="phonenumber"
-            className="input-form-signup"
+            className="signup-label-form-right"
             placeholder="Phone Number"
             value={values.phonenumber}
             onChange={changeHandler}
           />
           {errors.phonenumber && <p>{errors.phonenumber} </p>}
-        </div>
+        </span>
         <button className="next-step-btn" type="submit">
           Next Step
         </button>
         <br />
-        <span>
+        <span className="orlogin-option-signup">
           Or
           <a href="#"> Log in </a>
         </span>
