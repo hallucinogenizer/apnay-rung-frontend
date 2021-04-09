@@ -26,7 +26,7 @@ const Memory = (props, panel) => {
     } catch {
       a = 1;
     }
-    console.log(pages_array);
+    // console.log(pages_array);
     return pages_array.map((element, index) => {
       // console.log(element);
       let page_string = `/${element}`;

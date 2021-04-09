@@ -4,6 +4,8 @@ import Memory from "./Memory";
 import BottomBar from "./BottomBar";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import { useState, useRef, useEffect } from "react";
+import { Modal, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const OrderConfirmation = () => {
   const fromLocalStorage = JSON.parse(localStorage.getItem("shoppingCart"));
@@ -36,6 +38,53 @@ const OrderConfirmation = () => {
     });
   };
 
+  const [msg, setMsg] = useState([``]);
+
+  async function sendData() {
+    const response = await fetch(
+      "https://apnay-rung-api.herokuapp.com/order/new",
+      {
+        method: "POST",
+        withCredentials: true,
+        credentials: "include",
+        headers: {
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6IlZhZmEgQmF0b29sIiwidHlwZU9mVXNlciI6InNlbGxlciIsImlhdCI6MTYxNjg0NDE3N30.xYaUcX7dmdqY5co2tMbVA_9jh0M1fVBB-AX0Aam5G7Y",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          items: [
+            [1, 2, 500],
+            [2, 3, 1000]
+          ],
+          totalamount: 1500,
+          delivery_status: "processing",
+          name: "Rohan",
+          email: "rohan@yahoo.com",
+          phone: "+923025474222",
+          billing_address: "Street House Area City Province",
+          shipping_address: "Street House Area City Province"
+        })
+      }
+    );
+
+    console.log(response);
+
+    if (response.status === 201) {
+      setMsg([`You order has been placed.`, `Back to Home`]);
+      handleShow();
+    } else {
+      setMsg([`You order could not be placed.Try again.`, `Back`]);
+      handleShow();
+    }
+  }
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => {
+    setShow(false);
+  };
+
+  const handleShow = () => setShow(true);
   return (
     <div>
       <AdminNavbar />
@@ -74,8 +123,24 @@ const OrderConfirmation = () => {
         type="submit"
         className="confirmOrder-button"
         value="Confirm Order"
+        onClick={sendData}
       ></input>
       <BottomBar />
+      <Modal show={show} onHide={handleClose} className="delete-modal">
+        <Modal.Header closeButton>
+          <Modal.Title>Order confirmation</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{msg[0]}</Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="primary"
+            className="delete-primary"
+            onClick={handleClose}
+          >
+            {msg[1] !== "Back" ? <Link to="./Homepage">{msg[1]}</Link> : msg[1]}
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

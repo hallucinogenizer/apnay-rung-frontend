@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 const Checkout = () => {
   let initialValue = {
     name: "Rohan",
-    email: "rohan1.gmail.com",
+    email: "",
     phone: "032245675",
     ship_address: "Street 2, House 3, Mars, Milky Way",
     bill_address: "",
@@ -32,7 +32,7 @@ const Checkout = () => {
   const [additional_info, setAdditionalInfo] = useState("");
   const [payment, setPayment] = useState("");
 
-  const SubmitHandler = () => {
+  const SubmitHandler = (ev) => {
     console.log(`submitted form`);
     setState({
       name: name,
@@ -208,6 +208,7 @@ const Checkout = () => {
             type="submit"
             className="submit-button3"
             value="Confirm Order"
+            onClick={SubmitHandler}
           ></input>
         </Link>
       </form>
