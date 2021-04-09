@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./styles.css";
+import "./momina.css";
 import Logo from "./css/logo.png";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
@@ -44,14 +45,14 @@ const Navbar = () => {
       <img className="logo" src={Logo} alt="Logo" />
       <Link
         to="/Homepage"
-        onClick={setHomeClass}
+        onMouseEnter={setHomeClass}
         className={home ? "active" : ""}
       >
         Home
       </Link>
       <Link
         to="/AdminPanel"
-        onClick={setPanelClass}
+        onMouseEnter={setPanelClass}
         className={panel ? "active" : ""}
       >
         {" "}
@@ -59,7 +60,7 @@ const Navbar = () => {
       </Link>
       <Link
         to="/Homepage"
-        onClick={setContactClass}
+        onMouseEnter={setContactClass}
         className={contact ? "active" : ""}
       >
         Contact Us

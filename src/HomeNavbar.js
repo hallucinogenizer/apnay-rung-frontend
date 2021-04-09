@@ -71,37 +71,46 @@ const HomeNavbar = () => {
   return (
     <div className="Topbar" id="myTopnav">
       <img className="logo" src={Logo} alt="logo" />
-      <Link to="/Homepage" className="router-link">
-        <a onClick={setHomeClass} className={home ? "active" : ""}>
-          Home
-        </a>
+      <Link
+        to="/Homepage"
+        className="router-link"
+        onMouseEnter={setHomeClass}
+        className={home ? "active" : ""}
+      >
+        Home
       </Link>
-      <Link to="/Catalog" className="router-link">
-        <a onClick={setCatalogClass} className={catalog ? "active" : ""}>
-          Catalog
-        </a>
+      <Link
+        to="/Catalog"
+        // className="router-link"
+        onMouseEnter={setCatalogClass}
+        className={catalog ? "active" : ""}
+      >
+        Catalog
       </Link>
-      <a
-        href="#artisans"
-        onClick={setArtisanClass}
+      <Link
+        to="/Artisan"
+        // className="router-link"
+        onMouseEnter={setArtisanClass}
         className={artisans ? "active" : ""}
       >
         Artisans
-      </a>
-      <a
-        href="#aboutUs"
-        onClick={setAboutClass}
+      </Link>
+      <Link
+        to="/AboutUs"
+        // className="router-link"
+        onMouseEnter={setAboutClass}
         className={aboutus ? "active" : ""}
       >
         About Us
-      </a>
-      <a
-        href="#contact"
-        onClick={setContactClass}
+      </Link>
+      <Link
+        to="/Contact"
+        // className="router-link"
+        onMouseEnter={setContactClass}
         className={contact ? "active" : ""}
       >
         Contact
-      </a>
+      </Link>
       <input type="button" className="logout_button" value="Signup" />
       <input type="button" className="logout_button" value="Login" />
     </div>

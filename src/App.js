@@ -36,8 +36,7 @@ export default function App() {
       <Switch>
         <div className="App">
           {/* //  Admin Pages */}
-          {/* <Route path="/" exact component={AdminPanel} /> */}
-          {/* <Route path="/AdminPanel" exact component={AdminPanel} /> */}
+          <Route path="/AdminPanel" exact component={AdminPanel} />
           <Route path="/AdminSettings" exact component={AdminSettings} />
           <Route path="/ApproveSellers" exact component={ApproveSellers} />
           <Route path="/ViewSellers" exact component={ViewSellers} />
