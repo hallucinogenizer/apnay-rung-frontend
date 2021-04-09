@@ -68,10 +68,28 @@ const Catalog = () => {
       {/* when three links needed in panel, include a '/' in the middle 'page' argument */}
       <h1>Catalog</h1>
       <br></br>
-      <div class="filters">
+      <ul className="sortbar">
+        <li className="dropbtn">
+          <a href="#home">Sort A-Z</a>
+        </li>
+        <li className="dropbtn">
+          <a href="#news">Sort $ - $$</a>
+        </li>
+        <li className="dropdown">
+          <button className="dropbtn">Filter by Region</button>
+          <div className="dropdown-content" id="mydropdown">
+            <a href="#">Punjab</a>
+            <a href="#">Sindh</a>
+            <a href="#">Balochistan</a>
+            <a href="#">KPK</a>
+            <a href="#">Gilgit-Baltistan</a>
+          </div>
+        </li>
+      </ul>
+      {/* <div class="filters">
         {/* <input type="button" className="sortbars" value="Filter" /> */}
-        {/* </div> */}
-        <div className="dropdown">
+      {/* </div> */}
+      {/* <div className="dropdown">
           <button className="dropbtn">Filter by Region</button>
           <div className="dropdown-content" id="mydropdown">
             <a href="#">Punjab</a>
@@ -82,8 +100,8 @@ const Catalog = () => {
           </div>
         </div>
         <input type="button" className="sortbars" value="Sort A-Z" />
-        <input type="button" className="sortbars" value="Sort $-$$" />
-      </div>
+        <input type="button" className="sortbars" value="Sort $-$$" /> */}
+      {/* </div> */}
       <div className="search-catalog">
         <div className="input-group">
           <input
