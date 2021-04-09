@@ -88,11 +88,7 @@ const AdminPanel = () => {
           </Link>
         </div>
         <div className="box-right">
-<<<<<<< Codesandbox
-          <Link to="/Catalog">
-=======
           <Link to="/Catalog" className="router-link">
->>>>>>> GitHub
             <button href="#catalog" className="panel-box">
               <span className="icons">
                 <NextWeekIcon

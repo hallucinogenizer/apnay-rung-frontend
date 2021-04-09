@@ -1,6 +1,5 @@
 import "./styles.css";
 // import { useState } from "react";
-// import { useState } from "react";
 import CustomerNavbar from "./CustomerNavbar";
 import Memory from "./Memory";
 import BottomBar from "./BottomBar";
@@ -129,5 +128,5 @@ const CustomerPanel = () => {
     </div>
   );
 };
-
 export default CustomerPanel;
+

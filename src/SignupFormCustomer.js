@@ -61,8 +61,8 @@ const SignUpFormCustomer = ({ submitForm }) => {
   // };
 
   return (
-    <div className="form-content-right">
-      <form className="form" onSubmit={submitHandler}>
+    <div>
+      <form onSubmit={submitHandler}>
         <img src={Logo} className="signup-img" alt="our logo" />
         <div className="signup-heading">Sign up</div>
         <div className="signup-btn-group">

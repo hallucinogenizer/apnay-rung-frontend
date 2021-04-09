@@ -226,6 +226,7 @@ h3 {
   bottom: 0;
 }
 .bottomBar p {
+  font-size: 15px;
   padding-top: 0%;
   margin-top: 0.5%;
   /* padding-bottom: 4%; */
@@ -233,7 +234,7 @@ h3 {
 }
 .bottomBar a {
   color: #2e2e2e;
-  font-size: small;
+  font-size: 15px;
 }
 .bottomBar a {
   color: #2e2e2e;
@@ -356,7 +357,7 @@ table th {
   margin-right: 0.8% !important;
 }
 
-.sortbars {
+/* .sortbars {
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
@@ -369,10 +370,8 @@ table th {
   -o-text-overflow: clip;
   text-overflow: clip;
   background: #d67d20;
-}
-.filters {
-  padding-left: 7%;
-}
+} */
+
 .itemboxes {
   flex: 1;
   flex-direction: row !important;
@@ -812,15 +811,6 @@ h4 {
   align-content: left;
 }
 
-.reviews-heading {
-  color: #2e2e2e;
-  text-align: left;
-  margin-left: 12%;
-  font-size: 26px;
-  margin-top: 4%;
-  font-weight: bold;
-}
-
 .reviewer-name {
   color: #2e2e2e;
   text-align: left;
@@ -920,7 +910,7 @@ h4 {
   padding-bottom: 1%;
   color: #ffffff;
   text-align: center;
-  margin-top: 5%;
+  margin-top: 1%;
   width: 90%;
   margin-left: 5%;
 }
@@ -941,12 +931,10 @@ h4 {
   font-size: medium;
   width: 90%;
   margin-left: 5%;
-  margin-left: 45px;
 }
 .grey-home-bar p {
   margin-top: 1%;
   margin-bottom: 1%;
-  margin-bottom: 2%;
 }
 .seller-main {
   margin-left: 13%;
@@ -1103,70 +1091,3 @@ h4 {
 .router-link {
   color: white;
 }
-.form-container {
-  background: #ffffff;
-  margin: 3% auto;
-  width: 70%;
-  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.2);
-  position: relative;
-  border-radius: 0px;
-  height: 50%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  margin-right: 42%;
-}
-.background-image {
-  min-height: 100vh;
-  background-image: url("/css/background.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  padding: 30px;
-}
-.signup-customer-btn {
-  width: 30%;
-  height: 34px;
-  background-color: #efefef;
-  color: #424242;
-  border: none;
-  border-radius: 0px;
-  cursor: pointer;
-  margin-top: 2%;
-  /* margin-left: 30%; */
-  margin-right: 5%;
-  float: right;
-  display: block;
-  position: absolute;
-}
-.signup-btn-group button {
-  background-color: #efefef; /* Green background */
-  border: 1px solid #777777; /* Green border */
-  color: #424242; /* White text */
-  /* Some padding */
-  cursor: pointer; /* Pointer/hand icon */
-  /* float: left; Float the buttons side by side */
-  width: 25%;
-  height: 36px;
-  text-align: center;
-  font-size: 23px;
-  margin-top: 2%;
-  margin: 0 auto;
-  text-align: center;
-  margin-left: 20%;
-  /* display: inline-block; */
-  /* position: absolute; */
-}
-.input-form-signup {
-  justify-content: left;
-  width: 100%;
-  height: 35px;
-  margin-left: 45%;
-  margin-top: 5%;
-  padding: 0.5%;
-  border-radius: 1px;
-  border: 1px solid #e5e5e5;
-  background-color: #efefef;
-}
-.signup-img {
-  width: 12%;
-  height: 8%;
-  margin-top: 7%;
