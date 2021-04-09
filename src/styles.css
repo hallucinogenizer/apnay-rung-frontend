@@ -226,7 +226,6 @@ h3 {
   bottom: 0;
 }
 .bottomBar p {
-  font-size: 15px;
   padding-top: 0%;
   margin-top: 0.5%;
   /* padding-bottom: 4%; */
@@ -234,7 +233,7 @@ h3 {
 }
 .bottomBar a {
   color: #2e2e2e;
-  font-size: 15px;
+  font-size: small;
 }
 .bottomBar a {
   color: #2e2e2e;
@@ -357,7 +356,7 @@ table th {
   margin-right: 0.8% !important;
 }
 
-/* .sortbars {
+.sortbars {
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
@@ -370,8 +369,10 @@ table th {
   -o-text-overflow: clip;
   text-overflow: clip;
   background: #d67d20;
-} */
-
+}
+.filters {
+  padding-left: 7%;
+}
 .itemboxes {
   flex: 1;
   flex-direction: row !important;
@@ -531,12 +532,14 @@ table th {
 .label-form-cp {
   text-align: left;
   margin-left: 5%;
-  margin-top: 1%;
+  margin-top: 7%;
+  width: 40%;
 }
 .label-form-np {
-  margin-left: 35%;
+  margin-left: 3%;
   text-align: left;
-  margin-top: 1%;
+  margin-top: 7%;
+  width: 40%;
 }
 .input-form-cp {
   width: 44%;
@@ -582,21 +585,11 @@ input[type="file"] {
   position: absolute;
   z-index: -1;
 }
-.signup-divs {
-  justify-content: left;
-  width: 60%;
-  height: 30px;
-  margin-left: 5%;
-  margin-top: 1%;
-  padding: 0.5%;
-  border-radius: 7px;
-  border: 1px solid #e5e5e5;
-}
+
 .input-form {
   justify-content: left;
   width: 90%;
   height: 30px;
-  border: 1px solid;
   margin-left: 5%;
   margin-top: 1%;
   padding: 0.5%;
@@ -703,7 +696,6 @@ input[type="file"] {
   /* display: inline-block; */
   margin-top: -28%;
   float: left;
-  margin-left: 44%;
 }
 
 .in-stock {
@@ -726,22 +718,18 @@ input[type="file"] {
   font-size: 24px;
   font-weight: bold;
   color: #d67d20;
-  margin-top: -21%;
   margin-left: 44%;
   float: left;
   margin-top: -14%;
-  font-size: 21px;
 }
 /* p {
   margin-left: 0%;
-  margin-top: -25.5%;
   float: left;
 } */
 .description {
   margin-top: -21%;
   margin-left: 44%;
   margin-top: -18.5%;
-/* Box {
   float: left;
   color: #2e2e2e;
   text-align: left;
@@ -808,7 +796,15 @@ h4 {
   font-size: 15px;
   margin-top: 1%;
   font-weight: bold;
-  align-content: left;
+}
+
+.reviews-heading {
+  color: #2e2e2e;
+  text-align: left;
+  margin-left: 12%;
+  font-size: 26px;
+  margin-top: 4%;
+  font-weight: bold;
 }
 
 .reviewer-name {
@@ -838,7 +834,6 @@ h4 {
   float: left;
   margin-left: 30%;
   font-size: 16px;
-  width: 100%;
 }
 .back-btn {
   /* margin-top: -15%; */
@@ -855,7 +850,6 @@ h4 {
   font-weight: 100;
   display: inline-block;
   margin-left: 29%;
-  padding-left: 2.375rem;
 }
 
 .home-background {
@@ -910,14 +904,13 @@ h4 {
   padding-bottom: 1%;
   color: #ffffff;
   text-align: center;
-  margin-top: 1%;
+  margin-top: 5%;
   width: 90%;
   margin-left: 5%;
 }
 .orange-home-bar p {
   margin-top: 1%;
   margin-bottom: 1%;
-  margin-bottom: 2%;
 }
 .grey-home-bar {
   background-color: #efefef;
@@ -935,6 +928,7 @@ h4 {
 .grey-home-bar p {
   margin-top: 1%;
   margin-bottom: 1%;
+  margin-bottom: 2%;
 }
 .seller-main {
   margin-left: 13%;
@@ -1019,7 +1013,6 @@ h4 {
 .delete-primary:hover,
 .delete-secondary:hover {
   color: none;
-  text-align: inline-flex;
 }
 
 .panel-box {
@@ -1039,7 +1032,6 @@ h4 {
   border-radius: 40px;
   border-color: none !important;
   background-image: linear-gradient(to left, #ffffff 72%, #d67d20 4%);
-  justify-content: center !important;
 }
 .icons {
   float: left;
@@ -1080,7 +1072,6 @@ h4 {
   /* margin-right: auto; */
   position: center;
   justify-content: center !important;
-  background-color: #efefef;
 }
 .all-boxes {
   display: inline-block;
@@ -1090,4 +1081,22 @@ h4 {
 
 .router-link {
   color: white;
+}
+.form-container {
+  /* background: #ffffff; */
+  /* margin: 3% auto;
+  width: 70%;
+  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.2);
+  position: relative;
+  border-radius: 0px;
+  height: 50%;
+  display: grid;
+  grid-template-columns: 1fr 1fr; */
+}
+.background-image {
+  min-height: 100vh;
+  background-image: url("/css/background.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 30px;
 }
