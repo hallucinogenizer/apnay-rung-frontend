@@ -4,7 +4,6 @@ import "./styles.css";
 import Notifications from "./Notifications";
 import Homepage from "./Homepage.js";
 
-
 // Admin Pages
 import AdminPanel from "./AdminPanel";
 import AdminNavbar from "./AdminNavbar";
@@ -63,9 +62,10 @@ export default function App() {
           {/* Common Pages */}
           <Route path="/Catalog" exact component={Catalog} />
           <Route path="/Homepage" exact component={Homepage} />
+          <Route path="/Notifications" exact component={Notifications} />
           {/* <Homepage /> */}
           {/* <CustomerPanel /> */}
-          <Catalog />
+          {/* <Catalog /> */}
           {/* <SecurityPage /> */}
           {/* <SignUpCustomer /> */}
         </div>

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const Memory = (props, panel) => {
   panel = props.panel.split(" ").join("");
-  console.log(props.panel);
+  // console.log(props.panel);
   panel_string = `/${panel}`;
 
   try {
