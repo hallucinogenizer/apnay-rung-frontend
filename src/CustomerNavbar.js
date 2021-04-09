@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./styles.css";
+import "./momina.css";
 import Logo from "./css/logo.png";
 import { Link } from "react-router-dom";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
@@ -85,42 +86,42 @@ const CustomerNavbar = () => {
       <img className="logo" src={Logo} alt="logo" />
       <Link
         to="/Homepage"
-        onClick={setHomeClass}
+        onMouseEnter={setHomeClass}
         className={home ? "active" : ""}
       >
         Home
       </Link>
       <Link
         to="/CustomerPanel"
-        onClick={setPanelClass}
+        onMouseEnter={setPanelClass}
         className={panel ? "active" : ""}
       >
         Panel
       </Link>
       <Link
         to="/Catalog"
-        onClick={setCatalogClass}
+        onMouseEnter={setCatalogClass}
         className={catalog ? "active" : ""}
       >
         Catalog
       </Link>
       <Link
         to="/CustomerPanel"
-        onClick={setArtisanClass}
+        onMouseEnter={setArtisanClass}
         className={artisans ? "active" : ""}
       >
         Artisans
       </Link>
       <Link
         to="/CustomerPanel"
-        onClick={setAboutClass}
+        onMouseEnter={setAboutClass}
         className={aboutus ? "active" : ""}
       >
         About Us
       </Link>
       <Link
         to="/CustomerPanel"
-        onClick={setContactClass}
+        onMouseEnter={setContactClass}
         className={contact ? "active" : ""}
       >
         Contact

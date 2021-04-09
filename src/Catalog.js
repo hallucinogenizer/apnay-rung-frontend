@@ -8,52 +8,36 @@ import { Link } from "react-router-dom";
 // import "bootstrap/dist/css/bootstrap.min.css";
 
 const Catalog = () => {
-  const [dropdown, setDropdown] = useState(false);
-  let state = {
-    //state is by default an object
-    products: [
-      {
-        title: "Green Khussa",
-        artist: "Wasif",
-        price: "400",
-        image: "https://enjoycss.com/bg-img/custom/20013-j3vxrl.njd7f.jpg"
-      },
-      {
-        title: "Green Khussa",
-        artist: "Wasif",
-        price: "400",
-        image: "https://enjoycss.com/bg-img/custom/20013-j3vxrl.njd7f.jpg"
-      },
-      {
-        title: "Green Khussa",
-        artist: "Wasif",
-        price: "400",
-        image: "https://enjoycss.com/bg-img/custom/20013-j3vxrl.njd7f.jpg"
-      },
-      {
-        title: "Green Khussa",
-        artist: "Wasif",
-        price: "400",
-        image: "https://enjoycss.com/bg-img/custom/20013-j3vxrl.njd7f.jpg"
-      },
-      {
-        title: "Green Khussa",
-        artist: "Wasif",
-        price: "400",
-        image: "https://enjoycss.com/bg-img/custom/20013-j3vxrl.njd7f.jpg"
+  const [state, setState] = useState([]);
+  const getData = async (url) => {
+    const response = await fetch(url, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+      headers: {
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsIm5hbWUiOiJUYWltb29yIFRhcmlxIiwidHlwZU9mVXNlciI6ImN1c3RvbWVyIiwiaWF0IjoxNjE2OTYxNzMwfQ.Dn0FATITkhrR7e5tkp_XAmdPfp-FKJGzdskczt9k2fw",
+        "Content-Type": "application/json"
       }
-    ]
+    });
+    return response.json();
   };
 
+  getData("https://apnay-rung-api.herokuapp.com/inventory/all").then(
+    (response) => {
+      setState(response);
+    }
+  );
+
   const renderProducts = () => {
-    return state.products.map((product, index) => {
-      const { title, artist, price, image } = product; //destructuring
+    return state.map((product, index) => {
+      const { item_id, title, seller_name, price, image } = product; //destructuring
       return (
         <Link to="/Product" className="route">
           <div className="product-div">
             <img className="product-img" src={image} alt="product" />
             <h3>{title}</h3>
-            <h5>Artist: {artist}</h5>
+            <h5>Artist: {seller_name}</h5>
             <h5>Price: Rs {price}</h5>
           </div>
         </Link>
@@ -86,22 +70,6 @@ const Catalog = () => {
           </div>
         </li>
       </ul>
-      {/* <div class="filters">
-        {/* <input type="button" className="sortbars" value="Filter" /> */}
-      {/* </div> */}
-      {/* <div className="dropdown">
-          <button className="dropbtn">Filter by Region</button>
-          <div className="dropdown-content" id="mydropdown">
-            <a href="#">Punjab</a>
-            <a href="#">Sindh</a>
-            <a href="#">Balochistan</a>
-            <a href="#">KPK</a>
-            <a href="#">Gilgit-Baltistan</a>
-          </div>
-        </div>
-        <input type="button" className="sortbars" value="Sort A-Z" />
-        <input type="button" className="sortbars" value="Sort $-$$" /> */}
-      {/* </div> */}
       <div className="search-catalog">
         <div className="input-group">
           <input
