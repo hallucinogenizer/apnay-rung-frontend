@@ -63,9 +63,9 @@ export default function App() {
           {/* Common Pages */}
           <Route path="/Catalog" exact component={Catalog} />
           <Route path="/Homepage" exact component={Homepage} />
-          {/* <Homepage /> */}
+          <Homepage />
           {/* <CustomerPanel /> */}
-          <Catalog />
+          {/* <Catalog /> */}
           {/* <SecurityPage /> */}
           {/* <SignUpCustomer /> */}
         </div>
