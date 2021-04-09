@@ -3,56 +3,34 @@ import AdminNavbar from "./AdminNavbar";
 import Memory from "./Memory";
 import BottomBar from "./BottomBar";
 import AddBoxIcon from "@material-ui/icons/AddBox";
+import { useState, useRef, useEffect } from "react";
 
 const OrderConfirmation = () => {
-  let state = {
-    //state is by default an object
-    products: [
-      {
-        productID: "00199",
-        productTitle: "Clay Pot",
-        quantity: 4,
-        subtotal: 800
-      },
-      {
-        productID: "00199",
-        productTitle: "Clay Pot",
-        quantity: 4,
-        subtotal: 800
-      },
-      {
-        productID: "00199",
-        productTitle: "Clay Pot",
-        quantity: 4,
-        subtotal: 800
-      },
-      {
-        productID: "00199",
-        productTitle: "Clay Pot",
-        quantity: 4,
-        subtotal: 800
-      },
-      {
-        productID: "00199",
-        productTitle: "Clay Pot",
-        quantity: 4,
-        subtotal: 800
-      }
-    ]
-  };
+  const fromLocalStorage = JSON.parse(localStorage.getItem("shoppingCart"));
+  const [state, setState] = useState(fromLocalStorage);
+  const [total, setTotal] = useState(0);
 
   let address = "Sherlock Holmes, 221B Bakers Street";
 
+  const renderBill = () => {
+    let bill = 0;
+    state.map((product, index) => {
+      const { productID, productTitle, quantity, price } = product;
+      bill = bill + quantity * price;
+    });
+    return bill;
+  };
+
   const renderTableData = () => {
-    return state.products.map((product, index) => {
-      const { productID, productTitle, quantity, price, subtotal } = product; //destructuring
+    return state.map((product, index) => {
+      const { productID, productTitle, quantity, price } = product;
       return (
         <tr className="data">
           <td>{productID}</td>
           <td>{productTitle}</td>
           <td>{quantity}</td>
-          <td>{subtotal / quantity}</td>
-          <td>{subtotal}</td>
+          <td>{price}</td>
+          <td>{quantity * price}</td>
         </tr>
       );
     });
@@ -85,7 +63,7 @@ const OrderConfirmation = () => {
       </div>
       <div className="totalBill">
         <br />
-        Total: Rs.900
+        Total: {renderBill()}
         <br />
       </div>
       <div className="shippingAddress">
