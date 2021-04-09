@@ -1,6 +1,7 @@
 import SignupFormCustomer from "./SignupFormCustomer";
 import SignupSuccessCustomer from "./SignupSuccessCustomer";
 import { useState } from "react";
+import "./taimoor.css";
 // import Background from "./css/background.png";
 
 const SignUpCustomer = () => {
@@ -10,8 +11,8 @@ const SignUpCustomer = () => {
     setIsSubmitted(true);
   };
   return (
-    <div className="background-image">
-      <div className="form-container">
+    <div className="image">
+      <div className="content">
         {!isSubmitted ? (
           <SignupFormCustomer submitForm={submitForm} />
         ) : (
