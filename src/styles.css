@@ -226,6 +226,7 @@ h3 {
   bottom: 0;
 }
 .bottomBar p {
+  font-size: 15px;
   padding-top: 0%;
   margin-top: 0.5%;
   /* padding-bottom: 4%; */
@@ -233,7 +234,7 @@ h3 {
 }
 .bottomBar a {
   color: #2e2e2e;
-  font-size: small;
+  font-size: 15px;
 }
 .bottomBar a {
   color: #2e2e2e;
@@ -356,7 +357,7 @@ table th {
   margin-right: 0.8% !important;
 }
 
-.sortbars {
+/* .sortbars {
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
@@ -369,10 +370,8 @@ table th {
   -o-text-overflow: clip;
   text-overflow: clip;
   background: #d67d20;
-}
-.filters {
-  padding-left: 7%;
-}
+} */
+
 .itemboxes {
   flex: 1;
   flex-direction: row !important;
@@ -911,7 +910,7 @@ h4 {
   padding-bottom: 1%;
   color: #ffffff;
   text-align: center;
-  margin-top: 5%;
+  margin-top: 1%;
   width: 90%;
   margin-left: 5%;
 }
@@ -935,7 +934,6 @@ h4 {
 .grey-home-bar p {
   margin-top: 1%;
   margin-bottom: 1%;
-  margin-bottom: 2%;
 }
 .seller-main {
   margin-left: 13%;

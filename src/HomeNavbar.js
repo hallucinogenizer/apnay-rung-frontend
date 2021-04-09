@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./styles.css";
 import Logo from "./css/logo.png";
+import { Link } from "react-router-dom";
 
 const HomeNavbar = () => {
   {
@@ -70,16 +71,16 @@ const HomeNavbar = () => {
   return (
     <div className="Topbar" id="myTopnav">
       <img className="logo" src={Logo} alt="logo" />
-      <a href="#home" onClick={setHomeClass} className={home ? "active" : ""}>
-        Home
-      </a>
-      <a
-        href="#catalog"
-        onClick={setCatalogClass}
-        className={catalog ? "active" : ""}
-      >
-        Catalog
-      </a>
+      <Link to="/Homepage" className="router-link">
+        <a onClick={setHomeClass} className={home ? "active" : ""}>
+          Home
+        </a>
+      </Link>
+      <Link to="/Catalog" className="router-link">
+        <a onClick={setCatalogClass} className={catalog ? "active" : ""}>
+          Catalog
+        </a>
+      </Link>
       <a
         href="#artisans"
         onClick={setArtisanClass}
