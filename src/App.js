@@ -62,7 +62,8 @@ export default function App() {
           {/* <Route path="/ViewOrders" exact component={ViewOrders} /> */}
 
           {/* Common Pages */}
-          {/* <Route path="/Catalog" exact component={Catalog} /> */}
+          <Route path="/Catalog" exact component={Catalog} />
+          <Route path="/Homepage" exact component={Homepage} />
           {/* <Homepage /> */}
           {/* <CustomerPanel /> */}
           <Catalog />

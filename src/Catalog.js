@@ -1,10 +1,14 @@
 import "./styles.css";
 import "./maham.css";
 import CustomerNavbar from "./CustomerNavbar";
+import React, { useState } from "react";
 import Memory from "./Memory";
 import BottomBar from "./BottomBar";
+import { Link } from "react-router-dom";
+// import "bootstrap/dist/css/bootstrap.min.css";
 
 const Catalog = () => {
+  const [dropdown, setDropdown] = useState(false);
   let state = {
     //state is by default an object
     products: [
@@ -45,15 +49,18 @@ const Catalog = () => {
     return state.products.map((product, index) => {
       const { title, artist, price, image } = product; //destructuring
       return (
-        <div className="product-div">
-          <img className="product-img" src={image} alt="product" />
-          <h3>{title}</h3>
-          <h5>Artist: {artist}</h5>
-          <h5>Price: Rs {price}</h5>
-        </div>
+        <Link to="/Product" className="route">
+          <div className="product-div">
+            <img className="product-img" src={image} alt="product" />
+            <h3>{title}</h3>
+            <h5>Artist: {artist}</h5>
+            <h5>Price: Rs {price}</h5>
+          </div>
+        </Link>
       );
     });
   };
+
   return (
     <div>
       <CustomerNavbar />
@@ -62,11 +69,22 @@ const Catalog = () => {
       <h1>Catalog</h1>
       <br></br>
       <div class="filters">
+        {/* <input type="button" className="sortbars" value="Filter" /> */}
+        {/* </div> */}
+        <div className="dropdown">
+          <button className="dropbtn">Filter by Region</button>
+          <div className="dropdown-content" id="mydropdown">
+            <a href="#">Punjab</a>
+            <a href="#">Sindh</a>
+            <a href="#">Balochistan</a>
+            <a href="#">KPK</a>
+            <a href="#">Gilgit-Baltistan</a>
+          </div>
+        </div>
         <input type="button" className="sortbars" value="Sort A-Z" />
         <input type="button" className="sortbars" value="Sort $-$$" />
-        <input type="button" className="sortbars" value="Filter" />
       </div>
-      <div className="main">
+      <div className="search-catalog">
         <div className="input-group">
           <input
             type="text"

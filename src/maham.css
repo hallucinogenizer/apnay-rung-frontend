@@ -32,6 +32,7 @@
 }
 .catalog-adjust {
   margin-left: 6%;
+  margin-top: 0% !important;
 }
 .filters {
   padding-left: 5%;
@@ -40,24 +41,77 @@
   /* width: 8%; */
 }
 .sortbars {
-  /* -webkit-box-sizing: content-box;
-  -moz-box-sizing: content-box;
-  box-sizing: content-box; */
   cursor: pointer;
   float: left;
   margin-left: 1%;
-  border-radius: 10px;
-  border-collapse: separate !important;
-  border-spacing: 100px !important;
+  border: none;
+  border-radius: 5px;
   color: #2e2e2e;
-  -o-text-overflow: clip;
-  text-overflow: clip;
   background: #d67d20;
   display: block;
   width: 8%;
+  padding-top: 0.5%;
+  padding-bottom: 0.5%;
 }
 .filters {
   padding-left: 5%;
   padding-right: 5%;
+  display: block;
+}
+.route {
+  text-decoration: none;
+  color: #2e2e2e;
+}
+.search-catalog {
+  width: 90%;
+  margin-left: 6%;
+}
+/* Dropdown Button */
+.dropbtn {
+  background-color: #d67d20;
+  color: #2e2e2e;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  /* cursor: pointer; */
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover,
+.dropbtn:focus,
+.softbars:hover,
+.softbars:focus {
+  background-color: #efefef;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: in-line;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+.dropdown:hover .dropdown-content {
   display: block;
 }
