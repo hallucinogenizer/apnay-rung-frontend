@@ -9,85 +9,36 @@ import gpp from "./css/gpp.png";
 import handshake from "./css/handshake.png";
 import pk from "./css/pk.svg";
 import { Link } from "react-router-dom";
+import React, { useState } from "react";
 //temporary//
 
 import "bootstrap/dist/css/bootstrap.css";
 
 const Homepage = () => {
-  let state = {
-    //state is by default an object
-    products: [
-      {
-        title: "Green Khussa",
-        artist: "Wasif",
-        price: "400",
-        image: "https://enjoycss.com/bg-img/custom/20013-j3vxrl.njd7f.jpg"
-      },
-      {
-        title: "Green Khussa",
-        artist: "Wasif",
-        price: "400",
-        image: "https://enjoycss.com/bg-img/custom/20013-j3vxrl.njd7f.jpg"
-      },
-      {
-        title: "Green Khussa",
-        artist: "Wasif",
-        price: "400",
-        image: "https://enjoycss.com/bg-img/custom/20013-j3vxrl.njd7f.jpg"
-      },
-      {
-        title: "Green Khussa",
-        artist: "Wasif",
-        price: "400",
-        image: "https://enjoycss.com/bg-img/custom/20013-j3vxrl.njd7f.jpg"
-      },
-      {
-        title: "Green Khussa",
-        artist: "Wasif",
-        price: "400",
-        image: "https://enjoycss.com/bg-img/custom/20013-j3vxrl.njd7f.jpg"
-      },
-      {
-        title: "Green Khussa",
-        artist: "Wasif",
-        price: "400",
-        image: "https://enjoycss.com/bg-img/custom/20013-j3vxrl.njd7f.jpg"
-      },
-      {
-        title: "Green Khussa",
-        artist: "Wasif",
-        price: "400",
-        image: "https://enjoycss.com/bg-img/custom/20013-j3vxrl.njd7f.jpg"
-      },
-      {
-        title: "Green Khussa",
-        artist: "Wasif",
-        price: "400",
-        image: "https://enjoycss.com/bg-img/custom/20013-j3vxrl.njd7f.jpg"
+  const [state, setState] = useState([]);
+
+  const getData = async (url) => {
+    const response = await fetch(url, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+      headers: {
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsIm5hbWUiOiJUYWltb29yIFRhcmlxIiwidHlwZU9mVXNlciI6ImN1c3RvbWVyIiwiaWF0IjoxNjE2OTYxNzMwfQ.Dn0FATITkhrR7e5tkp_XAmdPfp-FKJGzdskczt9k2fw",
+        "Content-Type": "application/json"
       }
-    ],
-    sellers: [
-      {
-        name: "Sajeela",
-        handicraft: "truck art",
-        image: "https://enjoycss.com/bg-img/custom/20013-j3vxrl.njd7f.jpg"
-      },
-      {
-        name: "Sajeela",
-        handicraft: "truck art",
-        image: "https://enjoycss.com/bg-img/custom/20013-j3vxrl.njd7f.jpg"
-      },
-      {
-        name: "Sajeela",
-        handicraft: "truck art",
-        image: "https://enjoycss.com/bg-img/custom/20013-j3vxrl.njd7f.jpg"
-      }
-    ]
+    });
+    return response.json();
   };
 
+  getData("https://apnay-rung-api.herokuapp.com/inventory/limit/8").then(
+    (response) => {
+      setState(response);
+    }
+  );
   const renderProducts = () => {
-    return state.products.map((product, index) => {
-      const { title, artist, price, image } = product; //destructuring
+    return state.map((product, index) => {
+      const { item_id, title, artist, price, image } = product; //destructuring
       return (
         <div className="product-div">
           <img className="product-img" src={image} alt="product" />
