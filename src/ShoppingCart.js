@@ -1,5 +1,5 @@
 import "./styles.css";
-import AdminNavbar from "./AdminNavbar";
+import CustomerNavbar from "./CustomerNavbar";
 import Memory from "./Memory";
 import BottomBar from "./BottomBar";
 import AddBoxIcon from "@material-ui/icons/AddBox";
@@ -7,7 +7,7 @@ import { useState } from "react";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 // import Modal from "react-bootstrap/Modal";
-// import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 // const [qty, setQuantity] = useState(1);
@@ -106,7 +106,13 @@ const ShoppingCart = () => {
           <td>PKR {price}</td>
           <td>PKR {qty * price}</td>
           <td>
-            <a href="#top" className="link" onClick={handleShow}>
+            <a
+              href="#top"
+              class="btn btn-info btn-lg"
+              data-toggle="modal"
+              data-target="#myModal"
+              className="link"
+            >
               Delete
             </a>
           </td>
@@ -117,7 +123,7 @@ const ShoppingCart = () => {
 
   return (
     <div>
-      <AdminNavbar />
+      <CustomerNavbar />
       <Memory panel="Customer Panel " page="" current=" Shopping Cart" />{" "}
       {/* when three links needed in panel, include a '/' in the middle 'page' argument */}
       <h1>Shopping Cart</h1>

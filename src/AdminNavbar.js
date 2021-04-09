@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import "./styles.css";
 import Logo from "./css/logo.png";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
+import { Link } from "react-router-dom";
+
 // Checking
 
 // import Button from "@material-ui/core/Button";
@@ -38,36 +42,52 @@ const Navbar = () => {
   return (
     <div className="Topbar">
       <img className="logo" src={Logo} alt="Logo" />
-      <a href="#home" onClick={setHomeClass} className={home ? "active" : ""}>
+      <Link
+        to="/Homepage"
+        onClick={setHomeClass}
+        className={home ? "active" : ""}
+      >
         Home
-      </a>
-      <a
-        href="panel.html"
+      </Link>
+      <Link
+        to="/AdminPanel"
         onClick={setPanelClass}
         className={panel ? "active" : ""}
       >
         {" "}
         Panel
-      </a>
-      <a
-        href="#contact"
+      </Link>
+      <Link
+        to="/Homepage"
         onClick={setContactClass}
         className={contact ? "active" : ""}
       >
         Contact Us
-      </a>
+      </Link>
 
       <p>
         Admin Name
         <br />
         Admin
       </p>
-      <input type="button" className="logout_button" value="Logout" />
-      {/* <Button
-        variant="contained"
-        className="nav-notif-button"
-        startIcon={<NotificationsNoneIcon />}
-      ></Button> */}
+      <Link to="/HomePage">
+        <button href="#cart" className="test-logout-admin">
+          <span>
+            <ExitToAppIcon className="rotate-180" />
+            {/* Logout */}
+          </span>
+          <span className="text">Logout</span>
+        </button>
+      </Link>
+      <Link to="/Notifications">
+        <button href="#cart" className="test-notifications-admin">
+          <span>
+            <NotificationsNoneIcon />
+            {/* Logout */}
+          </span>
+        </button>
+      </Link>
+      {/* <input type="button" className="logout_button" value="Logout" /> */}
     </div>
   );
 };

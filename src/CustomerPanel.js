@@ -128,5 +128,5 @@ const CustomerPanel = () => {
     </div>
   );
 };
-
 export default CustomerPanel;
+
