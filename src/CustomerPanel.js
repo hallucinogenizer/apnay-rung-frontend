@@ -1,11 +1,12 @@
 import "./styles.css";
 // import { useState } from "react";
+// import { useState } from "react";
 import CustomerNavbar from "./CustomerNavbar";
 import Memory from "./Memory";
 import BottomBar from "./BottomBar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-// import { Modal, Button } from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import RateReviewIcon from "@material-ui/icons/RateReview";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";

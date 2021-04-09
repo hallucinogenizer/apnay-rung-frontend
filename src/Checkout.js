@@ -95,7 +95,11 @@ const Checkout = () => {
   return (
     <div className="CheckoutForm">
       <CustomerNavbar />
-      <Memory panel="Customer Panel " page="" current=" Checkout" />{" "}
+      <Memory
+        panel="Customer Panel "
+        page="Shopping Cart"
+        current=" Checkout"
+      />{" "}
       <h1>Checkout</h1>
       <form className="form-product" onSubmit={SubmitHandler}>
         <p className="label-form"> Customer Name </p>
@@ -192,16 +196,20 @@ const Checkout = () => {
           <br /> IBAN: PK48HABB12345678910
         </p>{" "}
         <br />
-        <input
-          type="submit"
-          className="submit-button2"
-          value="Return to Cart"
-        ></input>
-        <input
-          type="submit"
-          className="submit-button3"
-          value="Confirm Order"
-        ></input>
+        <Link to="/ShoppingCart">
+          <input
+            type="submit"
+            className="submit-button2"
+            value="Return to Cart"
+          ></input>
+        </Link>
+        <Link to="/OrderConfirmation">
+          <input
+            type="submit"
+            className="submit-button3"
+            value="Confirm Order"
+          ></input>
+        </Link>
       </form>
       <br />
       <br />

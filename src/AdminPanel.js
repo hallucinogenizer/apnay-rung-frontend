@@ -3,7 +3,7 @@ import "./styles.css";
 import AdminNavbar from "./AdminNavbar";
 import Memory from "./Memory";
 import BottomBar from "./BottomBar";
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 // import { Modal, Button } from "react-bootstrap";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 import SettingsIcon from "@material-ui/icons/Settings";
@@ -88,7 +88,11 @@ const AdminPanel = () => {
           </Link>
         </div>
         <div className="box-right">
+<<<<<<< Codesandbox
+          <Link to="/Catalog">
+=======
           <Link to="/Catalog" className="router-link">
+>>>>>>> GitHub
             <button href="#catalog" className="panel-box">
               <span className="icons">
                 <NextWeekIcon

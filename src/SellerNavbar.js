@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import "./styles.css";
+import "./momina.css";
 import Logo from "./css/logo.png";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
+import { Link } from "react-router-dom";
 // import Button from "@material-ui/core/Button";
 // import { makeStyles } from "@material-ui/core/styles";
 // import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
@@ -50,48 +54,64 @@ const SellerNavbar = () => {
   return (
     <div className="Topbar" id="myTopnav">
       <img className="logo" src={Logo} alt="logo" />
-      <a href="#home" onClick={setHomeClass} className={home ? "active" : ""}>
+      <Link
+        to="/Homepage"
+        onClick={setHomeClass}
+        className={home ? "active" : ""}
+      >
         Home
-      </a>
-      <a
-        href="#sellerPanel"
+      </Link>
+      <Link
+        to="/SellerPanel"
         onClick={setPanelClass}
         className={panel ? "active" : ""}
       >
         {" "}
         Panel
-      </a>
-      <a
-        href="#inventory"
+      </Link>
+      <Link
+        to="/Inventory"
         onClick={setInventoryClass}
         className={inventory ? "active" : ""}
       >
         Inventory
-      </a>
-      <a
-        href="#Tutorials"
+      </Link>
+      <Link
+        to="/Tutorials"
         onClick={setTutorialClass}
         className={tutorial ? "active" : ""}
       >
         Tutorials
-      </a>
-      <a
-        href="#aboutUs"
+      </Link>
+      <Link
+        to="/Homepage"
         onClick={setAboutClass}
         className={aboutus ? "active" : ""}
       >
         About Us
-      </a>
+      </Link>
 
       <p>
         Rohan Hussain
         <br /> Seller
       </p>
-      <input type="button" className="logout_button" value="Logout" />
-      <input type="button" className="notif" value="" />
-      <div className="container">
-        <img src="/css/admin_panel/ellipse.png" id="ellipse" />
-      </div>
+      <Link to="/HomePage">
+        <button href="#cart" className="test-logout-seller">
+          <span>
+            <ExitToAppIcon className="rotate-180" />
+            {/* Logout */}
+          </span>
+          <span className="text">Logout</span>
+        </button>
+      </Link>
+      <Link to="/Notifications">
+        <button href="#cart" className="test-notifications-seller">
+          <span>
+            <NotificationsNoneIcon />
+            {/* Logout */}
+          </span>
+        </button>
+      </Link>
     </div>
   );
 };

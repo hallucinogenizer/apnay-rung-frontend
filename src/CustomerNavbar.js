@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import "./styles.css";
 import Logo from "./css/logo.png";
-
+import { Link } from "react-router-dom";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
+import SearchIcon from "@material-ui/icons/Search";
 
 const CustomerNavbar = () => {
   {
@@ -68,52 +72,96 @@ const CustomerNavbar = () => {
     setAboutus(true);
     console.log(`home is now ${home}`);
   };
+
+  const logout = () => {
+    return (
+      <div>
+        <ExitToAppIcon /> Logout
+      </div>
+    );
+  };
   return (
     <div className="Topbar" id="myTopnav">
       <img className="logo" src={Logo} alt="logo" />
-      <a href="#home" onClick={setHomeClass} className={home ? "active" : ""}>
+      <Link
+        to="/Homepage"
+        onClick={setHomeClass}
+        className={home ? "active" : ""}
+      >
         Home
-      </a>
-      <a
-        href="#cusomter Panel"
+      </Link>
+      <Link
+        to="/CustomerPanel"
         onClick={setPanelClass}
         className={panel ? "active" : ""}
       >
         Panel
-      </a>
-      <a
-        href="#catalog"
+      </Link>
+      <Link
+        to="/Catalog"
         onClick={setCatalogClass}
         className={catalog ? "active" : ""}
       >
         Catalog
-      </a>
-      <a
-        href="#artisans"
+      </Link>
+      <Link
+        to="/CustomerPanel"
         onClick={setArtisanClass}
         className={artisans ? "active" : ""}
       >
         Artisans
-      </a>
-      <a
-        href="#aboutUs"
+      </Link>
+      <Link
+        to="/CustomerPanel"
         onClick={setAboutClass}
         className={aboutus ? "active" : ""}
       >
         About Us
-      </a>
-      <a
-        href="#contact"
+      </Link>
+      <Link
+        to="/CustomerPanel"
         onClick={setContactClass}
         className={contact ? "active" : ""}
       >
         Contact
-      </a>
+      </Link>
       <p>
         Rohan Hussain <br /> Customer
       </p>
-      <input type="button" className="logout_button" value="Logout" />
-      <input type="button" className="notif" value="" />
+      <Link to="/HomePage">
+        <button href="#cart" className="test-logout-customer">
+          <span>
+            <ExitToAppIcon className="rotate-180" />
+            {/* Logout */}
+          </span>
+          <span className="text">Logout</span>
+        </button>
+      </Link>
+      <Link to="/ShoppingCart">
+        <button href="#cart" className="test-cart">
+          <span>
+            <ShoppingCartIcon />
+            {/* Logout */}
+          </span>
+          <span className="text">Cart</span>
+        </button>
+      </Link>
+      <Link to="/Notifications">
+        <button href="#cart" className="test-notifications-customer">
+          <span>
+            <NotificationsNoneIcon />
+            {/* Logout */}
+          </span>
+        </button>
+      </Link>
+      <Link to="/Notifications">
+        <button href="#cart" className="test-search">
+          <span>
+            <SearchIcon />
+            {/* Logout */}
+          </span>
+        </button>
+      </Link>
     </div>
   );
 };

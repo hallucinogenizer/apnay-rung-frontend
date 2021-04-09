@@ -4,7 +4,7 @@ import SellerNavbar from "./SellerNavbar";
 import Memory from "./Memory";
 import BottomBar from "./BottomBar";
 import "bootstrap/dist/css/bootstrap.min.css";
-// import { Modal, Button } from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import RateReviewIcon from "@material-ui/icons/RateReview";
 import QueueIcon from "@material-ui/icons/Queue";
