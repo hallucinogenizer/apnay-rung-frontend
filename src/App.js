@@ -62,6 +62,7 @@ export default function App() {
           <Route path="/Catalog" exact component={Catalog} />
           <Route path="/Homepage" exact component={Homepage} />
           <Route path="/" exact component={Catalog} />
+          <Route path="/Notifications" exact component={Notifications} />
           {/* <Homepage /> */}
           {/* <CustomerPanel /> */}
           {/* <Catalog /> */}

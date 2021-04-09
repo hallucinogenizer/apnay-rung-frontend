@@ -10,6 +10,8 @@ export default function validateSecurity(values) {
     errors.question2 = "select question";
   } else if (values.question2 === "Choose a security question") {
     errors.question2 = "select question";
+  } else if (values.question2 === values.question1) {
+    errors.question2 = "questions must be different";
   }
 
   if (!values.answer1) {
