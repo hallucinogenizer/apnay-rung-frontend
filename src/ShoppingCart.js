@@ -3,28 +3,45 @@ import CustomerNavbar from "./CustomerNavbar";
 import Memory from "./Memory";
 import BottomBar from "./BottomBar";
 import AddBoxIcon from "@material-ui/icons/AddBox";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 // import Modal from "react-bootstrap/Modal";
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 // const [qty, setQuantity] = useState(1);
 
 const Counter = (props) => {
-  const increment = () => {
-    props.qtyFunc(props.qty + 1);
+  const [qty, setQuantity] = useState(props.qty);
+  const increment = async () => {
+    setQuantity((qty) => qty + 1);
     props.costFunc(props.totalBill + props.price);
+
+    let storage = await JSON.parse(localStorage.getItem("shoppingCart"));
+    storage[props.ind].quantity = 1 + storage[props.ind].quantity;
+    // console.log(storage[props.ind].quantity);
+    localStorage.removeItem("shoppingCart");
+    localStorage.setItem("shoppingCart", JSON.stringify(storage));
+    props.stateFunc(storage);
   };
-  const decrement = () => {
-    props.qtyFunc(props.qty - 1);
-    props.costFunc(props.totalBill - props.price);
+  const decrement = async () => {
+    if (qty > 0) {
+      setQuantity((qty) => qty - 1);
+      props.costFunc(props.totalBill - props.price);
+
+      let storage = await JSON.parse(localStorage.getItem("shoppingCart"));
+      storage[props.ind].quantity = storage[props.ind].quantity - 1;
+      // console.log(storage[props.ind].quantity);
+      localStorage.removeItem("shoppingCart");
+      localStorage.setItem("shoppingCart", JSON.stringify(storage));
+      props.stateFunc(storage);
+    }
   };
 
   return (
-    <div class="quantity-box">
-      <p id="qty">{props.qty}</p>
+    <div key={props.qty} class="quantity-box">
+      <p id="qty">{qty}</p>
       <div class="increment-button">
         <button class="increment-button" onClick={increment}>
           {" "}
@@ -48,47 +65,48 @@ const Counter = (props) => {
 };
 
 const ShoppingCart = () => {
-  let state = {
-    //state is by default an object
-    products: [
-      {
-        productID: "00199",
-        productTitle: "Clay Pot",
-        quantity: 0,
-        price: 200
-      },
-      {
-        productID: "00199",
-        productTitle: "Clay Pot",
-        quantity: 0,
-        price: 200
-      },
-      {
-        productID: "00199",
-        productTitle: "Clay Pot",
-        quantity: 0,
-        price: 200
-      },
-      {
-        productID: "00199",
-        productTitle: "Clay Pot",
-        quantity: 0,
-        price: 200
-      }
-    ]
-  };
+  const fromLocalStorage = JSON.parse(localStorage.getItem("shoppingCart"));
+  const [state, setState] = useState(fromLocalStorage);
+
+  //The below block of code will give the initial total bill before any increments/decrements
+  let cost = 0;
+  state.map((product, index) => {
+    const { productID, productTitle, quantity, price } = product;
+    cost = cost + quantity * price;
+  });
+  // console.log(cost);
 
   const [show, setShow] = useState(false);
+  const [indexDelete, setIndex] = useState(0);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const [total, setTotal] = useState(0);
+  const handleClose = (isDelete) => {
+    setShow(false);
+    // console.log(indexDelete);
+    if (isDelete) {
+      let copyState = state.slice();
+      // console.log(state);
+      // console.log(copyState);
+      copyState.splice(indexDelete, 1);
+      // console.log(copyState);
+      localStorage.removeItem("shoppingCart");
+      localStorage.setItem("shoppingCart", JSON.stringify(copyState));
+      setState(copyState);
+    }
+  };
+  const handleShow = (index) => {
+    // console.log(index);
+    setIndex(index);
+    setShow(true);
+  };
+  const [total, setTotal] = useState(cost);
+  // const setTotal= useRef(0)
 
   const renderTableData = () => {
-    return state.products.map((product, index) => {
+    return state.map((product, index) => {
       const { productID, productTitle, quantity, price } = product; //destructuring
-      const [qty, setQuantity] = useState(quantity);
-      const [isOpen, SetOpen] = useState(false);
+      // console.log(quantity);
+      let ind = index;
+
       return (
         <tr className="data">
           <td>{productID}</td>
@@ -96,22 +114,23 @@ const ShoppingCart = () => {
           {/* <input className="text-center" type="number" min={quantity} /> */}
           <td>
             <Counter
-              qty={qty}
-              qtyFunc={setQuantity}
+              key={quantity}
+              qty={quantity}
               costFunc={setTotal}
               totalBill={total}
               price={price}
+              ind={ind}
+              stateFunc={setState}
             />
           </td>
           <td>PKR {price}</td>
-          <td>PKR {qty * price}</td>
+          <td>PKR {quantity * price}</td>
           <td>
             <a
               href="#top"
-              class="btn btn-info btn-lg"
-              data-toggle="modal"
-              data-target="#myModal"
+              to="/ShoppingCart"
               className="link"
+              onClick={() => handleShow(ind)}
             >
               Delete
             </a>
@@ -164,7 +183,11 @@ const ShoppingCart = () => {
         </div>
       </div>
       <BottomBar />
-      <Modal show={show} onHide={handleClose} className="delete-modal">
+      <Modal
+        show={show}
+        onHide={() => handleClose(false)}
+        className="delete-modal"
+      >
         <Modal.Header closeButton>
           <Modal.Title>Confirm Delete</Modal.Title>
         </Modal.Header>
@@ -172,14 +195,14 @@ const ShoppingCart = () => {
         <Modal.Footer>
           <Button
             variant="secondary"
-            onClick={handleClose}
+            onClick={() => handleClose(false)}
             className="delete-secondary"
           >
             Don't Delete
           </Button>
           <Button
             variant="primary"
-            onClick={handleClose}
+            onClick={() => handleClose(true)}
             className="delete-primary"
           >
             Delete Product

@@ -592,6 +592,7 @@ input[type="file"] {
   height: 30px;
   margin-left: 5%;
   margin-top: 1%;
+  margin-top: 1%;
   padding: 0.5%;
   border-radius: 7px;
   border: 1px solid #e5e5e5;
@@ -720,12 +721,9 @@ input[type="file"] {
   color: #d67d20;
   margin-left: 44%;
   float: left;
+  float: left;
   margin-top: -14%;
 }
-/* p {
-  margin-left: 0%;
-  float: left;
-} */
 .description {
   margin-top: -21%;
   margin-left: 44%;
@@ -835,6 +833,7 @@ h4 {
   margin-left: 30%;
   font-size: 16px;
 }
+
 .back-btn {
   /* margin-top: -15%; */
   margin-left: 5%;
@@ -912,6 +911,7 @@ h4 {
   margin-top: 1%;
   margin-bottom: 1%;
 }
+
 .grey-home-bar {
   background-color: #efefef;
   height: 5%;
@@ -925,6 +925,7 @@ h4 {
   width: 90%;
   margin-left: 5%;
 }
+
 .grey-home-bar p {
   margin-top: 1%;
   margin-bottom: 1%;
@@ -1083,15 +1084,8 @@ h4 {
   color: white;
 }
 .form-container {
-  /* background: #ffffff; */
-  /* margin: 3% auto;
-  width: 70%;
-  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.2);
-  position: relative;
-  border-radius: 0px;
-  height: 50%;
-  display: grid;
-  grid-template-columns: 1fr 1fr; */
+  background: #ffffff;
+  margin: 3% auto;
 }
 .background-image {
   min-height: 100vh;

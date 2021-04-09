@@ -6,22 +6,23 @@ import Memory from "./Memory";
 import BottomBar from "./BottomBar";
 import ProductImage from "./product.png";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
+import { Button } from "@material-ui/core";
+// import Button from "@material-ui/core/Button";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import Box from "@material-ui/core/Box";
-import Rating from "@material-ui/lab/Rating";
+import { Box } from "@material-ui/core";
+import { Rating } from "@material-ui/lab";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 // import Typography from "@material-ui/core/Typography";
 
 const Counter = (props) => {
-  const [qty, setQuantity] = useState(1);
-
   const increment = () => {
     props.qtyFunc(props.qty + 1);
   };
   const decrement = () => {
-    props.qtyFunc(props.qty - 1);
+    if (props.qty !== 0) {
+      props.qtyFunc(props.qty - 1);
+    }
   };
 
   return (
@@ -78,7 +79,7 @@ const Product = () => {
     rating: 4,
     Description: "Multi-colored satin glazed",
     Additional: "Single pieces or as pair (same or different dishes)",
-    Price: "Rs. 1200"
+    Price: 1200
   };
 
   let ArtisanData = {
@@ -102,14 +103,12 @@ const Product = () => {
         review: "9/10 quality. Would totally recommend!!!"
       }
     ],
-    product: [
-      {
-        productID: "00199",
-        productTitle: "Multani Ceramic ",
-        quantity: 1,
-        price: 200
-      }
-    ]
+    product: {
+      productID: "00199",
+      productTitle: "Multani Ceramic ",
+      quantity: 1,
+      price: 200
+    }
   };
 
   const [value] = React.useState(productData.rating);
@@ -136,9 +135,36 @@ const Product = () => {
     });
   };
 
-  const { productID, productTitle, quantity, price } = state.product; //destructuring
-  const [qty, setQuantity] = React.useState(quantity);
+  //destructuring
+  // const [qty, setQuantity] = React.useState(quantity);
+
+  const addToCartHandler = (qty) => {
+    let cart = [];
+
+    cart = JSON.parse(localStorage.getItem("shoppingCart"));
+    console.log(cart);
+
+    let newProduct = {
+      productID: state.product.productID,
+      productTitle: productData.name,
+      quantity: qty,
+      price: productData.Price
+    };
+
+    if (cart == null) {
+      cart = [];
+      cart[0] = newProduct;
+    } else {
+      cart.push(newProduct);
+    }
+
+    localStorage.setItem("shoppingCart", JSON.stringify(cart));
+  };
+
+  // localStorage.removeItem("shoppingCart");
   const renderProduct = () => {
+    const [qty, setQuantity] = useState(1);
+    const { productID, Title, quantity, cost } = state.product;
     let InStockArr = [];
 
     if (productData.inStock === 1) {
@@ -146,11 +172,12 @@ const Product = () => {
     } else {
       InStockArr = [<span>&#x2613; {`out of stock`}</span>];
     }
+
     return (
       <div>
         <span>
           <img className="product-image" src={ProductImage} alt="Logo" />
-          <div className="product-title">{productData.name}</div>;
+          <div className="product-title">{productData.name}</div>
           <p className="in-stock">{InStockArr}</p>
           <div className="rating">
             {/* {`${productData.rating}/5.0`} */}
@@ -169,7 +196,7 @@ const Product = () => {
           {/* <div>{productData.Description}</div>
             <div>{productData.Additional}</div> */}
           {/* <div className="price-text">{productData.Price}</div> */}
-          <div className="price-text">{productData.Price}</div>
+          <div className="price-text">Rs.{productData.Price}</div>
           <p className="quantity">per piece</p>
           <Counter
             className="quantity-counter"
@@ -181,6 +208,7 @@ const Product = () => {
             color="default"
             className={classes.button}
             startIcon={<ShoppingCartIcon />}
+            onClick={() => addToCartHandler(qty)}
           >
             Add to Cart
           </Button>
