@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 const UseFormSecurity = (callback, validate) => {
   const [values, setValues] = useState({
-    question1: "Choose a security question",
+    question1: "",
     answer1: "",
     question2: "",
     answer2: ""
@@ -11,11 +11,14 @@ const UseFormSecurity = (callback, validate) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const changeHandler = (e) => {
+    console.log(`hello im here`);
     setValues({
       ...values,
       [e.target.name]: e.target.value
     });
+    console.log(values);
   };
+
   const submitHandler = (e) => {
     e.preventDefault();
 

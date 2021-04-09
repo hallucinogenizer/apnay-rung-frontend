@@ -1,36 +1,26 @@
 export default function validateLogin(values) {
-  let errors = {};
+  const dummy = {
+    email: "vafabatool@live.com",
+    password: "vafa123"
+  };
 
-  if (!values.userName.trim()) {
-    errors.userName = "Your name is required";
-  }
+  let errors = {};
 
   if (!values.email) {
     errors.email = "Email required";
     //shows errors if .com or incorrect email not added
   } else if (!/\S+@\S+\.\S+/.test(values.email)) {
     errors.email = "Invalid email address";
+  } else if (values.email !== dummy.email) {
+    errors.email = "incorrect password or email";
   }
 
   if (!values.password) {
     errors.password = "Password is required";
   } else if (values.password.length < 6) {
     errors.password = "Password needs to be 6 characters or more";
-  }
-  if (!values.password2) {
-    errors.password2 = "Password is required";
-  } else if (values.password2 !== values.password) {
-    errors.password2 = "Passwords do not match";
-  }
-
-  if (!values.address) {
-    errors.address = "Address required";
-  }
-
-  if (!values.phonenumber) {
-    errors.phonenumber = "Phone number required";
-  } else if (values.phonenumber.length < 10) {
-    errors.password = "Phone number needs 10 digits";
+  } else if (values.password !== dummy.password) {
+    errors.password = "incorrect password or email";
   }
 
   return errors;
