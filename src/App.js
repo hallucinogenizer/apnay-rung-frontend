@@ -4,6 +4,7 @@ import "./styles.css";
 // import Notifications from "./Notifications";
 import SecurityPage from "./SecurityQuestions";
 import Homepage from "./Homepage.js";
+import SignUpCustomer from "./SignUpCustomer";
 
 // Admin Pages
 // import AdminPanel from "./AdminPanel";
@@ -19,6 +20,7 @@ import CustomerPanel from "./CustomerPanel";
 import ShoppingCart from "./ShoppingCart";
 import Checkout from "./Checkout";
 import SignupCustomer from "./SignUpCustomer";
+import Catalog from "./Catalog";
 // import CustomerSettings from "./CustomerSettings";
 // import ViewAllProducts from "./ViewAllProducts";
 // import QueryForms from "./QueryForms";
@@ -62,7 +64,10 @@ export default function App() {
           {/* Common Pages */}
           {/* <Route path="/Notifications" exact component={Notifications} /> */}
           {/* <Homepage /> */}
-          <SecurityPage />
+          {/* <CustomerPanel /> */}
+          {/* <Catalog /> */}
+          {/* <SecurityPage /> */}
+          <SignUpCustomer />
         </div>
       </Switch>
     </Router>
