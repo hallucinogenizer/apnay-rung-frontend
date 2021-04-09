@@ -17,7 +17,7 @@ import CustomerNavbar from "./CustomerNavbar";
 import CustomerPanel from "./CustomerPanel";
 import ShoppingCart from "./ShoppingCart";
 import Checkout from "./Checkout";
-import SignupCustomer from "./SignUpCustomer";
+import SignUpCustomer from "./SignUpCustomer";
 import Catalog from "./Catalog";
 
 // Seller Pages
@@ -57,17 +57,16 @@ export default function App() {
           <Route path="/SellerPanel" exact component={SellerPanel} />
           <Route path="/Tutorials" exact component={Tutorials} />
           <Route path="/ViewOrders" exact component={ViewOrders} />
-          <Route path="/Inventory" exact component={Inventory} />
+          {/* <Route path="/Inventory" exact component={Inventory} /> */}
           {/* Common Pages */}
-          <Route path="/Catalog" exact component={Catalog} />
-          <Route path="/Homepage" exact component={Homepage} />
-          <Route path="/" exact component={Catalog} />
-          <Route path="/Notifications" exact component={Notifications} />
+          {/* <Route path="/Catalog" exact component={Catalog} /> */}
+          {/* <Route path="/Homepage" exact component={Homepage} /> */}
+          {/* <Route path="/Notifications" exact component={Notifications} /> */}
           {/* <Homepage /> */}
           {/* <CustomerPanel /> */}
           {/* <Catalog /> */}
           {/* <SecurityPage /> */}
-          {/* <SignUpCustomer /> */}
+          <SignUpCustomer />
         </div>
       </Switch>
     </Router>

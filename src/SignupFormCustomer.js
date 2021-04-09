@@ -2,63 +2,18 @@
 import UseForm from "./UseFormCustomer";
 import validate from "./validateInfoCustomer";
 import Logo from "./css/logo.png";
+import Background from "./css/background.png";
+import Homepage from "./Homepage";
+import { Link } from "react-router-dom";
 
 import "./styles.css";
+import "./taimoor.css";
 
 const SignUpFormCustomer = ({ submitForm }) => {
   const { changeHandler, submitHandler, values, errors } = UseForm(
     submitForm,
     validate
   );
-  // const [values, setValues] = useState({
-  //   userName: "",
-  //   email: "",
-  //   password: "",
-  //   password2: ""
-  // });
-  // const [errors, setErrors] = useState({});
-  // const [isSubmitting, setIsSubmitting] = useState(false);
-
-  // const changeHandler = (e) => {
-  //   setValues({
-  //     ...values,
-  //     [e.target.name]: e.target.value
-  //   });
-  // };
-
-  // const validateInfo = (values) => {
-  //   let errors = {};
-
-  //   if (!values.userName.trim()) {
-  //     errors.userName = "Your name is required";
-  //   }
-
-  //   if (!values.email) {
-  //     errors.email = "Email required";
-  //     //shows errors if .com or incorrect email not added
-  //   } else if (!/\S+@\S+\.\S+/.test(values.email)) {
-  //     errors.email = "Invalid email address";
-  //   }
-
-  //   if (!values.password) {
-  //     errors.password = "Password is required";
-  //   } else if (values.password.length < 6) {
-  //     errors.password = "Password needs to be 6 characters or more";
-  //   }
-  //   if (!values.password2) {
-  //     errors.password2 = "Password is required";
-  //   } else if (values.password2 !== values.password) {
-  //     errors.password2 = "Passwords do not match";
-  //   }
-
-  //   return errors;
-  // };
-  // const submitHandler = (e) => {
-  //   e.preventDefault();
-
-  //   setErrors(validateInfo(values));
-  //   setIsSubmitting(true);
-  // };
 
   return (
     <div>
@@ -68,12 +23,12 @@ const SignUpFormCustomer = ({ submitForm }) => {
           <p>Sign up</p>
         </div>
         <div class="btn-group" role="group" aria-label="Basic example">
-          <button type="button" class="btn btn-secondary">
-            Customer
-          </button>
-          <button type="button" class="btn btn-secondary">
-            Seller
-          </button>
+          <Link to="/CustomerPanel">
+            <input type="submit" value="Customer" class="btn btn-secondary" />
+          </Link>
+          <Link to="/Checkout">
+            <input type="submit" value="Seller" class="btn btn-light" />
+          </Link>
         </div>
         <br />
         <span className="form-inputs">
