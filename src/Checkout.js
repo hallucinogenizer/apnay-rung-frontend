@@ -43,6 +43,7 @@ const Checkout = () => {
       additional_info: additional_info,
       payment: payment
     });
+
     console.log(state);
     //send 'state'to backend
   };

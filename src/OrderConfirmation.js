@@ -9,10 +9,25 @@ import { Link } from "react-router-dom";
 
 const OrderConfirmation = () => {
   const fromLocalStorage = JSON.parse(localStorage.getItem("shoppingCart"));
+  const customerInfo = JSON.parse(localStorage.getItem("customerInformation"));
   const [state, setState] = useState(fromLocalStorage);
-  const [total, setTotal] = useState(0);
+  let total = 0;
+  let items = [];
 
-  let address = "Sherlock Holmes, 221B Bakers Street";
+  let address = customerInfo.ship_address;
+
+  const infoObject = () => {
+    fromLocalStorage.map((product, index) => {
+      if (items.length === 0) {
+        // console.log(items);
+        let subtotal = product.quantity * product.price;
+        items[0] = [product.productID, product.quantity, subtotal];
+      } else {
+        let subtotal = product.quantity * product.price;
+        items.push([product.productID, product.quantity, subtotal]);
+      }
+    });
+  };
 
   const renderBill = () => {
     let bill = 0;
@@ -20,6 +35,7 @@ const OrderConfirmation = () => {
       const { productID, productTitle, quantity, price } = product;
       bill = bill + quantity * price;
     });
+    total = bill;
     return bill;
   };
 
@@ -41,6 +57,7 @@ const OrderConfirmation = () => {
   const [msg, setMsg] = useState([``]);
 
   async function sendData() {
+    infoObject();
     const response = await fetch(
       "https://apnay-rung-api.herokuapp.com/order/new",
       {
@@ -53,17 +70,14 @@ const OrderConfirmation = () => {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          items: [
-            [1, 2, 500],
-            [2, 3, 1000]
-          ],
-          totalamount: 1500,
+          items: items,
+          totalamount: total,
           delivery_status: "processing",
-          name: "Rohan",
-          email: "rohan@yahoo.com",
-          phone: "+923025474222",
-          billing_address: "Street House Area City Province",
-          shipping_address: "Street House Area City Province"
+          name: customerInfo.name,
+          email: customerInfo.email,
+          phone: customerInfo.phone,
+          billing_address: customerInfo.bill_address,
+          shipping_address: customerInfo.ship_address
         })
       }
     );
@@ -71,6 +85,8 @@ const OrderConfirmation = () => {
     console.log(response);
 
     if (response.status === 201) {
+      localStorage.removeItem("shoppingCart");
+      localStorage.removeItem("customerInformation");
       setMsg([`You order has been placed.`, `Back to Home`]);
       handleShow();
     } else {
