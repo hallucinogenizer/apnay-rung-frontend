@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "./styles.css";
+import "./momina.css";
 import Logo from "./css/logo.png";
 import { Link } from "react-router-dom";
-
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 const HomeNavbar = () => {
   {
     /* will need to add local storage state to keep the state from being deleted after refresh */
@@ -110,9 +111,15 @@ const HomeNavbar = () => {
         className={contact ? "active" : ""}
       >
         Contact
+      
       </Link>
-      <input type="button" className="logout_button" value="Signup" />
-      <input type="button" className="logout_button" value="Login" />
+      <div className="home-button">
+      <Link to="/SignupCustomer">
+        <input type="button" className="logout_button" value="Signup" />
+      </Link>
+      <Link to="/Login">
+        <input type="button" className="logout_button" value="Login" />
+      </Link>
     </div>
   );
 };
