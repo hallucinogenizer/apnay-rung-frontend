@@ -19,6 +19,8 @@ import ShoppingCart from "./ShoppingCart";
 import Checkout from "./Checkout";
 import SignUpCustomer from "./SignUpCustomer";
 import Catalog from "./Catalog";
+import NewCheckout from "./NewCheckout";
+import OrderConfirmation from "./OrderConfirmation";
 
 // Seller Pages
 import SellerPanel from "./SellerPanel";
@@ -66,9 +68,15 @@ export default function App() {
           {/* <CustomerPanel /> */}
           {/* <Catalog /> */}
           {/* <SecurityPage /> */}
-          <SignUpCustomer />
+          {/* <SignUpCustomer /> */}
+          <NewCheckout />
         </div>
       </Switch>
+    </Router>
+  );
+}
+
+
     </Router>
   );
 }
