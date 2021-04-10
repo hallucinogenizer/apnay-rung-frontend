@@ -4,7 +4,7 @@ import "./styles.css";
 import CustomerNavBar from "./CustomerNavbar";
 import Memory from "./Memory";
 import BottomBar from "./BottomBar";
-import ProductImage from "./product.png";
+import ProductImage from "./css/product-image.png";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
 // import Button from "@material-ui/core/Button";
@@ -60,10 +60,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 const StyledRating = withStyles({
-  // root:{
-  //   marginTop: "-26%",
-  //   marginLeft: "47%"
-  // },
+  root: {
+    // marginTop: "-100%",
+    marginLeft: "30%"
+  },
   iconFilled: {
     color: "#d67d20"
   },
@@ -72,6 +72,7 @@ const StyledRating = withStyles({
   }
 })(Rating);
 const Product = () => {
+  const [qty, setQuantity] = useState(1);
   const classes = useStyles();
   let productData = {
     name: "Multani Ceramic Dishes",
@@ -129,7 +130,7 @@ const Product = () => {
             </Box>
           </div>
           <br />
-          <div className="review">{review}</div>
+          <div>{review}</div>
         </div>
       );
     });
@@ -163,7 +164,6 @@ const Product = () => {
 
   // localStorage.removeItem("shoppingCart");
   const renderProduct = () => {
-    const [qty, setQuantity] = useState(1);
     const { productID, Title, quantity, cost } = state.product;
     let InStockArr = [];
 
@@ -189,20 +189,25 @@ const Product = () => {
               </span>
             </Box>
           </div>
-          <h4>Description:</h4>
-          <p className="description">
-            {productData.Description} <br /> {productData.Additional}{" "}
-          </p>
+          <div className="product-desc">
+            <h4>Description:</h4>
+            <p className="description">
+              {productData.Description} <br /> {productData.Additional}{" "}
+            </p>
+          </div>
           {/* <div>{productData.Description}</div>
             <div>{productData.Additional}</div> */}
           {/* <div className="price-text">{productData.Price}</div> */}
-          <div className="price-text">Rs.{productData.Price}</div>
-          <p className="quantity">per piece</p>
-          <Counter
-            className="quantity-counter"
-            qty={qty}
-            qtyFunc={setQuantity}
-          />
+          <div>
+            <div className="price-text">Rs.{productData.Price}</div>
+            <p className="quantity">per piece</p>
+
+            <Counter
+              className="quantity-counter"
+              qty={qty}
+              qtyFunc={setQuantity}
+            />
+          </div>
           <Button
             variant="contained"
             color="default"
@@ -212,16 +217,16 @@ const Product = () => {
           >
             Add to Cart
           </Button>
-          <div>
+          <div className="artisan-product-page">
             <h3 className="artisan-title">Artisan</h3>
             <div className="artisan-name">{ArtisanData.name}</div>
             <div className="artisan-bio">{ArtisanData.bio}</div>
           </div>
-          <div>
-            <div className="reviews-heading">Reviews</div>
-            {renderReviews()}
-          </div>
         </span>
+        <div className="review">
+          <div className="reviews-heading">Reviews</div>
+          {renderReviews()}
+        </div>
       </div>
     );
   };

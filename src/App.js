@@ -3,6 +3,7 @@ import "./styles.css";
 // import Product from "./Product";
 import Notifications from "./Notifications";
 import Homepage from "./Homepage.js";
+import Product from "./Product.js";
 
 // Admin Pages
 import AdminPanel from "./AdminPanel";
@@ -69,14 +70,10 @@ export default function App() {
           {/* <Catalog /> */}
           {/* <SecurityPage /> */}
           {/* <SignUpCustomer /> */}
-          <NewCheckout />
+          {/* <Checkout /> */}
+          <Product />
         </div>
       </Switch>
-    </Router>
-  );
-}
-
-
     </Router>
   );
 }

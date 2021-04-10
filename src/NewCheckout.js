@@ -1,4 +1,5 @@
 import "./styles.css";
+import "./maham.css";
 import React, { useState } from "react";
 import CustomerNavbar from "./CustomerNavbar";
 import Memory from "./Memory";
@@ -154,9 +155,9 @@ const NewCheckout = () => {
           onChange={ShippingChangeHandler}
         ></input>
         <p className="label-form">Billing Address</p>
-        <label>
+        <label className="checkbox-form-new">
           <input
-            className="checkbox-form"
+            // className="checkbox-form"
             type="checkbox"
             name="check-billing"
             onClick={BillingAddressChangeHandler}
@@ -180,9 +181,9 @@ const NewCheckout = () => {
           cols="50"
         ></textarea>
         <p className="label-form">Payment Method</p>
-        <label>
+        <label className="checkbox-form-new">
           <input
-            className="radio-label"
+            // className="radio-label"
             type="radio"
             name="payment"
             value="Cash on Delivery"
@@ -191,9 +192,9 @@ const NewCheckout = () => {
           Cash on Delivery
         </label>
         <br />
-        <label>
+        <label className="checkbox-form-new">
           <input
-            className="radio-label"
+            // className="radio-label"
             type="radio"
             name="payment"
             value="Bank Transfer"

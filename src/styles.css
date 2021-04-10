@@ -591,8 +591,8 @@ input[type="file"] {
   width: 90%;
   height: 30px;
   margin-left: 5%;
-  margin-top: 1%;
-  margin-top: 1%;
+  /* margin-top: 1%; */
+  /* margin-top: 1%; */
   padding: 0.5%;
   border-radius: 7px;
   border: 1px solid #e5e5e5;
@@ -658,14 +658,7 @@ input[type="file"] {
   float: right;
   display: block;
 }
-.radio-label {
-  margin-left: 5%;
-}
-.checkbox-form {
-  margin-top: 1%;
-  margin-right: 0.5%;
-  margin-right: 0.5%;
-}
+
 .checkbox-form {
   margin-top: 1%;
   margin-left: 5%;
@@ -675,35 +668,39 @@ input[type="file"] {
 .product-image {
   width: 450px;
   height: 590 px;
+  margin-left: 8%;
   margin-top: 5%;
-  margin-right: 35%;
-  margin-left: 12%;
+  /* margin-right: 35%;
+  margin-left: 12%; */
   /* display: inline-block; */
   float: left;
 }
-
+/* .top-product {
+  margin-top: 5%;
+} */
 .product-title {
   font-size: 35px;
   text-align: center;
   color: #2e2e2e;
-  margin-left: 44%;
-  /* display: inline-block; */
+  /* margin-left: 44%; */
+  display: inline-block;
   /* margin-bottom: 2px; */
-  /* margin-left: 20%; */
-  margin-top: -32.6%;
+  margin-left: 7%;
+  padding-top: 5%;
+  /* margin-top: -32.6%; */
   text-decoration: underline;
   text-decoration-color: #d67d20;
   text-underline-offset: 3px;
-  /* display: inline-block; */
-  margin-top: -28%;
-  float: left;
+  /* display: inline; */
 }
 
 .in-stock {
   color: #d67d20;
-  margin-top: -28%;
+  /* margin-top: -28%;
   float: left;
-  margin-left: 44%;
+  margin-left: 44%; */
+  margin-top: 5%;
+  margin-left: 50%;
   font-weight: bold;
   font-size: 18px;
 }
@@ -712,41 +709,38 @@ input[type="file"] {
   fill: #d67d20;
   /* float: left; */
   color: #d67d20;
-  margin-left: 44%;
+  /* margin-left: 50%; */
+  display: block;
+  /* margin-left: 44%; */
 }
 
 .price-text {
   font-size: 24px;
   font-weight: bold;
   color: #d67d20;
-  margin-left: 44%;
-  float: left;
-  float: left;
-  margin-top: -14%;
+  display: inline-block;
+  margin-left: 7%;
+}
+.product-desc {
+  display: inline-block;
+  margin-left: 7%;
 }
 .description {
-  margin-top: -21%;
-  margin-left: 44%;
-  margin-top: -18.5%;
-  float: left;
   color: #2e2e2e;
   text-align: left;
 }
 h4 {
-  margin-top: -21%;
-  margin-left: 44%;
-  float: left;
   color: #2e2e2e;
   font-size: 21px;
-  /* display: inline-block */
+}
+.reviews {
+  display: block;
 }
 
 .rating {
-  margin-top: -25.5%;
-  float: left;
-  margin-left: 43%;
   font-size: 16px;
-  /* display: inline-block */
+  margin-left: 7%;
+  display: inline-block;
 }
 
 /* Box {
@@ -754,83 +748,91 @@ h4 {
   margin-left: 50%;
   margin-top: -24%;
 } */
-
+.artisan-product-page {
+  display: inline-block;
+  margin-left: 8%;
+}
 .button-shopping {
-  float: left;
-  margin-left: 70%;
-  margin-top: -10;
+  /* float: left; */
+  margin-left: 7%;
+  /* margin-left: 70%;
+  margin-top: -10; */
 }
 
 .quantity {
   color: #2e2e2e;
   font-size: 17px;
-  margin-top: -13.6%;
-  margin-left: 50.5%;
-  float: left;
+  /* margin-top: -13.6%; */
+
+  display: inline-block;
+  margin-left: 5%;
 }
 
 .artisan-title {
   color: #2e2e2e;
   text-align: left;
-  margin-left: 12%;
+  /* margin-left: 12%; */
   font-size: 23px;
-  margin-top: 0.2%;
+  /* margin-top: 0.2%; */
   font-weight: 200;
 }
 .artisan-name {
   color: #d67d20;
   text-align: left;
-  margin-left: 12%;
+  /* margin-left: 12%; */
   font-size: 18px;
-  margin-top: 1%;
+  /* margin-top: 1%; */
   font-weight: bold;
-  margin-top: 1%;
+  /* margin-top: 1%; */
 }
 
 .reviews-heading {
   color: #2e2e2e;
   text-align: left;
-  margin-left: 12%;
+  /* margin-left: 12%; */
   font-size: 15px;
-  margin-top: 1%;
+  /* margin-top: 1%; */
   font-weight: bold;
 }
 
 .reviews-heading {
   color: #2e2e2e;
   text-align: left;
-  margin-left: 12%;
+  /* margin-left: 12%; */
   font-size: 26px;
-  margin-top: 4%;
+  /* margin-top: 4%; */
   font-weight: bold;
 }
 
 .reviewer-name {
   color: #2e2e2e;
   text-align: left;
-  margin-top: 2%;
-  margin-left: 12%;
+  /* margin-top: 2%;
+  margin-left: 12%; */
   font-weight: bold;
   font-size: 18px;
 }
-
+/* 
 .reviewer-rating {
-  margin-left: 10.9%;
+  /* margin-left: 10.9%;
   margin-top: 0%;
   align-content: left;
-}
+} */
 
 .review {
   color: #2e2e2e;
   text-align: left;
-  margin-top: -2%;
-  margin-left: 12%;
+  display: inline-block;
+  margin-left: 8%;
+  margin-top: 2%;
+  /* margin-top: -2%;
+  margin-left: 12%; */
 }
 
 .quantity-counter {
-  margin-top: 40%;
+  /* margin-top: 40%; */
   float: left;
-  margin-left: 30%;
+  /* margin-left: 30%; */
   font-size: 16px;
 }
 
