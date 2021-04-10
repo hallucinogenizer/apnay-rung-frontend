@@ -78,7 +78,6 @@ const ShoppingCart = () => {
   } catch {
     cost = 0;
   }
-
   // console.log(cost);
 
   const [show, setShow] = useState(false);

@@ -71,23 +71,25 @@ const Navbar = () => {
         <br />
         Admin
       </p>
-      <Link to="/HomePage">
-        <button href="#cart" className="test-logout-admin">
-          <span>
-            <ExitToAppIcon className="rotate-180" />
-            {/* Logout */}
-          </span>
-          <span className="text">Logout</span>
-        </button>
-      </Link>
-      <Link to="/Notifications">
-        <button href="#cart" className="test-notifications-admin">
-          <span>
-            <NotificationsNoneIcon />
-            {/* Logout */}
-          </span>
-        </button>
-      </Link>
+      <div className="nav-button">
+        <Link to="/Notifications">
+          <button href="#cart" className="test-notifications-admin">
+            <span>
+              <NotificationsNoneIcon />
+              {/* Logout */}
+            </span>
+          </button>
+        </Link>
+        <Link to="/HomePage">
+          <button href="#cart" className="test-logout-admin">
+            <span>
+              <ExitToAppIcon className="rotate-180" />
+              {/* Logout */}
+            </span>
+            <span className="text">Logout</span>
+          </button>
+        </Link>
+      </div>
       {/* <input type="button" className="logout_button" value="Logout" /> */}
     </div>
   );

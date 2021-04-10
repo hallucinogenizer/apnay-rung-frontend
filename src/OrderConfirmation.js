@@ -4,30 +4,13 @@ import Memory from "./Memory";
 import BottomBar from "./BottomBar";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import { useState, useRef, useEffect } from "react";
-import { Modal, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
 
 const OrderConfirmation = () => {
   const fromLocalStorage = JSON.parse(localStorage.getItem("shoppingCart"));
-  const customerInfo = JSON.parse(localStorage.getItem("customerInformation"));
   const [state, setState] = useState(fromLocalStorage);
-  let total = 0;
-  let items = [];
+  const [total, setTotal] = useState(0);
 
-  let address = customerInfo.ship_address;
-
-  const infoObject = () => {
-    fromLocalStorage.map((product, index) => {
-      if (items.length === 0) {
-        // console.log(items);
-        let subtotal = product.quantity * product.price;
-        items[0] = [product.productID, product.quantity, subtotal];
-      } else {
-        let subtotal = product.quantity * product.price;
-        items.push([product.productID, product.quantity, subtotal]);
-      }
-    });
-  };
+  let address = "Sherlock Holmes, 221B Bakers Street";
 
   const renderBill = () => {
     let bill = 0;
@@ -35,7 +18,6 @@ const OrderConfirmation = () => {
       const { productID, productTitle, quantity, price } = product;
       bill = bill + quantity * price;
     });
-    total = bill;
     return bill;
   };
 
@@ -53,7 +35,6 @@ const OrderConfirmation = () => {
       );
     });
   };
-
   const [msg, setMsg] = useState([``]);
 
   async function sendData() {
@@ -140,24 +121,8 @@ const OrderConfirmation = () => {
         type="submit"
         className="confirmOrder-button"
         value="Confirm Order"
-        onClick={sendData}
       ></input>
       <BottomBar />
-      <Modal show={show} onHide={handleClose} className="delete-modal">
-        <Modal.Header closeButton>
-          <Modal.Title>Order confirmation</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>{msg[0]}</Modal.Body>
-        <Modal.Footer>
-          <Button
-            variant="primary"
-            className="delete-primary"
-            onClick={handleClose}
-          >
-            {msg[1] !== "Back" ? <Link to="./Homepage">{msg[1]}</Link> : msg[1]}
-          </Button>
-        </Modal.Footer>
-      </Modal>
     </div>
   );
 };
