@@ -17,7 +17,7 @@ import "bootstrap/dist/css/bootstrap.css";
 const Homepage = () => {
   const [productState, setProductState] = useState([]);
   const [sellerState, setSellerState] = useState([]);
-  const tokenID = JSON.parse(localStorage.getItem("Token"));
+  const tokenID = localStorage.getItem("Token");
 
   const getData = async (url) => {
     const response = await fetch(url, {

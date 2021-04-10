@@ -11,7 +11,7 @@ const OrderConfirmation = () => {
   const fromLocalStorage = JSON.parse(localStorage.getItem("shoppingCart"));
   const customerInfo = JSON.parse(localStorage.getItem("customerInformation"));
   const [state, setState] = useState(fromLocalStorage);
-  const tokenID = JSON.parse(localStorage.getItem("Token"));
+  const tokenID = localStorage.getItem("Token");
   let total = 0;
   let items = [];
 

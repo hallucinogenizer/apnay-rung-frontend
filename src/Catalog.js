@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 const Catalog = () => {
   const [state, setState] = useState([]);
 
-  const tokenID = JSON.parse(localStorage.getItem("Token"));
+  const tokenID = localStorage.getItem("Token");
 
   const getData = async (url) => {
     const response = await fetch(url, {

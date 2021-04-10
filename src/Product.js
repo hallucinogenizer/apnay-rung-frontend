@@ -75,7 +75,7 @@ const StyledRating = withStyles({
 const Product = () => {
   const [qty, setQuantity] = useState(1);
   const classes = useStyles();
-  const tokenID = JSON.parse(localStorage.getItem("Token"));
+  const tokenID = localStorage.getItem("Token");
 
   const product = JSON.parse(localStorage.getItem("productID"));
   console.log(product);
