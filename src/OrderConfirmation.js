@@ -11,6 +11,7 @@ const OrderConfirmation = () => {
   const fromLocalStorage = JSON.parse(localStorage.getItem("shoppingCart"));
   const customerInfo = JSON.parse(localStorage.getItem("customerInformation"));
   const [state, setState] = useState(fromLocalStorage);
+  const tokenID = JSON.parse(localStorage.getItem("Token"));
   let total = 0;
   let items = [];
 
@@ -65,8 +66,7 @@ const OrderConfirmation = () => {
         withCredentials: true,
         credentials: "include",
         headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6IlZhZmEgQmF0b29sIiwidHlwZU9mVXNlciI6InNlbGxlciIsImlhdCI6MTYxNjg0NDE3N30.xYaUcX7dmdqY5co2tMbVA_9jh0M1fVBB-AX0Aam5G7Y",
+          Authorization: `Bearer ${tokenID}`,
           "Content-Type": "application/json"
         },
         body: JSON.stringify({

@@ -9,14 +9,16 @@ import { Link } from "react-router-dom";
 
 const Catalog = () => {
   const [state, setState] = useState([]);
+
+  const tokenID = JSON.parse(localStorage.getItem("Token"));
+
   const getData = async (url) => {
     const response = await fetch(url, {
       method: "GET",
       withCredentials: true,
       credentials: "include",
       headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsIm5hbWUiOiJUYWltb29yIFRhcmlxIiwidHlwZU9mVXNlciI6ImN1c3RvbWVyIiwiaWF0IjoxNjE2OTYxNzMwfQ.Dn0FATITkhrR7e5tkp_XAmdPfp-FKJGzdskczt9k2fw",
+        Authorization: `Bearer ${tokenID}`,
         "Content-Type": "application/json"
       }
     });
