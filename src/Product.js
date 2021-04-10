@@ -1,10 +1,11 @@
+import Memory from "./Memory";
+import BottomBar from "./BottomBar";
 import React from "react";
 import { useState } from "react";
 import "./styles.css";
 import CustomerNavBar from "./CustomerNavbar";
-import Memory from "./Memory";
-import BottomBar from "./BottomBar";
-import ProductImage from "./css/product-image.png";
+
+// import ProductImage from "./css/product-image.png";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
 // import Button from "@material-ui/core/Button";
@@ -74,54 +75,98 @@ const StyledRating = withStyles({
 const Product = () => {
   const [qty, setQuantity] = useState(1);
   const classes = useStyles();
+
+  const product = JSON.parse(localStorage.getItem("productID"));
+  console.log(product);
   let productData = {
-    name: "Multani Ceramic Dishes",
-    inStock: 1,
+    name: product.title,
+    inStock: product.stock,
     rating: 4,
-    Description: "Multi-colored satin glazed",
-    Additional: "Single pieces or as pair (same or different dishes)",
-    Price: 1200
+    Description: product.description,
+    Price: product.price,
+    productID: product.item_id
   };
+
+  const getReviews = async (url) => {
+    const response = await fetch(url, {
+      method: "GET",
+      withCredentials: false
+    });
+    return response.json();
+  };
+
+  const [reviews, setReviews] = useState([]);
+  getReviews(`https://apnay-rung-api.herokuapp.com/order/review/item/1`).then(
+    (response) => {
+      console.log(`reviews`);
+      console.log(response);
+      let reviewArray = response[0].review;
+      let allReviews = [];
+      reviewArray.map((element, index) => {
+        if (allReviews.length === 0) {
+          allReviews[0] = {
+            rating: element[1],
+            review: element[2]
+          };
+        } else {
+          allReviews.push({
+            rating: element[1],
+            review: element[2]
+          });
+        }
+      });
+      setReviews(allReviews);
+      console.log(reviewArray);
+      console.log(reviewArray[0][2]);
+    }
+  );
+  // `https://apnay-rung-api.herokuapp.com/order/review/item/${product.item_id}`
+
+  const getSellerBio = async (url) => {
+    const response = await fetch(url, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+      headers: {
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYsIm5hbWUiOiJNdWhhbW1hZCBSb2hhbiBIdXNzYWluIiwidHlwZU9mVXNlciI6ImN1c3RvbWVyIiwiaWF0IjoxNjE2ODQwMzY5fQ.0ORPPISR2pib-wEx2vLVC9-9zQYfbC0A6SI-P6w2l9c",
+        "Content-Type": "application/json"
+      }
+    });
+    return response.json();
+  };
+
+  const sellerid = product.seller_id;
+  console.log(sellerid);
+  const [sellerBio, setSellerBio] = useState(``);
+  getSellerBio(
+    `https://apnay-rung-api.herokuapp.com/seller/id/${sellerid}`
+  ).then((response) => {
+    console.log(response);
+    console.log(response.bio);
+    setSellerBio(response.bio);
+  });
 
   let ArtisanData = {
-    name: "Humaira Abid",
-    bio:
-      "She belongs to the city of shrines where she learnt the art from her father at an early age and now she uses it as her primary source of income"
+    name: product.seller_name
   };
 
-  let state = {
-    reviews: [
-      {
-        name: "Momina Amer",
-        rating: 4,
-        review:
-          "The delivery of the bowls was super quick which was quite a pleasant surprise. As for the quality of the bowls, they were extremely beautiful and of above average quality."
-      },
-
-      {
-        name: "Vafa Batool",
-        rating: 5,
-        review: "9/10 quality. Would totally recommend!!!"
-      }
-    ],
-    product: {
-      productID: "00199",
-      productTitle: "Multani Ceramic ",
-      quantity: 1,
-      price: 200
-    }
-  };
+  console.log(`helo`);
+  console.log(ArtisanData.bio);
 
   const [value] = React.useState(productData.rating);
-  // const [qty, setQuantity] = useState(quantity);
 
   const renderReviews = () => {
-    return state.reviews.map((rev, index) => {
-      const { name, rating, review } = rev; //destructuring
+    console.log(`my ${reviews}`);
+    const reviewsofItem = reviews.slice();
+    return reviewsofItem.map((rev, index) => {
+      const { rating, review } = rev; //destructuring
+      console.log(`momib`);
+      console.log(review);
       return (
         <div>
           <p>
-            <div className="reviewer-name">{name}</div>
+            <div className="reviewer-name">Reviewer</div>
             <br />
           </p>
           <div className="reviewer-rating">
@@ -136,9 +181,6 @@ const Product = () => {
     });
   };
 
-  //destructuring
-  // const [qty, setQuantity] = React.useState(quantity);
-
   const addToCartHandler = (qty) => {
     let cart = [];
 
@@ -146,10 +188,10 @@ const Product = () => {
     console.log(cart);
 
     let newProduct = {
-      productID: state.product.productID,
-      productTitle: productData.name,
+      productID: product.item_id,
+      productTitle: product.title,
       quantity: qty,
-      price: productData.Price
+      price: product.price
     };
 
     if (cart == null) {
@@ -164,7 +206,7 @@ const Product = () => {
 
   // localStorage.removeItem("shoppingCart");
   const renderProduct = () => {
-    const { productID, Title, quantity, cost } = state.product;
+    const { productID, name, Price } = productData;
     let InStockArr = [];
 
     if (productData.inStock === 1) {
@@ -176,8 +218,8 @@ const Product = () => {
     return (
       <div>
         <span>
-          <img className="product-image" src={ProductImage} alt="Logo" />
-          <div className="product-title">{productData.name}</div>
+          <img className="product-image" src={product.image} alt="Logo" />
+          <div className="product-title">{product.title}</div>
           <p className="in-stock">{InStockArr}</p>
           <div className="rating">
             {/* {`${productData.rating}/5.0`} */}
@@ -191,13 +233,8 @@ const Product = () => {
           </div>
           <div className="product-desc">
             <h4>Description:</h4>
-            <p className="description">
-              {productData.Description} <br /> {productData.Additional}{" "}
-            </p>
+            <p className="description">{productData.Description}</p>
           </div>
-          {/* <div>{productData.Description}</div>
-            <div>{productData.Additional}</div> */}
-          {/* <div className="price-text">{productData.Price}</div> */}
           <div>
             <div className="price-text">Rs.{productData.Price}</div>
             <p className="quantity">per piece</p>
@@ -220,7 +257,7 @@ const Product = () => {
           <div className="artisan-product-page">
             <h3 className="artisan-title">Artisan</h3>
             <div className="artisan-name">{ArtisanData.name}</div>
-            <div className="artisan-bio">{ArtisanData.bio}</div>
+            <div className="artisan-bio">{sellerBio}</div>
           </div>
         </span>
         <div className="review">
@@ -233,7 +270,7 @@ const Product = () => {
 
   return (
     <div>
-      <CustomerNavBar currentPage="Product" />
+      <CustomerNavBar />
       <Memory panel="Catalog " page="Home" current=" Kitchen" />
       {/* <a id=back-btn><img src=/css/back.png width="26"></a> */}
       {renderProduct()}

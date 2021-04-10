@@ -111,15 +111,15 @@ const HomeNavbar = () => {
         className={contact ? "active" : ""}
       >
         Contact
-      
       </Link>
       <div className="home-button">
-      <Link to="/SignupCustomer">
-        <input type="button" className="logout_button" value="Signup" />
-      </Link>
-      <Link to="/Login">
-        <input type="button" className="logout_button" value="Login" />
-      </Link>
+        <Link to="/SignupCustomer">
+          <input type="button" className="logout_button" value="Signup" />
+        </Link>
+        <Link to="/Login">
+          <input type="button" className="logout_button" value="Login" />
+        </Link>
+      </div>
     </div>
   );
 };

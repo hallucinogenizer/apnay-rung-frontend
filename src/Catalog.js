@@ -29,11 +29,16 @@ const Catalog = () => {
     }
   );
 
+  const sendID = (product) => {
+    localStorage.removeItem("productID");
+    localStorage.setItem("productID", JSON.stringify(product));
+  };
+
   const renderProducts = () => {
     return state.map((product, index) => {
       const { item_id, title, seller_name, price, image } = product; //destructuring
       return (
-        <Link to="/Product" className="route">
+        <Link to="/Product" className="route" onClick={() => sendID(product)}>
           <div className="product-div">
             <img className="product-img" src={image} alt="product" />
             <h3>{title}</h3>
