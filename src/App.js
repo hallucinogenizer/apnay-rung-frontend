@@ -70,8 +70,10 @@ export default function App() {
           {/* <Catalog /> */}
           {/* <SecurityPage /> */}
           {/* <SignUpCustomer /> */}
-          {/* <Checkout /> */}
-          <Product />
+          <Checkout />
+          {/* <AdminPanel /> */}
+          {/* <SellerNavbar /> */}
+          {/* <Product /> */}
         </div>
       </Switch>
     </Router>

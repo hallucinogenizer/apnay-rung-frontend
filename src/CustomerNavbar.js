@@ -86,42 +86,42 @@ const CustomerNavbar = () => {
       <img className="logo" src={Logo} alt="logo" />
       <Link
         to="/Homepage"
-        onMouseEnter={setHomeClass}
+        onMouseLeave={setHomeClass}
         className={home ? "active" : ""}
       >
         Home
       </Link>
       <Link
         to="/CustomerPanel"
-        onMouseEnter={setPanelClass}
+        onMouseLeave={setPanelClass}
         className={panel ? "active" : ""}
       >
         Panel
       </Link>
       <Link
         to="/Catalog"
-        onMouseEnter={setCatalogClass}
+        onClick={setCatalogClass}
         className={catalog ? "active" : ""}
       >
         Catalog
       </Link>
       <Link
         to="/CustomerPanel"
-        onMouseEnter={setArtisanClass}
+        onClick={setArtisanClass}
         className={artisans ? "active" : ""}
       >
         Artisans
       </Link>
       <Link
         to="/CustomerPanel"
-        onMouseEnter={setAboutClass}
+        onClick={setAboutClass}
         className={aboutus ? "active" : ""}
       >
         About Us
       </Link>
       <Link
         to="/CustomerPanel"
-        onMouseEnter={setContactClass}
+        onClick={setContactClass}
         className={contact ? "active" : ""}
       >
         Contact
@@ -129,40 +129,38 @@ const CustomerNavbar = () => {
       <p>
         Rohan Hussain <br /> Customer
       </p>
-      <Link to="/HomePage">
-        <button href="#cart" className="test-logout-customer">
-          <span>
-            <ExitToAppIcon className="rotate-180" />
-            {/* Logout */}
-          </span>
-          <span className="text">Logout</span>
-        </button>
-      </Link>
-      <Link to="/ShoppingCart">
-        <button href="#cart" className="test-cart">
-          <span>
-            <ShoppingCartIcon />
-            {/* Logout */}
-          </span>
-          <span className="text">Cart</span>
-        </button>
-      </Link>
-      <Link to="/Notifications">
-        <button href="#cart" className="test-notifications-customer">
-          <span>
-            <NotificationsNoneIcon />
-            {/* Logout */}
-          </span>
-        </button>
-      </Link>
-      <Link to="/Notifications">
-        <button href="#cart" className="test-search">
-          <span>
-            <SearchIcon />
-            {/* Logout */}
-          </span>
-        </button>
-      </Link>
+      <div className="nav-button">
+        <Link to="/Notifications">
+          <button href="#cart" className="test-search">
+            <span>
+              <SearchIcon />
+            </span>
+          </button>
+        </Link>
+        <Link to="/Notifications">
+          <button href="#cart" className="test-notifications-customer">
+            <span>
+              <NotificationsNoneIcon />
+            </span>
+          </button>
+        </Link>
+        <Link to="/ShoppingCart">
+          <button href="#cart" className="test-cart">
+            <span>
+              <ShoppingCartIcon />
+            </span>
+            <span className="text">Cart</span>
+          </button>
+        </Link>
+        <Link to="/HomePage">
+          <button href="#cart" className="test-logout-customer">
+            <span>
+              <ExitToAppIcon className="rotate-180" />
+            </span>
+            <span className="text">Logout</span>
+          </button>
+        </Link>
+      </div>
     </div>
   );
 };

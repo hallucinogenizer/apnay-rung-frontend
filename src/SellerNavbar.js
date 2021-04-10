@@ -95,23 +95,25 @@ const SellerNavbar = () => {
         Rohan Hussain
         <br /> Seller
       </p>
-      <Link to="/HomePage">
-        <button href="#cart" className="test-logout-seller">
-          <span>
-            <ExitToAppIcon className="rotate-180" />
-            {/* Logout */}
-          </span>
-          <span className="text">Logout</span>
-        </button>
-      </Link>
-      <Link to="/Notifications">
-        <button href="#cart" className="test-notifications-seller">
-          <span>
-            <NotificationsNoneIcon />
-            {/* Logout */}
-          </span>
-        </button>
-      </Link>
+      <div className="nav-button">
+        <Link to="/Notifications">
+          <button href="#cart" className="test-notifications-seller">
+            <span>
+              <NotificationsNoneIcon />
+              {/* Logout */}
+            </span>
+          </button>
+        </Link>
+        <Link to="/HomePage">
+          <button href="#cart" className="test-logout-seller">
+            <span>
+              <ExitToAppIcon className="rotate-180" />
+              {/* Logout */}
+            </span>
+            <span className="text">Logout</span>
+          </button>
+        </Link>
+      </div>
     </div>
   );
 };
