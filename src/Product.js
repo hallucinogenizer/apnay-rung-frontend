@@ -75,6 +75,7 @@ const StyledRating = withStyles({
 const Product = () => {
   const [qty, setQuantity] = useState(1);
   const classes = useStyles();
+  const tokenID = localStorage.getItem("Token");
 
   const product = JSON.parse(localStorage.getItem("productID"));
   console.log(product);
@@ -128,8 +129,7 @@ const Product = () => {
       withCredentials: true,
       credentials: "include",
       headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYsIm5hbWUiOiJNdWhhbW1hZCBSb2hhbiBIdXNzYWluIiwidHlwZU9mVXNlciI6ImN1c3RvbWVyIiwiaWF0IjoxNjE2ODQwMzY5fQ.0ORPPISR2pib-wEx2vLVC9-9zQYfbC0A6SI-P6w2l9c",
+        Authorization: `Bearer ${tokenID}`,
         "Content-Type": "application/json"
       }
     });
