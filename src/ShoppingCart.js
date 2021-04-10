@@ -68,12 +68,9 @@ const ShoppingCart = () => {
   const fromLocalStorage = JSON.parse(localStorage.getItem("shoppingCart"));
   const [state, setState] = useState(fromLocalStorage);
 
-  if (state == null) {
-    return <div>CART IS EMPTY</div>;
-  }
-
   //The below block of code will give the initial total bill before any increments/decrements
   let cost = 0;
+
   state.map((product, index) => {
     const { productID, productTitle, quantity, price } = product;
     cost = cost + quantity * price;

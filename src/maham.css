@@ -102,3 +102,7 @@
 li {
   float: left;
 }
+.checkbox-form-new {
+  margin-left: 5%;
+  /* margin-right: 0.5%; */
+}

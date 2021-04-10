@@ -3,6 +3,7 @@ import "./styles.css";
 // import Product from "./Product";
 import Notifications from "./Notifications";
 import Homepage from "./Homepage.js";
+import Product from "./Product.js";
 
 // Admin Pages
 import AdminPanel from "./AdminPanel";
@@ -19,7 +20,7 @@ import ShoppingCart from "./ShoppingCart";
 import Checkout from "./Checkout";
 import SignUpCustomer from "./SignUpCustomer";
 import Catalog from "./Catalog";
-import Product from "./Product";
+import NewCheckout from "./NewCheckout";
 import OrderConfirmation from "./OrderConfirmation";
 
 // Seller Pages
@@ -48,13 +49,7 @@ export default function App() {
           <Route path="/CustomerPanel" exact component={CustomerPanel} />
           <Route path="/ShoppingCart" exact component={ShoppingCart} />
           <Route path="/Checkout" exact component={Checkout} />
-          <Route path="/Catalog" exact component={Catalog} />
-          <Route path="/Product" exact component={Product} />
-          <Route
-            path="/OrderConfirmation"
-            exact
-            component={OrderConfirmation}
-          />
+          {/* <Route path="/Catalog" exact component={Catalog} /> */}
 
           {/* <Route path="/CustomerSettings" exact component={CustomerSettings} /> */}
           {/* <Route path="/CustomerSettings" exact component={CustomerSettings} /> */}
@@ -68,13 +63,17 @@ export default function App() {
           {/* <Route path="/Inventory" exact component={Inventory} /> */}
           {/* Common Pages */}
           {/* <Route path="/Catalog" exact component={Catalog} /> */}
-          <Route path="/Homepage" exact component={Homepage} />
+          {/* <Route path="/Homepage" exact component={Homepage} /> */}
           {/* <Route path="/Notifications" exact component={Notifications} /> */}
           {/* <Homepage /> */}
           {/* <CustomerPanel /> */}
           {/* <Catalog /> */}
           {/* <SecurityPage /> */}
           {/* <SignUpCustomer /> */}
+          <Checkout />
+          {/* <AdminPanel /> */}
+          {/* <SellerNavbar /> */}
+          {/* <Product /> */}
         </div>
       </Switch>
     </Router>

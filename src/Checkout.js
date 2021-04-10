@@ -1,4 +1,5 @@
 import "./styles.css";
+import "./maham.css";
 import React, { useState } from "react";
 import CustomerNavbar from "./CustomerNavbar";
 import Memory from "./Memory";
@@ -8,7 +9,7 @@ import { Link } from "react-router-dom";
 const Checkout = () => {
   let initialValue = {
     name: "Rohan",
-    email: "",
+    email: "rohan1.gmail.com",
     phone: "032245675",
     ship_address: "Street 2, House 3, Mars, Milky Way",
     bill_address: "",
@@ -32,7 +33,7 @@ const Checkout = () => {
   const [additional_info, setAdditionalInfo] = useState("");
   const [payment, setPayment] = useState("");
 
-  const SubmitHandler = (ev) => {
+  const SubmitHandler = () => {
     console.log(`submitted form`);
     setState({
       name: name,
@@ -43,7 +44,7 @@ const Checkout = () => {
       additional_info: additional_info,
       payment: payment
     });
-
+    console.log(state);
     console.log(state);
     //send 'state'to backend
   };
@@ -136,9 +137,9 @@ const Checkout = () => {
           onChange={ShippingChangeHandler}
         ></input>
         <p className="label-form">Billing Address</p>
-        <label>
+        <label className="checkbox-form-new">
           <input
-            className="checkbox-form"
+            // className="checkbox-form-new"
             type="checkbox"
             name="check-billing"
             onClick={() => BillingAddressChangeHandler(true)}
@@ -169,7 +170,7 @@ const Checkout = () => {
           onChange={InfoChangeHandler}
         ></input> */}
         <p className="label-form">Payment Method</p>
-        <label>
+        <label className="checkbox-form-new">
           <input
             className="radio-label"
             type="radio"
@@ -180,7 +181,7 @@ const Checkout = () => {
           Cash on Delivery
         </label>
         <br />
-        <label>
+        <label className="checkbox-form-new">
           <input
             className="radio-label"
             type="radio"
@@ -209,7 +210,6 @@ const Checkout = () => {
             type="submit"
             className="submit-button3"
             value="Confirm Order"
-            onClick={SubmitHandler}
           ></input>
         </Link>
       </form>
