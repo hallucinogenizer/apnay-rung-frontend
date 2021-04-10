@@ -27,10 +27,29 @@ const SellerPanel = () => {
       <br></br>
       <div className="all-boxes">
         <div className="box-left">
-          <Link to="/Notifications" className="router-link">
+          <div className="box-left-left">
+            <Link to="/Notifications" className="router-link">
+              <button href="#cart" className="panel-box">
+                <span className="icons">
+                  <AssessmentIcon
+                    style={
+                      ({
+                        fill: "white"
+                      },
+                      {
+                        fontSize: 40
+                      })
+                    }
+                  />
+                </span>
+                <span className="text">Sales Report</span>
+              </button>
+            </Link>
+          </div>
+          <div className="box-left-left">
             <button href="#cart" className="panel-box">
               <span className="icons">
-                <AssessmentIcon
+                <QueueIcon
                   style={
                     ({
                       fill: "white"
@@ -41,140 +60,113 @@ const SellerPanel = () => {
                   }
                 />
               </span>
-              <span className="text">Sales Report</span>
+              <span className="text">Add Product</span>
             </button>
-          </Link>
+          </div>
+          <div className="box-left-left">
+            <button href="#cart" className="panel-box">
+              <span className="icons">
+                <CastForEducationIcon
+                  style={
+                    ({
+                      fill: "white"
+                    },
+                    {
+                      fontSize: 40
+                    })
+                  }
+                />
+              </span>
+              <span className="text">Tutorials</span>
+            </button>
+          </div>
+          <div className="box-left-left">
+            <button href="#cart" className="panel-box">
+              <span className="icons">
+                <SettingsIcon
+                  style={
+                    ({
+                      fill: "white"
+                    },
+                    {
+                      fontSize: 40
+                    })
+                  }
+                />
+              </span>
+              <span className="text">Account Settings</span>
+            </button>
+          </div>
         </div>
         <div className="box-right">
-          <button href="#cart" className="panel-box">
-            <span className="icons">
-              <LocalShippingIcon
-                style={
-                  ({
-                    fill: "white"
-                  },
-                  {
-                    fontSize: 40
-                  })
-                }
-              />
-            </span>
-            <span className="text">Delivery Status</span>
-          </button>
-        </div>
-      </div>
-      <br></br>
-      <br></br>
-      <div className="all-boxes">
-        <div className="box-left">
-          <button href="#cart" className="panel-box">
-            <span className="icons">
-              <QueueIcon
-                style={
-                  ({
-                    fill: "white"
-                  },
-                  {
-                    fontSize: 40
-                  })
-                }
-              />
-            </span>
-            <span className="text">Add Product</span>
-          </button>
-        </div>
-        <div className="box-right">
-          <button href="#cart" className="panel-box">
-            <span className="icons">
-              <UpdateIcon
-                style={
-                  ({
-                    fill: "white"
-                  },
-                  {
-                    fontSize: 40
-                  })
-                }
-              />
-            </span>
-            <span className="text">View Inventory</span>
-          </button>
-        </div>
-      </div>
-      <br></br>
-      <br></br>
-      <div className="all-boxes">
-        <div className="box-left">
-          <button href="#cart" className="panel-box">
-            <span className="icons">
-              <CastForEducationIcon
-                style={
-                  ({
-                    fill: "white"
-                  },
-                  {
-                    fontSize: 40
-                  })
-                }
-              />
-            </span>
-            <span className="text">Tutorials</span>
-          </button>
-        </div>
-        <div className="box-right">
-          <button href="#cart" className="panel-box">
-            <span className="icons">
-              <NotificationsNoneIcon
-                style={
-                  ({
-                    fill: "white"
-                  },
-                  {
-                    fontSize: 40
-                  })
-                }
-              />
-            </span>
-            <span className="text">Notifications</span>
-          </button>
-        </div>
-      </div>
-      <br></br>
-      <br></br>
-      <div className="all-boxes">
-        <div className="box-left">
-          <button href="#cart" className="panel-box">
-            <span className="icons">
-              <SettingsIcon
-                style={
-                  ({
-                    fill: "white"
-                  },
-                  {
-                    fontSize: 40
-                  })
-                }
-              />
-            </span>
-            <span className="text">Account Settings</span>
-          </button>
-        </div>
-        <div className="box-right">
-          <button href="#cart" className="panel-box">
-            <span className="icons">
-              <MenuIcon
-                style={
-                  ({
-                    fill: "white"
-                  },
-                  {
-                    fontSize: 40
-                  })
-                }
-              />
-            </span>
-            <span className="text">Current Orders</span>
-          </button>
+          <div className="box-right-right">
+            <button href="#cart" className="panel-box">
+              <span className="icons">
+                <LocalShippingIcon
+                  style={
+                    ({
+                      fill: "white"
+                    },
+                    {
+                      fontSize: 40
+                    })
+                  }
+                />
+              </span>
+              <span className="text">Delivery Status</span>
+            </button>
+          </div>
+          <div className="box-right-right">
+            <button href="#cart" className="panel-box">
+              <span className="icons">
+                <UpdateIcon
+                  style={
+                    ({
+                      fill: "white"
+                    },
+                    {
+                      fontSize: 40
+                    })
+                  }
+                />
+              </span>
+              <span className="text">View Inventory</span>
+            </button>
+          </div>
+          <div className="box-right-right">
+            <button href="#cart" className="panel-box">
+              <span className="icons">
+                <NotificationsNoneIcon
+                  style={
+                    ({
+                      fill: "white"
+                    },
+                    {
+                      fontSize: 40
+                    })
+                  }
+                />
+              </span>
+              <span className="text">Notifications</span>
+            </button>
+          </div>
+          <div className="box-right-right">
+            <button href="#cart" className="panel-box">
+              <span className="icons">
+                <MenuIcon
+                  style={
+                    ({
+                      fill: "white"
+                    },
+                    {
+                      fontSize: 40
+                    })
+                  }
+                />
+              </span>
+              <span className="text">Current Orders</span>
+            </button>
+          </div>
         </div>
       </div>
       <BottomBar />
