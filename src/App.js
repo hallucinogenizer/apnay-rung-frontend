@@ -20,7 +20,7 @@ import ShoppingCart from "./ShoppingCart";
 import Checkout from "./Checkout";
 import SignUpCustomer from "./SignUpCustomer";
 import Catalog from "./Catalog";
-import NewCheckout from "./NewCheckout";
+// import NewCheckout from "./NewCheckout";
 import OrderConfirmation from "./OrderConfirmation";
 
 // Seller Pages
@@ -49,7 +49,13 @@ export default function App() {
           <Route path="/CustomerPanel" exact component={CustomerPanel} />
           <Route path="/ShoppingCart" exact component={ShoppingCart} />
           <Route path="/Checkout" exact component={Checkout} />
-          {/* <Route path="/Catalog" exact component={Catalog} /> */}
+          <Route path="/Catalog" exact component={Catalog} />
+          <Route path="/Product" exact component={Product} />
+          <Route
+            path="/OrderConfirmation"
+            exact
+            component={OrderConfirmation}
+          />
 
           {/* <Route path="/CustomerSettings" exact component={CustomerSettings} /> */}
           {/* <Route path="/CustomerSettings" exact component={CustomerSettings} /> */}
@@ -65,7 +71,7 @@ export default function App() {
           {/* <Route path="/Catalog" exact component={Catalog} /> */}
           {/* <Route path="/Homepage" exact component={Homepage} /> */}
           {/* <Route path="/Notifications" exact component={Notifications} /> */}
-          <Homepage />
+          {/* <Homepage /> */}
           {/* <CustomerPanel /> */}
           {/* <Catalog /> */}
           {/* <SecurityPage /> */}

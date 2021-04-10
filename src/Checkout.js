@@ -6,16 +6,17 @@ import Memory from "./Memory";
 import BottomBar from "./BottomBar";
 import { Link } from "react-router-dom";
 
-const Checkout = () => {
-  let initialValue = {
-    name: "Rohan",
-    email: "rohan1.gmail.com",
-    phone: "032245675",
-    ship_address: "Street 2, House 3, Mars, Milky Way",
-    bill_address: "",
-    additional_info: "",
-    payment: ""
-  };
+const NewCheckout = () => {
+  const [initialValue, setInitialValue] = useState([]);
+  // let initialValue = {
+  //   name: "Rohan",
+  //   email: "rohan1@gmail.com",
+  //   phone: "032245675",
+  //   ship_address: "Street 2, House 3, Mars, Milky Way",
+  //   bill_address: "",
+  //   additional_info: "",
+  //   payment: ""
+  // };
   const [state, setState] = useState({
     name: "",
     email: "",
@@ -25,27 +26,49 @@ const Checkout = () => {
     additional_info: "",
     payment: ""
   });
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [ship_address, setShipAddress] = useState("");
+
+  const getData = async (url) => {
+    const response = await fetch(url, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+      headers: {
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsIm5hbWUiOiJUYWltb29yIFRhcmlxIiwidHlwZU9mVXNlciI6ImN1c3RvbWVyIiwiaWF0IjoxNjE2OTYxNzMwfQ.Dn0FATITkhrR7e5tkp_XAmdPfp-FKJGzdskczt9k2fw",
+        "Content-Type": "application/json"
+      }
+    });
+    return response.json();
+  };
+
+  getData("https://apnay-rung-api.herokuapp.com/customer/info").then(
+    (response) => {
+      setInitialValue(response);
+      console.log("intiil value", initialValue);
+    }
+  );
+  const [name, setName] = useState(initialValue.name);
+  const [email, setEmail] = useState(initialValue.email);
+  const [phone, setPhone] = useState(initialValue.phone);
+  const [ship_address, setShipAddress] = useState(initialValue.address);
   const [bill_address, setBillAddress] = useState("");
   const [additional_info, setAdditionalInfo] = useState("");
   const [payment, setPayment] = useState("");
+  const SubmitHandler = (event) => {
+    // event.preventDefault();
 
-  const SubmitHandler = () => {
     console.log(`submitted form`);
     setState({
       name: name,
       email: email,
       phone: phone,
-      ship_address: ship_address,
-      bill_address: bill_address,
+      shipping_address: ship_address,
+      billing_address: bill_address,
       additional_info: additional_info,
       payment: payment
     });
     console.log(state);
-    console.log(state);
+    localStorage.setItem("customerInformation", JSON.stringify(state));
     //send 'state'to backend
   };
   const NameChangeHandler = (event) => {
@@ -72,17 +95,11 @@ const Checkout = () => {
     );
     setShipAddress(event.target.value);
   };
-  const BillingAddressChangeHandler = (event, same_address) => {
-    console.log(`in change handler `);
-    if (same_address === true) {
-      setBillAddress(ship_address);
-    } else {
-      try {
-        setBillAddress(event.target.value);
-      } catch {
-        console.log("error");
-      }
-    }
+  const BillingAddressChangeHandler = (event) => {
+    setBillAddress(ship_address);
+  };
+  const BillingAddressAdd = (event) => {
+    setBillAddress(event.target.value);
   };
   const InfoChangeHandler = (event) => {
     console.log(
@@ -109,15 +126,16 @@ const Checkout = () => {
           className="input-form"
           type="text"
           name="name"
-          value={initialValue.name}
+          value={name}
+          // value={initialValue.name}
           onChange={NameChangeHandler}
         ></input>
         <p className="label-form"> Customer Email Address </p>
         <input
           className="input-form"
-          type="text"
+          type="email"
           name="email"
-          value={initialValue.email}
+          value={email}
           onChange={EmailChangeHandler}
         ></input>
         <p className="label-form"> Customer Phone Number </p>
@@ -125,7 +143,7 @@ const Checkout = () => {
           className="input-form"
           type="text"
           name="phone"
-          value={initialValue.phone}
+          value={phone}
           onChange={PhoneChangeHandler}
         ></input>
         <p className="label-form">Shipping Address</p>
@@ -133,16 +151,16 @@ const Checkout = () => {
           className="input-form"
           type="text"
           name="ship_address"
-          value={initialValue.ship_address}
+          value={ship_address}
           onChange={ShippingChangeHandler}
         ></input>
         <p className="label-form">Billing Address</p>
         <label className="checkbox-form-new">
           <input
-            // className="checkbox-form-new"
+            // className="checkbox-form"
             type="checkbox"
             name="check-billing"
-            onClick={() => BillingAddressChangeHandler(true)}
+            onClick={BillingAddressChangeHandler}
           ></input>
           Same as Shipping Address
         </label>
@@ -150,7 +168,7 @@ const Checkout = () => {
           className="input-form"
           type="text"
           name="bill_address"
-          onChange={() => BillingAddressChangeHandler(false)}
+          onChange={BillingAddressAdd}
         ></input>
         <p className="label-form">Additional Information</p>
         <textarea
@@ -162,17 +180,10 @@ const Checkout = () => {
           rows="4"
           cols="50"
         ></textarea>
-        {/* <input
-          className="input-des"
-          type="text"
-          name="additional_info"
-          placeholder="e.g. Please send in blue color"
-          onChange={InfoChangeHandler}
-        ></input> */}
         <p className="label-form">Payment Method</p>
         <label className="checkbox-form-new">
           <input
-            className="radio-label"
+            // className="radio-label"
             type="radio"
             name="payment"
             value="Cash on Delivery"
@@ -183,7 +194,7 @@ const Checkout = () => {
         <br />
         <label className="checkbox-form-new">
           <input
-            className="radio-label"
+            // className="radio-label"
             type="radio"
             name="payment"
             value="Bank Transfer"
@@ -210,6 +221,7 @@ const Checkout = () => {
             type="submit"
             className="submit-button3"
             value="Confirm Order"
+            onClick={SubmitHandler}
           ></input>
         </Link>
       </form>
@@ -220,4 +232,4 @@ const Checkout = () => {
     </div>
   );
 };
-export default Checkout;
+export default NewCheckout;
