@@ -109,3 +109,8 @@ li {
 .home-button {
   float: right;
 }
+.logo {
+  margin-top: 5px;
+  /* margin-top: 0.5%; */
+  /* margin-bottom: 0.5%; */
+}

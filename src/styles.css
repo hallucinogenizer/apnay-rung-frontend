@@ -958,7 +958,8 @@ h4 {
 
 .panel-box {
   /* position: absolute; */
-  border: 1px;
+  border: none;
+  /* width: 100%; */
   width: 370px !important;
   height: 60px !important;
   left: 303.5px !important;
@@ -966,6 +967,7 @@ h4 {
   font-size: 24px;
 
   padding-left: 2%;
+  /* padding-right: 7%; */
   text-align: center;
   background-color: #ffffff;
   border-style: outset;
@@ -983,7 +985,7 @@ h4 {
 
 .icons-last {
   float: left;
-  /* margin-left: 5%; */
+
   padding-right: 4%;
   text-align: center;
 }
@@ -997,23 +999,36 @@ h4 {
 }
 .box-left {
   float: left;
-  margin-left: 23%;
+  width: 50%;
+}
+.box-left-left {
+  display: block;
+  float: right;
+  padding-left: 30%;
+  padding-right: 10%;
+  margin-top: 2%;
 }
 .box-right {
   float: right;
-  margin-right: 23%;
+  width: 50%;
 }
-.box-left .box-right {
-  display: inline-block;
-}
-.box-last {
-  /* text-align: center; */
+.box-right-right {
+  display: block;
   float: left;
-  margin-left: 37%;
-  /* margin-right: auto; */
+  padding-right: 30%;
+  padding-left: 10%;
+  margin-top: 2%;
+}
+/* .last-customer-box {
+  margin-top: 2%;
   position: center;
   justify-content: center !important;
-}
+} */
+/* .box-last {
+  float: left;
+  position: center;
+  justify-content: center !important;
+} */
 .all-boxes {
   display: inline-block;
   height: 100%;

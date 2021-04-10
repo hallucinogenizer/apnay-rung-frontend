@@ -54,9 +54,9 @@ const NewCheckout = () => {
   const [bill_address, setBillAddress] = useState("");
   const [additional_info, setAdditionalInfo] = useState("");
   const [payment, setPayment] = useState("");
+
   const SubmitHandler = (event) => {
     event.preventDefault();
-    localStorage.setItem("customerInformation", JSON.stringify(state));
 
     console.log(`submitted form`);
     setState({
@@ -68,6 +68,7 @@ const NewCheckout = () => {
       additional_info: additional_info,
       payment: payment
     });
+    localStorage.setItem("customerInformation", JSON.stringify(state));
     console.log(state);
     //send 'state'to backend
   };

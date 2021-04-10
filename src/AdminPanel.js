@@ -27,210 +27,199 @@ const AdminPanel = () => {
       <br></br>
       <div className="all-boxes">
         <div className="box-left">
-          <Link to="/ViewCustomers" className="router-link">
-            <button href="#buyers" className="panel-box">
-              <span className="icons">
-                <GroupOutlinedIcon
-                  style={
-                    ({
-                      fill: "white"
-                    },
-                    {
-                      fontSize: 40
-                    })
-                  }
-                />
-              </span>
-              <span className="text">View All Buyers</span>
-            </button>
-          </Link>
+          <div className="box-left-left">
+            <Link to="/ViewCustomers" className="router-link">
+              <button href="#buyers" className="panel-box">
+                <span className="icons">
+                  <GroupOutlinedIcon
+                    style={
+                      ({
+                        fill: "white"
+                      },
+                      {
+                        fontSize: 40
+                      })
+                    }
+                  />
+                </span>
+                <span className="text">View All Buyers</span>
+              </button>
+            </Link>
+          </div>
+          <div className="box-left-left">
+            <Link to="/ViewAllProducts" className="router-link">
+              <button href="#products" className="panel-box">
+                <span className="icons">
+                  <AddShoppingCartIcon
+                    style={
+                      ({
+                        fill: "white"
+                      },
+                      {
+                        fontSize: 40
+                      })
+                    }
+                  />
+                </span>
+                <span className="text">View All Products</span>
+              </button>
+            </Link>
+          </div>
+          <div className="box-left-left">
+            <Link to="/ViewOrders" className="router-link">
+              <button href="#orders" className="panel-box">
+                <span className="icons">
+                  <MenuIcon
+                    style={
+                      ({
+                        fill: "white"
+                      },
+                      {
+                        fontSize: 40
+                      })
+                    }
+                  />
+                </span>
+                <span className="text">View All Orders</span>
+              </button>
+            </Link>
+          </div>
+          <div className="box-left-left">
+            <Link to="/Tutorials" className="router-link">
+              <button href="#tutorials" className="panel-box">
+                <span className="icons">
+                  <CastForEducationIcon
+                    style={
+                      ({
+                        fill: "white"
+                      },
+                      {
+                        fontSize: 40
+                      })
+                    }
+                  />
+                </span>
+                <span className="text">Tutorials</span>
+              </button>
+            </Link>
+          </div>
+          <div className="box-left-left">
+            <Link to="/Notifications" className="router-link">
+              <button href="#notifications" className="panel-box">
+                <span className="icons">
+                  <NotificationsNoneIcon
+                    style={
+                      ({
+                        fill: "white"
+                      },
+                      {
+                        fontSize: 40
+                      })
+                    }
+                  />
+                </span>
+                <span className="text">Notifications</span>
+              </button>
+            </Link>
+          </div>
         </div>
+
         <div className="box-right">
-          <Link to="/ViewSellers" className="router-link">
-            <button href="#sellers" className="panel-box">
-              <span className="icons">
-                <GroupIcon
-                  style={
-                    ({
-                      fill: "white"
-                    },
-                    {
-                      fontSize: 40
-                    })
-                  }
-                />
-              </span>
-              <span className="text">View All Sellers</span>
-            </button>
-          </Link>
-        </div>
-      </div>
-      <br></br>
-      <br></br>
-      <div className="all-boxes">
-        <div className="box-left">
-          <Link to="/ViewAllProducts" className="router-link">
-            <button href="#products" className="panel-box">
-              <span className="icons">
-                <AddShoppingCartIcon
-                  style={
-                    ({
-                      fill: "white"
-                    },
-                    {
-                      fontSize: 40
-                    })
-                  }
-                />
-              </span>
-              <span className="text">View All Products</span>
-            </button>
-          </Link>
-        </div>
-        <div className="box-right">
-          <Link to="/Catalog" className="router-link">
-            <button href="#catalog" className="panel-box">
-              <span className="icons">
-                <NextWeekIcon
-                  style={
-                    ({
-                      fill: "white"
-                    },
-                    {
-                      fontSize: 40
-                    })
-                  }
-                />
-              </span>
-              <span className="text">View Catalog</span>
-            </button>
-          </Link>
-        </div>
-      </div>
-      <br></br>
-      <br></br>
-      <div className="all-boxes">
-        <div className="box-left">
-          <Link to="/ViewOrders" className="router-link">
-            <button href="#orders" className="panel-box">
-              <span className="icons">
-                <MenuIcon
-                  style={
-                    ({
-                      fill: "white"
-                    },
-                    {
-                      fontSize: 40
-                    })
-                  }
-                />
-              </span>
-              <span className="text">View All Orders</span>
-            </button>
-          </Link>
-        </div>
-        <div className="box-right">
-          <Link to="/QueryForms" className="router-link">
-            <button href="#forms" className="panel-box">
-              <span className="icons">
-                <EmailIcon
-                  style={
-                    ({
-                      fill: "white"
-                    },
-                    {
-                      fontSize: 40
-                    })
-                  }
-                />
-              </span>
-              <span className="text">Query Forms</span>
-            </button>
-          </Link>
-        </div>
-      </div>
-      <br></br>
-      <br></br>
-      <div className="all-boxes">
-        <div className="box-left">
-          <Link to="/Tutorials" className="router-link">
-            <button href="#tutorials" className="panel-box">
-              <span className="icons">
-                <CastForEducationIcon
-                  style={
-                    ({
-                      fill: "white"
-                    },
-                    {
-                      fontSize: 40
-                    })
-                  }
-                />
-              </span>
-              <span className="text">Tutorials</span>
-            </button>
-          </Link>
-        </div>
-        <div className="box-right">
-          <Link to="/AdminSettings" className="router-link">
-            <button href="#settings" className="panel-box">
-              <span className="icons">
-                <SettingsIcon
-                  style={
-                    ({
-                      fill: "white"
-                    },
-                    {
-                      fontSize: 40
-                    })
-                  }
-                />
-              </span>
-              <span className="text">Account Settings</span>
-            </button>
-          </Link>
-        </div>
-      </div>
-      <br></br>
-      <br></br>
-      <div className="all-boxes">
-        <div className="box-left">
-          <Link to="/Notifications" className="router-link">
-            <button href="#notifications" className="panel-box">
-              <span className="icons">
-                <NotificationsNoneIcon
-                  style={
-                    ({
-                      fill: "white"
-                    },
-                    {
-                      fontSize: 40
-                    })
-                  }
-                />
-              </span>
-              <span className="text">Notifications</span>
-            </button>
-          </Link>
-        </div>
-        <div className="box-right">
-          <Link to="/ApproveSellers" className="router-link">
-            <button href="#cart" className="panel-box">
-              <span className="icons">
-                <GroupOutlinedIcon
-                  style={
-                    ({
-                      fill: "white"
-                    },
-                    {
-                      fontSize: 40
-                    })
-                  }
-                />
-              </span>
-              <span className="text">Approve Sellers</span>
-            </button>
-          </Link>
+          <div className="box-right-right">
+            <Link to="/ViewSellers" className="router-link">
+              <button href="#sellers" className="panel-box">
+                <span className="icons">
+                  <GroupIcon
+                    style={
+                      ({
+                        fill: "white"
+                      },
+                      {
+                        fontSize: 40
+                      })
+                    }
+                  />
+                </span>
+                <span className="text">View All Sellers</span>
+              </button>
+            </Link>
+          </div>
+          <div className="box-right-right">
+            <Link to="/Catalog" className="router-link">
+              <button href="#catalog" className="panel-box">
+                <span className="icons">
+                  <NextWeekIcon
+                    style={
+                      ({
+                        fill: "white"
+                      },
+                      {
+                        fontSize: 40
+                      })
+                    }
+                  />
+                </span>
+                <span className="text">View Catalog</span>
+              </button>
+            </Link>
+          </div>
+          <div className="box-right-right">
+            <Link to="/QueryForms" className="router-link">
+              <button href="#forms" className="panel-box">
+                <span className="icons">
+                  <EmailIcon
+                    style={
+                      ({
+                        fill: "white"
+                      },
+                      {
+                        fontSize: 40
+                      })
+                    }
+                  />
+                </span>
+                <span className="text">Query Forms</span>
+              </button>
+            </Link>
+          </div>
+          <div className="box-right-right">
+            <Link to="/AdminSettings" className="router-link">
+              <button href="#settings" className="panel-box">
+                <span className="icons">
+                  <SettingsIcon
+                    style={
+                      ({
+                        fill: "white"
+                      },
+                      {
+                        fontSize: 40
+                      })
+                    }
+                  />
+                </span>
+                <span className="text">Account Settings</span>
+              </button>
+            </Link>
+          </div>
+          <div className="box-right-right">
+            <Link to="/ApproveSellers" className="router-link">
+              <button href="#cart" className="panel-box">
+                <span className="icons">
+                  <GroupOutlinedIcon
+                    style={
+                      ({
+                        fill: "white"
+                      },
+                      {
+                        fontSize: 40
+                      })
+                    }
+                  />
+                </span>
+                <span className="text">Approve Sellers</span>
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
       <BottomBar />

@@ -86,14 +86,14 @@ const CustomerNavbar = () => {
       <img className="logo" src={Logo} alt="logo" />
       <Link
         to="/Homepage"
-        onMouseLeave={setHomeClass}
+        onClick={setHomeClass}
         className={home ? "active" : ""}
       >
         Home
       </Link>
       <Link
         to="/CustomerPanel"
-        onMouseLeave={setPanelClass}
+        onClick={setPanelClass}
         className={panel ? "active" : ""}
       >
         Panel

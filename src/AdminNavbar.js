@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "./styles.css";
 import "./momina.css";
-import Logo from "./css/logo.png";
+import "./maham.css";
+import Logo from "./css/logo.svg";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 import { Link } from "react-router-dom";
