@@ -228,7 +228,7 @@ const Product = () => {
 
   return (
     <div>
-      <CustomerNavBar />
+      <CustomerNavBar currentPage="Product" />
       <Memory panel="Catalog " page="Home" current=" Kitchen" />
       {/* <a id=back-btn><img src=/css/back.png width="26"></a> */}
       {renderProduct()}

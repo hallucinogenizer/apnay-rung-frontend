@@ -7,8 +7,9 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 import SearchIcon from "@material-ui/icons/Search";
+import { Modal, Button } from "react-bootstrap";
 
-const CustomerNavbar = () => {
+const CustomerNavbar = (props) => {
   {
     /* will need to add local storage state to keep the state from being deleted after refresh */
   }
@@ -81,6 +82,7 @@ const CustomerNavbar = () => {
       </div>
     );
   };
+
   return (
     <div className="Topbar" id="myTopnav">
       <img className="logo" src={Logo} alt="logo" />
@@ -138,7 +140,7 @@ const CustomerNavbar = () => {
           <span className="text">Logout</span>
         </button>
       </Link>
-      <Link to="/ShoppingCart">
+      <Link to="./ShoppingCart">
         <button href="#cart" className="test-cart">
           <span>
             <ShoppingCartIcon />

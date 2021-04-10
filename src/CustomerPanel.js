@@ -11,19 +11,37 @@ import RateReviewIcon from "@material-ui/icons/RateReview";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 import SettingsIcon from "@material-ui/icons/Settings";
 import { Link } from "react-router-dom";
+import React, { useState } from "react";
 
 const CustomerPanel = () => {
+  let link = ``;
+  const storage = JSON.parse(localStorage.getItem("shoppingCart"));
+  if (storage !== null) {
+    link = "/ShoppingCart";
+  } else {
+    link = "/CustomerPanel";
+  }
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => {
+    setShow(false);
+  };
+  const handleShow = () => {
+    setShow(true);
+  };
+
   return (
     <div>
-      <CustomerNavbar />
-      <Memory panel="Cutomer Panel" /> {/* <page="" current="" /> */}
+      <CustomerNavbar currentPage="CustomerPanel" />
+      <Memory panel="Customer Panel" /> {/* <page="" current="" /> */}
       {/* when three links needed in panel, include a '/' in the middle 'page' argument */}
       <h1>Customer Panel</h1>
       <br></br>
       <br></br>
       <div className="all-boxes">
         <div className="box-left">
-          <Link to="/ShoppingCart" className="router-link">
+          <Link to={link} className="router-link" onClick={() => handleShow()}>
             <button href="#cart" className="panel-box">
               <span className="icons">
                 <ShoppingCartIcon
@@ -125,8 +143,22 @@ const CustomerPanel = () => {
         </Link>
       </div>
       <BottomBar />
+      <Modal show={show} onHide={handleClose} className="delete-modal">
+        <Modal.Header closeButton>
+          <Modal.Title>Empty</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Shopping Cart is Empty</Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="primary"
+            className="delete-primary"
+            onClick={handleClose}
+          >
+            Back
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
 export default CustomerPanel;
-

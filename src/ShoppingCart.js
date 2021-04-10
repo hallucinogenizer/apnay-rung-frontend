@@ -68,16 +68,17 @@ const ShoppingCart = () => {
   const fromLocalStorage = JSON.parse(localStorage.getItem("shoppingCart"));
   const [state, setState] = useState(fromLocalStorage);
 
-  if (state == null) {
-    return <div>CART IS EMPTY</div>;
-  }
-
   //The below block of code will give the initial total bill before any increments/decrements
   let cost = 0;
-  state.map((product, index) => {
-    const { productID, productTitle, quantity, price } = product;
-    cost = cost + quantity * price;
-  });
+  try {
+    state.map((product, index) => {
+      const { productID, productTitle, quantity, price } = product;
+      cost = cost + quantity * price;
+    });
+  } catch {
+    cost = 0;
+  }
+
   // console.log(cost);
 
   const [show, setShow] = useState(false);
@@ -106,42 +107,71 @@ const ShoppingCart = () => {
   // const setTotal= useRef(0)
 
   const renderTableData = () => {
-    return state.map((product, index) => {
-      const { productID, productTitle, quantity, price } = product; //destructuring
-      // console.log(quantity);
-      let ind = index;
+    try {
+      return state.map((product, index) => {
+        const { productID, productTitle, quantity, price } = product; //destructuring
+        // console.log(quantity);
+        let ind = index;
 
+        return (
+          <tr className="data">
+            <td>{productID}</td>
+            <td>{productTitle}</td>
+            {/* <input className="text-center" type="number" min={quantity} /> */}
+            <td>
+              <Counter
+                key={quantity}
+                qty={quantity}
+                costFunc={setTotal}
+                totalBill={total}
+                price={price}
+                ind={ind}
+                stateFunc={setState}
+              />
+            </td>
+            <td>PKR {price}</td>
+            <td>PKR {quantity * price}</td>
+            <td>
+              <a
+                href="#top"
+                to="/ShoppingCart"
+                className="link"
+                onClick={() => handleShow(ind)}
+              >
+                Delete
+              </a>
+            </td>
+          </tr>
+        );
+      });
+    } catch {
       return (
-        <tr className="data">
-          <td>{productID}</td>
-          <td>{productTitle}</td>
-          {/* <input className="text-center" type="number" min={quantity} /> */}
-          <td>
-            <Counter
-              key={quantity}
-              qty={quantity}
-              costFunc={setTotal}
-              totalBill={total}
-              price={price}
-              ind={ind}
-              stateFunc={setState}
-            />
-          </td>
-          <td>PKR {price}</td>
-          <td>PKR {quantity * price}</td>
-          <td>
-            <a
-              href="#top"
-              to="/ShoppingCart"
-              className="link"
-              onClick={() => handleShow(ind)}
-            >
-              Delete
-            </a>
-          </td>
-        </tr>
+        <div>
+          {/* CART IS EMPTY */}
+          <Modal
+            show={true}
+            onHide={() => handleClose(false)}
+            className="delete-modal"
+          >
+            <Modal.Header closeButton>
+              <Modal.Title>Empty</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>Shopping cart is empty</Modal.Body>
+            <Modal.Footer>
+              <Link to="/Catalog">
+                <Button
+                  variant="primary"
+                  onClick={() => handleClose(false)}
+                  className="delete-primary"
+                >
+                  Buy Products
+                </Button>
+              </Link>
+            </Modal.Footer>
+          </Modal>
+        </div>
       );
-    });
+    }
   };
 
   return (

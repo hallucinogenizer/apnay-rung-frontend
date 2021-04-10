@@ -1,5 +1,5 @@
 import "./styles.css";
-import AdminNavbar from "./AdminNavbar";
+import CustomerNavbar from "./CustomerNavbar";
 import Memory from "./Memory";
 import BottomBar from "./BottomBar";
 import AddBoxIcon from "@material-ui/icons/AddBox";
@@ -77,7 +77,8 @@ const OrderConfirmation = () => {
           email: customerInfo.email,
           phone: customerInfo.phone,
           billing_address: customerInfo.bill_address,
-          shipping_address: customerInfo.ship_address
+          shipping_address: customerInfo.ship_address,
+          payment_method: customerInfo.payment
         })
       }
     );
@@ -103,7 +104,7 @@ const OrderConfirmation = () => {
   const handleShow = () => setShow(true);
   return (
     <div>
-      <AdminNavbar />
+      <CustomerNavbar />
       <Memory
         panel="Customer Panel "
         page="Shopping Cart / Checkout /"
