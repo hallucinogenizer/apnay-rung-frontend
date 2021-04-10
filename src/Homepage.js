@@ -15,7 +15,8 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 
 const Homepage = () => {
-  const [state, setState] = useState([]);
+  const [productState, setProductState] = useState([]);
+  const [sellerState, setSellerState] = useState([]);
 
   const getData = async (url) => {
     const response = await fetch(url, {
@@ -33,30 +34,41 @@ const Homepage = () => {
 
   getData("https://apnay-rung-api.herokuapp.com/inventory/limit/8").then(
     (response) => {
-      setState(response);
+      setProductState(response);
+    }
+  );
+  getData("https://apnay-rung-api.herokuapp.com/seller/limit/3").then(
+    (response) => {
+      setSellerState(response);
     }
   );
   const renderProducts = () => {
-    return state.map((product, index) => {
-      const { item_id, title, artist, price, image } = product; //destructuring
+    return productState.map((product, index) => {
+      const { title, seller_id, price, image } = product; //destructuring
       return (
         <div className="product-div">
           <img className="product-img" src={image} alt="product" />
           <h3>{title}</h3>
-          <h5>Artist: {artist}</h5>
+          <h5>Artist: {seller_id}</h5>
           <h5>Price: Rs {price}</h5>
         </div>
       );
     });
   };
   const renderSellers = () => {
-    return state.sellers.map((seller, index) => {
-      const { name, handicraft, image } = seller;
+    return sellerState.map((seller, index) => {
+      const { name, location, profile_picture } = seller;
       return (
         <div className="seller-main">
-          <img className="main-artist-image" src={image} alt="seller" />
-          <p className="main-text-seller">{name}</p>
-          <p className="main-text-seller2">{handicraft}</p>
+          <img
+            className="main-artist-image"
+            src={profile_picture}
+            alt="seller"
+          />
+          <div>
+            <p className="main-text-seller">{name}</p>
+            <p className="main-text-seller2">{location}</p>
+          </div>
         </div>
       );
     });

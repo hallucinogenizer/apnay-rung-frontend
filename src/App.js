@@ -65,12 +65,12 @@ export default function App() {
           {/* <Route path="/Catalog" exact component={Catalog} /> */}
           {/* <Route path="/Homepage" exact component={Homepage} /> */}
           {/* <Route path="/Notifications" exact component={Notifications} /> */}
-          {/* <Homepage /> */}
+          <Homepage />
           {/* <CustomerPanel /> */}
           {/* <Catalog /> */}
           {/* <SecurityPage /> */}
           {/* <SignUpCustomer /> */}
-          <Checkout />
+          {/* <Checkout /> */}
           {/* <AdminPanel /> */}
           {/* <SellerNavbar /> */}
           {/* <Product /> */}
