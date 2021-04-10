@@ -1,5 +1,5 @@
 import "./styles.css";
-import AdminNavbar from "./AdminNavbar";
+import CustomerNavbar from "./CustomerNavbar";
 import Memory from "./Memory";
 import BottomBar from "./BottomBar";
 import AddBoxIcon from "@material-ui/icons/AddBox";
@@ -35,10 +35,57 @@ const OrderConfirmation = () => {
       );
     });
   };
+  const [msg, setMsg] = useState([``]);
 
+  async function sendData() {
+    infoObject();
+    const response = await fetch(
+      "https://apnay-rung-api.herokuapp.com/order/new",
+      {
+        method: "POST",
+        withCredentials: true,
+        credentials: "include",
+        headers: {
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6IlZhZmEgQmF0b29sIiwidHlwZU9mVXNlciI6InNlbGxlciIsImlhdCI6MTYxNjg0NDE3N30.xYaUcX7dmdqY5co2tMbVA_9jh0M1fVBB-AX0Aam5G7Y",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          items: items,
+          totalamount: total,
+          delivery_status: "processing",
+          name: customerInfo.name,
+          email: customerInfo.email,
+          phone: customerInfo.phone,
+          billing_address: customerInfo.bill_address,
+          shipping_address: customerInfo.ship_address,
+          payment_method: customerInfo.payment
+        })
+      }
+    );
+
+    console.log(response);
+
+    if (response.status === 201) {
+      localStorage.removeItem("shoppingCart");
+      localStorage.removeItem("customerInformation");
+      setMsg([`You order has been placed.`, `Back to Home`]);
+      handleShow();
+    } else {
+      setMsg([`You order could not be placed.Try again.`, `Back`]);
+      handleShow();
+    }
+  }
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => {
+    setShow(false);
+  };
+
+  const handleShow = () => setShow(true);
   return (
     <div>
-      <AdminNavbar />
+      <CustomerNavbar />
       <Memory
         panel="Customer Panel "
         page="Shopping Cart / Checkout /"
