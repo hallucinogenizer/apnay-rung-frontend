@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 
-const NewAdminNavbar = () => {
+const AdminNavbar = () => {
     let tokenID = localStorage.getItem("Token");
     const [userstate, setUserState] = useState([]);
     useEffect(() => {
@@ -69,8 +69,8 @@ const NewAdminNavbar = () => {
                     <NotificationsNoneIcon />
                     </a>
                 </Link>
-                <Link to="/Homepage" onClick={LogoutClear()}>
-                    <a className="nav-item nav-link">
+                <Link to="/Homepage" >
+                    <a className="nav-item nav-link" onClick={()=>LogoutClear()}>
                     <ExitToAppIcon className="rotate-180" />Logout
                     </a>
                 </Link>
@@ -85,4 +85,4 @@ const NewAdminNavbar = () => {
     )
 }
 
-export default NewAdminNavbar;
+export default AdminNavbar;
