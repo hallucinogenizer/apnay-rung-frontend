@@ -48,7 +48,7 @@ const NewCheckout = () => {
       name: name,
       email: email,
       phone: phone,
-      shipping_addres: ship_address,
+      shipping_address: ship_address,
       billing_address: bill_address,
       additional_info: additional_info,
       payment: payment
@@ -193,7 +193,7 @@ const NewCheckout = () => {
           to us by mail or by WhatsApp to confirm your order.
           <br /> IBAN: PK48HABB12345678910
         </p>{" "}
-        <br />
+        <div className="checkout-buttons">
         <Link to="/ShoppingCart">
           <input
             type="submit"
@@ -209,6 +209,7 @@ const NewCheckout = () => {
             onClick={SubmitHandler}
           ></input>
         </Link>
+        </div>
       </form>
       <br />
       <br />

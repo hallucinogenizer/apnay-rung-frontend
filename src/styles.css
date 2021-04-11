@@ -569,7 +569,8 @@ input[type="file"] {
   margin-right: 5%;
 }
 .submit-button2 {
-  width: 10%;
+  /* width: 12%; */
+  width: fit-content;
   height: 34px;
   background-color: #d67d20;
   color: #efefef;
@@ -583,7 +584,7 @@ input[type="file"] {
   display: block;
 }
 .submit-button3 {
-  width: 10%;
+  width: fit-content;
   height: 34px;
   background-color: #424242;
   color: #efefef;

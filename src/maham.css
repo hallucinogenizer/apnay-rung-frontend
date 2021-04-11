@@ -157,3 +157,7 @@ li {
 .productpage-artisan{
   margin-top: 5%;
 }
+.checkout-buttons{
+  display:block;
+  margin-bottom: 7%;
+}
