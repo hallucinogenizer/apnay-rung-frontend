@@ -1,106 +1,50 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./styles.css";
 import "./momina.css";
+import "./maham.css";
 import Logo from "./css/logo.png";
 import { Link } from "react-router-dom";
-// import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-const HomeNavbar = () => {
- 
-  const [home, setHome] = useState(false);
-  const [catalog, setCatalog] = useState(false);
-  const [artisans, setArtisans] = useState(false);
-  const [aboutus, setAboutus] = useState(false);
-  const [contact, setContact] = useState(false);
 
-  const setHomeClass = () => {
-    setHome(true);
-    setArtisans(false);
-    setCatalog(false);
-    setContact(false);
-    setAboutus(false);
-  };
- 
-  const setArtisanClass = () => {
-    setHome(false);
-    setArtisans(true);
-    setCatalog(false);
-    setContact(false);
-    setAboutus(false);
-  };
-  const setCatalogClass = () => {
-    setHome(false);
-    setArtisans(false);
-    setCatalog(true);
-    setContact(false);
-    setAboutus(false);
-  };
-  const setContactClass = () => {
-    setHome(false);
-    setArtisans(false);
-    setCatalog(false);
-    setContact(true);
-    setAboutus(false);
-  };
-  const setAboutClass = () => {
-    setHome(false);
-    setArtisans(false);
-    setCatalog(false);
-    setContact(false);
-    setAboutus(true);
-  };
-  return (
-    <div className="Topbar" id="myTopnav">
-      <img className="logo" src={Logo} alt="logo" />
-      <Link
-        to="/Homepage"
-        className="router-link"
-        onMouseEnter={setHomeClass}
-        className={home ? "active" : ""}
-      >
-        Home
-      </Link>
-      <Link
-        to="/Catalog"
-        // className="router-link"
-        onMouseEnter={setCatalogClass}
-        className={catalog ? "active" : ""}
-      >
-        Catalog
-      </Link>
-      <Link
-        to="/Artisan"
-        // className="router-link"
-        onMouseEnter={setArtisanClass}
-        className={artisans ? "active" : ""}
-      >
-        Artisans
-      </Link>
-      <Link
-        to="/AboutUs"
-        // className="router-link"
-        onMouseEnter={setAboutClass}
-        className={aboutus ? "active" : ""}
-      >
-        About Us
-      </Link>
-      <Link
-        to="/Contact"
-        // className="router-link"
-        onMouseEnter={setContactClass}
-        className={contact ? "active" : ""}
-      >
-        Contact
-      </Link>
-      <div className="home-button">
-        <Link to="/SignupCustomer">
-          <input type="button" className="logout_button" value="Signup" />
+const NewNavbar = () => {
+    return (
+        <div>
+        <div className="bs-example">
+        <nav className="navbar navbar-expand-md navbar-light bg-light">
+        <Link to="/Homepage">
+        <a className="navbar-brand">
+        <img src={Logo} height="28" alt="CoolBrand"/>
+        </a>
         </Link>
-        <Link to="/Login">
-          <input type="button" className="logout_button" value="Login" />
-        </Link>
-      </div>
+        <button type="button" className="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav">
+                <Link to="/Homepage">
+                <a className={`nav-item nav-link`}>Home</a>
+                </Link>
+                <Link to="/Catalog">
+                <a className="nav-item nav-link">Catalog</a>
+                </Link>
+                <a className="nav-item nav-link disabled" tabindex="-1">Artisans</a>
+                <a  className="nav-item nav-link disabled" tabindex="-1">About Us</a>
+                <a  className="nav-item nav-link disabled" tabindex="-1">Contact</a>
+            </div>
+            <div className="navbar-nav ml-auto">
+                <Link to="/Login">
+                <a className="nav-item nav-link">Login</a>
+                </Link>
+                <Link to="/SignupCustomer">
+                <a className="nav-item nav-link">Signup</a>
+                </Link>
+                
+            </div>
+        </div>
+        </nav>
     </div>
-  );
-};
+    </div>
+    )
+}
 
-export default HomeNavbar;
+export default NewNavbar;
