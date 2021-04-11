@@ -18,6 +18,7 @@ const ResetPassword = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [show, setShow] = useState(false);
+  const [check, setCheck] = useState([])
 
   const handleClose = () => setShow(false);
   const handleShow = () => {
@@ -59,10 +60,16 @@ const ResetPassword = () => {
     setErrors(validate(values));
     setIsSubmitting(true);
 
-    const updatePass = await postData(values.password1);
+    if (check.length > 0 && values.password2!==""){
+      console.log(`ugh here`);
 
-    if (updatePass.status === 202) {
-      window.location.href = "/Login";
+      const updatePass = await postData(values.password1);
+
+      if (updatePass.status === 202) {
+        window.location.href = "/Login";
+      }
+    }else{
+
     }
   };
 
@@ -79,8 +86,10 @@ const ResetPassword = () => {
       [e.target.name]: e.target.value
     });
     console.log(values);
+    setCheck([1])
   };
   async function postData(password) {
+    localStorage.setItem("Email", "vafabatool@live.com");
     const userEmail = localStorage.getItem("Email");
     console.log(`printing email`, userEmail);
     const temp = {
@@ -99,13 +108,14 @@ const ResetPassword = () => {
         body: JSON.stringify(temp)
       }
     );
+    return response;
   }
   const displayPage = () => {
     return (
       <div>
         <div>
           <form onSubmit={submitHandler}>
-            <img src={Logo} className="forgot-pass-logo" alt="our logo" />
+            <img src={Logo} className="reset-pass-logo" alt="our logo" />
             <div className="forgot-pass-heading">Reset Password</div>
             <br />
             <div>
@@ -117,7 +127,7 @@ const ResetPassword = () => {
               <input
                 type="password"
                 name="password1"
-                className="login-label-form"
+                className="reset-label-form"
                 placeholder="enter new password "
                 value={values.password1}
                 onChange={changeHandler}
@@ -132,7 +142,7 @@ const ResetPassword = () => {
               <input
                 type="password"
                 name="password2"
-                className="login-label-form"
+                className="reset-label-form"
                 placeholder="re-type password"
                 value={values.password2}
                 onChange={changeHandler}
