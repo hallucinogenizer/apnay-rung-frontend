@@ -36,7 +36,9 @@ const Navbar = () => {
     }
   );
   }, []);
-  
+  const LogoutClear = () => {
+    localStorage.removeItem("Token");
+  }
   const setHomeClass = () => {
     setHome(true);
     setPanel(false);
@@ -93,7 +95,7 @@ const Navbar = () => {
           </button>
         </Link>
         <Link to="/HomePage">
-          <button href="#cart" className="test-logout-admin">
+          <button href="#cart" className="test-logout-admin" onClick={LogoutClear}>
             <span>
               <ExitToAppIcon className="rotate-180" />
               {/* Logout */}

@@ -15,13 +15,13 @@ import AdminPanel from "./AdminPanel";
 import CustomerPanel from "./CustomerPanel";
 import ShoppingCart from "./ShoppingCart";
 import Checkout from "./Checkout";
-import SignupCustomer from "./SignupCustomer";
+import SignupCustomer from "./SignUpCustomer";
 import SecurityPage from "./SecurityPage";
 import OrderConfirmation from "./OrderConfirmation";
 
 // Seller Pages
 import SellerPanel from "./SellerPanel";
-import SignupSeller from "./SignupSeller";
+import SignupSeller from "./SignUpSeller";
 import UploadCNIC from "./UploadCNIC";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";

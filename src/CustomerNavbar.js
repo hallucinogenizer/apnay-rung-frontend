@@ -42,6 +42,9 @@ const CustomerNavbar = (props) => {
     }
   );
   }, []);
+  const LogoutClear = () =>{
+    localStorage.removeItem("Token");
+  }
   const setHomeClass = () => {
     setHome(true);
     setPanel(false);
@@ -171,7 +174,7 @@ const CustomerNavbar = (props) => {
           </button>
         </Link>
         <Link to="/HomePage">
-          <button href="#cart" className="test-logout-customer">
+          <button href="#cart" className="test-logout-customer" onClick={LogoutClear}>
             <span>
               <ExitToAppIcon className="rotate-180" />
             </span>
