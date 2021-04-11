@@ -32,31 +32,28 @@ export default function App() {
         <div className="App">
           {/* //  Admin Pages */}
           <Route path="/AdminPanel" exact component={AdminPanel} />
+    
           {/* Customer Pages */}
           <Route path="/CustomerPanel" exact component={CustomerPanel} />
           <Route path="/ShoppingCart" exact component={ShoppingCart} />
           <Route path="/Checkout" exact component={Checkout} />
-          <Route path="/Product" exact component={Product} />
           <Route path="/OrderConfirmation" exact component={OrderConfirmation} />
           <Route path="/SignupCustomer" exact component={SignupCustomer} />
           <Route path="/SecurityPage" exact component={SecurityPage} />
-
 
           {/* Sellers Pages */}
           <Route path="/SellerPanel" exact component={SellerPanel} />
           <Route path="/SignupSeller" exact component={SignupSeller} />
           <Route path="/UploadCNIC" exact component={UploadCNIC} />
 
-
           {/* Common Pages */}
           <Route path="/" exact component={Homepage} />
           <Route path="/Homepage" exact component={Homepage} />
           <Route path="/Catalog" exact component={Catalog} />
+          <Route path="/Product" exact component={Product} />
           <Route path="/Login" exact component={Login} />
           <Route path="/ForgotPassword" exact component={ForgotPassword} />
           <Route path="/ResetPassword" exact component={ResetPassword} />
-
-
 
         </div>
       </Switch>
