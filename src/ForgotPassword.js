@@ -1,6 +1,4 @@
 // import { useState, useEffect } from "react";
-import UseForm from "./UseLoginForm";
-import validate from "./validateLogin";
 import Logo from "./css/logo.png";
 // import SignUpCustomer from "./SignUpCustomer";
 // import SignupSuccess from "./SignupSuccessCustomer";
@@ -18,7 +16,6 @@ const ForgotPassword = () => {
     question2: "",
     answer2: ""
   });
-  /
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -80,7 +77,6 @@ const ForgotPassword = () => {
       }
     } else {
       console.log(`got here :()`);
-      handleShow2();
     }
   };
 
@@ -210,7 +206,7 @@ const ForgotPassword = () => {
           A new password has been sent to your email account
         </Modal.Body>
         <Modal.Footer>
-          <Link to="/TempLogin">
+          <Link to="/Login">
             <input
               variant="primary"
               type="submit"
@@ -226,7 +222,7 @@ const ForgotPassword = () => {
         </Modal.Header>
         <Modal.Body>Your answers are incorrect</Modal.Body>
         <Modal.Footer>
-          <Link to="/TempLogin">
+          <Link to="/ForgotPassword">
             <input
               variant="primary"
               type="submit"
