@@ -22,7 +22,6 @@ const HomeNavbar = () => {
     setCatalog(false);
     setContact(false);
     setAboutus(false);
-    console.log(`home is now ${home}`);
   };
   const setPanelClass = () => {
     setHome(false);
@@ -31,7 +30,6 @@ const HomeNavbar = () => {
     setCatalog(false);
     setContact(false);
     setAboutus(false);
-    console.log(`home is now ${home}`);
   };
   const setArtisanClass = () => {
     setHome(false);
@@ -40,7 +38,6 @@ const HomeNavbar = () => {
     setCatalog(false);
     setContact(false);
     setAboutus(false);
-    console.log(`home is now ${home}`);
   };
   const setCatalogClass = () => {
     setHome(false);
@@ -49,7 +46,6 @@ const HomeNavbar = () => {
     setCatalog(true);
     setContact(false);
     setAboutus(false);
-    console.log(`home is now ${home}`);
   };
   const setContactClass = () => {
     setHome(false);
@@ -58,7 +54,6 @@ const HomeNavbar = () => {
     setCatalog(false);
     setContact(true);
     setAboutus(false);
-    console.log(`home is now ${home}`);
   };
   const setAboutClass = () => {
     setHome(false);
@@ -67,7 +62,6 @@ const HomeNavbar = () => {
     setCatalog(false);
     setContact(false);
     setAboutus(true);
-    console.log(`home is now ${home}`);
   };
   return (
     <div className="Topbar" id="myTopnav">

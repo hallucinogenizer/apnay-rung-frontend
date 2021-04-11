@@ -24,7 +24,6 @@ const Memory = (props, panel) => {
       pages_array = page.split("/");
       // page_string = `/${page}`;
     } catch {
-      a = 1;
     }
     console.log(pages_array);
     return pages_array.map((element, index) => {
