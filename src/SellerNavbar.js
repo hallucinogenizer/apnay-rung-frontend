@@ -39,7 +39,9 @@ const SellerNavbar = () => {
     }
   );
   }, []);
-
+  const LogoutClear = () => {
+    localStorage.removeItem("Token");
+  }
   const setHomeClass = () => {
     setHome(true);
     setPanel(false);
@@ -129,7 +131,7 @@ const SellerNavbar = () => {
           </button>
         </Link>
         <Link to="/HomePage">
-          <button href="#cart" className="test-logout-seller">
+          <button href="#cart" className="test-logout-seller" onClick={LogoutClear}>
             <span>
               <ExitToAppIcon className="rotate-180" />
               {/* Logout */}

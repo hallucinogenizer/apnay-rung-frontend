@@ -28,7 +28,7 @@ const SellerPanel = () => {
       <div className="all-boxes">
         <div className="box-left">
           <div className="box-left-left">
-            <Link to="/Panel" className="router-link">
+            <Link to="/SellerPanel" className="router-link">
               <button href="#cart" className="panel-box">
                 <span className="icons">
                   <AssessmentIcon
