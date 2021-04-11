@@ -13,6 +13,7 @@ import handshake from "./css/handshake.png";
 import pk from "./css/pk.svg";
 import { Link } from "react-router-dom";
 import React, { useState,useEffect } from "react";
+import TopHeading from "./css/finaltop.png"
 //temporary//
 
 import "bootstrap/dist/css/bootstrap.css";
@@ -119,8 +120,8 @@ const Homepage = () => {
     <div>
       {GetNavbar()}
       <span>
-        <img className="logo-main" src={logo} alt="logo" />
-        <h1 className="main-title">APNAY RUNG</h1>
+        <img className="logo-main" src={TopHeading} alt="logo" />
+        {/* <h1 className="main-title">APNAY RUNG</h1> */}
       </span>
       <div className="container">
         <img className="home-background" src={home} alt="home" />
@@ -207,7 +208,7 @@ const Homepage = () => {
       <br />
       <br />
       <div className="grey-home-bar">
-        <p>Face of the Art</p>
+        <p className ="artist-title">Face of the Art</p>
       </div>
       <div className="">{renderSellers()}</div>
       <div className="grey-grey">
