@@ -1,13 +1,18 @@
 import Memory from "./Memory";
 import BottomBar from "./BottomBar";
+import CustomerNavbar from "./CustomerNavbar";
+import AdminNavbar from "./AdminNavbar";
+import HomeNavbar from "./HomeNavbar";
+import SellerNavbar from "./SellerNavbar";
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./styles.css";
-import CustomerNavBar from "./CustomerNavbar";
+import "./maham.css";
+import { Modal, Button } from "react-bootstrap";
 
 // import ProductImage from "./css/product-image.png";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
-import { Button } from "@material-ui/core";
+// import { Button } from "@material-ui/core";
 // import Button from "@material-ui/core/Button";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { Box } from "@material-ui/core";
@@ -56,14 +61,14 @@ const useStyles = makeStyles((theme) => ({
     // margin: theme.spacing(1),
     color: "#ffffff",
     backgroundColor: "#d67d20",
-    marginLeft: "51%",
-    marginTop: "-14%"
+    // marginLeft: "51%",
+    // marginTop: "-14%"
   }
 }));
 const StyledRating = withStyles({
   root: {
     // marginTop: "-100%",
-    marginLeft: "30%"
+    // marginLeft: "30%"
   },
   iconFilled: {
     color: "#d67d20"
@@ -76,83 +81,111 @@ const Product = () => {
   const [qty, setQuantity] = useState(1);
   const classes = useStyles();
   const tokenID = localStorage.getItem("Token");
+  const usertype = localStorage.getItem("TypeOfUser");
+
+  const GetNavbar = () =>{
+    if (tokenID === null){
+      return (
+        <HomeNavbar/>
+      )
+    }
+    else if (usertype === "customer"){
+      return(
+        <CustomerNavbar/>
+      )
+    }
+    else if (usertype === "admin"){
+      return (
+        <AdminNavbar/>
+      )
+    }
+    else if (usertype === "seller"){
+      return (
+        <SellerNavbar/>
+      )
+    }
+  }
 
   const product = JSON.parse(localStorage.getItem("productID"));
   console.log(product);
   let productData = {
     name: product.title,
     inStock: product.stock,
-    rating: 4,
+    rating: product.rating,
     Description: product.description,
     Price: product.price,
     productID: product.item_id
   };
 
-  const getReviews = async (url) => {
-    const response = await fetch(url, {
-      method: "GET",
-      withCredentials: false
-    });
-    return response.json();
-  };
-
   const [reviews, setReviews] = useState([]);
-  getReviews(
-    `https://apnay-rung-api.herokuapp.com/order/review/item/${product.item_id}`
-  ).then((response) => {
-    console.log(`reviews`);
-    console.log(response);
-    let reviewArray = response[0].review;
-    let allReviews = [];
-    reviewArray.map((element, index) => {
-      if (allReviews.length === 0) {
-        allReviews[0] = {
-          rating: element[1],
-          review: element[2]
-        };
-      } else {
-        allReviews.push({
-          rating: element[1],
-          review: element[2]
-        });
-      }
-    });
-    setReviews(allReviews);
-    console.log(reviewArray);
-    console.log(reviewArray[0][2]);
-  });
-  // `https://apnay-rung-api.herokuapp.com/order/review/item/${product.item_id}`
+  useEffect(() => {
+    const getReviews = async (url) => {
+      const response = await fetch(url, {
+        method: "GET",
+        withCredentials: false
+      });
+      return response.json();
+    };
 
-  const getSellerBio = async (url) => {
-    const response = await fetch(url, {
-      method: "GET",
-      withCredentials: true,
-      credentials: "include",
-      headers: {
-        Authorization: `Bearer ${tokenID}`,
-        "Content-Type": "application/json"
-      }
+    getReviews(
+      `https://apnay-rung-api.herokuapp.com/order/review/item/${product.item_id}`
+    ).then((response) => {
+      console.log(`reviews`);
+      console.log(response.length);
+      
+      let allReviews = [];
+      let reviewArray=[];
+      try{
+        reviewArray = response[0].review;
+        reviewArray.map((element, index) => {
+          if (allReviews.length === 0) {
+            allReviews[0] = {
+              rating: element[1],
+              review: element[2]
+            };
+          } else {
+            allReviews.push({
+              rating: element[1],
+              review: element[2]
+            });
+          }
+        });
+      }catch{}
+  
+      setReviews(allReviews);
     });
-    return response.json();
-  };
+
+  }, []);
 
   const sellerid = product.seller_id;
-  // console.log(sellerid);
   const [sellerBio, setSellerBio] = useState(``);
-  getSellerBio(
-    `https://apnay-rung-api.herokuapp.com/seller/id/${sellerid}`
-  ).then((response) => {
-    console.log(response);
-    console.log(response.bio);
-    setSellerBio(response.bio);
-  });
+  const [sellerName, setSellerName] = useState(``);
+  useEffect(() => {
+    const getSellerBio = async (url) => {
+      const response = await fetch(url, {
+        method: "GET",
+        withCredentials: false
+      });
+      return response.json();
+    };
+
+    console.log(`seller id ${sellerid}`)
+    getSellerBio(
+      `https://apnay-rung-api.herokuapp.com/seller/id/${sellerid}`
+    ).then((response) => {
+      console.log(`seller bio ${response.bio}`);
+      console.log(response);
+      setSellerBio(response.bio);
+      setSellerName(response.name)
+    });
+  }, []);
 
   let ArtisanData = {
-    name: product.seller_name
+    name: sellerName
   };
 
   // console.log(`helo`);
-  console.log(ArtisanData.bio);
+  console.log(ArtisanData.name);
 
   const [value] = React.useState(productData.rating);
 
@@ -181,27 +214,43 @@ const Product = () => {
     });
   };
 
+  const [show, setShow] = useState(false);
+  const handleClose = () => {
+    setShow(false);
+  };
+  const handleShow = () => {
+    setShow(true);
+  };
+
   const addToCartHandler = (qty) => {
-    let cart = [];
 
-    cart = JSON.parse(localStorage.getItem("shoppingCart"));
-    console.log(cart);
+    if(productData.inStock>=qty){
+      let cart = [];
 
-    let newProduct = {
-      productID: product.item_id,
-      productTitle: product.title,
-      quantity: qty,
-      price: product.price
-    };
-
-    if (cart == null) {
-      cart = [];
-      cart[0] = newProduct;
-    } else {
-      cart.push(newProduct);
+      cart = JSON.parse(localStorage.getItem("shoppingCart"));
+      console.log(cart);
+  
+      let newProduct = {
+        productID: product.item_id,
+        productTitle: product.title,
+        quantity: qty,
+        price: product.price
+      };
+  
+      if (cart == null) {
+        cart = [];
+        cart[0] = newProduct;
+      } else {
+        cart.push(newProduct);
+      }
+  
+      localStorage.setItem("shoppingCart", JSON.stringify(cart));
     }
-
-    localStorage.setItem("shoppingCart", JSON.stringify(cart));
+    else
+    {
+      handleShow()
+    }
+    
   };
 
   // localStorage.removeItem("shoppingCart");
@@ -209,57 +258,66 @@ const Product = () => {
     const { productID, name, Price } = productData;
     let InStockArr = [];
 
-    if (productData.inStock === 1) {
-      InStockArr = [<span>&#10003; {`in stock`}</span>];
+    if (productData.inStock >= 1) {
+      InStockArr = [<span>&#10003; {`${productData.inStock} in stock`}</span>];
     } else {
       InStockArr = [<span>&#x2613; {`out of stock`}</span>];
     }
 
+    console.log(`IN STOCK ${productData.inStock}`)
+
     return (
       <div>
-        <span>
-          <img className="product-image" src={product.image} alt="Logo" />
-          <div className="product-title">{product.title}</div>
-          <p className="in-stock">{InStockArr}</p>
-          <div className="rating">
-            {/* {`${productData.rating}/5.0`} */}
-            <Box component="fieldset" mb={3} borderColor="transparent">
-              <span>
-                {productData.rating}/5.0
-                {/* <Typography component="legend"></Typography> */}
-                <StyledRating name="read-only" value={value} readOnly />
-              </span>
-            </Box>
+        <div className="productpage-div">
+          <div className="productpage-image">
+            <img className="product-image" src={product.image} alt="Logo" />
           </div>
-          <div className="product-desc">
-            <h4>Description:</h4>
-            <p className="description">{productData.Description}</p>
-          </div>
-          <div>
-            <div className="price-text">Rs.{productData.Price}</div>
-            <p className="quantity">per piece</p>
-
+          <div className="product-details">
+            <div className="product-title">{product.title}</div>
+            <p className="in-stock">{InStockArr}</p>
+            <div className="rating">
+              {/* {`${productData.rating}/5.0`} */}
+              <Box component="fieldset" mb={3} borderColor="transparent">
+                <span>
+                  {productData.rating}/5.0
+                  {/* <Typography component="legend"></Typography> */}
+                  <StyledRating name="read-only" value={value} readOnly />
+                </span>
+              </Box>
+           </div>
+            <div className="product-desc">
+              <h4>Description:</h4>
+              <p className="description">{productData.Description}</p>
+            </div>
+            <div>
+              <div className="price-text">Rs.{productData.Price}</div>
+              <p className="quantity">per piece</p>
+            </div>
+            <div className="cart-button-product">
             <Counter
-              className="quantity-counter"
-              qty={qty}
-              qtyFunc={setQuantity}
-            />
+                className="quantity-counter"
+                qty={qty}
+                qtyFunc={setQuantity}
+              />
+            <Button
+              variant="contained"
+              color="default"
+              className={classes.button}
+              startIcon={<ShoppingCartIcon />}
+              onClick={() => addToCartHandler(qty)}
+            >
+              Add to Cart
+            </Button>
+            </div>
+            <div className="productpage-artisan">
+            <div className="artisan-product-page">
+              <h3 className="artisan-title">Artisan</h3>
+              <div className="artisan-name">{ArtisanData.name}</div>
+              <div className="artisan-bio">{sellerBio}</div>
+            </div>
+            </div>
           </div>
-          <Button
-            variant="contained"
-            color="default"
-            className={classes.button}
-            startIcon={<ShoppingCartIcon />}
-            onClick={() => addToCartHandler(qty)}
-          >
-            Add to Cart
-          </Button>
-          <div className="artisan-product-page">
-            <h3 className="artisan-title">Artisan</h3>
-            <div className="artisan-name">{ArtisanData.name}</div>
-            <div className="artisan-bio">{sellerBio}</div>
-          </div>
-        </span>
+        </div>
         <div className="review">
           <div className="reviews-heading">Reviews</div>
           {renderReviews()}
@@ -270,11 +328,30 @@ const Product = () => {
 
   return (
     <div>
-      <CustomerNavBar />
+      {GetNavbar()}
       <Memory panel="Catalog " page="Home" current=" Kitchen" />
       {/* <a id=back-btn><img src=/css/back.png width="26"></a> */}
       {renderProduct()}
       <BottomBar />
+      <Modal
+        show={show}
+        onHide={() => handleClose()}
+        className="delete-modal"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>We're sorry!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Product is out of stock or the desired quantity is not available.</Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="primary"
+            onClick={() => handleClose()}
+            className="delete-primary"
+          >
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

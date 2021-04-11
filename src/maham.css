@@ -127,8 +127,7 @@ li {
   margin-left: 10%;
   padding-top: 1.5%;
   padding-bottom: 1.5%;
-  /*
-  padding-top: 1%;
+  /* padding-top: 1%;
   margin-bottom: 0px; */
   /* background-color: #efefef; */
   border: none;
@@ -137,7 +136,24 @@ li {
   /* margin-left: 50%; */
   /* height: 20px; */
   display: inline;
-  padding-left: 10%;
+  padding-left: 4%;
+  padding-right: 4%;
   /* margin-left: 45px;
   margin-right: auto; */
+}
+.productpage-div{
+  display:inline-block;
+  width:100%;
+}
+.productpage-image{
+  width:100%;
+}
+.product-details{
+  float: left;
+  width:30%;
+  margin-left:8%;
+  margin-top:3%;
+}
+.productpage-artisan{
+  margin-top: 5%;
 }
