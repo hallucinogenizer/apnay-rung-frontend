@@ -4,14 +4,25 @@
   background-size: cover;
   background-repeat: no-repeat;
   padding: 30px;
+  top: 0%;
+}
+
+.btn-secondary {
+  background-color: #424242 !important;
+  border-radius: "30px 0px 0px 30px";
+}
+
+.btn-light {
+  background-color: #efefef !important;
 }
 
 .content {
   background: white;
-  padding: 50px;
+  padding-left: 44px;
+  padding-right: 44px;
+  padding-top: 20px;
   border-radius: 3px;
-  margin-top: 1.5%;
-  height: 510px;
+  height: 550px;
   width: 55%;
   margin-left: 22.5%;
   margin-right: 22.5%;
@@ -41,14 +52,32 @@
   display: block;
   position: absolute;
 }
-.btn-light {
-  background-color: #efefef !important;
-  font-size: 17px !important;
-  border-radius: 2px !important;
+.btnfalse {
+  /* background-color: #efefef;
+  font-size: 17px;
+  border-radius: 4px !important; */
+  width: 100%;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  font-size: 16px;
+  color: #313131;
+  background: #efefef;
+  border: 0.5px solid #f4f4f4;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
-.btn-secondary {
-  font-size: 16.5px !important;
-  border-radius: 2px !important;
+.btntrue {
+  /* background-color: #2e2e2e;
+  font-size: 17px;
+  color: #efefef;
+  border-radius: 4px !important; */
+  width: 100%;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  font-size: 16px;
+  color: white;
+  background: #2e2e2e;
+  border: 0.5px solid #f9f9f9;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .input-form-signup {
@@ -60,7 +89,7 @@
   padding: 0.5%;
   border-radius: 1px;
   border: 1px solid #e5e5e5;
-  background-color: #efefef;
+  background-color: #777777;
 }
 .signup-img {
   width: 7%;
@@ -83,7 +112,8 @@
   border-radius: 4px;
 }
 .btn-group {
-  margin-left: 34%;
+  margin-left: 39%;
+  margin-top: 2%;
 }
 
 .signup-heading {
@@ -92,23 +122,55 @@
   margin-left: auto;
   margin-right: auto;
 }
-.signup-label-form-left {
-  text-align: left;
+/* .form-inputs p {
+  font-size: 9px;
+  margin-top: 0.1%;
+  color: red;
+  margin: 0%;
+  margin-bottom: 0%;
   margin-left: 8%;
-  margin-top: 7%;
-  width: 40%;
-  margin-top: 5%;
+} */
+/* .signup-label-form-left::placeholder {
+  color: red;
+  font-size: 12px;
+} */
+.err-left {
+  float: left;
+  color: red;
+  /* margin-left: 8%; */
+  font-size: 10px;
+}
+.err-right {
+  /* text-align: left;
+  margin-left: 78%; */
+  float: right;
+  font-size: 10px;
+  color: red;
+}
+.err-centre {
+  margin-left: 16%;
+  color: red;
+  font-size: 10px;
+}
+.signup-label-form-left {
+  /* text-align: left; */
+  /* margin-left: 0%; */
+  float: left;
+  /* margin-top: 1%; */
+  width: 47%;
+  /* margin-top: 5%; */
   padding: 0.5%;
   border-radius: 2px;
   border: 1px solid #e5e5e5;
   background-color: #efefef;
 }
 .signup-label-form-right {
-  margin-left: 4%;
-  text-align: left;
-  margin-top: 7%;
-  width: 40%;
-  margin-top: 5%;
+  /* margin-left: 4%; */
+  float: right;
+  /* text-align: left; */
+  /* margin-top: 1%; */
+  width: 47%;
+  /* margin-top: 5%; */
   padding: 0.5%;
   border-radius: 2px;
   border: 1px solid #e5e5e5;
@@ -121,4 +183,235 @@
   font-size: 14px;
   color: #a9a8a8;
   font-weight: semi-bold;
+}
+
+.content-logout {
+  background: white;
+  padding: 50px;
+  border-radius: 3px;
+  margin-top: 1.5%;
+  height: 470px;
+  width: 40%;
+  margin-left: 30%;
+  margin-right: 30%;
+}
+.login-img {
+  width: 11%;
+  height: 8%;
+  margin-top: 1%;
+  margin-bottom: 2%;
+  margin-left: 43.5%;
+}
+
+.login-label-form {
+  text-align: left;
+  margin-left: 16%;
+  margin-top: 15%;
+  width: 65%;
+  height: 35px;
+  margin-top: 5%;
+  padding: 0.5%;
+  border-radius: 2px;
+  border: 1px solid #e5e5e5;
+  background-color: #efefef;
+}
+
+.forgot-password-link {
+  color: #d67d20;
+  margin-top: 10%;
+  margin-left: 49%;
+  font-size: 13.5px;
+}
+
+.content-forgot-password {
+  background: white;
+  padding: 50px;
+  border-radius: 3px;
+  margin-top: 1.5%;
+  height: 470px;
+  width: 40%;
+  margin-left: 30%;
+  margin-right: 30%;
+}
+
+.upload-btn {
+  width: 22%;
+  margin-left: 6%;
+  margin-right: 2%;
+  background-color: #d67d20;
+  color: white;
+  font-size: 18px;
+  cursor: pointer; /* Pointer/hand icon */
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.cnic-label-form-left {
+  text-align: left;
+  margin-left: 4%;
+  width: 44%;
+  margin-top: 3%;
+  padding: 0.5%;
+  border-radius: 2px;
+  border: 1px solid #e5e5e5;
+  background-color: #efefef;
+  color: #a9a8a8;
+  font-weight: semi-bold;
+  height: 30%;
+}
+.upload-file-label {
+  cursor: pointer;
+  width: 85%;
+  float: left;
+  /* margin-top: 1%; */
+  width: 47%;
+  /* margin-top: 5%; */
+  padding: 0.5%;
+  border-radius: 2px;
+  border: 1px solid #e5e5e5;
+  background-color: #efefef;
+}
+.cnic-label-form-right {
+  margin-left: 4%;
+  text-align: left;
+  width: 43.5%;
+  margin-top: 5%;
+  padding: 0.5%;
+  border-radius: 2px;
+  border: 1px solid #e5e5e5;
+  background-color: #efefef;
+  display: inline-block;
+}
+
+.cnic-logo {
+  width: 8%;
+  height: 6%;
+
+  margin-bottom: 2%;
+  margin-left: 46%;
+}
+.security-form-left {
+  color: #a9a8a8;
+  font-weight: semi-bold;
+  height: 32.5px;
+  font-size: 14px;
+  float: left;
+  /* margin-top: 1%; */
+  width: 47%;
+  /* margin-top: 5%; */
+  padding: 0.5%;
+  border-radius: 2px;
+  border: 1px solid #e5e5e5;
+  background-color: #efefef;
+}
+
+.security-form-right {
+  padding: 0.6% 2% 0.6% 2%;
+  border-radius: 2px;
+  float: right;
+  /* text-align: left; */
+  /* margin-top: 1%; */
+  width: 47%;
+  /* margin-top: 5%; */
+  padding: 0.5%;
+  border-radius: 2px;
+  border: 1px solid #e5e5e5;
+  background-color: #efefef;
+}
+
+.security-content {
+  background: white;
+  padding: 30px;
+  border-radius: 3px;
+  margin-top: 3%;
+  margin-bottom: auto;
+  height: 40%;
+  width: 50%;
+  margin-left: 25%;
+  margin-right: 25%;
+}
+
+.forgot-pass-form {
+  text-align: left;
+  margin-left: 15%;
+  margin-right: 30%;
+  margin-top: 1%;
+  width: 70%;
+  padding: 1% 2% 1% 2%;
+  border-radius: 2px;
+  border: 1px solid #e5e5e5;
+  background-color: #efefef;
+}
+
+.forgot-content {
+  background: white;
+  padding: 30px;
+  border-radius: 3px;
+  margin-top: 3%;
+  margin-bottom: auto;
+  height: 40%;
+  width: 42%;
+  margin-left: 29%;
+  margin-right: 29%;
+}
+
+.forgot-answer-link {
+  margin-left: 62%;
+  color: #d67d20;
+  font-size: 13px;
+}
+.forgot-pass-heading {
+  font-size: 170%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3%;
+}
+
+.forgot-pass-logo {
+  width: 9%;
+  height: 7%;
+
+  margin-bottom: 2%;
+  margin-left: 45.5%;
+}
+
+.reset-password-form {
+  text-align: left;
+  margin-left: 20%;
+  margin-top: 4%;
+  margin-bottom: 2%;
+  width: 60%;
+  padding: 1% 2% 1% 2%;
+  border-radius: 2px;
+  border: 1px solid #e5e5e5;
+  background-color: #efefef;
+}
+
+.reset-pass-content {
+  background: white;
+  padding: 30px;
+  border-radius: 3px;
+  margin-top: 7%;
+  margin-bottom: auto;
+  height: 50%;
+  width: 38%;
+  margin-left: 31%;
+  margin-right: 31%;
+}
+
+.cnic-content {
+  background: white;
+  padding-left: 43px;
+  padding-right: 43px;
+  padding-top: 22px;
+  border-radius: 3px;
+  height: 550px;
+  width: 55%;
+  margin-left: 22.5%;
+  margin-right: 22.5%;
+}
+
+.upload-photo-bar {
+  float: right;
 }

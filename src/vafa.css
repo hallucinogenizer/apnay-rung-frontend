@@ -6,11 +6,27 @@
 #upload-cnic-label {
   cursor: pointer;
   background-color: #e5e5e5;
-  height: 6%;
-  width: 65%;
-  margin-right: 10%;
+  height: 9%;
+  width: 40%;
+  margin-right: 3%;
+  margin-top: 5%;
+  margin-left: 5%;
+  color: #777777;
 }
 
-.label-forgot-password {
-  font-size: 20px;
+.label-forgot-password1 {
+  font-size: 18px;
+  margin-top: 7%;
+  text-align: left;
+  margin-left: 15%;
+  font-weight: semi-bold;
+  margin-bottom: 1%;
+}
+.label-forgot-password2 {
+  font-size: 18px;
+  margin-top: 4%;
+  text-align: left;
+  margin-left: 15%;
+  font-weight: semi-bold;
+  margin-bottom: 1%;
 }
