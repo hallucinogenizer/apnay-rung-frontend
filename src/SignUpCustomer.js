@@ -97,30 +97,7 @@ const SignupCustomer = () => {
     }
   }, [errors]);
 
-  // async function postData() {
-  //   const response = await fetch(
-  //     "https://apnay-rung-api.herokuapp.com/customer/new",
-  //     {
-  //       method: "POST",
-  //       withCredentials: true,
-  //       credentials: "include",
-  //       headers: {
-  //         Authorization:
-  //           "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsIm5hbWUiOiJUYWltb29yIFRhcmlxIiwidHlwZU9mVXNlciI6ImN1c3RvbWVyIiwiaWF0IjoxNjE2OTYxNzMwfQ.Dn0FATITkhrR7e5tkp_XAmdPfp-FKJGzdskczt9k2fw",
-  //         "Content-Type": "application/json"
-  //       },
-  //       body: JSON.stringify({
-  //         name: values.userName,
-  //         email: values.email,
-  //         password: values.password,
-  //         address: values.address,
-  //         phone: values.phonenumber
-  //       })
-  //     }
-  // //   );
-  //   console.log(response);
-  // }
-
+  
   const displayPage = () => {
     return (
       <div>
@@ -230,7 +207,7 @@ const SignupCustomer = () => {
               type="tel"
               name="phonenumber"
               className="signup-label-form-right"
-              placeholder="Phone Number"
+              placeholder="phone number"
               value={values.phonenumber}
               onChange={changeHandler}
             />
