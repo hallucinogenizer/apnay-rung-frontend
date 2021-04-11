@@ -106,6 +106,18 @@ const ForgotPassword = () => {
       submitForm();
     }
   };
+  // function StackScreen() {
+  //   return (
+  //     <Stack.Navigator>
+  //       <Stack.Screen
+  //         name="Home"
+  //         component={HomeScreen}
+  //         options={{ title: 'My home' }}
+  //       />
+  //     </Stack.Navigator>
+  //   );
+  // }
+  
 
   async function getData(questionNum, answer) {
     const userEmail = localStorage.getItem("Email");
@@ -136,6 +148,7 @@ const ForgotPassword = () => {
       <div>
         <div>
           <form onSubmit={submitHandler}>
+            {/* navigation.setParams({ param: "value"}) */}
             <img src={Logo} className="forgot-pass-logo" alt="our logo" />
             <div className="forgot-pass-heading">Forgot Password</div>
             <div>
@@ -182,7 +195,7 @@ const ForgotPassword = () => {
               Reset Password
             </button>
             <br />
-            <span className="orlogin-option-signup">
+            <span className="orsignup">
               Or
               <Link to="/SignupCustomer"> Sign up</Link>
             </span>

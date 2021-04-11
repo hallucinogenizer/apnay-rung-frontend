@@ -222,7 +222,7 @@ const SignupSeller = () => {
               type="text"
               name="address"
               className="signup-label-form-left"
-              placeholder="address"
+              placeholder="city"
               value={values.address}
               onChange={changeHandler}
             />
@@ -230,7 +230,7 @@ const SignupSeller = () => {
               type="tel"
               name="phonenumber"
               className="signup-label-form-right"
-              placeholder="Phone Number"
+              placeholder="phone number"
               value={values.phonenumber}
               onChange={changeHandler}
             />

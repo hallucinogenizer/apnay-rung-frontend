@@ -1,3 +1,7 @@
+*{
+  font-family: Montserrat;
+}
+
 .image {
   min-height: 100vh;
   background-image: url("./css/background.svg");
@@ -20,12 +24,14 @@
   background: white;
   padding-left: 44px;
   padding-right: 44px;
-  padding-top: 20px;
-  border-radius: 3px;
+  padding-top: 1.5%;
+  /* border-radius: 5px; */
   height: 550px;
-  width: 55%;
-  margin-left: 22.5%;
-  margin-right: 22.5%;
+  width: 50%;
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-top: 1%;
+  margin-bottom: auto;
 }
 .signup-divs {
   justify-content: left;
@@ -59,7 +65,7 @@
   width: 100%;
   padding-top: 2px;
   padding-bottom: 2px;
-  font-size: 16px;
+  font-size: 18px;
   color: #313131;
   background: #efefef;
   border: 0.5px solid #f4f4f4;
@@ -73,7 +79,7 @@
   width: 100%;
   padding-top: 2px;
   padding-bottom: 2px;
-  font-size: 16px;
+  font-size: 18px;
   color: white;
   background: #2e2e2e;
   border: 0.5px solid #f9f9f9;
@@ -92,8 +98,8 @@
   background-color: #777777;
 }
 .signup-img {
-  width: 7%;
-  height: 3%;
+  width: 8%;
+  height: 8.3%;
   margin-top: 2%;
   margin-bottom: 2%;
   margin-left: 45%;
@@ -112,7 +118,12 @@
   border-radius: 4px;
 }
 .btn-group {
-  margin-left: 39%;
+  margin-left: 36%;
+  margin-top: 1%;
+}
+
+.btn2-group {
+  margin-left: 36%;
   margin-top: 2%;
 }
 
@@ -121,6 +132,29 @@
   text-align: center;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 0.5%
+}
+
+.login-heading {
+  font-size: 200%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5%
+}
+.cnic-heading {
+  font-size: 200%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2%;
+}
+.security-heading {
+  font-size: 200%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1.5%;
 }
 /* .form-inputs p {
   font-size: 9px;
@@ -179,27 +213,32 @@
 .orlogin-option-signup {
   margin-left: 43%;
 }
+.orsignup {
+  margin-left: 40%;
+}
 ::placeholder {
-  font-size: 14px;
+  font-size: 16px;
   color: #a9a8a8;
   font-weight: semi-bold;
+  margin-left: 1%;
 }
 
-.content-logout {
+.content-login {
   background: white;
-  padding: 50px;
+  padding-top: 3.5%;
   border-radius: 3px;
-  margin-top: 1.5%;
-  height: 470px;
-  width: 40%;
-  margin-left: 30%;
-  margin-right: 30%;
+  margin-top: 2.5%;
+  height: 500px;
+  width: 36%;
+  margin-left: 32%;
+  margin-right: 32%;
 }
+
 .login-img {
   width: 11%;
   height: 8%;
   margin-top: 1%;
-  margin-bottom: 2%;
+  margin-bottom: 0.2%;
   margin-left: 43.5%;
 }
 
@@ -209,17 +248,18 @@
   margin-top: 15%;
   width: 65%;
   height: 35px;
-  margin-top: 5%;
+  margin-top: 0.5%;
   padding: 0.5%;
   border-radius: 2px;
   border: 1px solid #e5e5e5;
   background-color: #efefef;
+  font-size: 16px;
 }
 
 .forgot-password-link {
   color: #d67d20;
   margin-top: 10%;
-  margin-left: 49%;
+  margin-left: 56%;
   font-size: 13.5px;
 }
 
@@ -239,7 +279,7 @@
   margin-left: 5.5%;
   background-color: #d67d20;
   color: white;
-  font-size: 14px;
+  font-size: 15.5px;
   cursor: pointer; /* Pointer/hand icon */
   border-radius: 4px;
   display: inline-block;
@@ -267,12 +307,12 @@
   height: 35%;
   /* margin-top: 5%; */
   padding: 0.5%;
-  border-radius: 2px;
+  border-radius: 3px;
   border: 1px solid #e5e5e5;
   background-color: #efefef;
   color:  #a9a8a8;
   font-weight: semi-bold;
-  font-size: 14px;
+  font-size: 15.5px;
 
 }
 .cnic-label-form-right {
@@ -327,12 +367,11 @@
   background: white;
   padding: 30px;
   border-radius: 3px;
-  margin-top: 3%;
-  margin-bottom: auto;
   height: 40%;
-  width: 50%;
-  margin-left: 25%;
-  margin-right: 25%;
+  width: 45%;
+  margin-left: 27.5%;
+  margin-right: 27.5%;
+  margin-top:3.5%;
 }
 
 .forgot-pass-form {
@@ -340,6 +379,7 @@
   margin-left: 15%;
   margin-right: 30%;
   margin-top: 1%;
+  margin-bottom:3%;
   width: 70%;
   padding: 1% 2% 1% 2%;
   border-radius: 2px;
@@ -349,20 +389,22 @@
 
 .forgot-content {
   background: white;
-  padding: 30px;
+  padding: 2.5%;
   border-radius: 3px;
   margin-top: 3%;
   margin-bottom: auto;
-  height: 40%;
-  width: 42%;
-  margin-left: 29%;
-  margin-right: 29%;
+  height: 44%;
+  width: 36%;
+  margin-left: 32%;
+  margin-right: 32%;
 }
 
 .forgot-answer-link {
-  margin-left: 62%;
-  color: #d67d20;
+  margin-left: 61%;
+  color: #535252;
   font-size: 13px;
+  margin-top:0.2%
+
 }
 .forgot-pass-heading {
   font-size: 170%;
@@ -373,11 +415,11 @@
 }
 
 .forgot-pass-logo {
-  width: 9%;
+  width: 11%;
   height: 7%;
 
   margin-bottom: 2%;
-  margin-left: 45.5%;
+  margin-left: 44%;
 }
 
 .reset-password-form {
@@ -397,9 +439,9 @@
   padding: 30px;
   border-radius: 3px;
   margin-top: 7%;
-  margin-bottom: auto;
-  height: 50%;
-  width: 38%;
+  margin-top: 4%;
+  height: 450px;
+  width: 34%;
   margin-left: 31%;
   margin-right: 31%;
 }
@@ -408,14 +450,35 @@
   background: white;
   padding-left: 43px;
   padding-right: 43px;
-  padding-top: 22px;
+  padding-top: 2%;
+  padding-bottom: auto;
   border-radius: 3px;
   height: 550px;
-  width: 55%;
-  margin-left: 22.5%;
-  margin-right: 22.5%;
+  width: 46%;
+  margin-left: 27%;
+  margin-right: 27%;
+  margin-top: 1.5%;
 }
 
 .upload-photo-bar {
   float: right;
+}
+.label-forgot-password1 {
+  font-size: 16px;
+  margin-top: 7%;
+  text-align: left;
+  margin-left: 15%;
+  font-weight: semi-bold;
+  margin-bottom: 1%;
+  color: #d67d20;
+}
+.label-forgot-password2 {
+  font-size: 16px;
+  margin-top: 4%;
+  text-align: left;
+  margin-left: 15%;
+  font-weight: semi-bold;
+  margin-bottom: 1%;
+  color: #d67d20;
+
 }

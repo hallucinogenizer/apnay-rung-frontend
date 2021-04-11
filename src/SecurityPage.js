@@ -137,7 +137,7 @@ const TempSecurity = () => {
       <div>
         <form onSubmit={submitHandler}>
           <img src={Logo} className="cnic-logo" alt="our logo" />
-          <div className="signup-heading">Sign up</div>
+          <div className="security-heading">Sign up</div>
           <div class="btn-group" role="group" aria-label="Basic example">
             <Link to="/SecurityPage">
               <input
