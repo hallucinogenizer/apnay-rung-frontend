@@ -19,3 +19,14 @@
   float: right;
   margin-right: 1%;
 }
+
+.shoppingCart-image {
+  width: 100px;
+  height: 100px;
+  margin-left: 8%;
+  margin-top: 5%;
+  /* margin-right: 35%;
+  margin-left: 12%; */
+  /* display: inline-block; */
+  /* float: left; */
+}
