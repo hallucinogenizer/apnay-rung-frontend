@@ -1,4 +1,5 @@
 import "./styles.css";
+import "./momina.css";
 import CustomerNavbar from "./CustomerNavbar";
 import Memory from "./Memory";
 import BottomBar from "./BottomBar";
@@ -11,11 +12,12 @@ const OrderConfirmation = () => {
   const fromLocalStorage = JSON.parse(localStorage.getItem("shoppingCart"));
   const customerInfo = JSON.parse(localStorage.getItem("customerInformation"));
   const [state, setState] = useState(fromLocalStorage);
-  const tokenID = localStorage.getItem("Token");
+  let tokenID = localStorage.getItem("Token");
+  // tokenID= `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsIm5hbWUiOiJUYWltb29yIFRhcmlxIiwidHlwZU9mVXNlciI6ImN1c3RvbWVyIiwiaWF0IjoxNjE2OTYxNzMwfQ.Dn0FATITkhrR7e5tkp_XAmdPfp-FKJGzdskczt9k2fw`;
   let total = 0;
   let items = [];
 
-  let address = customerInfo.ship_address;
+  let address = customerInfo.shipping_address;
 
   const infoObject = () => {
     fromLocalStorage.map((product, index) => {
@@ -42,10 +44,10 @@ const OrderConfirmation = () => {
 
   const renderTableData = () => {
     return state.map((product, index) => {
-      const { productID, productTitle, quantity, price } = product;
+      const { productID, productTitle, quantity, price, image } = product;
       return (
         <tr className="data">
-          <td>{productID}</td>
+          <td><img className="shoppingCart-image" src={image} alt="Logo" /></td>
           <td>{productTitle}</td>
           <td>{quantity}</td>
           <td>{price}</td>
@@ -59,6 +61,10 @@ const OrderConfirmation = () => {
 
   async function sendData() {
     infoObject();
+    console.log(`token is  ${tokenID}`)
+    console.log(items)
+    console.log(total)
+    // console.log(cust)
     const response = await fetch(
       "https://apnay-rung-api.herokuapp.com/order/new",
       {
@@ -76,8 +82,8 @@ const OrderConfirmation = () => {
           name: customerInfo.name,
           email: customerInfo.email,
           phone: customerInfo.phone,
-          billing_address: customerInfo.bill_address,
-          shipping_address: customerInfo.ship_address,
+          billing_address: customerInfo.billing_address,
+          shipping_address: customerInfo.shipping_address,
           payment_method: customerInfo.payment
         })
       }
@@ -86,10 +92,11 @@ const OrderConfirmation = () => {
     console.log(response);
 
     if (response.status === 201) {
-      localStorage.removeItem("shoppingCart");
-      localStorage.removeItem("customerInformation");
+      
       setMsg([`You order has been placed.`, `Back to Home`]);
       handleShow();
+      localStorage.removeItem("shoppingCart");
+      localStorage.removeItem("customerInformation");
     } else {
       setMsg([`You order could not be placed.Try again.`, `Back`]);
       handleShow();
@@ -99,6 +106,11 @@ const OrderConfirmation = () => {
 
   const handleClose = () => {
     setShow(false);
+    if(msg[1]==`Back to Home`)
+    {
+      window.location.href = "/Homepage";
+    }
+
   };
 
   const handleShow = () => setShow(true);
@@ -117,7 +129,7 @@ const OrderConfirmation = () => {
         <table className="table table-size">
           <thead>
             <tr className="top-row">
-              <th>Product ID</th>
+              <th>Product</th>
               <th>Product Title</th>
               <th>Quantity</th>
               <th>Price</th>
@@ -138,10 +150,15 @@ const OrderConfirmation = () => {
       </div>
       <input
         type="submit"
-        className="confirmOrder-button"
+        className="confirmOrder-button-v2"
         value="Confirm Order"
         onClick={sendData}
       ></input>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
       <BottomBar />
       <Modal show={show} onHide={handleClose} className="delete-modal">
         <Modal.Header closeButton>
