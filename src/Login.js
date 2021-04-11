@@ -57,7 +57,7 @@ const TempLogin = () => {
         localStorage.setItem("Email", values.email);
         localStorage.setItem("TypeOfUser", serverResponse.typeOfUser);
         if (serverResponse.typeOfUser === "customer") {
-          window.location.href = "/Homepage";
+          window.location.href = "/Catalog";
         } else if (serverResponse.typeOfUser === "seller") {
           window.location.href = "/SellerPanel";
         }
@@ -154,7 +154,7 @@ const TempLogin = () => {
       <div>
         <form className="form" onSubmit={submitHandler}>
           <img src={Logo} className="login-img" alt="our logo" />
-          <div className="signup-heading">Log in</div>
+          <div className="login-heading">Log in</div>
           <br />
           <br />
           <div>
@@ -209,7 +209,7 @@ const TempLogin = () => {
 
   return (
     <div className="image">
-      <div className="content-logout">{!isSubmitted ? displayPage() : ""}</div>
+      <div className="content-login">{!isSubmitted ? displayPage() : ""}</div>
       <Modal show={show} onHide={handleClose} className="delete-modal">
         <Modal.Header closeButton>
           <Modal.Title>Password Reset</Modal.Title>
