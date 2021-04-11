@@ -255,6 +255,19 @@
   background-color: #efefef;
   font-size: 16px;
 }
+.reset-label-form {
+  text-align: left;
+  margin-left: 16%;
+  width: 70%;
+  height: 35px;
+  margin-top: 5%;
+  margin-bottom:3%;
+  padding: 0.5%;
+  border-radius: 2px;
+  border: 1px solid #e5e5e5;
+  background-color: #efefef;
+  font-size: 16px;
+}
 
 .forgot-password-link {
   color: #d67d20;
@@ -422,6 +435,14 @@
   margin-left: 44%;
 }
 
+.reset-pass-logo {
+  width: 10%;
+  height: 6%;
+
+  margin-bottom: 2%;
+  margin-left: 45%;
+}
+
 .reset-password-form {
   text-align: left;
   margin-left: 20%;
@@ -436,14 +457,14 @@
 
 .reset-pass-content {
   background: white;
-  padding: 30px;
+  padding-top: 34px;
   border-radius: 3px;
   margin-top: 7%;
   margin-top: 4%;
   height: 450px;
-  width: 34%;
-  margin-left: 31%;
-  margin-right: 31%;
+  width: 32%;
+  margin-left: 34%;
+  margin-right: 34%;
 }
 
 .cnic-content {
