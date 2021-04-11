@@ -108,7 +108,7 @@ const Product = () => {
   }
 
   const product = JSON.parse(localStorage.getItem("productID"));
-  console.log(product);
+  
   let productData = {
     name: product.title,
     inStock: product.stock,
@@ -117,6 +117,8 @@ const Product = () => {
     Price: product.price,
     productID: product.item_id
   };
+  console.log(`product is ${productData.rating}`);
+
 
   const [reviews, setReviews] = useState([]);
   useEffect(() => {
@@ -132,28 +134,29 @@ const Product = () => {
       `https://apnay-rung-api.herokuapp.com/order/review/item/${product.item_id}`
     ).then((response) => {
       console.log(`reviews`);
-      console.log(response.length);
-      
       let allReviews = [];
       let reviewArray=[];
       try{
-        reviewArray = response[0].review;
-        reviewArray.map((element, index) => {
+        response.map((element,ind)=>{
+          console.log(`element of review`)
+          console.log(response[ind][2])
           if (allReviews.length === 0) {
             allReviews[0] = {
-              rating: element[1],
-              review: element[2]
+              rating: response[ind][1],
+              review: response[ind][2]
             };
           } else {
             allReviews.push({
-              rating: element[1],
-              review: element[2]
+              rating:response[ind][1],
+              review: response[ind][2]
             });
           }
-        });
-      }catch{}
-  
-      setReviews(allReviews);
+
+        })
+        }catch{}
+      
+      setReviews((allReviews));
+      
     });
 
   }, []);
@@ -200,21 +203,22 @@ const Product = () => {
       return (
         <div>
           <p>
-            <div className="reviewer-name">Reviewer</div>
+            <div className="reviewer-namev2">Reviewer</div>
             <br />
           </p>
           <div className="reviewer-rating">
             <Box component="fieldset" mb={3} borderColor="transparent">
               <StyledRating name="read-only" value={rating} readOnly />
+              {review}
             </Box>
           </div>
           <br />
-          <div>{review}</div>
         </div>
       );
     });
   };
 
+  const[msg,setMsg]= useState([``])
   const [show, setShow] = useState(false);
   const handleClose = () => {
     setShow(false);
@@ -247,9 +251,12 @@ const Product = () => {
       }
   
       localStorage.setItem("shoppingCart", JSON.stringify(cart));
+      setMsg([`Product Added`,`Product has been added to your cart.`])
+      handleShow()
     }
     else
     {
+      setMsg([`We're sorry!`,`Product is out of stock or the desired quantity is not available.`])
       handleShow()
     }
     
@@ -331,7 +338,7 @@ const Product = () => {
   return (
     <div>
       {GetNavbar()}
-      <Memory panel="Catalog " page="Home" current=" Kitchen" />
+      <Memory panel="Catalog " current={product.title} />
       {/* <a id=back-btn><img src=/css/back.png width="26"></a> */}
       {renderProduct()}
       <BottomBar />
@@ -341,9 +348,9 @@ const Product = () => {
         className="delete-modal"
       >
         <Modal.Header closeButton>
-          <Modal.Title>We're sorry!</Modal.Title>
+          <Modal.Title>{msg[0]}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Product is out of stock or the desired quantity is not available.</Modal.Body>
+        <Modal.Body>{msg[1]}</Modal.Body>
         <Modal.Footer>
           <Button
             variant="primary"
