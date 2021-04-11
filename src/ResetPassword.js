@@ -1,5 +1,4 @@
 // import { useState, useEffect } from "react";
-import validate from "./validateLogin";
 import Logo from "./css/logo.png";
 // import SignUpCustomer from "./SignUpCustomer";
 // import SignupSuccess from "./SignupSuccessCustomer";
@@ -63,7 +62,7 @@ const ResetPassword = () => {
     const updatePass = await postData(values.password1);
 
     if (updatePass.status === 202) {
-      window.location.href = "/TempLogin";
+      window.location.href = "/Login";
     }
   };
 

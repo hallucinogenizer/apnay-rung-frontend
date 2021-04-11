@@ -52,6 +52,8 @@ const TempLogin = () => {
       const token = serverResponse.accessToken;
       localStorage.setItem("Token", token);
       localStorage.setItem("Email", values.email);
+      localStorage.setItem("TypeOfUser", serverResponse.typeOfUser);
+      const user = localStorage.getItem("TypeofUser")
       if (serverResponse.typeOfUser === "customer") {
         setUserType(serverResponse.typeOfUser);
         window.location.href = "/Catalog";
