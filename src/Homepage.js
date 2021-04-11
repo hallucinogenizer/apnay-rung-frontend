@@ -20,7 +20,6 @@ import "bootstrap/dist/css/bootstrap.css";
 const Homepage = () => {
   const [productState, setProductState] = useState([]);
   const [sellerState, setSellerState] = useState([]);
-  let temp = []
   const tokenID = localStorage.getItem("Token");
   const usertype = localStorage.getItem("TypeOfUser");
   const GetNavbar = () =>{
@@ -79,12 +78,15 @@ const Homepage = () => {
         }
       );
     }, []);
-
+  const sendID = (product) => {
+    localStorage.removeItem("productID");
+    localStorage.setItem("productID", JSON.stringify(product));
+  };
   const renderProducts = () => {
     return productState.map((product, index) => {
       const { title, seller_name, price, image } = product; //destructuring
       return (
-        <Link to="/Catalog">
+        <Link to="/Product" className="route" onClick={() => sendID(product)}>
         <div className="product-div">
           <img className="product-img" src={image} alt="product" />
           <h3>{title}</h3>
