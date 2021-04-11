@@ -18,6 +18,7 @@ const ForgotPassword = () => {
     question2: "",
     answer2: ""
   });
+  /
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
