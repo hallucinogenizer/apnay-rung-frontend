@@ -65,7 +65,7 @@ const CustomerPanel = () => {
             </Link>
           </div>
           <div className="box-left-left">
-            <Link to="/AddReview" className="router-link">
+            <Link to="/CustomerPanel" className="router-link">
               <button href="#cart" className="panel-box">
                 <span className="icons">
                   <RateReviewIcon
@@ -84,7 +84,7 @@ const CustomerPanel = () => {
             </Link>
           </div>
           <div className="box-left-left">
-            <Link to="/CustomerSettings" className="router-link">
+            <Link to="/CustomerPanel" className="router-link">
               <button href="#cart" className="panel-box">
                 <span className="icons">
                   <SettingsIcon
@@ -105,7 +105,7 @@ const CustomerPanel = () => {
         </div>
         <div className="box-right">
           <div className="box-right-right">
-            <Link to="/OrderStatus" className="router-link">
+            <Link to="/CustomerPanel" className="router-link">
               <button href="#cart" className="panel-box">
                 <span className="icons">
                   <LocalShippingIcon
@@ -124,7 +124,7 @@ const CustomerPanel = () => {
             </Link>
           </div>
           <div className="box-right-right">
-            <Link to="/Notifications" className="router-link">
+            <Link to="/CustomerPanel" className="router-link">
               <button href="#cart" className="panel-box">
                 <span className="icons">
                   <NotificationsNoneIcon

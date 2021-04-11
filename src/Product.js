@@ -1,8 +1,13 @@
 import Memory from "./Memory";
 import BottomBar from "./BottomBar";
+import CustomerNavbar from "./CustomerNavbar";
+import AdminNavbar from "./AdminNavbar";
+import HomeNavbar from "./HomeNavbar";
+import SellerNavbar from "./SellerNavbar";
 import React from "react";
 import { useState, useEffect } from "react";
 import "./styles.css";
+import "./maham.css";
 import CustomerNavBar from "./CustomerNavbar";
 import { Modal, Button } from "react-bootstrap";
 
@@ -57,14 +62,14 @@ const useStyles = makeStyles((theme) => ({
     // margin: theme.spacing(1),
     color: "#ffffff",
     backgroundColor: "#d67d20",
-    marginLeft: "51%",
-    marginTop: "-14%"
+    // marginLeft: "51%",
+    // marginTop: "-14%"
   }
 }));
 const StyledRating = withStyles({
   root: {
     // marginTop: "-100%",
-    marginLeft: "30%"
+    // marginLeft: "30%"
   },
   iconFilled: {
     color: "#d67d20"
@@ -77,6 +82,30 @@ const Product = () => {
   const [qty, setQuantity] = useState(1);
   const classes = useStyles();
   const tokenID = localStorage.getItem("Token");
+  const usertype = localStorage.getItem("TypeOfUser");
+
+  const GetNavbar = () =>{
+    if (tokenID === null){
+      return (
+        <HomeNavbar/>
+      )
+    }
+    else if (usertype === "customer"){
+      return(
+        <CustomerNavbar/>
+      )
+    }
+    else if (usertype === "admin"){
+      return (
+        <AdminNavbar/>
+      )
+    }
+    else if (usertype === "seller"){
+      return (
+        <SellerNavbar/>
+      )
+    }
+  }
 
   const product = JSON.parse(localStorage.getItem("productID"));
   console.log(product);
@@ -132,7 +161,6 @@ const Product = () => {
   const sellerid = product.seller_id;
   const [sellerBio, setSellerBio] = useState(``);
   const [sellerName, setSellerName] = useState(``);
-  let seller_name=``;
   useEffect(() => {
     const getSellerBio = async (url) => {
       const response = await fetch(url, {
@@ -207,7 +235,8 @@ const Product = () => {
         productID: product.item_id,
         productTitle: product.title,
         quantity: qty,
-        price: product.price
+        price: product.price,
+        image: product.image
       };
   
       if (cart == null) {
@@ -241,49 +270,56 @@ const Product = () => {
 
     return (
       <div>
-        <span>
-          <img className="product-image" src={product.image} alt="Logo" />
-          <div className="product-title">{product.title}</div>
-          <p className="in-stock">{InStockArr}</p>
-          <div className="rating">
-            {/* {`${productData.rating}/5.0`} */}
-            <Box component="fieldset" mb={3} borderColor="transparent">
-              <span>
-                {productData.rating}/5.0
-                {/* <Typography component="legend"></Typography> */}
-                <StyledRating name="read-only" value={value} readOnly />
-              </span>
-            </Box>
+        <div className="productpage-div">
+          <div className="productpage-image">
+            <img className="product-image" src={product.image} alt="Logo" />
           </div>
-          <div className="product-desc">
-            <h4>Description:</h4>
-            <p className="description">{productData.Description}</p>
-          </div>
-          <div>
-            <div className="price-text">Rs.{productData.Price}</div>
-            <p className="quantity">per piece</p>
-
+          <div className="product-details">
+            <div className="product-title">{product.title}</div>
+            <p className="in-stock">{InStockArr}</p>
+            <div className="rating">
+              {/* {`${productData.rating}/5.0`} */}
+              <Box component="fieldset" mb={3} borderColor="transparent">
+                <span>
+                  {productData.rating}/5.0
+                  {/* <Typography component="legend"></Typography> */}
+                  <StyledRating name="read-only" value={value} readOnly />
+                </span>
+              </Box>
+           </div>
+            <div className="product-desc">
+              <h4>Description:</h4>
+              <p className="description">{productData.Description}</p>
+            </div>
+            <div>
+              <div className="price-text">Rs.{productData.Price}</div>
+              <p className="quantity">per piece</p>
+            </div>
+            <div className="cart-button-product">
             <Counter
-              className="quantity-counter"
-              qty={qty}
-              qtyFunc={setQuantity}
-            />
+                className="quantity-counter"
+                qty={qty}
+                qtyFunc={setQuantity}
+              />
+            <Button
+              variant="contained"
+              color="default"
+              className={classes.button}
+              startIcon={<ShoppingCartIcon />}
+              onClick={() => addToCartHandler(qty)}
+            >
+              Add to Cart
+            </Button>
+            </div>
+            <div className="productpage-artisan">
+            <div className="artisan-product-page">
+              <h3 className="artisan-title">Artisan</h3>
+              <div className="artisan-name">{ArtisanData.name}</div>
+              <div className="artisan-bio">{sellerBio}</div>
+            </div>
+            </div>
           </div>
-          <Button
-            variant="contained"
-            color="default"
-            className={classes.button}
-            startIcon={<ShoppingCartIcon />}
-            onClick={() => addToCartHandler(qty)}
-          >
-            Add to Cart
-          </Button>
-          <div className="artisan-product-page">
-            <h3 className="artisan-title">Artisan</h3>
-            <div className="artisan-name">{ArtisanData.name}</div>
-            <div className="artisan-bio">{sellerBio}</div>
-          </div>
-        </span>
+        </div>
         <div className="review">
           <div className="reviews-heading">Reviews</div>
           {renderReviews()}
@@ -294,7 +330,7 @@ const Product = () => {
 
   return (
     <div>
-      <CustomerNavBar />
+      {GetNavbar()}
       <Memory panel="Catalog " page="Home" current=" Kitchen" />
       {/* <a id=back-btn><img src=/css/back.png width="26"></a> */}
       {renderProduct()}

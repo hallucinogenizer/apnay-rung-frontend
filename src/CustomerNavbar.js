@@ -17,7 +17,7 @@ const CustomerNavbar = (props) => {
   const [artisans, setArtisans] = useState(false);
   const [aboutus, setAboutus] = useState(false);
   const [contact, setContact] = useState(false);
-
+  let tokenID = localStorage.getItem("Token");
   useEffect(() => {
     const getData = async (url) => {
       const response = await fetch(url, {
@@ -26,22 +26,25 @@ const CustomerNavbar = (props) => {
         credentials: "include",
         headers: {
           Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsIm5hbWUiOiJUYWltb29yIFRhcmlxIiwidHlwZU9mVXNlciI6ImN1c3RvbWVyIiwiaWF0IjoxNjE2OTYxNzMwfQ.Dn0FATITkhrR7e5tkp_XAmdPfp-FKJGzdskczt9k2fw",
+            `Bearer ${tokenID} `,
           "Content-Type": "application/json"
         }
       });
-      return response;
+      return response.json();
     };
  
     getData("https://apnay-rung-api.herokuapp.com/customer/info").then(
     (response) => {
-      console.log(response)
-      setUserState(response.json());
+      console.log(`customer navbar response: ${response}`)
+      setUserState(response);
       
       // console.log("intiil value", userstate);
     }
   );
   }, []);
+  const LogoutClear = () =>{
+    localStorage.removeItem("Token");
+  }
   const setHomeClass = () => {
     setHome(true);
     setPanel(false);
@@ -124,21 +127,21 @@ const CustomerNavbar = (props) => {
         Catalog
       </Link>
       <Link
-        to="/CustomerPanel"
+        to="/Homepage"
         onClick={setArtisanClass}
         className={artisans ? "active" : ""}
       >
         Artisans
       </Link>
       <Link
-        to="/CustomerPanel"
+        to="/Homepage"
         onClick={setAboutClass}
         className={aboutus ? "active" : ""}
       >
         About Us
       </Link>
       <Link
-        to="/CustomerPanel"
+        to="/Homepage"
         onClick={setContactClass}
         className={contact ? "active" : ""}
       >
@@ -148,14 +151,14 @@ const CustomerNavbar = (props) => {
         {userstate.name} <br /> Customer
       </p>
       <div className="nav-button">
-        <Link to="/Notifications">
+        <Link to="/Homepage">
           <button href="#cart" className="test-search">
             <span>
               <SearchIcon />
             </span>
           </button>
         </Link>
-        <Link to="/Notifications">
+        <Link to="/Homepage">
           <button href="#cart" className="test-notifications-customer">
             <span>
               <NotificationsNoneIcon />
@@ -171,7 +174,7 @@ const CustomerNavbar = (props) => {
           </button>
         </Link>
         <Link to="/HomePage">
-          <button href="#cart" className="test-logout-customer">
+          <button href="#cart" className="test-logout-customer" onClick={LogoutClear}>
             <span>
               <ExitToAppIcon className="rotate-180" />
             </span>

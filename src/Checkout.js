@@ -1,64 +1,50 @@
 import "./styles.css";
 import "./maham.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CustomerNavbar from "./CustomerNavbar";
 import Memory from "./Memory";
 import BottomBar from "./BottomBar";
 import { Link } from "react-router-dom";
-
 const NewCheckout = () => {
-  const [initialValue, setInitialValue] = useState([]);
-  // let initialValue = {
-  //   name: "Rohan",
-  //   email: "rohan1@gmail.com",
-  //   phone: "032245675",
-  //   ship_address: "Street 2, House 3, Mars, Milky Way",
-  //   bill_address: "",
-  //   additional_info: "",
-  //   payment: ""
-  // };
-  const [state, setState] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    ship_address: "",
-    bill_address: "",
-    additional_info: "",
-    payment: ""
-  });
 
-  const getData = async (url) => {
-    const response = await fetch(url, {
-      method: "GET",
-      withCredentials: true,
-      credentials: "include",
-      headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsIm5hbWUiOiJUYWltb29yIFRhcmlxIiwidHlwZU9mVXNlciI6ImN1c3RvbWVyIiwiaWF0IjoxNjE2OTYxNzMwfQ.Dn0FATITkhrR7e5tkp_XAmdPfp-FKJGzdskczt9k2fw",
-        "Content-Type": "application/json"
-      }
-    });
-    return response.json();
-  };
-
-  getData("https://apnay-rung-api.herokuapp.com/customer/info").then(
-    (response) => {
-      setInitialValue(response);
-      console.log("intiil value", initialValue);
-    }
-  );
-  const [name, setName] = useState(initialValue.name);
-  const [email, setEmail] = useState(initialValue.email);
-  const [phone, setPhone] = useState(initialValue.phone);
-  const [ship_address, setShipAddress] = useState(initialValue.address);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [ship_address, setShipAddress] = useState("");
   const [bill_address, setBillAddress] = useState("");
   const [additional_info, setAdditionalInfo] = useState("");
   const [payment, setPayment] = useState("");
-  const SubmitHandler = (event) => {
-    // event.preventDefault();
+  let tokenID = localStorage.getItem("Token");
+  useEffect(() => {
+    const getData = async (url) => {
+      const response = await fetch(url, {
+        method: "GET",
+        withCredentials: true,
+        credentials: "include",
+        headers: {
+          Authorization:
+          `Bearer ${tokenID}`,
+          "Content-Type": "application/json"
+        }
+      });
+      return response.json();
+    };
+ 
+    getData("https://apnay-rung-api.herokuapp.com/customer/info").then(
+    (response) => {
+      console.log(`checkout response: ${response}`)
+      console.log(response);
+      setName(response.name);
+      setEmail(response.email)
+      setPhone(response.phone)
+      setShipAddress(response.address)
+    }
+  );
+  }, []);
 
+  const SubmitHandler = (event) => {
     console.log(`submitted form`);
-    setState({
+    let state_data = {
       name: name,
       email: email,
       phone: phone,
@@ -66,10 +52,9 @@ const NewCheckout = () => {
       billing_address: bill_address,
       additional_info: additional_info,
       payment: payment
-    });
-    console.log(state);
-    localStorage.setItem("customerInformation", JSON.stringify(state));
-    //send 'state'to backend
+    }
+    // console.log(state_data);
+    localStorage.setItem("customerInformation", JSON.stringify(state_data));
   };
   const NameChangeHandler = (event) => {
     console.log(
@@ -208,7 +193,7 @@ const NewCheckout = () => {
           to us by mail or by WhatsApp to confirm your order.
           <br /> IBAN: PK48HABB12345678910
         </p>{" "}
-        <br />
+        <div className="checkout-buttons">
         <Link to="/ShoppingCart">
           <input
             type="submit"
@@ -224,6 +209,7 @@ const NewCheckout = () => {
             onClick={SubmitHandler}
           ></input>
         </Link>
+        </div>
       </form>
       <br />
       <br />

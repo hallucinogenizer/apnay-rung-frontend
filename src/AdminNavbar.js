@@ -6,25 +6,13 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 import { Link } from "react-router-dom";
 
-// Checking
-
-// import Button from "@material-ui/core/Button";
-// import Badge from "@material-ui/core/Badge";
-// import { makeStyles } from "@material-ui/core/styles";
-// import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
-
-// const useStyles = makeStyles((theme) => ({
-//   button: {
-//     margin: theme.spacing(0.5)
-//   }
-// }));
-
 const Navbar = () => {
   // const classes = useStyles();
   const [userstate, setUserState] = useState([]);
   const [home, setHome] = useState(false);
   const [panel, setPanel] = useState(false);
   const [contact, setContact] = useState(false);
+ let tokenID = localStorage.getItem("Item");
 
   useEffect(() => {
     const getData = async (url) => {
@@ -34,7 +22,7 @@ const Navbar = () => {
         credentials: "include",
         headers: {
           Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsIm5hbWUiOiJUYWltb29yIFRhcmlxIiwidHlwZU9mVXNlciI6ImN1c3RvbWVyIiwiaWF0IjoxNjE2OTYxNzMwfQ.Dn0FATITkhrR7e5tkp_XAmdPfp-FKJGzdskczt9k2fw",
+            `Bearer ${tokenID}`,
           "Content-Type": "application/json"
         }
       });
@@ -48,7 +36,9 @@ const Navbar = () => {
     }
   );
   }, []);
-  
+  const LogoutClear = () => {
+    localStorage.removeItem("Token");
+  }
   const setHomeClass = () => {
     setHome(true);
     setPanel(false);
@@ -96,7 +86,7 @@ const Navbar = () => {
         Admin
       </p>
       <div className="nav-button">
-        <Link to="/Notifications">
+        <Link to="/Homepage">
           <button href="#cart" className="test-notifications-admin">
             <span>
               <NotificationsNoneIcon />
@@ -105,7 +95,7 @@ const Navbar = () => {
           </button>
         </Link>
         <Link to="/HomePage">
-          <button href="#cart" className="test-logout-admin">
+          <button href="#cart" className="test-logout-admin" onClick={LogoutClear}>
             <span>
               <ExitToAppIcon className="rotate-180" />
               {/* Logout */}
