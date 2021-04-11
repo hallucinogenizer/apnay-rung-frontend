@@ -5,7 +5,7 @@ import "./maham.css";
 import Logo from "./css/logo.png";
 import { Link } from "react-router-dom";
 
-const NewNavbar = () => {
+const HomeNavbar = () => {
     return (
         <div>
         <div className="bs-example">
@@ -47,4 +47,4 @@ const NewNavbar = () => {
     )
 }
 
-export default NewNavbar;
+export default HomeNavbar;

@@ -8,36 +8,36 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 
-const NewCustomerNavbar = () => {
-    let tokenID = localStorage.getItem("Token");
-    const [userstate, setUserState] = useState([]);
-    useEffect(() => {
-        const getData = async (url) => {
-          const response = await fetch(url, {
-            method: "GET",
-            withCredentials: true,
-            credentials: "include",
-            headers: {
-              Authorization:
-                `Bearer ${tokenID}`,
-              "Content-Type": "application/json"
-            }
-          });
-          return response.json();
-        };
-     
-        getData("https://apnay-rung-api.herokuapp.com/customer/info").then(
-        (response) => {
-          console.log(`customer navbar response: ${response}`)
-          setUserState(response);
-          
-          // console.log("intiil value", userstate);
+const CustomerNavbar = () => {
+  let tokenID = localStorage.getItem("Token");
+  const [userstate, setUserState] = useState([]);
+  useEffect(() => {
+    const getData = async (url) => {
+      const response = await fetch(url, {
+        method: "GET",
+        withCredentials: true,
+        credentials: "include",
+        headers: {
+          Authorization:
+            `Bearer ${tokenID}`,
+          "Content-Type": "application/json"
         }
-      );
-      }, []);
-      const LogoutClear = () =>{
-        localStorage.removeItem("Token");
+      });
+      return response.json();
+    };
+      getData("https://apnay-rung-api.herokuapp.com/customer/info").then(
+      (response) => {
+        console.log(`customer navbar response: ${response}`)
+        setUserState(response);
+        
+        // console.log("intiil value", userstate);
       }
+    );
+    }, []);
+    const LogoutClear = () =>{
+      localStorage.removeItem("Token");
+    }
+
     return (
         <div>
         <div className="bs-example">
@@ -75,8 +75,8 @@ const NewCustomerNavbar = () => {
                 <Link to="/ShoppingCart">
                 <a className="nav-item nav-link"> <ShoppingCartIcon />Cart </a>
                 </Link>
-                <Link to="/Homepage" onClick={LogoutClear()}>
-                    <a className="nav-item nav-link">
+                <Link to="/Homepage" >
+                    <a className="nav-item nav-link" onClick={()=>LogoutClear()}>
                     <ExitToAppIcon className="rotate-180" />Logout
                     </a>
                 </Link>
@@ -88,7 +88,7 @@ const NewCustomerNavbar = () => {
         </nav>
     </div>
     </div>
-    )
+  )
 }
 
-export default NewCustomerNavbar;
+export default CustomerNavbar;
