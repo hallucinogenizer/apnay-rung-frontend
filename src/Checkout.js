@@ -14,7 +14,7 @@ const NewCheckout = () => {
   const [bill_address, setBillAddress] = useState("");
   const [additional_info, setAdditionalInfo] = useState("");
   const [payment, setPayment] = useState("");
-
+  let tokenID = localStorage.getItem("Token");
   useEffect(() => {
     const getData = async (url) => {
       const response = await fetch(url, {
@@ -23,7 +23,7 @@ const NewCheckout = () => {
         credentials: "include",
         headers: {
           Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsIm5hbWUiOiJUYWltb29yIFRhcmlxIiwidHlwZU9mVXNlciI6ImN1c3RvbWVyIiwiaWF0IjoxNjE2OTYxNzMwfQ.Dn0FATITkhrR7e5tkp_XAmdPfp-FKJGzdskczt9k2fw",
+          `Bearer ${tokenID}`,
           "Content-Type": "application/json"
         }
       });
