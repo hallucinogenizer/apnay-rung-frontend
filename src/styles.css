@@ -900,29 +900,8 @@ h4 {
   border: 0px !important;
   text-align: center !important;
 }
-.end-main-image {
-  /* margin-left: 50%; */
-  /* height: 20px; */
-  margin-left: 45px;
-  margin-right: auto;
-}
-.grey-grey {
-  background-color: #efefef;
-  width: 90%;
-  margin-left: 5%;
-}
-.grey-main {
-  margin-top: 0.5%;
-  display: inline-block;
-  width: 20%;
-  margin-left: 10%;
-  padding-top: 1.5%;
-  padding-bottom: 1.5%;
-  padding-top: 1%;
-  margin-bottom: 0px;
-  /* background-color: #efefef; */
-  border: none;
-}
+
+
 .flag-image {
   height: 500px;
   display: block;

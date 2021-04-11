@@ -1,36 +1,59 @@
 import "./styles.css";
 import "./maham.css";
 import CustomerNavbar from "./CustomerNavbar";
-import React, { useState } from "react";
+import AdminNavbar from "./AdminNavbar";
+import HomeNavbar from "./HomeNavbar";
+import React, { useState, useEffect } from "react";
 import Memory from "./Memory";
 import BottomBar from "./BottomBar";
 import { Link } from "react-router-dom";
+import SellerNavbar from "./SellerNavbar";
 // import "bootstrap/dist/css/bootstrap.min.css";
 
 const Catalog = () => {
   const [state, setState] = useState([]);
-
+  const usertype = localStorage.getItem("TypeOfUser");
   const tokenID = localStorage.getItem("Token");
-
-  const getData = async (url) => {
-    const response = await fetch(url, {
-      method: "GET",
-      withCredentials: true,
-      credentials: "include",
-      headers: {
-        Authorization: `Bearer ${tokenID}`,
-        "Content-Type": "application/json"
-      }
-    });
-    return response.json();
-  };
-
-  getData("https://apnay-rung-api.herokuapp.com/inventory/all").then(
-    (response) => {
-      setState(response);
-      console.log(`I am here:${response}`)
+  console.log("token", tokenID);
+  const GetNavbar = () =>{
+    if (tokenID === null){
+      return (
+        <HomeNavbar/>
+      )
     }
-  );
+    else if (usertype === "customer"){
+      return(
+        <CustomerNavbar/>
+      )
+    }
+    else if (usertype === "admin"){
+      return (
+        <AdminNavbar/>
+      )
+    }
+    else if (usertype === "seller"){
+      return (
+        <SellerNavbar/>
+      )
+    }
+  }
+  
+  useEffect(() => {
+    const getData = async (url) => {
+      const response = await fetch(url, {
+        method: "GET",
+        withCredentials: false
+      });
+      return response.json();
+    };
+ 
+    getData("https://apnay-rung-api.herokuapp.com/inventory/all").then(
+      (response) => {
+        setState(response);
+        console.log(`I am here:${response}`)
+      }
+    );
+  }, []);
 
   const sendID = (product) => {
     localStorage.removeItem("productID");
@@ -39,7 +62,7 @@ const Catalog = () => {
 
   const renderProducts = () => {
     return state.map((product, index) => {
-      const { item_id, title, seller_name, price, image } = product; //destructuring
+      const { title, seller_name, price, image } = product; //destructuring
       return (
         <Link to="/Product" className="route" onClick={() => sendID(product)}>
           <div className="product-div">
@@ -55,7 +78,8 @@ const Catalog = () => {
 
   return (
     <div>
-      <CustomerNavbar />
+      {GetNavbar()}
+      {/* <CustomerNavbar /> */}
       <Memory panel="" page="" current="Catalog" />{" "}
       {/* when three links needed in panel, include a '/' in the middle 'page' argument */}
       <h1>Catalog</h1>

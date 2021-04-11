@@ -1,6 +1,9 @@
 import "./styles.css";
 import "./maham.css";
 import HomeNavbar from "./HomeNavbar";
+import CustomerNavbar from "./CustomerNavbar";
+import AdminNavbar from "./AdminNavbar";
+import SellerNavbar from "./SellerNavbar";
 import BottomBar from "./BottomBar";
 import logo from "./css/logo.png";
 import home from "./css/home.png";
@@ -9,7 +12,7 @@ import gpp from "./css/gpp.png";
 import handshake from "./css/handshake.png";
 import pk from "./css/pk.svg";
 import { Link } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 //temporary//
 
 import "bootstrap/dist/css/bootstrap.css";
@@ -17,41 +20,78 @@ import "bootstrap/dist/css/bootstrap.css";
 const Homepage = () => {
   const [productState, setProductState] = useState([]);
   const [sellerState, setSellerState] = useState([]);
+  let temp = []
   const tokenID = localStorage.getItem("Token");
-
-  const getData = async (url) => {
-    const response = await fetch(url, {
-      method: "GET",
-      withCredentials: true,
-      credentials: "include",
-      headers: {
-        Authorization: `Bearer ${tokenID}`,
-        "Content-Type": "application/json"
-      }
-    });
-    return response.json();
-  };
-
-  getData("https://apnay-rung-api.herokuapp.com/inventory/limit/8").then(
-    (response) => {
-      setProductState(response);
+  const usertype = localStorage.getItem("TypeOfUser");
+  const GetNavbar = () =>{
+    if (tokenID === null){
+      return (
+        <HomeNavbar/>
+      )
     }
-  );
-  getData("https://apnay-rung-api.herokuapp.com/seller/limit/3").then(
-    (response) => {
-      setSellerState(response);
+    else if (usertype === "customer"){
+      return(
+        <CustomerNavbar/>
+      )
     }
-  );
+    else if (usertype === "admin"){
+      return (
+        <AdminNavbar/>
+      )
+    }
+    else if (usertype === "seller"){
+      return (
+        <SellerNavbar/>
+      )
+    }
+  }
+
+  useEffect(() => {
+      const getData = async (url) => {
+        const response = await fetch(url, {
+          method: "GET",
+          withCredentials: false
+        });
+        return response.json();
+      };
+  
+      getData("https://apnay-rung-api.herokuapp.com/inventory/limit/8").then(
+        (response) => {
+          setProductState(response);
+          console.log(`I am here:${response}`)
+        }
+      );
+    }, []);
+
+    useEffect(() => {
+      const getData2 = async (url) => {
+        const response = await fetch(url, {
+          method: "GET",
+          withCredentials: false
+        });
+        return response.json();
+      };
+   
+      getData2("https://apnay-rung-api.herokuapp.com/seller/limit/3").then(
+        (response) => {
+          setSellerState(response);
+          console.log(`I am here:${response}`)
+        }
+      );
+    }, []);
+
   const renderProducts = () => {
     return productState.map((product, index) => {
-      const { title, seller_id, price, image } = product; //destructuring
+      const { title, seller_name, price, image } = product; //destructuring
       return (
+        <Link to="/Catalog">
         <div className="product-div">
           <img className="product-img" src={image} alt="product" />
           <h3>{title}</h3>
-          <h5>Artist: {seller_id}</h5>
+          <h5>Artist: {seller_name}</h5>
           <h5>Price: Rs {price}</h5>
         </div>
+        </Link>
       );
     });
   };
@@ -75,7 +115,7 @@ const Homepage = () => {
   };
   return (
     <div>
-      <HomeNavbar />
+      {GetNavbar()}
       <span>
         <img className="logo-main" src={logo} alt="logo" />
         <h1 className="main-title">APNAY RUNG</h1>
@@ -170,28 +210,24 @@ const Homepage = () => {
       <div className="">{renderSellers()}</div>
       <div className="grey-grey">
         <div className="grey-main">
-          <img className="end-main-image" src={handshake} alt="end" />
-          <br />
-          Trustworthy Sellers
-          <br />
-          Our sellers are verified and trustworthy.
+        <img className="end-main-image" src={handshake} alt="end" />
+        <div className="home-text-down">Trustworthy Sellers</div>
+        <div>We care about authenticity: our sellers are verified and trustworthy.</div>
+    
         </div>
         <div className="grey-main">
-          <img className="end-main-image" src={wpf} alt="end" />
-          <br />
-          Cooperative Support Team
-          <br />
-          In case of any query of concern, our team is happy to assist.
+        <img className="end-main-image" src={wpf} alt="end" />
+        <div className="home-text-down">Cooperative Support Team</div>
+        <div>In case you have any query of concern, our team is happy to assist.</div>
+        
         </div>
         <div className="grey-main">
-          <img className="end-main-image" src={gpp} alt="end" />
-          <br />
-          High Quality Products
-          <br />
-          Apnay Rung ensures that our customers always receive top quality
-          products.
+        <img className="end-main-image" src={gpp} alt="end" />
+        <div className="home-text-down">High Quality Products</div>
+        <div>Apnay Rung ensures that our customers always receive top quality
+        products.</div>
         </div>
-      </div>
+      </div> 
       <br />
       <br />
       <br />

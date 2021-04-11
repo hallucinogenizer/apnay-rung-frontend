@@ -3,13 +3,10 @@ import "./styles.css";
 import "./momina.css";
 import Logo from "./css/logo.png";
 import { Link } from "react-router-dom";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+// import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 const HomeNavbar = () => {
-  {
-    /* will need to add local storage state to keep the state from being deleted after refresh */
-  }
+ 
   const [home, setHome] = useState(false);
-  const [panel, setPanel] = useState(false);
   const [catalog, setCatalog] = useState(false);
   const [artisans, setArtisans] = useState(false);
   const [aboutus, setAboutus] = useState(false);
@@ -17,23 +14,14 @@ const HomeNavbar = () => {
 
   const setHomeClass = () => {
     setHome(true);
-    setPanel(false);
     setArtisans(false);
     setCatalog(false);
     setContact(false);
     setAboutus(false);
   };
-  const setPanelClass = () => {
-    setHome(false);
-    setPanel(true);
-    setArtisans(false);
-    setCatalog(false);
-    setContact(false);
-    setAboutus(false);
-  };
+ 
   const setArtisanClass = () => {
     setHome(false);
-    setPanel(false);
     setArtisans(true);
     setCatalog(false);
     setContact(false);
@@ -41,7 +29,6 @@ const HomeNavbar = () => {
   };
   const setCatalogClass = () => {
     setHome(false);
-    setPanel(false);
     setArtisans(false);
     setCatalog(true);
     setContact(false);
@@ -49,7 +36,6 @@ const HomeNavbar = () => {
   };
   const setContactClass = () => {
     setHome(false);
-    setPanel(false);
     setArtisans(false);
     setCatalog(false);
     setContact(true);
@@ -57,7 +43,6 @@ const HomeNavbar = () => {
   };
   const setAboutClass = () => {
     setHome(false);
-    setPanel(false);
     setArtisans(false);
     setCatalog(false);
     setContact(false);
