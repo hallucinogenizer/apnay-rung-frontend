@@ -10,12 +10,33 @@ import { Link } from "react-router-dom";
 // import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 
 const SellerNavbar = () => {
+  const [userstate, setUserState] = useState([]);
   const [home, setHome] = useState(false);
   const [panel, setPanel] = useState(false);
   const [tutorial, setTutorial] = useState(false);
   const [aboutus, setAboutus] = useState(false);
   const [inventory, setInventory] = useState(false);
 
+  const getData = async (url) => {
+    const response = await fetch(url, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+      headers: {
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsIm5hbWUiOiJUYWltb29yIFRhcmlxIiwidHlwZU9mVXNlciI6ImN1c3RvbWVyIiwiaWF0IjoxNjE2OTYxNzMwfQ.Dn0FATITkhrR7e5tkp_XAmdPfp-FKJGzdskczt9k2fw",
+        "Content-Type": "application/json"
+      }
+    });
+    return response.json();
+  };
+
+  getData("https://apnay-rung-api.herokuapp.com/seller/info").then(
+    (response) => {
+      setUserState(response);
+      console.log("intiil value", userstate);
+    }
+  );
   const setHomeClass = () => {
     setHome(true);
     setPanel(false);
@@ -92,7 +113,7 @@ const SellerNavbar = () => {
       </Link>
 
       <p>
-        Rohan Hussain
+        {userstate.name}
         <br /> Seller
       </p>
       <div className="nav-button">
