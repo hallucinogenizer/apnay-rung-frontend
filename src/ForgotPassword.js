@@ -191,7 +191,7 @@ const ForgotPassword = () => {
               Forgot answer?
             </Link>
 
-            <button className="next-step-btn" type="submit">
+            <button className="reset-pass-btn" type="submit">
               Reset Password
             </button>
             <br />
