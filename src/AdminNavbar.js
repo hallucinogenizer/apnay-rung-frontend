@@ -21,10 +21,31 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   // const classes = useStyles();
+  const [userstate, setUserState] = useState([]);
   const [home, setHome] = useState(false);
   const [panel, setPanel] = useState(false);
   const [contact, setContact] = useState(false);
 
+  const getData = async (url) => {
+    const response = await fetch(url, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+      headers: {
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsIm5hbWUiOiJUYWltb29yIFRhcmlxIiwidHlwZU9mVXNlciI6ImN1c3RvbWVyIiwiaWF0IjoxNjE2OTYxNzMwfQ.Dn0FATITkhrR7e5tkp_XAmdPfp-FKJGzdskczt9k2fw",
+        "Content-Type": "application/json"
+      }
+    });
+    return response.json();
+  };
+
+  getData("https://apnay-rung-api.herokuapp.com/admin/info").then(
+    (response) => {
+      setUserState(response);
+      console.log("intiil value", userstate);
+    }
+  );
   const setHomeClass = () => {
     setHome(true);
     setPanel(false);
@@ -67,7 +88,7 @@ const Navbar = () => {
       </Link>
 
       <p>
-        Admin Name
+        {userstate.name}
         <br />
         Admin
       </p>

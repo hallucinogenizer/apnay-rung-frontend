@@ -10,9 +10,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import { Modal, Button } from "react-bootstrap";
 
 const CustomerNavbar = (props) => {
-  {
-    /* will need to add local storage state to keep the state from being deleted after refresh */
-  }
+  const [userstate, setUserState] = useState([]);
   const [home, setHome] = useState(false);
   const [panel, setPanel] = useState(false);
   const [catalog, setCatalog] = useState(false);
@@ -20,6 +18,26 @@ const CustomerNavbar = (props) => {
   const [aboutus, setAboutus] = useState(false);
   const [contact, setContact] = useState(false);
 
+  const getData = async (url) => {
+    const response = await fetch(url, {
+      method: "GET",
+      withCredentials: true,
+      credentials: "include",
+      headers: {
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsIm5hbWUiOiJUYWltb29yIFRhcmlxIiwidHlwZU9mVXNlciI6ImN1c3RvbWVyIiwiaWF0IjoxNjE2OTYxNzMwfQ.Dn0FATITkhrR7e5tkp_XAmdPfp-FKJGzdskczt9k2fw",
+        "Content-Type": "application/json"
+      }
+    });
+    return response.json();
+  };
+
+  getData("https://apnay-rung-api.herokuapp.com/customer/info").then(
+    (response) => {
+      setUserState(response);
+      console.log("intiil value", userstate);
+    }
+  );
   const setHomeClass = () => {
     setHome(true);
     setPanel(false);
@@ -27,7 +45,6 @@ const CustomerNavbar = (props) => {
     setCatalog(false);
     setContact(false);
     setAboutus(false);
-    console.log(`home is now ${home}`);
   };
   const setPanelClass = () => {
     setHome(false);
@@ -36,7 +53,6 @@ const CustomerNavbar = (props) => {
     setCatalog(false);
     setContact(false);
     setAboutus(false);
-    console.log(`home is now ${home}`);
   };
   const setArtisanClass = () => {
     setHome(false);
@@ -45,7 +61,6 @@ const CustomerNavbar = (props) => {
     setCatalog(false);
     setContact(false);
     setAboutus(false);
-    console.log(`home is now ${home}`);
   };
   const setCatalogClass = () => {
     setHome(false);
@@ -54,7 +69,6 @@ const CustomerNavbar = (props) => {
     setCatalog(true);
     setContact(false);
     setAboutus(false);
-    console.log(`home is now ${home}`);
   };
   const setContactClass = () => {
     setHome(false);
@@ -63,7 +77,6 @@ const CustomerNavbar = (props) => {
     setCatalog(false);
     setContact(true);
     setAboutus(false);
-    console.log(`home is now ${home}`);
   };
   const setAboutClass = () => {
     setHome(false);
@@ -72,7 +85,6 @@ const CustomerNavbar = (props) => {
     setCatalog(false);
     setContact(false);
     setAboutus(true);
-    console.log(`home is now ${home}`);
   };
 
   const logout = () => {
@@ -129,7 +141,7 @@ const CustomerNavbar = (props) => {
         Contact
       </Link>
       <p>
-        Rohan Hussain <br /> Customer
+        {userstate.name} <br /> Customer
       </p>
       <div className="nav-button">
         <Link to="/Notifications">
