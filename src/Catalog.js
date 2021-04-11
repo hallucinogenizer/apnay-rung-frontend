@@ -28,6 +28,7 @@ const Catalog = () => {
   getData("https://apnay-rung-api.herokuapp.com/inventory/all").then(
     (response) => {
       setState(response);
+      console.log(`I am here:${response}`)
     }
   );
 

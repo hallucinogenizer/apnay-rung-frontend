@@ -802,10 +802,10 @@ h4 {
   z-index: 0;
   /* display: inline; */
   position: absolute;
-  left: 10%;
-  top: 50%;
+  left: 7%;
+  top: 43%;
   color: #ffffff;
-  font-size: 250%;
+  font-size: 290%;
   font-display: bold;
 }
 .main {
@@ -1044,7 +1044,7 @@ h4 {
 }
 .background-image {
   min-height: 100vh;
-  background-image: url("/css/background.png");
+  background-image: url("./css/background.png");
   background-size: cover;
   background-repeat: no-repeat;
   padding: 30px;
