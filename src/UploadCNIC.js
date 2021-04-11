@@ -1,10 +1,25 @@
-import Logo from "./css/logo.png";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { QuestionAnswer } from "@material-ui/icons";
+import Logo from "./css/logo.png";
 
-const TempSecurity = () => {
-  const [button, setButton] = useState(`true`);
+const UploadCNIC = () => {
+  const [values, setValues] = useState({
+    fileName: "Click here to choose file",
+    file: "",
+    question1: "",
+    answer1: "",
+    question2: "",
+    answer2: ""
+  });
+
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [check, setCheck] = useState([]);
+
+  const submitForm = () => {
+    //setIsSubmitted(true);
+  };
 
   const questions = {
     questionsArray: [
@@ -14,27 +29,12 @@ const TempSecurity = () => {
       "What is the color of your car?"
     ]
   };
-  const [values, setValues] = useState({
-    question1: "",
-    answer1: "",
-    question2: "",
-    answer2: ""
-  });
-  const [errors, setErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  const submitForm = () => {
-    // setIsSubmitted(true);
-  };
-
-  const switchButton = () => {
-    setButton(!button);
-  };
-
   const validate = () => {
     let errors = {};
 
+    if (!values.file) {
+      errors.file = "image is required";
+    }
     if (!values.question1) {
       errors.question1 = "select question";
     } else if (values.question1 === "Choose a security question") {
@@ -47,54 +47,73 @@ const TempSecurity = () => {
     } else if (values.question2 === values.question1) {
       errors.question2 = "questions must be different";
     }
-
     if (!values.answer1) {
       errors.answer1 = "answer required";
-      //shows errors if .com or incorrect email not added
     }
-
     if (!values.answer2) {
       errors.answer2 = "answer required";
     }
-
     return errors;
   };
+  //sends the image file to backend
+  const handleUpload = () => {
+    const fileObj = new FormData();
+    fileObj.append("cnic-image", values.file, values.fileName);
+    // console.log(picture);
+  };
+  const handleClick = () => {
+    if (Object.keys(errors).length === 0) {
+      window.location.href = "/Login";
+    }
+  };
+
   const changeHandler = (e) => {
-    console.log(`hello im here`);
     setValues({
       ...values,
       [e.target.name]: e.target.value
     });
     console.log(values);
+
+    if (values.file !== 'file'){
+      setCheck([1]);
+    }
   };
 
+  const fileHandler = (e) => {
+    setValues({
+      ...values,
+      [e.target.name]: e.target.files[0],
+      tempFile: e.target.files[0].name
+    });
+    values.tempFile = values.file.name;
+    console.log(values);
+  };
   const submitHandler = async (e) => {
-    console.log(`in submit handler`);
     e.preventDefault();
 
     setErrors(validate(values));
     setIsSubmitting(true);
-    const serverResponse = await postData();
-    console.log(`got here`);
-    console.log(serverResponse);
-    if (serverResponse.status === 201) {
-      window.location.href = "/Login";
+    let serverResponse; 
+    if (check.length > 0){
+      serverResponse = await postData();
+      console.log(`got here`);
+      console.log(serverResponse);
+      if (serverResponse.status === 201) {
+        console.log(`finally here`);
+        window.location.href = "/Login";
+      }
     }
   };
+
   useEffect(() => {
     if (Object.keys(errors).length === 0 && isSubmitting) {
       submitForm();
     }
   }, [errors]);
 
-  const handleClick = () => {
-    if (Object.keys(errors).length === 0 && isSubmitted) {
-      window.location.href = "/Login";
-    }
-  };
   async function postData() {
-    console.log(`in post data`);
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    console.log(`in post data`);
     console.log(userInfo);
     console.log(values);
     const question1 = values.question1;
@@ -105,59 +124,80 @@ const TempSecurity = () => {
       [question1]: answer1,
       [question2]: answer2
     };
-    const temp = {
-      name: userInfo.name,
-      email: userInfo.email,
-      password: userInfo.password,
-      address: userInfo.address,
-      phone: userInfo.phone,
-      sec_questions: JSON.stringify(questions_data)
-    };
-    console.log(temp);
+    // const temp = {
+    //   name: userInfo.name,
+    //   email: userInfo.email,
+    //   password: userInfo.password,
+    //   address: userInfo.address,
+    //   cnic_image: values.file,
+    //   phone: userInfo.phone,
+    //   sec_questions: JSON.stringify(questions_data)
+    // };
+    const form = document.getElementById("empty-form");
+    const fileObj = new FormData(form);
+    fileObj.append("name", userInfo.name);
+    fileObj.append("email", userInfo.email);
+    fileObj.append("password", userInfo.password);
+    fileObj.append("cnic_image", values.file, values.fileName);
+    fileObj.append("location", userInfo.address);
+    fileObj.append("sec_questions", JSON.stringify(questions_data));
+
+    // console.log(temp);
     // console.log(questions_data);
     const response = await fetch(
-      "https://apnay-rung-api.herokuapp.com/customer/new",
+      "https://apnay-rung-api.herokuapp.com/seller/new",
       {
         method: "POST",
-        withCredentials: true,
-        credentials: "include",
-        headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsIm5hbWUiOiJUYWltb29yIFRhcmlxIiwidHlwZU9mVXNlciI6ImN1c3RvbWVyIiwiaWF0IjoxNjE2OTYxNzMwfQ.Dn0FATITkhrR7e5tkp_XAmdPfp-FKJGzdskczt9k2fw",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(temp)
+        body: fileObj
       }
     );
     return response;
   }
 
+  const setFile = () => {
+    if (values.tempFile){
+      values.fileName = values.tempFile
+    }
+  }
+
   const displayPage = () => {
     return (
       <div>
-        <form onSubmit={submitHandler}>
+        <form
+          enctype="multipart/form-data"
+          method="POST"
+          id="empty-form"
+        ></form>
+        <form onSubmit={submitHandler} enctype="multipart/form-data">
           <img src={Logo} className="cnic-logo" alt="our logo" />
-          <div className="security-heading">Sign up</div>
+          <div className="cnic-heading">Sign up</div>
           <div class="btn-group" role="group" aria-label="Basic example">
-            <Link to="/SecurityPage">
-              <input
-                type="submit"
-                value="Customer"
-                className={`btn${button}`}
-                onClick={switchButton}
-                style={{ borderRadius: "5px 0px 0px 5px" }}
-              />
+            <Link to="/SignupCustomer">
+              <input type="submit" value="Customer" className="btnfalse" />
             </Link>
             <Link to="/SignupSeller">
-              <input
-                type="submit"
-                value="Seller"
-                className={`btn${!button}`}
-                onClick={switchButton}
-                style={{ borderRadius: "0px 5px 5px 0px" }}
-              />
+              <input type="submit" value="Seller" className="btntrue" />
             </Link>
           </div>
+          <br />
+          <br />
+          <div>
+            {errors.file && <div className="err-left">{errors.file}</div>}
+          </div>
+          <br />
+          <span>
+            <label for="upload-photo" className="upload-file-label">
+              {values.fileName}
+            </label>
+            <input
+              type="file"
+              name="file"
+              accept="image/*, application/pdf"
+              onChange={fileHandler}
+              id="upload-photo"
+            />
+            <button className="upload-btn" onClick = {setFile}>Upload</button>
+          </span>
           <br />
           <br />
           <div>
@@ -165,11 +205,11 @@ const TempSecurity = () => {
               <div className="err-left">{errors.question1}</div>
             )}
             {errors.answer1 && (
-              <div className="err-right">{errors.answer1} </div>
+              <div className="err-right">{errors.answer1}</div>
             )}
           </div>
           <br />
-          <div className="form-inputs">
+          <span className="form-inputs">
             <select
               className="security-form-left"
               name="question1"
@@ -186,7 +226,6 @@ const TempSecurity = () => {
                 </option>
               ))}
             </select>
-
             <input
               type="text"
               name="answer1"
@@ -195,19 +234,19 @@ const TempSecurity = () => {
               value={values.answer1}
               onChange={changeHandler}
             />
-          </div>
+          </span>
           <br />
           <br />
           <div>
             {errors.question2 && (
-              <div className="err-left">{errors.question2} </div>
+              <div className="err-left">{errors.question2}</div>
             )}
             {errors.answer2 && (
-              <div className="err-right">{errors.answer2} </div>
+              <div className="err-right">{errors.answer2}</div>
             )}
           </div>
           <br />
-          <div className="form-inputs">
+          <span className="form-inputs">
             <select
               className="security-form-left"
               name="question2"
@@ -227,22 +266,20 @@ const TempSecurity = () => {
               value={values.answer2}
               onChange={changeHandler}
             />
-          </div>
-          <button className="next-step-btn" type="submit">
-            Sign Up
-          </button>
+          </span>
+          <input type="submit" className="next-step-btn" value="Sign Up" />
           <br />
-          <div className="orlogin-option-signup">
+          <span className="orlogin-option-signup">
             Or
             <Link to="/Login"> Log in</Link>
-          </div>
+          </span>
         </form>
       </div>
     );
   };
   return (
     <div className="image">
-      <div className="security-content">
+      <div className="cnic-content">
         {!isSubmitted ? displayPage() : ""}
         {/* <SignupSuccess /> */}
       </div>
@@ -250,4 +287,4 @@ const TempSecurity = () => {
   );
 };
 
-export default TempSecurity;
+export default UploadCNIC;
