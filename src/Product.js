@@ -207,7 +207,8 @@ const Product = () => {
         productID: product.item_id,
         productTitle: product.title,
         quantity: qty,
-        price: product.price
+        price: product.price,
+        image: product.image
       };
   
       if (cart == null) {

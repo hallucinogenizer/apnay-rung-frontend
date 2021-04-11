@@ -1,4 +1,5 @@
 import "./styles.css";
+import "./momina.css";
 import CustomerNavbar from "./CustomerNavbar";
 import Memory from "./Memory";
 import BottomBar from "./BottomBar";
@@ -26,7 +27,7 @@ const Counter = (props) => {
     props.stateFunc(storage);
   };
   const decrement = async () => {
-    if (qty > 0) {
+    if (qty >1) {
       setQuantity((qty) => qty - 1);
       props.costFunc(props.totalBill - props.price);
 
@@ -67,17 +68,23 @@ const Counter = (props) => {
 const ShoppingCart = () => {
   const fromLocalStorage = JSON.parse(localStorage.getItem("shoppingCart"));
   const [state, setState] = useState(fromLocalStorage);
+  const [total, setTotal] = useState(0);
 
   //The below block of code will give the initial total bill before any increments/decrements
-  let cost = 0;
-  try {
-    state.map((product, index) => {
-      const { productID, productTitle, quantity, price } = product;
-      cost = cost + quantity * price;
-    });
-  } catch {
-    cost = 0;
+  
+  const getBill = () =>{
+    let cost = 0;
+    try {
+      state.map((product, index) => {
+        const { productID, productTitle, quantity, price } = product;
+        cost = cost + quantity * price;
+      });
+    } catch {}
+    // setTotal(cost)
+    return cost
   }
+  // getBill()
+
   // console.log(cost);
 
   const [show, setShow] = useState(false);
@@ -102,19 +109,19 @@ const ShoppingCart = () => {
     setIndex(index);
     setShow(true);
   };
-  const [total, setTotal] = useState(cost);
+  
   // const setTotal= useRef(0)
 
   const renderTableData = () => {
     try {
       return state.map((product, index) => {
-        const { productID, productTitle, quantity, price } = product; //destructuring
+        const { productID, productTitle, quantity, price, image } = product; //destructuring
         // console.log(quantity);
         let ind = index;
 
         return (
           <tr className="data">
-            <td>{productID}</td>
+            <td><img className="shoppingCart-image" src={image} alt="Logo" /></td>
             <td>{productTitle}</td>
             {/* <input className="text-center" type="number" min={quantity} /> */}
             <td>
@@ -183,7 +190,7 @@ const ShoppingCart = () => {
         <table className="table table-size">
           <thead>
             <tr className="top-row">
-              <th>Product ID</th>
+              <th>Product</th>
               <th>Product Name</th>
               <th>Quantity</th>
               <th>Price</th>
@@ -194,7 +201,7 @@ const ShoppingCart = () => {
           <tbody>{renderTableData()}</tbody>
         </table>
       </div>
-      <div className="totalBill">Total: {total}</div>
+      <div className="totalBill">Total: {getBill()}</div>
       <div className="outer">
         <div className="inner">
           <Link to="/Catalog">
