@@ -97,30 +97,30 @@ const Product = () => {
   };
 
   const [reviews, setReviews] = useState([]);
-  getReviews(`https://apnay-rung-api.herokuapp.com/order/review/item/1`).then(
-    (response) => {
-      console.log(`reviews`);
-      console.log(response);
-      let reviewArray = response[0].review;
-      let allReviews = [];
-      reviewArray.map((element, index) => {
-        if (allReviews.length === 0) {
-          allReviews[0] = {
-            rating: element[1],
-            review: element[2]
-          };
-        } else {
-          allReviews.push({
-            rating: element[1],
-            review: element[2]
-          });
-        }
-      });
-      setReviews(allReviews);
-      console.log(reviewArray);
-      console.log(reviewArray[0][2]);
-    }
-  );
+  getReviews(
+    `https://apnay-rung-api.herokuapp.com/order/review/item/${product.item_id}`
+  ).then((response) => {
+    console.log(`reviews`);
+    console.log(response);
+    let reviewArray = response[0].review;
+    let allReviews = [];
+    reviewArray.map((element, index) => {
+      if (allReviews.length === 0) {
+        allReviews[0] = {
+          rating: element[1],
+          review: element[2]
+        };
+      } else {
+        allReviews.push({
+          rating: element[1],
+          review: element[2]
+        });
+      }
+    });
+    setReviews(allReviews);
+    console.log(reviewArray);
+    console.log(reviewArray[0][2]);
+  });
   // `https://apnay-rung-api.herokuapp.com/order/review/item/${product.item_id}`
 
   const getSellerBio = async (url) => {
@@ -137,7 +137,7 @@ const Product = () => {
   };
 
   const sellerid = product.seller_id;
-  console.log(sellerid);
+  // console.log(sellerid);
   const [sellerBio, setSellerBio] = useState(``);
   getSellerBio(
     `https://apnay-rung-api.herokuapp.com/seller/id/${sellerid}`
@@ -151,7 +151,7 @@ const Product = () => {
     name: product.seller_name
   };
 
-  console.log(`helo`);
+  // console.log(`helo`);
   console.log(ArtisanData.bio);
 
   const [value] = React.useState(productData.rating);
