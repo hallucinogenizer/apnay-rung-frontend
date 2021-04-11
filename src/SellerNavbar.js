@@ -16,7 +16,7 @@ const SellerNavbar = () => {
   const [tutorial, setTutorial] = useState(false);
   const [aboutus, setAboutus] = useState(false);
   const [inventory, setInventory] = useState(false);
-
+  let tokenID = localStorage.getItem("Token");
   useEffect(() => {
     const getData = async (url) => {
       const response = await fetch(url, {
@@ -25,7 +25,7 @@ const SellerNavbar = () => {
         credentials: "include",
         headers: {
           Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsIm5hbWUiOiJUYWltb29yIFRhcmlxIiwidHlwZU9mVXNlciI6ImN1c3RvbWVyIiwiaWF0IjoxNjE2OTYxNzMwfQ.Dn0FATITkhrR7e5tkp_XAmdPfp-FKJGzdskczt9k2fw",
+            `Bearer ${tokenID}`,
           "Content-Type": "application/json"
         }
       });
@@ -94,14 +94,14 @@ const SellerNavbar = () => {
         Panel
       </Link>
       <Link
-        to="/Inventory"
+        to="/Homepage"
         onClick={setInventoryClass}
         className={inventory ? "active" : ""}
       >
         Inventory
       </Link>
       <Link
-        to="/Tutorials"
+        to="/Homepage"
         onClick={setTutorialClass}
         className={tutorial ? "active" : ""}
       >
@@ -120,7 +120,7 @@ const SellerNavbar = () => {
         <br /> Seller
       </p>
       <div className="nav-button">
-        <Link to="/Notifications">
+        <Link to="/Homepage">
           <button href="#cart" className="test-notifications-seller">
             <span>
               <NotificationsNoneIcon />

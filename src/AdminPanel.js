@@ -28,7 +28,7 @@ const AdminPanel = () => {
       <div className="all-boxes">
         <div className="box-left">
           <div className="box-left-left">
-            <Link to="/ViewCustomers" className="router-link">
+            <Link to="/Panel" className="router-link">
               <button href="#buyers" className="panel-box">
                 <span className="icons">
                   <GroupOutlinedIcon
@@ -47,7 +47,7 @@ const AdminPanel = () => {
             </Link>
           </div>
           <div className="box-left-left">
-            <Link to="/ViewAllProducts" className="router-link">
+            <Link to="/Panel" className="router-link">
               <button href="#products" className="panel-box">
                 <span className="icons">
                   <AddShoppingCartIcon
@@ -66,7 +66,7 @@ const AdminPanel = () => {
             </Link>
           </div>
           <div className="box-left-left">
-            <Link to="/ViewOrders" className="router-link">
+            <Link to="/Panel" className="router-link">
               <button href="#orders" className="panel-box">
                 <span className="icons">
                   <MenuIcon
@@ -85,7 +85,7 @@ const AdminPanel = () => {
             </Link>
           </div>
           <div className="box-left-left">
-            <Link to="/Tutorials" className="router-link">
+            <Link to="/Panel" className="router-link">
               <button href="#tutorials" className="panel-box">
                 <span className="icons">
                   <CastForEducationIcon
@@ -104,7 +104,7 @@ const AdminPanel = () => {
             </Link>
           </div>
           <div className="box-left-left">
-            <Link to="/Notifications" className="router-link">
+            <Link to="/Panel" className="router-link">
               <button href="#notifications" className="panel-box">
                 <span className="icons">
                   <NotificationsNoneIcon
@@ -126,7 +126,7 @@ const AdminPanel = () => {
 
         <div className="box-right">
           <div className="box-right-right">
-            <Link to="/ViewSellers" className="router-link">
+            <Link to="/Panel" className="router-link">
               <button href="#sellers" className="panel-box">
                 <span className="icons">
                   <GroupIcon
@@ -164,7 +164,7 @@ const AdminPanel = () => {
             </Link>
           </div>
           <div className="box-right-right">
-            <Link to="/QueryForms" className="router-link">
+            <Link to="/Panel" className="router-link">
               <button href="#forms" className="panel-box">
                 <span className="icons">
                   <EmailIcon
@@ -183,7 +183,7 @@ const AdminPanel = () => {
             </Link>
           </div>
           <div className="box-right-right">
-            <Link to="/AdminSettings" className="router-link">
+            <Link to="/Panel" className="router-link">
               <button href="#settings" className="panel-box">
                 <span className="icons">
                   <SettingsIcon
@@ -202,7 +202,7 @@ const AdminPanel = () => {
             </Link>
           </div>
           <div className="box-right-right">
-            <Link to="/ApproveSellers" className="router-link">
+            <Link to="/Panel" className="router-link">
               <button href="#cart" className="panel-box">
                 <span className="icons">
                   <GroupOutlinedIcon
