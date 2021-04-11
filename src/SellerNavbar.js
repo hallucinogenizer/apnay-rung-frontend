@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./styles.css";
 import "./momina.css";
 import Logo from "./css/logo.png";
@@ -17,26 +17,29 @@ const SellerNavbar = () => {
   const [aboutus, setAboutus] = useState(false);
   const [inventory, setInventory] = useState(false);
 
-  const getData = async (url) => {
-    const response = await fetch(url, {
-      method: "GET",
-      withCredentials: true,
-      credentials: "include",
-      headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsIm5hbWUiOiJUYWltb29yIFRhcmlxIiwidHlwZU9mVXNlciI6ImN1c3RvbWVyIiwiaWF0IjoxNjE2OTYxNzMwfQ.Dn0FATITkhrR7e5tkp_XAmdPfp-FKJGzdskczt9k2fw",
-        "Content-Type": "application/json"
-      }
-    });
-    return response.json();
-  };
-
-  getData("https://apnay-rung-api.herokuapp.com/seller/info").then(
+  useEffect(() => {
+    const getData = async (url) => {
+      const response = await fetch(url, {
+        method: "GET",
+        withCredentials: true,
+        credentials: "include",
+        headers: {
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsIm5hbWUiOiJUYWltb29yIFRhcmlxIiwidHlwZU9mVXNlciI6ImN1c3RvbWVyIiwiaWF0IjoxNjE2OTYxNzMwfQ.Dn0FATITkhrR7e5tkp_XAmdPfp-FKJGzdskczt9k2fw",
+          "Content-Type": "application/json"
+        }
+      });
+      return response;
+    };
+ 
+    getData("https://apnay-rung-api.herokuapp.com/seller/info").then(
     (response) => {
       setUserState(response);
-      console.log("intiil value", userstate);
+      // console.log("intiil value", userstate);
     }
   );
+  }, []);
+
   const setHomeClass = () => {
     setHome(true);
     setPanel(false);
