@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./styles.css";
 import "./momina.css";
 import Logo from "./css/logo.png";
@@ -7,7 +7,7 @@ import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 import { Link } from "react-router-dom";
 
 // Checking
-//hello, here now
+
 // import Button from "@material-ui/core/Button";
 // import Badge from "@material-ui/core/Badge";
 // import { makeStyles } from "@material-ui/core/styles";
@@ -26,26 +26,29 @@ const Navbar = () => {
   const [panel, setPanel] = useState(false);
   const [contact, setContact] = useState(false);
 
-  const getData = async (url) => {
-    const response = await fetch(url, {
-      method: "GET",
-      withCredentials: true,
-      credentials: "include",
-      headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsIm5hbWUiOiJUYWltb29yIFRhcmlxIiwidHlwZU9mVXNlciI6ImN1c3RvbWVyIiwiaWF0IjoxNjE2OTYxNzMwfQ.Dn0FATITkhrR7e5tkp_XAmdPfp-FKJGzdskczt9k2fw",
-        "Content-Type": "application/json"
-      }
-    });
-    return response.json();
-  };
-
-  getData("https://apnay-rung-api.herokuapp.com/admin/info").then(
+  useEffect(() => {
+    const getData = async (url) => {
+      const response = await fetch(url, {
+        method: "GET",
+        withCredentials: true,
+        credentials: "include",
+        headers: {
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsIm5hbWUiOiJUYWltb29yIFRhcmlxIiwidHlwZU9mVXNlciI6ImN1c3RvbWVyIiwiaWF0IjoxNjE2OTYxNzMwfQ.Dn0FATITkhrR7e5tkp_XAmdPfp-FKJGzdskczt9k2fw",
+          "Content-Type": "application/json"
+        }
+      });
+      return response;
+    };
+ 
+    getData("https://apnay-rung-api.herokuapp.com/admin/info").then(
     (response) => {
       setUserState(response);
-      console.log("intiil value", userstate);
+      // console.log("intiil value", userstate);
     }
   );
+  }, []);
+  
   const setHomeClass = () => {
     setHome(true);
     setPanel(false);

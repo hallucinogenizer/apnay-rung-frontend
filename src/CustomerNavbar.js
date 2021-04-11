@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./styles.css";
 import "./momina.css";
 import Logo from "./css/logo.png";
@@ -7,7 +7,7 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 import SearchIcon from "@material-ui/icons/Search";
-import { Modal, Button } from "react-bootstrap";
+// import { Modal, Button } from "react-bootstrap";
 
 const CustomerNavbar = (props) => {
   const [userstate, setUserState] = useState([]);
@@ -18,26 +18,30 @@ const CustomerNavbar = (props) => {
   const [aboutus, setAboutus] = useState(false);
   const [contact, setContact] = useState(false);
 
-  const getData = async (url) => {
-    const response = await fetch(url, {
-      method: "GET",
-      withCredentials: true,
-      credentials: "include",
-      headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsIm5hbWUiOiJUYWltb29yIFRhcmlxIiwidHlwZU9mVXNlciI6ImN1c3RvbWVyIiwiaWF0IjoxNjE2OTYxNzMwfQ.Dn0FATITkhrR7e5tkp_XAmdPfp-FKJGzdskczt9k2fw",
-        "Content-Type": "application/json"
-      }
-    });
-    return response.json();
-  };
-
-  getData("https://apnay-rung-api.herokuapp.com/customer/info").then(
+  useEffect(() => {
+    const getData = async (url) => {
+      const response = await fetch(url, {
+        method: "GET",
+        withCredentials: true,
+        credentials: "include",
+        headers: {
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsIm5hbWUiOiJUYWltb29yIFRhcmlxIiwidHlwZU9mVXNlciI6ImN1c3RvbWVyIiwiaWF0IjoxNjE2OTYxNzMwfQ.Dn0FATITkhrR7e5tkp_XAmdPfp-FKJGzdskczt9k2fw",
+          "Content-Type": "application/json"
+        }
+      });
+      return response;
+    };
+ 
+    getData("https://apnay-rung-api.herokuapp.com/customer/info").then(
     (response) => {
-      setUserState(response);
-      console.log("intiil value", userstate);
+      console.log(response)
+      setUserState(response.json());
+      
+      // console.log("intiil value", userstate);
     }
   );
+  }, []);
   const setHomeClass = () => {
     setHome(true);
     setPanel(false);
@@ -87,13 +91,13 @@ const CustomerNavbar = (props) => {
     setAboutus(true);
   };
 
-  const logout = () => {
-    return (
-      <div>
-        <ExitToAppIcon /> Logout
-      </div>
-    );
-  };
+  // const logout = () => {
+  //   return (
+  //     <div>
+  //       <ExitToAppIcon /> Logout
+  //     </div>
+  //   );
+  // };
 
   return (
     <div className="Topbar" id="myTopnav">

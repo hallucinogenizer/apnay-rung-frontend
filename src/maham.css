@@ -26,6 +26,8 @@
 .product-div h5 {
   padding-top: 1%;
   text-align: center;
+  text-decoration: none;
+  color: #2e2e2e;
 }
 
 .catalog-adjust {
@@ -108,4 +110,32 @@ li {
 }
 .home-button {
   float: right;
+}
+.home-text-down{
+  font-weight: bold;
+}
+.grey-grey {
+  background-color: #efefef;
+  width: 90%;
+  /* margin-left: 5%; */
+}
+.grey-main {
+  height: 100%;
+  /* margin-top: 0.5%; */
+  display: inline-block;
+  width: 20%;
+  /* margin-left: 10%;
+  padding-top: 1.5%;
+  padding-bottom: 1.5%;
+  padding-top: 1%;
+  margin-bottom: 0px; */
+  /* background-color: #efefef; */
+  border: none;
+}
+.end-main-image {
+  /* margin-left: 50%; */
+  /* height: 20px; */
+  display: inline;
+  /* margin-left: 45px;
+  margin-right: auto; */
 }
