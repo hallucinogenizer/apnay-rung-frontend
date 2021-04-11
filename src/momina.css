@@ -30,3 +30,17 @@
   /* display: inline-block; */
   /* float: left; */
 }
+
+.confirmOrder-button-v2 {
+  width: auto;
+  height: 30px;
+  background-color: #d67d20;
+  color: #efefef;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-top: 1%;
+  margin-left: 45%;
+  margin-right: 12% !important;
+  float: right;
+}
