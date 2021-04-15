@@ -203,7 +203,7 @@ const Product = () => {
       return (
         <div>
           <p>
-            <div className="reviewer-namev2">Reviewer</div>
+            <div className="reviewer-name">Reviewer</div>
             <br />
           </p>
           <div className="reviewer-rating">
