@@ -32,7 +32,7 @@ export default function App() {
         <div className="App">
           {/* //  Admin Pages */}
           <Route path="/AdminPanel" exact component={AdminPanel} />
-    
+
           {/* Customer Pages */}
           <Route path="/CustomerPanel" exact component={CustomerPanel} />
           <Route path="/ShoppingCart" exact component={ShoppingCart} />
