@@ -4,7 +4,7 @@ import "./momina.css";
 import "./maham.css";
 import Logo from "./css/logo.png";
 import { Link } from "react-router-dom";
-
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 const HomeNavbar = () => {
     return (
         <div>
@@ -27,11 +27,20 @@ const HomeNavbar = () => {
                 <Link to="/Catalog">
                 <a className="nav-item nav-link">Catalog</a>
                 </Link>
-                <a className="nav-item nav-link disabled" tabindex="-1">Artisans</a>
-                <a  className="nav-item nav-link disabled" tabindex="-1">About Us</a>
-                <a  className="nav-item nav-link disabled" tabindex="-1">Contact</a>
+                <Link to="/Artisana">
+                <a className="nav-item nav-link">Artisans</a>
+                </Link>
+                <Link to="/AboutUs">
+                <a className="nav-item nav-link">About Us</a>
+                </Link>
+                <Link to="/Contact">
+                <a className="nav-item nav-link">Contact</a>
+                </Link>
             </div>
             <div className="navbar-nav ml-auto">
+                <Link to="/ShoppingCart">
+                <a className="nav-item nav-link"> <ShoppingCartIcon />Cart </a>
+                </Link>
                 <Link to="/Login">
                 <a className="nav-item nav-link">Login</a>
                 </Link>
