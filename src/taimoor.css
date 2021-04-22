@@ -198,7 +198,22 @@
 .err-centre {
   margin-left: 16%;
   color: red;
-  font-size: 10px;
+  font-size: 9px;
+}
+.err-settings-currPass {
+  margin-top: 1%;
+  margin-left: 5.5%;
+  color: red;
+  font-size: 9px;
+  float:left;
+
+}
+.err-settings-newPass {
+  margin-top: 1%;
+  margin-right: 23%;
+  color: red;
+  font-size: 9px;
+  float:right
 }
 .signup-label-form-left {
   /* text-align: left; */
