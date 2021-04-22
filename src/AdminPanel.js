@@ -15,13 +15,31 @@ import MenuIcon from "@material-ui/icons/Menu";
 import EmailIcon from "@material-ui/icons/Email";
 import CastForEducationIcon from "@material-ui/icons/CastForEducation";
 import { Link } from "react-router-dom";
+import { makeStyles } from '@material-ui/core/styles';
 
 const AdminPanel = () => {
+  const session = sessionStorage.getItem("logged-in");
+  const checkSession = () => {
+    console.log("in here")
+    if (session !== true){
+      localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+      window.location.href = '/Homepage';
+    }
+  }
+  const iconStyles = ()=> {
+    return {
+      buttoncolor: {
+        fill: 'white',
+        fontSize: 40
+      }
+    }
+  }
+  const classes = makeStyles(iconStyles)();
   return (
     <div>
+      {/* {checkSession()} */}
       <AdminNavbar />
-      <Memory panel="Admin Panel" /> {/* <page="" current="" /> */}
-      {/* when three links needed in panel, include a '/' in the middle 'page' argument */}
+      <Memory panel="Admin Panel" /> 
       <h1>Admin Panel</h1>
       <br></br>
       <br></br>
@@ -32,14 +50,7 @@ const AdminPanel = () => {
               <button href="#buyers" className="panel-box">
                 <span className="icons">
                   <GroupOutlinedIcon
-                    style={
-                      ({
-                        fill: "white"
-                      },
-                      {
-                        fontSize: 40
-                      })
-                    }
+                    className={classes.buttoncolor}
                   />
                 </span>
                 <span className="text">View All Buyers</span>
@@ -51,14 +62,7 @@ const AdminPanel = () => {
               <button href="#products" className="panel-box">
                 <span className="icons">
                   <AddShoppingCartIcon
-                    style={
-                      ({
-                        fill: "white"
-                      },
-                      {
-                        fontSize: 40
-                      })
-                    }
+                    className={classes.buttoncolor}
                   />
                 </span>
                 <span className="text">View All Products</span>
@@ -70,14 +74,7 @@ const AdminPanel = () => {
               <button href="#orders" className="panel-box">
                 <span className="icons">
                   <MenuIcon
-                    style={
-                      ({
-                        fill: "white"
-                      },
-                      {
-                        fontSize: 40
-                      })
-                    }
+                    className={classes.buttoncolor}
                   />
                 </span>
                 <span className="text">View All Orders</span>
@@ -89,14 +86,7 @@ const AdminPanel = () => {
               <button href="#tutorials" className="panel-box">
                 <span className="icons">
                   <CastForEducationIcon
-                    style={
-                      ({
-                        fill: "white"
-                      },
-                      {
-                        fontSize: 40
-                      })
-                    }
+                   className={classes.buttoncolor}
                   />
                 </span>
                 <span className="text">Tutorials</span>
@@ -108,14 +98,7 @@ const AdminPanel = () => {
               <button href="#notifications" className="panel-box">
                 <span className="icons">
                   <NotificationsNoneIcon
-                    style={
-                      ({
-                        fill: "white"
-                      },
-                      {
-                        fontSize: 40
-                      })
-                    }
+                    className={classes.buttoncolor}
                   />
                 </span>
                 <span className="text">Notifications</span>
@@ -130,14 +113,7 @@ const AdminPanel = () => {
               <button href="#sellers" className="panel-box">
                 <span className="icons">
                   <GroupIcon
-                    style={
-                      ({
-                        fill: "white"
-                      },
-                      {
-                        fontSize: 40
-                      })
-                    }
+                    className={classes.buttoncolor}
                   />
                 </span>
                 <span className="text">View All Sellers</span>
@@ -149,14 +125,7 @@ const AdminPanel = () => {
               <button href="#catalog" className="panel-box">
                 <span className="icons">
                   <NextWeekIcon
-                    style={
-                      ({
-                        fill: "white"
-                      },
-                      {
-                        fontSize: 40
-                      })
-                    }
+                    className={classes.buttoncolor}
                   />
                 </span>
                 <span className="text">View Catalog</span>
@@ -168,14 +137,7 @@ const AdminPanel = () => {
               <button href="#forms" className="panel-box">
                 <span className="icons">
                   <EmailIcon
-                    style={
-                      ({
-                        fill: "white"
-                      },
-                      {
-                        fontSize: 40
-                      })
-                    }
+                    className={classes.buttoncolor}
                   />
                 </span>
                 <span className="text">Query Forms</span>
@@ -187,14 +149,7 @@ const AdminPanel = () => {
               <button href="#settings" className="panel-box">
                 <span className="icons">
                   <SettingsIcon
-                    style={
-                      ({
-                        fill: "white"
-                      },
-                      {
-                        fontSize: 40
-                      })
-                    }
+                    className={classes.buttoncolor}
                   />
                 </span>
                 <span className="text">Account Settings</span>
@@ -206,14 +161,7 @@ const AdminPanel = () => {
               <button href="#cart" className="panel-box">
                 <span className="icons">
                   <GroupOutlinedIcon
-                    style={
-                      ({
-                        fill: "white"
-                      },
-                      {
-                        fontSize: 40
-                      })
-                    }
+                    className={classes.buttoncolor}
                   />
                 </span>
                 <span className="text">Approve Sellers</span>
