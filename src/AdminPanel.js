@@ -82,14 +82,14 @@ const AdminPanel = () => {
             </Link>
           </div>
           <div className="box-left-left">
-            <Link to="/CreateTutorial" className="router-link">
-              <button href="#tutorials" className="panel-box">
+            <Link to="/Tutorials" className="router-link">
+              <button className="panel-box">
                 <span className="icons">
                   <CastForEducationIcon
                    className={classes.buttoncolor}
                   />
                 </span>
-                <span className="text">Tutorials</span>
+                <span className="text">Edit Tutorials</span>
               </button>
             </Link>
           </div>
@@ -121,14 +121,14 @@ const AdminPanel = () => {
             </Link>
           </div>
           <div className="box-right-right">
-            <Link to="/Catalog" className="router-link">
+            <Link to="/CreateTutorial" className="router-link">
               <button href="#catalog" className="panel-box">
                 <span className="icons">
-                  <NextWeekIcon
+                <CastForEducationIcon
                     className={classes.buttoncolor}
                   />
                 </span>
-                <span className="text">View Catalog</span>
+                <span className="text">Add Tutorial</span>
               </button>
             </Link>
           </div>
