@@ -10,10 +10,12 @@ import home from "./css/home.png";
 import wpf from "./css/wpf.png";
 import gpp from "./css/gpp.png";
 import handshake from "./css/handshake.png";
-import pk from "./css/pk.svg";
+//import pk from "./css/pk.svg";
+import pk from "./css/pak-map.svg"
 import { Link } from "react-router-dom";
 import React, { useState,useEffect } from "react";
-import TopHeading from "./css/finaltop.png"
+import TopHeading from "./css/finaltop.png";
+import { Modal, Button } from "react-bootstrap";
 //temporary//
 
 import "bootstrap/dist/css/bootstrap.css";
@@ -23,6 +25,29 @@ const Homepage = () => {
   const [sellerState, setSellerState] = useState([]);
   const tokenID = localStorage.getItem("Token");
   const usertype = localStorage.getItem("TypeOfUser");
+  let message = JSON.parse(localStorage.getItem("msg"));
+  const [msg, setMsg] = useState([``]);
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    const displayMessage = () =>{
+      console.log("in here", message)
+      if (message !== null) {
+        console.log("also in here")
+        setMsg([message, "OK"]);
+        message = null;
+        localStorage.removeItem("msg")
+        handleShow();
+      } 
+   }
+   displayMessage()
+  }, []);
+
+  const handleClose = () => {
+    setShow(false);
+  };
+  const handleShow = () => setShow(true);
+  
   const GetNavbar = () =>{
     if (tokenID === null){
       return (
@@ -108,14 +133,17 @@ const Homepage = () => {
             src={profile_picture}
             alt="seller"
           />
-          <div>
+            <br/>
             <p className="main-text-seller">{name}</p>
             <p className="main-text-seller2">{location}</p>
-          </div>
+        
         </div>
       );
     });
   };
+  const addProvince = (province) =>{
+    localStorage.setItem("map_province", JSON.stringify(province));
+  }
   return (
     <div>
       {GetNavbar()}
@@ -127,20 +155,6 @@ const Homepage = () => {
         <img className="home-background" src={home} alt="home" />
         <h2 className="home-text">DISCOVER | CONNECT | EMPOWER</h2>
       </div>
-      <div className="main">
-        <div className="input-group">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Search Products"
-          ></input>
-          <div className="input-group-append">
-            <button className="btn btn-secondary" type="button">
-              <i className="fa fa-search"></i>
-            </button>
-          </div>
-        </div>
-      </div>
       <p className="featured-prod">Featured Products </p>
       <div className="itemboxes">{renderProducts()}</div>
       <div className="orange-home-bar">
@@ -151,49 +165,58 @@ const Homepage = () => {
       <p className="featured-prod">Explore Art by Region </p>
       <div id="image_map">
         <map name="map_example">
-          <Link to="/Catalog" className="router-link">
+          <Link to="/Catalog" className="router-link" onClick={()=>addProvince("Sindh")}>
             <area
               //sindh
               alt="Facebook"
               target="_blank"
               shape="poly"
-              coords="190,460, 195,350, 270,330, 310,450"
+              coords="350,362, 430,345, 470,485, 360,500"
             ></area>
           </Link>
-          <Link to="/Catalog" className="router-link">
+          <Link to="/Catalog" className="router-link" onClick={()=>addProvince("Balochistan")}>
             <area
               //balochistan
               alt="Facebook"
               target="_blank"
               shape="poly"
-              coords="30,430, 180,430, 180,330, 260,310, 270,200, 30,300"
+              coords="165,280, 185,445, 335,440, 350,355, 415,330, 425,225"
             ></area>
           </Link>
-          <Link to="/Catalog" className="router-link">
+          <Link to="/Catalog" className="router-link" onClick={()=>addProvince("Punjab")}>
             <area
               //punjab
               alt="Facebook"
               target="_blank"
               shape="poly"
-              coords="280,300, 320,340, 435,190, 350,130"
+              coords="500,150, 580,205, 490,360, 430,330"
             ></area>
           </Link>
-          <Link to="/Catalog" className="router-link">
+          <Link to="/Catalog" className="router-link" onClick={()=>addProvince("KPK")}>
             <area
               //kpk
               target="_blank"
               alt="Wikipedia Social Media Article"
               shape="poly"
-              coords="256,180, 295,207, 395,90, 330,30"
+              coords="475,65, 540,105, 450,225, 415,200"
             ></area>
           </Link>
-          <Link to="/Catalog" className="router-link">
+          <Link to="/Catalog" className="router-link" onClick={()=>addProvince("Gilgit")}>
             <area
               //gilgit
               target="_blank"
               alt="Wikipedia Social Media Article"
               shape="poly"
-              coords="366,40, 460,100, 495,70, 430,10"
+              coords="560,30, 645,95, 595,120, 515,75"
+            ></area>
+          </Link>
+          <Link to="/Catalog" className="router-link" onClick={()=>addProvince("Kashmir")}>
+            <area
+              //kashmir
+              target="_blank"
+              alt="Wikipedia Social Media Article"
+              shape="poly"
+              coords="565,180, 547,166, 540,121, 556,105, 585,115, 550,120"
             ></area>
           </Link>
         </map>
@@ -234,7 +257,23 @@ const Homepage = () => {
       <br />
       <br />
       <br />
+      
       <BottomBar />
+      <Modal show={show} onHide={handleClose} className="delete-modal">
+        <Modal.Header closeButton>
+          <Modal.Title>Log In</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{msg[0]}</Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="primary"
+            className="delete-primary"
+            onClick={handleClose}
+          >
+            <Link to="./Homepage">{msg[1]}</Link>
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
