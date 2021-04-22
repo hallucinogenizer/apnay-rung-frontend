@@ -3,12 +3,13 @@ import "./styles.css";
 // momina
 const BottomBar = () => {
   return (
-    <div className="bottomBar">
+    <div>
+    <nav className="navbar navbar-expand-md navbar-light bg-dark">
       <p>
         Copyright © Apnay Rung 2021 <span className="footer_span">|</span>{" "}
-        WhatsApp: 03214466789 <span className="footer_span"> |</span> Email:
-        <a href="mailto:apnayrung@gmail.com"> apnayrung@gmail.com</a>
-      </p>
+        WhatsApp: 03214466789 <span className="footer_span"> |</span> Email: <span className="bottom-bar">apnayrung@gmail.com</span>
+      </p>""
+    </nav>
     </div>
   );
 };

@@ -7,9 +7,15 @@ import Catalog from "./Catalog";
 import Login from "./Login";
 import ForgotPassword from "./ForgotPassword";
 import ResetPassword from "./ResetPassword";
+import Artisans from "./Artisans.js";
+import AddReview from "./AddReview";
+import AboutUs from "./AboutUs";
 
 // Admin Pages
 import AdminPanel from "./AdminPanel";
+import ViewAllOrders from "./ViewOrders";
+import QueryForms from "./QueryForms";
+import ViewSellers from "./ViewSellers"
 
 // Customer Pages
 import CustomerPanel from "./CustomerPanel";
@@ -18,11 +24,14 @@ import Checkout from "./Checkout";
 import SignupCustomer from "./SignUpCustomer";
 import SecurityPage from "./SecurityPage";
 import OrderConfirmation from "./OrderConfirmation";
+import CustomerSettings from "./CustomerSettings";
 
 // Seller Pages
 import SellerPanel from "./SellerPanel";
 import SignupSeller from "./SignUpSeller";
 import UploadCNIC from "./UploadCNIC";
+import SellerSettings from "./SellerSettings";
+import ViewTutorials from "./ViewTutorials";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 export default function App() {
@@ -32,6 +41,11 @@ export default function App() {
         <div className="App">
           {/* //  Admin Pages */}
           <Route path="/AdminPanel" exact component={AdminPanel} />
+          <Route path="/ViewAllOrders" exact component={ViewAllOrders} />
+          <Route path="/ViewQueryForms" exact component={QueryForms} />
+          <Route path="/ViewSellers" exact component={ViewSellers} />
+
+
 
           {/* Customer Pages */}
           <Route path="/CustomerPanel" exact component={CustomerPanel} />
@@ -40,11 +54,18 @@ export default function App() {
           <Route path="/OrderConfirmation" exact component={OrderConfirmation} />
           <Route path="/SignupCustomer" exact component={SignupCustomer} />
           <Route path="/SecurityPage" exact component={SecurityPage} />
+          <Route path="/CustomerSettings" exact component={CustomerSettings} />
+          <Route path="/AddReview" exact component={AddReview}/>
+
 
           {/* Sellers Pages */}
           <Route path="/SellerPanel" exact component={SellerPanel} />
           <Route path="/SignupSeller" exact component={SignupSeller} />
           <Route path="/UploadCNIC" exact component={UploadCNIC} />
+          <Route path="/SellerSettings" exact component={SellerSettings} />
+          <Route path="/ViewTutorials" exact component={ViewTutorials} />
+
+
 
           {/* Common Pages */}
           <Route path="/" exact component={Homepage} />
@@ -54,6 +75,10 @@ export default function App() {
           <Route path="/Login" exact component={Login} />
           <Route path="/ForgotPassword" exact component={ForgotPassword} />
           <Route path="/ResetPassword" exact component={ResetPassword} />
+          <Route path="/Artisans" exact component={Artisans} />
+          <Route path="/AboutUs" exact component={AboutUs} />
+
+
 
         </div>
       </Switch>
