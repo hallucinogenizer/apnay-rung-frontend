@@ -36,6 +36,8 @@ const CustomerNavbar = () => {
     }, []);
     const LogoutClear = () =>{
       localStorage.removeItem("Token");
+      localStorage.clear();
+      sessionStorage.clear();
     }
 
     return (
@@ -62,12 +64,21 @@ const CustomerNavbar = () => {
                 <Link to="/Catalog">
                 <a className="nav-item nav-link">Catalog</a>
                 </Link>
-                <a className="nav-item nav-link disabled" tabindex="-1">Artisans</a>
-                <a  className="nav-item nav-link disabled" tabindex="-1">About Us</a>
-                <a  className="nav-item nav-link disabled" tabindex="-1">Contact</a>
+                <Link to="/Artisans">
+                <a className="nav-item nav-link">Artisans</a>
+                </Link>
+                <Link to="/AboutUs">
+                <a className="nav-item nav-link">About Us</a>
+                </Link>
+                {/* <a className="nav-item nav-link disabled" tabindex="-1">Artisans</a>
+                <a  className="nav-item nav-link disabled" tabindex="-1">About Us</a> */}
+                <Link to="/AddQuery">
+                <a className="nav-item nav-link">Contact</a>
+                </Link>
+                
             </div>
             <div className="navbar-nav ml-auto">
-                <Link to="/CustomerPanel">
+                <Link to="/Notifications">
                     <a className="nav-item nav-link">
                     <NotificationsNoneIcon />
                     </a>

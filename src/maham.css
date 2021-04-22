@@ -19,21 +19,15 @@
 .product-div h3 {
   margin-top: 2%;
   font-weight: 200;
-
-  font-size: 20px;
-  margin-left: 2%;
+  text-decoration: underline;
+  text-decoration-color: #d67d20;
   /* margin-bottom: 2%; */
 }
 .product-div h5 {
   padding-top: 1%;
   text-align: center;
   text-decoration: none;
-  color: #d67d20;
-  text-align: left;
-  font-size: 14px;
-  margin-top:5%;
-  margin-left: 2%;
-  font-weight: bold
+  color: #2e2e2e;
 }
 
 .catalog-adjust {
@@ -47,7 +41,11 @@
 }
 .search-catalog {
   width: 90%;
+  margin-top: 1.5%;
   margin-left: 6%;
+}
+.form-control{
+  margin-top: 2%;
 }
 /* Dropdown Button */
 .dropbtn {
@@ -60,11 +58,12 @@
   margin-right: 1%;
   margin-bottom: 1%;
   text-decoration: none;
-  /* cursor: pointer; */
+  cursor: pointer;
 }
 .dropbtn a {
   text-decoration: none;
   color: #2e2e2e;
+  
 }
 /* Dropdown button on hover & focus */
 .dropbtn:hover,
@@ -88,6 +87,7 @@
   overflow: auto;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
+  cursor: pointer;
 }
 /* Links inside the dropdown */
 .dropdown-content a {
@@ -112,7 +112,6 @@ li {
 }
 .checkbox-form-new {
   margin-left: 5%;
-  /* margin-right: 0.5%; */
 }
 .home-button {
   float: right;
@@ -127,25 +126,17 @@ li {
 }
 .grey-main {
   height: 100%;
-  /* margin-top: 0.5%; */
   display: inline-block;
   width: 20%;
   margin-left: 10%;
   padding-top: 1.5%;
   padding-bottom: 1.5%;
-  /* padding-top: 1%;
-  margin-bottom: 0px; */
-  /* background-color: #efefef; */
   border: none;
 }
 .end-main-image {
-  /* margin-left: 50%; */
-  /* height: 20px; */
   display: inline;
   padding-left: 4%;
   padding-right: 4%;
-  /* margin-left: 45px;
-  margin-right: auto; */
 }
 .productpage-div{
   display:inline-block;
@@ -167,10 +158,60 @@ li {
   display:block;
   margin-bottom: 7%;
 }
+.nav-item .nav-link .active{
+  color:#d67d20;
+}
 
-.artist-title{
-    font-size: 20px;
-    font-weight: bold;
-    color: #2e2e2e;
-
+.navbar-user{
+  padding-top:4px;
+  font-size: 12px;
+  padding-left: 5px;
+  color: #7c7c7d;
+}
+.contact-form{
+  margin-left:5%;
+  color:#d67d20;
+}
+.label-form-2{
+  margin-left:5%;
+  color: #d67d20;
+  font-weight: 500;
+}
+.input-des-2{
+  text-align: left;
+  width: 90%;
+  height: 80px;
+  border: 1px solid;
+  margin-left: 5%;
+  border-radius: 7px;
+  border: 1px solid #e5e5e5;
+}
+.input-form-dropdown{
+  justify-content: left;
+  width: 90%;
+  height: 35px;
+  margin-left: 5%;
+  padding: 0.5%;
+  border-radius: 7px;
+  border: 1px solid #e5e5e5;
+}
+.upload{
+  width: fit-content;
+  height: 34px;
+  background-color: #424242;
+  color: #efefef;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-left: 5%;
+  display: block;
+}
+.input-product-image{
+  justify-content: left;
+  width: 70%;
+  height: 30px;
+  margin-left: 5%;
+  margin-top: 0%;
+  border-radius: 7px;
+  border: 1px solid #e5e5e5;
 }
