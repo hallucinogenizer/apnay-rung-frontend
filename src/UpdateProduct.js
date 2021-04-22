@@ -3,57 +3,137 @@ import React, { useState } from "react";
 import SellerNavbar from "./SellerNavbar";
 import Memory from "./Memory";
 import BottomBar from "./BottomBar";
+import { Link } from "react-router-dom";
+import { Modal, Button } from "react-bootstrap";
 
 const UpdateProduct = () => {
-  const [state, setState] = useState({
-    title: "",
-    description: "",
-    category: "",
-    image: "",
-    price: 0,
-    stock: 0
+  let productData = JSON.parse(localStorage.getItem("update_product"))
+  // console.log(productData)
+  let tokenID = localStorage.getItem("Token");
+  const [msg, setMsg] = useState([``]);
+  const [imageUpdate, setImageUpdate] = useState(false);
+  const [show, setShow] = useState(false);
+  const [values, setValues] = useState({
+    fileName:"",
+    file: "",
+    tempFile: ""
   });
-  // const [state, setState] = useState()
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
-  const [image, setImage] = useState("");
-  const [price, setPrice] = useState(0);
-  const [stock, setStock] = useState(0);
-
-  const SubmitHandler = () => {
-    console.log(`submitted form`);
-    setState({
-      title: title,
-      description: description,
-      category: category,
-      image: image,
-      price: price,
-      stock: stock
-    });
-    console.log(state);
-    //send 'state'to backend
-  };
-  const TitleChangeHandler = (event) => {
-    console.log(
-      `in change handler ${event.target.name}, ${event.target.value}`
+  const [title, setTitle] = useState(productData.title);
+  const [description, setDescription] = useState(productData.description);
+  const [category, setCategory] = useState(productData.category);
+  const [price, setPrice] = useState(productData.price);
+  const [stock, setStock] = useState(productData.stock);
+  const SubmitHandler = async(event) => {
+    event.preventDefault();
+    
+    console.log("in submit")
+    let img_response = 0;
+    if (imageUpdate){
+      img_response = await sendImage();
+    }
+    let response = await sendData();
+    if(response){
+      console.log(response)
+    }
+    
+    console.log(img_response)
+    if (response.status === 201 || response.status === 200 || response.status === 202) {
+      setMsg([`Product updated successfully!`, `Back to My Panel`]);
+      handleShow();
+      localStorage.removeItem("update_product");
+    }
+     else {
+      setMsg([`There was an error while updating the product.`, `Back`]);
+      handleShow();
+    }
+  }
+  async function sendImage() { //to submit data to the backend
+    const form = document.getElementById("empty-form");
+    const fileObj = new FormData(form);
+    fileObj.append("image", values.file, values.fileName);
+    console.log("IM ERERREER")
+    console.log(fileObj)
+    try{
+      const response = await fetch(
+        `https://apnay-rung-api.herokuapp.com/inventory/update/image/${productData.item_id}`,
+        {
+          method: "POST",
+          withCredentials: true,
+          credentials: "include",
+          headers: {Authorization:
+            `Bearer ${tokenID}`
+          },
+          body: fileObj
+        }  
+      );
+      return response; 
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
+  async function sendData() { //to submit data to the backend
+    console.log(`token is ${tokenID}`)
+    console.log(typeof(productData.item_id))
+    const response = await fetch(
+      `https://apnay-rung-api.herokuapp.com/inventory/update/${productData.item_id}`,
+      {
+        method: "PATCH",
+        withCredentials: true,
+        credentials: "include",
+        headers: {
+          Authorization: 
+          `Bearer ${tokenID}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          title: title,
+          description: description,
+          category: category,
+          price: price,
+          stock: stock
+        })
+      }
     );
+    console.log(response);
+    return response;
+  }
+  const fileHandler = (e) => {
+    console.log(e.target.files[0])
+    setValues({
+      fileName: "",
+      file: e.target.files[0],
+      tempFile: e.target.files[0].name
+    });
+    setImageUpdate(true);
+    console.log(values);
+  };
+
+  const setFile = (event) => {
+    event.preventDefault();
+    if (values.tempFile){
+      values.fileName = values.tempFile
+    }
+  }
+  const handleClose = () => {
+    setShow(false);
+    if(msg[1] === `Back to my Panel`)
+    {
+        window.location.href = "/SellerPanel";
+    }
+  };
+  const handleShow = () => setShow(true);
+
+  const TitleChangeHandler = (event) => {
     setTitle(event.target.value);
   };
   const DescriptionChangeHandler = (event) => {
-    console.log(`in change handler, ${event.target.value}`);
     setDescription(event.target.value);
   };
   const CategoryChangeHandler = (event) => {
-    console.log(
-      `in change handler ${event.target.name}, ${event.target.value}`
-    );
     setCategory(event.target.value);
   };
   const PriceChangeHandler = (event) => {
-    console.log(
-      `in change handler ${event.target.name}, ${event.target.value}`
-    );
     setPrice(event.target.value);
   };
   const StockChangeHandler = (event) => {
@@ -62,83 +142,108 @@ const UpdateProduct = () => {
     );
     setStock(event.target.value);
   };
-  const ImageChangeHandler = (event) => {
-    console.log(`in change handler: ${event.target.value}`);
-    let file = event.target.file;
-    let data = new FormData();
-    console.log(file);
-    if (file) {
-      data.append("file", file);
-    }
-    setImage(data);
-  };
   return (
     <div className="productForm">
       <SellerNavbar />
       <Memory panel="Seller Panel " page="" current=" Update Product" />{" "}
       <h1>Update Product</h1>
-      <form className="form-product" onSubmit={SubmitHandler}>
+      <form
+          enctype="multipart/form-data"
+          method="POST"
+          id="empty-form"
+        ></form>
+      <form className="form-product" enctype="multipart/form-data" onSubmit={SubmitHandler}>
         <p className="label-form"> Product Title </p>
         <input
           className="input-form"
           type="text"
           name="title"
+          value={title}
           onChange={TitleChangeHandler}
         ></input>
         <p className="label-form"> Product Description </p>
         <textarea
           className="input-des"
           type="text"
-          name="additional_info"
-          placeholder="e.g. Color: blue, length: 2m"
+          name="description"
+          value={description}
           onChange={DescriptionChangeHandler}
           rows="4"
           cols="50"
         ></textarea>
-        {/* <input
-          className="input-des"
-          type="text"
-          name="description"
-          onChange={DescriptionChangeHandler}
-        ></input> */}
         <p className="label-form"> Product Category </p>
         <select
-          className="input-form"
+          className="input-form-dropdown"
           name="category"
-          value=""
+          value={category}
           onChange={CategoryChangeHandler}
         >
-          <option value="">--</option>
+          
           <option value="Bags">Bags</option>
-          <option value="Decor">Decor</option>
           <option value="Clothing">Clothing</option>
+          <option value="Decor">Decor</option>
           <option value="Footwear">Footwear</option>
           <option value="Jewellery">Jewellery</option>
           <option value="Crockery">Crockery</option>
         </select>
         <p className="label-form">Upload Product Image</p>
-        <label className="label-button">
-          Choose File
-          <input type="file" name="image" onChange={ImageChangeHandler}></input>
-        </label>
+        <div>
+            <label for="upload-photo" className="input-form">
+              {values.fileName}
+            </label>
+            <input
+              type="file"
+              name="image"
+              accept="image/*, application/pdf"
+              onChange={fileHandler}
+              id="upload-photo"
+            />
+            <button className="upload" onClick = {setFile}>Upload</button>
+          </div>
         <p className="label-form">Product Price</p>
         <input
           className="input-form"
-          type="text"
+          type="number"
           name="price"
+          value={price}
           onChange={PriceChangeHandler}
         ></input>
         <p className="label-form">Number of Pieces in Stock</p>
         <input
           className="input-form"
-          type="text"
+          type="number"
           name="stock"
+          value={stock}
           onChange={StockChangeHandler}
         ></input>
         <br />
-        <input type="submit" className="submit-button" value="Submit"></input>
+        <div className="checkout-buttons">
+          <input
+            type="submit"
+            className="submit-button2"
+            value="Update Product"
+          ></input>
+        </div>
       </form>
+      <br/>
+      <br/>
+      <br/>
       <BottomBar />
+      <Modal show={show} onHide={handleClose} className="delete-modal">
+        <Modal.Header closeButton>
+        <Modal.Title>Update Product</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{msg[0]}</Modal.Body>
+        <Modal.Footer>
+        <Button
+            variant="primary"
+            className="delete-primary"
+            onClick={handleClose}
+        >
+            {msg[1] !== "Back" ? <Link to="./SellerPanel">{msg[1]}</Link> : msg[1]}
+        </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

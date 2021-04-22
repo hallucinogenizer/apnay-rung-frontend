@@ -48,6 +48,7 @@ const SellerPanel = () => {
         <div className="box-left">
           
           <div className="box-left-left">
+          <Link to="/AddProduct" className="router-link">
             <button href="#cart" className="panel-box">
               <span className="icons">
                 <QueueIcon
@@ -56,8 +57,10 @@ const SellerPanel = () => {
               </span>
               <span className="text">Add Product</span>
             </button>
+            </Link>
           </div>
           <div className="box-left-left">
+          <Link to="/Tutorials" className="router-link">
             <button href="#cart" className="panel-box">
               <span className="icons">
                 <CastForEducationIcon
@@ -66,8 +69,10 @@ const SellerPanel = () => {
               </span>
               <span className="text">Tutorials</span>
             </button>
+            </Link>
           </div>
           <div className="box-left-left">
+          <Link to="/SellerSettings" className="router-link">
             <button href="#cart" className="panel-box">
               <span className="icons">
                 <SettingsIcon
@@ -76,11 +81,13 @@ const SellerPanel = () => {
               </span>
               <span className="text">Account Settings</span>
             </button>
+            </Link>
           </div>
         </div>
         <div className="box-right">
           
           <div className="box-right-right">
+          <Link to="/Inventory" className="router-link">
             <button href="#cart" className="panel-box">
               <span className="icons">
                 <UpdateIcon
@@ -89,8 +96,10 @@ const SellerPanel = () => {
               </span>
               <span className="text">View Inventory</span>
             </button>
+            </Link>
           </div>
           <div className="box-right-right">
+          <Link to="/Notifications" className="router-link">
             <button href="#cart" className="panel-box">
               <span className="icons">
                 <NotificationsNoneIcon
@@ -99,8 +108,10 @@ const SellerPanel = () => {
               </span>
               <span className="text">Notifications</span>
             </button>
+            </Link>
           </div>
           <div className="box-right-right">
+          <Link to="/CurrentOrders" className="router-link">
             <button href="#cart" className="panel-box">
               <span className="icons">
                 <MenuIcon
@@ -109,6 +120,7 @@ const SellerPanel = () => {
               </span>
               <span className="text">Current Orders</span>
             </button>
+            </Link>
           </div>
         </div>
       </div>
