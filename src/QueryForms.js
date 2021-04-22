@@ -99,13 +99,15 @@ const QueryForms = () => {
           <td>{time}</td>
           <td>
             <span>
+            <div>
           <button className="view-btn" onClick={() => handleViewForm(id,customer_id, subject,content)}>
               View
             </button>
-            <p>|</p>
-            <a href="#delete" className="link">
+            <div>|</div>
+            </div>
+            <button className="link">
                Delete
-            </a>
+            </button>
             </span>
           </td>
         </tr>

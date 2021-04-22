@@ -363,7 +363,20 @@ hr{
   background-color: transparent;
   border:none;
   font-size: 15px;
-  color: #d67d20
+  color: #d67d20;
+  text-decoration: underline;
+  float: left;
+  margin-left: 0.1%;
+
+}
+
+.link {
+  background-color: transparent;
+  border:none;
+  font-size: 15px;
+  color: #d67d20;
+  text-decoration: underline;
+
 }
 
 .popup {
