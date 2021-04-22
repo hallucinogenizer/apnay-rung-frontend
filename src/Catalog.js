@@ -8,12 +8,18 @@ import Memory from "./Memory";
 import BottomBar from "./BottomBar";
 import { Link } from "react-router-dom";
 import SellerNavbar from "./SellerNavbar";
+import { Button } from "react-bootstrap";
 // import "bootstrap/dist/css/bootstrap.min.css";
 
 const Catalog = () => {
   const [state, setState] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
+  const [callMap, setCallMap] =useState(true);
+  const [callEffect, setCallEffect] = useState(false);
   const usertype = localStorage.getItem("TypeOfUser");
   const tokenID = localStorage.getItem("Token");
+  const province = JSON.parse(localStorage.getItem("map_province"));
+  
   console.log("token", tokenID);
   const GetNavbar = () =>{
     if (tokenID === null){
@@ -37,7 +43,37 @@ const Catalog = () => {
       )
     }
   }
-  
+  const MapProvinces = () =>{
+      setCallMap(false);
+      console.log(`in map provinces: ${province}`)
+    if (province !== null) {
+        if (province === `Punjab`){
+        PunjabProducts();
+        
+        }
+        else if (province === `Sindh`){
+        SindhProducts();
+        }
+        else if(province === `Balochistan`){
+            console.log("in blaochistan if")
+            BalochistanProducts();
+        }
+        else if (province === `KPK`){
+            KPKProducts();
+        }
+        else if (province === `Kashmir`){
+            KashmirProducts();
+        }
+        else if (province === `Gilgit`){
+            GilgitProducts();
+        }
+        else
+        {
+            console.log("didnt mathc anywhere")
+        }
+        // localStorage.removeItem("map_province")
+    }
+  }
   useEffect(() => {
     const getData = async (url) => {
       const response = await fetch(url, {
@@ -46,26 +82,35 @@ const Catalog = () => {
       });
       return response.json();
     };
- 
     getData("https://apnay-rung-api.herokuapp.com/inventory/all").then(
       (response) => {
         setState(response);
-        console.log(`I am here:${response}`)
+        console.log(response)
+        console.log("in use effect")
       }
     );
-  }, []);
+  }, [callEffect]);
 
   const sendID = (product) => {
     localStorage.removeItem("productID");
+    localStorage.removeItem("map_province");
     localStorage.setItem("productID", JSON.stringify(product));
   };
 
   const renderProducts = () => {
-    return state.map((product, index) => {
-      const { title, seller_name, price, image } = product; //destructuring
+    return state.filter((product,index)=>{
+        const { title, seller_name} = product;
+        if (searchValue === ""){
+            return product
+        }
+        else if (title.toLowerCase().includes(searchValue.toLowerCase()) || seller_name.toLowerCase().includes(searchValue.toLowerCase())){
+            return product
+        }
+    }).map((product, index) => {
+        const { title, seller_name, price, image } = product;//destructuring
       return (
         <Link to="/Product" className="route" onClick={() => sendID(product)}>
-          <div className="product-div">
+          <div className="product-div" id="#product-search">
             <img className="product-img" src={image} alt="product" />
             <h3>{title}</h3>
             <h5>Artist: {seller_name}</h5>
@@ -75,32 +120,168 @@ const Catalog = () => {
       );
     });
   };
-
+  const SortAlpha = () =>{
+    const getData = async (url) => {
+        const response = await fetch(url, {
+        method: "GET",
+        withCredentials: false
+        });
+        return response.json();
+    };
+    getData("https://apnay-rung-api.herokuapp.com/inventory/sort/alphabetical").then(
+        (response) => {
+        setState(response);
+        console.log(response)
+        }
+    );
+  }
+    const SortPriceAsc = () =>{
+        const getData = async (url) => {
+            const response = await fetch(url, {
+                method: "GET",
+                withCredentials: false
+            });
+            return response.json();
+            };
+            getData("https://apnay-rung-api.herokuapp.com/inventory/sort/price/asc").then(
+            (response) => {
+                setState(response);
+                console.log(response)
+            }
+        );
+    }
+    const PunjabProducts = () =>{
+        console.log("in punjab products func")
+        const getData = async (url) => {
+            const response = await fetch(url, {
+                method: "GET",
+                withCredentials: false
+            });
+            return response.json();
+            };
+            getData("https://apnay-rung-api.herokuapp.com/inventory/location/Punjab").then(
+            (response) => {
+                setState(response);
+                console.log(response)
+            }
+        );
+    }
+    const SindhProducts = () =>{
+        console.log("in Bsindh products")
+        const getData = async (url) => {
+            const response = await fetch(url, {
+                method: "GET",
+                withCredentials: false
+            });
+            return response.json();
+            };
+            getData("https://apnay-rung-api.herokuapp.com/inventory/location/Sindh").then(
+            (response) => {
+                setState(response);
+                console.log(response)
+            }
+        );
+    }
+    const BalochistanProducts = () =>{
+        console.log("in Balochitsn products")
+        const getData = async (url) => {
+            const response = await fetch(url, {
+                method: "GET",
+                withCredentials: false
+            });
+            return response.json();
+            };
+            getData("https://apnay-rung-api.herokuapp.com/inventory/location/Balochistan").then(
+            (response) => {
+                setState(response);
+                console.log(response)
+            }
+        );
+    }
+    const KashmirProducts = () =>{
+        console.log("in kashmir products")
+        const getData = async (url) => {
+            const response = await fetch(url, {
+                method: "GET",
+                withCredentials: false
+            });
+            return response.json();
+            };
+            getData("https://apnay-rung-api.herokuapp.com/inventory/location/Kashmir").then(
+            (response) => {
+                setState(response);
+                console.log(response)
+            }
+        );
+    }
+    const KPKProducts = () =>{
+        console.log("in kpk products")
+        const getData = async (url) => {
+            const response = await fetch(url, {
+                method: "GET",
+                withCredentials: false
+            });
+            return response.json();
+            };
+            getData("https://apnay-rung-api.herokuapp.com/inventory/location/KPK").then(
+            (response) => {
+                setState(response);
+                console.log(response)
+            }
+        );
+    }
+    const GilgitProducts = () =>{
+        console.log("in gilgit products")
+        const getData = async (url) => {
+            const response = await fetch(url, {
+                method: "GET",
+                withCredentials: false
+            });
+            return response.json();
+            };
+            getData("https://apnay-rung-api.herokuapp.com/inventory/location/Gilgit-Balistan").then(
+            (response) => {
+                setState(response);
+                console.log(response)
+            }
+        );
+    }
+    const checkMap = () =>{
+        if (callMap){
+            MapProvinces()
+        }
+    }
+ 
   return (
     <div>
       {GetNavbar()}
-      {/* <CustomerNavbar /> */}
+      {checkMap()}
       <Memory panel="" page="" current="Catalog" />{" "}
       {/* when three links needed in panel, include a '/' in the middle 'page' argument */}
       <h1>Catalog</h1>
       <br></br>
       <ul className="sortbar">
         <li className="dropbtn">
-          <a href="#home">Sort A-Z</a>
+          <a onClick={()=>{setCallEffect(!callEffect)}}>All Products</a>
         </li>
         <li className="dropbtn">
-          <a href="#news">Sort $ - $$</a>
+          <a onClick={SortAlpha}>Sort A-Z</a>
+        </li>
+        <li className="dropbtn">
+          <a onClick={SortPriceAsc}>Sort $ - $$</a>
         </li>
         <li className="dropdown">
           <button className="dropbtn">Filter by Region</button>
           <div className="dropdown-content" id="mydropdown">
-            <a href="#">Punjab</a>
-            <a href="#">Sindh</a>
-            <a href="#">Balochistan</a>
-            <a href="#">KPK</a>
-            <a href="#">Gilgit-Baltistan</a>
+            <a onClick={PunjabProducts}>Punjab</a>
+            <a onClick={SindhProducts}>Sindh</a>
+            <a onClick={BalochistanProducts}>Balochistan</a>
+            <a onClick={KPKProducts}>KPK</a>
+            <a onClick={GilgitProducts}>Gilgit-Baltistan</a>
+            <a onClick={KashmirProducts}>Kashmir</a>
           </div>
         </li>
+        
       </ul>
       <div className="search-catalog">
         <div className="input-group">
@@ -108,18 +289,14 @@ const Catalog = () => {
             type="text"
             className="form-control"
             placeholder="Search Products"
+            onChange={(event)=>{setSearchValue(event.target.value)}}
           ></input>
-          <div className="input-group-append">
-            <button className="btn btn-secondary" type="button">
-              <i className="fa fa-search"></i>
-            </button>
-          </div>
         </div>
       </div>
       <br />
       <div className="space"></div>
       <div className="catalog-adjust">{renderProducts()}</div>
-      {/* <div class="itemboxes">{renderProducts()}</div> */}
+      
       <BottomBar />
     </div>
   );

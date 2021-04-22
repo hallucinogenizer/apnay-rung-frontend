@@ -4,6 +4,7 @@ import CustomerNavbar from "./CustomerNavbar";
 import Memory from "./Memory";
 import BottomBar from "./BottomBar";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { makeStyles } from '@material-ui/core/styles';
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { Modal, Button } from "react-bootstrap";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
@@ -15,12 +16,22 @@ import React, { useState } from "react";
 
 const CustomerPanel = () => {
   let link = ``;
+  const session = sessionStorage.getItem("logged-in");
   const storage = JSON.parse(localStorage.getItem("shoppingCart"));
+ 
   if (storage !== null) {
     link = "/ShoppingCart";
   } else {
     link = "/CustomerPanel";
   }
+  const checkSession = () => {
+    console.log("in here")
+    if (session !== true){
+      localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+      window.location.href = '/Homepage';
+    }
+  }
+  
 
   const [show, setShow] = useState(false);
 
@@ -30,12 +41,23 @@ const CustomerPanel = () => {
   const handleShow = () => {
     setShow(true);
   };
-
+  const iconStyles = ()=> {
+    return {
+      buttoncolor: {
+        fill: 'white',
+        fontSize: 40
+      },
+      fillIcon: {
+        fill: 'white',
+      },
+    }
+  }
+  const classes = makeStyles(iconStyles)();
   return (
     <div>
+      {/* {checkSession()} */}
       <CustomerNavbar currentPage="CustomerPanel" />
       <Memory panel="Customer Panel" /> {/* <page="" current="" /> */}
-      {/* when three links needed in panel, include a '/' in the middle 'page' argument */}
       <h1>Customer Panel</h1>
       <br></br>
       <br></br>
@@ -47,17 +69,10 @@ const CustomerPanel = () => {
               className="router-link"
               onClick={() => handleShow()}
             >
-              <button href="#cart" className="panel-box">
+              <button className="panel-box">
                 <span className="icons">
                   <ShoppingCartIcon
-                    style={
-                      ({
-                        fill: "white"
-                      },
-                      {
-                        fontSize: 40
-                      })
-                    }
+                    className={classes.buttoncolor}
                   />
                 </span>
                 <span className="text">Shopping Cart</span>
@@ -65,77 +80,38 @@ const CustomerPanel = () => {
             </Link>
           </div>
           <div className="box-left-left">
-            <Link to="/CustomerPanel" className="router-link">
-              <button href="#cart" className="panel-box">
+            <Link to="/AddReview" className="router-link">
+              <button className="panel-box">
                 <span className="icons">
                   <RateReviewIcon
-                    style={
-                      ({
-                        fill: "white"
-                      },
-                      {
-                        fontSize: 40
-                      })
-                    }
+                     className={classes.buttoncolor}
                   />
                 </span>
                 <span className="text">Add Review</span>
               </button>
             </Link>
           </div>
-          <div className="box-left-left">
-            <Link to="/CustomerPanel" className="router-link">
+          
+        </div>
+        <div className="box-right">
+        <div className="box-right-right">
+            <Link to="/CustomerSettings" className="router-link">
               <button href="#cart" className="panel-box">
                 <span className="icons">
                   <SettingsIcon
-                    style={
-                      ({
-                        fill: "white"
-                      },
-                      {
-                        fontSize: 40
-                      })
-                    }
+                     className={classes.buttoncolor}
                   />
                 </span>
                 <span className="text">Account Settings</span>
               </button>
             </Link>
           </div>
-        </div>
-        <div className="box-right">
           <div className="box-right-right">
-            <Link to="/CustomerPanel" className="router-link">
-              <button href="#cart" className="panel-box">
-                <span className="icons">
-                  <LocalShippingIcon
-                    style={
-                      ({
-                        fill: "white"
-                      },
-                      {
-                        fontSize: 40
-                      })
-                    }
-                  />
-                </span>
-                <span className="text">Order Status</span>
-              </button>
-            </Link>
-          </div>
-          <div className="box-right-right">
-            <Link to="/CustomerPanel" className="router-link">
-              <button href="#cart" className="panel-box">
+            <Link to="/Notifications" className="router-link">
+              <button  className="panel-box">
                 <span className="icons">
                   <NotificationsNoneIcon
-                    style={
-                      ({
-                        fill: "white"
-                      },
-                      {
-                        fontSize: 40
-                      })
-                    }
+                     className={classes.buttoncolor}
                   />
                 </span>
                 <span className="text">Notifications</span>

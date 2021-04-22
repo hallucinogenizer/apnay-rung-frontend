@@ -153,6 +153,7 @@ const NewCheckout = () => {
           className="input-form"
           type="text"
           name="bill_address"
+          value={BillingAddressAdd}
           onChange={BillingAddressAdd}
         ></input>
         <p className="label-form">Additional Information</p>
@@ -194,21 +195,21 @@ const NewCheckout = () => {
           <br /> IBAN: PK48HABB12345678910
         </p>{" "}
         <div className="checkout-buttons">
-        <Link to="/ShoppingCart">
+          <Link to="/ShoppingCart">
           <input
             type="submit"
             className="submit-button2"
             value="Return to Cart"
           ></input>
-        </Link>
-        <Link to="/OrderConfirmation">
+          </Link>
+          <Link to="/OrderConfirmation">
           <input
             type="submit"
             className="submit-button3"
             value="Confirm Order"
             onClick={SubmitHandler}
           ></input>
-        </Link>
+          </Link>
         </div>
       </form>
       <br />
