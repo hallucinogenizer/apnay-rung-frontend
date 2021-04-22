@@ -10,6 +10,7 @@ import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 const AdminNavbar = () => {
     let tokenID = localStorage.getItem("Token");
     const [userstate, setUserState] = useState([]);
+    
     useEffect(() => {
         const getData = async (url) => {
           const response = await fetch(url, {
@@ -27,7 +28,7 @@ const AdminNavbar = () => {
      
         getData("https://apnay-rung-api.herokuapp.com/admin/info").then(
         (response) => {
-          console.log(`customer navbar response: ${response}`)
+          console.log(`admin navbar response: ${response}`)
           setUserState(response);
           
           // console.log("intiil value", userstate);
@@ -36,6 +37,8 @@ const AdminNavbar = () => {
       }, []);
       const LogoutClear = () =>{
         localStorage.removeItem("Token");
+        localStorage.clear();
+        sessionStorage.clear();
       }
     return (
         <div>
@@ -61,7 +64,10 @@ const AdminNavbar = () => {
                 <Link to="/Catalog">
                 <a className="nav-item nav-link">Catalog</a>
                 </Link>
-                <a  className="nav-item nav-link disabled" tabindex="-1">Contact</a>
+                <Link to="/QueryForms">
+                <a className="nav-item nav-link">Contact</a>
+                </Link>
+                {/* <a  className="nav-item nav-link disabled" tabindex="-1">Contact</a> */}
             </div>
             <div className="navbar-nav ml-auto">
                 <Link to="/AdminPanel">

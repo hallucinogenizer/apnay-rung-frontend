@@ -34,6 +34,8 @@ const SellerNavbar = () => {
       }, []);
       const LogoutClear = () =>{
         localStorage.removeItem("Token");
+        localStorage.clear();
+        sessionStorage.clear();
       }
     return (
         <div>
@@ -56,9 +58,16 @@ const SellerNavbar = () => {
                 <Link to="/SellerPanel">
                 <a className="nav-item nav-link">Panel</a>
                 </Link>
-                <a className="nav-item nav-link disabled" tabIndex="-1">Tutorial</a>
-                <a  className="nav-item nav-link disabled" tabindex="-1">Inventory</a>
-                <a  className="nav-item nav-link disabled" tabindex="-1">About Us</a>
+                <Link to="/ViewTutorials">
+                <a className="nav-item nav-link">Tutorial</a>
+                </Link>
+                <Link to="/ViewInventory">
+                <a className="nav-item nav-link">Inventory</a>
+                </Link>
+                <Link to="/About Us">
+                <a className="nav-item nav-link">About US</a>
+                </Link>
+                
             </div>
             <div className="navbar-nav ml-auto">
                 <Link to="/SellerPanel">
