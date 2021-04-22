@@ -1,11 +1,12 @@
 import "./styles.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AdminNavbar from "./AdminNavbar";
 import Memory from "./Memory";
 import BottomBar from "./BottomBar";
 import PersonAddDisabledIcon from "@material-ui/icons/PersonAddDisabled";
 import FlashOnIcon from "@material-ui/icons/FlashOn";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
+import { Modal, Button } from "react-bootstrap";
 
 const ViewCustomers = () => {
   const [state, setState] = useState([
@@ -19,101 +20,111 @@ const ViewCustomers = () => {
     }
   ]);
 
-  async function getData(url) {
-    const response = await fetch(url, {
-      method: "GET",
-      withCredentials: true,
-      credentials: "include",
-      headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik11aGFtbWFkIFJvaGFuIEh1c3NhaW4iLCJ0eXBlT2ZVc2VyIjoiYWRtaW4iLCJpYXQiOjE2MTY4NDE4MTZ9.HJvh_8caLMReaDmJFCEklgtP9u86usbNIZ4FxOrIawk",
-        "Content-Type": "application/json"
-      }
-    });
+  const [msg, setMsg] = useState([``]);
 
-    return response.json();
+  const [show, setShow] = useState(false);
+
+  const [id, setID] = useState(0);
+
+  const [block, setBlock] = useState(false)
+
+  const [callEffect,setCallEffect]= useState(false)
+
+  const handleShow = (message,customerID,blockStatus) => {
+    setMsg(message)
+    console.log(`customer id is ${customerID}`)
+    setID(customerID)
+    setBlock(blockStatus)
+    setShow(true)
+    
+  };
+  const handleClose = (changeBlock) => {
+    setShow(false);
+    if(changeBlock==true){
+      console.log(`sending to backend`)
+      sendData()
+    }
+  };
+
+  async function sendData() {
+
+    const response = await fetch(
+      `https://apnay-rung-api.herokuapp.com/customer/block/${id}`,
+      {
+        method: "PATCH",
+        withCredentials: true,
+        credentials: "include",
+        headers: {
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik11aGFtbWFkIFJvaGFuIEh1c3NhaW4iLCJ0eXBlT2ZVc2VyIjoiYWRtaW4iLCJpYXQiOjE2MTY4NDE4MTZ9.HJvh_8caLMReaDmJFCEklgtP9u86usbNIZ4FxOrIawk`,
+          "Content-Type": "application/json"
+        }
+      }
+    );
+    if (response.status === 200) {
+      setCallEffect(!callEffect)
+    }  
   }
 
-  getData("https://apnay-rung-api.herokuapp.com/customer/all").then(
-    (response) => {
-      console.log(response);
-      setState(response);
-    }
-  );
-  // let state = {
-  //   //state is by default an object
-  //   customers: [
-  //     {
-  //       ID: "1",
-  //       name: "Wasif",
-  //       email: "wasif@gmail.com",
-  //       address: "221B Bakers Street",
-  //       phone: "03214456789",
-  //       blockStatus: false
-  //     },
-  //     {
-  //       ID: "1",
-  //       name: "Wasif",
-  //       email: "wasif@gmail.com",
-  //       address: "221B Bakers Street",
-  //       phone: "03214456789",
-  //       blockStatus: false
-  //     },
-  //     {
-  //       ID: "1",
-  //       name: "Wasif",
-  //       email: "wasif@gmail.com",
-  //       address: "221B Bakers Street",
-  //       phone: "03214456789",
-  //       blockStatus: false
-  //     },
-  //     {
-  //       ID: "1",
-  //       name: "Wasif",
-  //       email: "wasif@gmail.com",
-  //       address: "221B Bakers Street",
-  //       phone: "03214456789",
-  //       blockStatus: true
-  //     }
-  //   ]
-  // };
+  useEffect(() => {
+    async function getData(url) {
+      const response = await fetch(url, {
+        method: "GET",
+        withCredentials: true,
+        credentials: "include",
+        headers: {
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik11aGFtbWFkIFJvaGFuIEh1c3NhaW4iLCJ0eXBlT2ZVc2VyIjoiYWRtaW4iLCJpYXQiOjE2MTY4NDE4MTZ9.HJvh_8caLMReaDmJFCEklgtP9u86usbNIZ4FxOrIawk",
+          "Content-Type": "application/json"
+        }
+      });
 
-  const Block = (blockStatus) => {
+      return response.json();
+    }
+
+    getData("https://apnay-rung-api.herokuapp.com/customer/all").then(
+      (response) => {
+        console.log(response);
+        setState(response);
+      }
+    );
+  }, [callEffect]);
+
+  const Block = (blockStatus,customerID) => {
     if (blockStatus === false) {
       return (
-        <a href="#delete" className="link">
+        <button className="link-v2" onClick={()=>handleShow([`Are you sure you want to block this customer?`,`Dont Block`,`Block Customer`],customerID,blockStatus)}>
           <PersonAddDisabledIcon
             style={{
               fontSize: "medium"
             }}
           />
           Block
-        </a>
+        </button>
       );
     } else {
       return (
-        <a href="#delete" className="link">
+        <button className="link-v2" onClick={()=>handleShow([`Are you sure you want to unblock this customer?`,`Dont Unblock`,`Unblock Customer`],customerID,blockStatus)}>
           <PersonAddIcon
             style={{
               fontSize: "medium"
             }}
           />
           Unblock
-        </a>
+        </button>
       );
     }
   };
   const renderTableData = () => {
     return state.map((customer, index) => {
-      const { ID, name, email, address, phone, blockStatus } = customer; //destructuring
+      const { customer_id, name, email, address, phone, blocked } = customer; //destructuring
       return (
         <tr class="data">
-          <td>{ID}</td>
+          <td>{customer_id}</td>
           <td>{name}</td>
           <td>{email}</td>
           <td>{address}</td>
           <td>{phone}</td>
-          <td>{Block(blockStatus)}</td>
+          <td>{Block(blocked,customer_id)}</td>
         </tr>
       );
     });
@@ -140,7 +151,36 @@ const ViewCustomers = () => {
           <tbody>{renderTableData()}</tbody>
         </table>
       </div>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
       <BottomBar />
+      <Modal show={show} onHide={handleClose} className="delete-modal">
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Block</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{msg[0]}</Modal.Body>
+        <Modal.Footer>
+        <Button
+            variant="secondary"
+            className="delete-secondary"
+            onClick={()=>handleClose(false)}
+          >
+            {msg[1]}
+            {/* {msg[1] !== "Dont Unblock" ? <Link to="./ViewSellers">{msg[1]}</Link> : msg[1]} */}
+          </Button>
+          <Button
+            variant="primary"
+            className="delete-primary"
+            onClick={()=>handleClose(true)}
+          >
+            {msg[2]}
+            {/* {msg[2] !== "Dont block" ? <Link to="./ViewSellers">{msg[2]}</Link> : msg[2]} */}
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

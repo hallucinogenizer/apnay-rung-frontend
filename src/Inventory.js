@@ -1,8 +1,10 @@
 import "./styles.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SellerNavbar from "./SellerNavbar";
 import Memory from "./Memory";
 import BottomBar from "./BottomBar";
+import { Link } from "react-router-dom";
+import { Modal, Button } from "react-bootstrap";
 
 const Inventory = () => {
   const [state, setState] = useState([
@@ -14,31 +16,83 @@ const Inventory = () => {
     }
   ]);
 
-  async function getData(url) {
-    const response = await fetch(url, {
-      method: "GET",
-      withCredentials: true,
-      credentials: "include",
-      headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6IlZhZmEgQmF0b29sIiwidHlwZU9mVXNlciI6InNlbGxlciIsImlhdCI6MTYxNjg0NDE3N30.xYaUcX7dmdqY5co2tMbVA_9jh0M1fVBB-AX0Aam5G7Y",
-        "Content-Type": "application/json"
-      }
-    });
+  const [callEffect,setCallEffect]= useState(false)
 
-    return response.json();
+  useEffect(() => {
+    async function getData(url) {
+      const response = await fetch(url, {
+        method: "GET",
+        withCredentials: true,
+        credentials: "include",
+        headers: {
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6IlZhZmEgQmF0b29sIiwidHlwZU9mVXNlciI6InNlbGxlciIsImlhdCI6MTYxNjg0NDE3N30.xYaUcX7dmdqY5co2tMbVA_9jh0M1fVBB-AX0Aam5G7Y",
+          "Content-Type": "application/json"
+        }
+      });
+
+      return response.json();
+    }
+
+    getData("https://apnay-rung-api.herokuapp.com/inventory/all/mine").then(
+      (response) => {
+        console.log(response);
+        setState(response);
+      }
+    );
+  }, [callEffect]);
+
+  const viewProduct = (product) => {
+    localStorage.removeItem("productID");
+    localStorage.setItem("productID", JSON.stringify(product));
+  }; //add product to local storage
+
+  const updateProduct= (product) => {
+    localStorage.removeItem("update_product");
+    localStorage.setItem("update_product", JSON.stringify(product));
   }
 
-  getData("https://apnay-rung-api.herokuapp.com/inventory/all").then(
-    (response) => {
-      console.log(response);
-      setState(response);
-    }
-  );
+  async function deleteProduct(itemID){
+    const response = await fetch(
+      `https://apnay-rung-api.herokuapp.com/inventory/id/${itemID}`,
+      {
+        method: "DELETE",
+        withCredentials: true,
+        credentials: "include",
+        headers: {
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6IlZhZmEgQmF0b29sIiwidHlwZU9mVXNlciI6InNlbGxlciIsImlhdCI6MTYxNjg0NDE3N30.xYaUcX7dmdqY5co2tMbVA_9jh0M1fVBB-AX0Aam5G7Y`,
+          "Content-Type": "application/json"
+        }
+      }
+    );
+    console.log(response);
 
+    if (response.status === 200 || response.status === 201 || response.status === 202) {
+      
+      console.log(`processed ${!callEffect}`)
+      setCallEffect(!callEffect)
+    } 
+  }
+
+  const [show, setShow] = useState(false);
+  const [id, setID] = useState(0);
+
+  const handleShow = (itemID) => {
+    setID(itemID)
+    setShow(true)
+    
+  };
+  const handleClose = (changeBlock) => {
+    setShow(false);
+    if(changeBlock==true){
+      console.log(`sending to backend`)
+      deleteProduct(id)
+    }
+    
+  };
   const renderTableData = () => {
     return state.map((product, index) => {
-      const { image, title, stock, price, quantityInStock } = product; //destructuring
+      const { item_id, image, title, stock, price, quantityInStock } = product; //destructuring
       return (
         <tr className="data">
           <td>
@@ -48,17 +102,21 @@ const Inventory = () => {
           <td>{price}</td>
           <td>{stock}</td>
           <td>
-            <a href="#delete" className="link">
-              View
-            </a>
+            <Link to="/Product" className="route" onClick={() => viewProduct(product)}>
+              <button className="link-v2">
+                View
+              </button>
+            </Link>
             |
-            <a href="#delete" className="link">
+            <Link to="/UpdateProduct" className="route" onClick={() => updateProduct(product)}>
+            <button className="link-v2">
               Update
-            </a>
+            </button>
+            </Link>
             |
-            <a href="#delete" className="link">
+            <button className="link-v2" onClick={()=>handleShow(item_id)}>
               Delete
-            </a>
+            </button>
           </td>
         </tr>
       );
@@ -69,7 +127,7 @@ const Inventory = () => {
     <div>
       <SellerNavbar />
       {/* <Memory panel="" page="" current=" Inventory" />{" "} */}
-      <Memory panel="Seller Panel" page="" current="View All Customers" />{" "}
+      <Memory panel="Seller Panel" page="" current="Inventory" />{" "}
       {/* when three links needed in panel, include a '/' in the middle 'page' argument */}
       <h1>Inventory </h1>
       <div className="table-responsive">
@@ -87,6 +145,28 @@ const Inventory = () => {
         </table>
       </div>
       <BottomBar />
+      <Modal show={show} onHide={handleClose} className="delete-modal">
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Block</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to delete this product?</Modal.Body>
+        <Modal.Footer>
+        <Button
+            variant="secondary"
+            className="delete-secondary"
+            onClick={()=>handleClose(false)}
+          >
+            Don't Delete
+          </Button>
+          <Button
+            variant="primary"
+            className="delete-primary"
+            onClick={()=>handleClose(true)}
+          >
+            Delete Product
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
