@@ -15,10 +15,29 @@ import MenuIcon from "@material-ui/icons/Menu";
 import AssessmentIcon from "@material-ui/icons/Assessment";
 import CastForEducationIcon from "@material-ui/icons/CastForEducation";
 import { Link } from "react-router-dom";
+import { makeStyles } from '@material-ui/core/styles';
 
 const SellerPanel = () => {
+  const session = sessionStorage.getItem("logged-in");
+  const checkSession = () => {
+    console.log("in here")
+    if (session !== true){
+      localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+      window.location.href = '/Homepage';
+    }
+  }
+  const iconStyles = ()=> {
+    return {
+      buttoncolor: {
+        fill: 'white',
+        fontSize: 40
+      }
+    }
+  }
+  const classes = makeStyles(iconStyles)();
   return (
     <div>
+      {/* {checkSession()} */}
       <SellerNavbar />
       <Memory panel="Seller Panel" /> {/* <page="" current="" /> */}
       {/* when three links needed in panel, include a '/' in the middle 'page' argument */}
@@ -27,37 +46,12 @@ const SellerPanel = () => {
       <br></br>
       <div className="all-boxes">
         <div className="box-left">
-          <div className="box-left-left">
-            <Link to="/SellerPanel" className="router-link">
-              <button href="#cart" className="panel-box">
-                <span className="icons">
-                  <AssessmentIcon
-                    style={
-                      ({
-                        fill: "white"
-                      },
-                      {
-                        fontSize: 40
-                      })
-                    }
-                  />
-                </span>
-                <span className="text">Sales Report</span>
-              </button>
-            </Link>
-          </div>
+          
           <div className="box-left-left">
             <button href="#cart" className="panel-box">
               <span className="icons">
                 <QueueIcon
-                  style={
-                    ({
-                      fill: "white"
-                    },
-                    {
-                      fontSize: 40
-                    })
-                  }
+                  className={classes.buttoncolor}
                 />
               </span>
               <span className="text">Add Product</span>
@@ -67,14 +61,7 @@ const SellerPanel = () => {
             <button href="#cart" className="panel-box">
               <span className="icons">
                 <CastForEducationIcon
-                  style={
-                    ({
-                      fill: "white"
-                    },
-                    {
-                      fontSize: 40
-                    })
-                  }
+                  className={classes.buttoncolor}
                 />
               </span>
               <span className="text">Tutorials</span>
@@ -84,14 +71,7 @@ const SellerPanel = () => {
             <button href="#cart" className="panel-box">
               <span className="icons">
                 <SettingsIcon
-                  style={
-                    ({
-                      fill: "white"
-                    },
-                    {
-                      fontSize: 40
-                    })
-                  }
+                  className={classes.buttoncolor}
                 />
               </span>
               <span className="text">Account Settings</span>
@@ -99,35 +79,12 @@ const SellerPanel = () => {
           </div>
         </div>
         <div className="box-right">
-          <div className="box-right-right">
-            <button href="#cart" className="panel-box">
-              <span className="icons">
-                <LocalShippingIcon
-                  style={
-                    ({
-                      fill: "white"
-                    },
-                    {
-                      fontSize: 40
-                    })
-                  }
-                />
-              </span>
-              <span className="text">Delivery Status</span>
-            </button>
-          </div>
+          
           <div className="box-right-right">
             <button href="#cart" className="panel-box">
               <span className="icons">
                 <UpdateIcon
-                  style={
-                    ({
-                      fill: "white"
-                    },
-                    {
-                      fontSize: 40
-                    })
-                  }
+                  className={classes.buttoncolor}
                 />
               </span>
               <span className="text">View Inventory</span>
@@ -137,14 +94,7 @@ const SellerPanel = () => {
             <button href="#cart" className="panel-box">
               <span className="icons">
                 <NotificationsNoneIcon
-                  style={
-                    ({
-                      fill: "white"
-                    },
-                    {
-                      fontSize: 40
-                    })
-                  }
+                 className={classes.buttoncolor}
                 />
               </span>
               <span className="text">Notifications</span>
@@ -154,14 +104,7 @@ const SellerPanel = () => {
             <button href="#cart" className="panel-box">
               <span className="icons">
                 <MenuIcon
-                  style={
-                    ({
-                      fill: "white"
-                    },
-                    {
-                      fontSize: 40
-                    })
-                  }
+                  className={classes.buttoncolor}
                 />
               </span>
               <span className="text">Current Orders</span>
