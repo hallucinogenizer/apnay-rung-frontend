@@ -56,6 +56,7 @@ const TempLogin = () => {
         localStorage.setItem("Token", token);
         localStorage.setItem("Email", values.email);
         localStorage.setItem("TypeOfUser", serverResponse.typeOfUser);
+        sessionStorage.setItem("logged-in", true);
         if (serverResponse.typeOfUser === "customer") {
           window.location.href = "/Catalog";
         } else if (serverResponse.typeOfUser === "seller") {
