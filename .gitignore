@@ -12,6 +12,7 @@ logs
 node_modules
 bower_components
 .codesandbox
+package-lock.json
 
 *.sublime*
 

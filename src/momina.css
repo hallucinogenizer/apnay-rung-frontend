@@ -123,3 +123,10 @@
 .stars-alignment {
   display: inline-flex;
 }
+
+.link-v2 {
+  color: #14a4f4;
+  text-decoration: underline;
+  border: none;
+  background-color: transparent;
+}
