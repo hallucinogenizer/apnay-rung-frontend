@@ -9,6 +9,15 @@ import "react-modal-video/scss/modal-video.scss";
 
 
 const ViewTutorials = () => {
+  const [state, setState] = useState([
+    {
+      tutorial_id: 0,
+      title: "",
+      content: "",
+      description: ""
+    }
+  ]);
+
     const [isOpen, setOpen] = useState(false)
     const [videoID, setVideoID] = useState('')
     const [videos, setVideos] = useState([])
@@ -64,6 +73,7 @@ const ViewTutorials = () => {
         getData("https://apnay-rung-api.herokuapp.com/tutorial/all").then(
         (response) => {
           console.log(`printing videos from back`, response)
+          setState(response)
         }
       );
       }, []);
@@ -72,6 +82,19 @@ const ViewTutorials = () => {
         setOpen(true); 
         setVideoID(videoID)
     }
+
+    const renderTableData = () => {
+      return state.map((tutorial, index) => {
+        const { id, title, content,description} = tutorial; //destructuring
+  
+        return (
+              <button className="tutorial-btn" onClick={()=> handleVideoPlayer(content)}>
+              <div className="button-heading-tutorial">{title}</div>
+              <div className="button-text-tutorial">{description}</div>
+            </button>        
+        );
+      });
+    };
 
     return(
         <div>
@@ -85,15 +108,12 @@ const ViewTutorials = () => {
             <ModalVideo channel='youtube' autoplay isOpen={isOpen} videoId= {videoID} onClose={() => setOpen(false)} />
             </React.Fragment>
             <div className ="tutorial-div">
-            {videosArray.map((video) => (
-                <button className="tutorial-btn" onClick={()=> handleVideoPlayer(video.ID)}>
-                <div className="button-heading-tutorial">{video.heading}</div>
-                <div className="button-text-tutorial">{video.description}</div>
-            </button>
-              ))}
+            {
+              renderTableData()
+            }
             </div>
 
-           <BottomBar /> 
+           {/* <BottomBar />  */}
         </div>
 
     )
