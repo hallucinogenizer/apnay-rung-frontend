@@ -46,6 +46,9 @@ const AddReview = () => {
   // tokenID= `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsIm5hbWUiOiJUYWltb29yIFRhcmlxIiwidHlwZU9mVXNlciI6ImN1c3RvbWVyIiwiaWF0IjoxNjE2OTYxNzMwfQ.Dn0FATITkhrR7e5tkp_XAmdPfp-FKJGzdskczt9k2fw`;
   const [ind, setIndex] = useState(0)
   const [reviewText, setReviewText] = useState("")
+  const [allReviews,setReview]=useState([])
+  const [allProducts, setProducts]=useState([])
+  let Reviews=[]
   let id=0
   let itemLength=0
 
@@ -93,14 +96,16 @@ const AddReview = () => {
   const NextPage = () => {
     if(ind <= state.length-2){
       setIndex((prev)=> prev+1)
-      // setID((state[ind]).order_id)
+      setReviewText("")
+      setReview([])
     }
   }
 
   const PrevPage = () => {
     if(ind>0){
       setIndex((prev)=> prev-1)
-      // setID((state[ind]).order_id)
+      setReviewText("")
+      setReview([])
     }
     
   }
@@ -119,14 +124,14 @@ const AddReview = () => {
     }catch{}
   }
 
-  let allProducts=[] //this array will store all items, their ratings and reviews to send to backend
+  // let allProducts=[] //this array will store all items, their ratings and reviews to send to backend
   let temp=[]
 
-  const isPresent= (product) => {
+  const isPresent= (product,arr) => {
 
-    console.log(`items length is ${allProducts.length}`)
-    for(let i=0; i< allProducts.length; i++){
-      let oneItem= allProducts[i]
+    console.log(`items length is ${arr.length}`)
+    for(let i=0; i< arr.length; i++){
+      let oneItem= arr[i]
       console.log(`ispresent ${oneItem}`)
       if(oneItem[0]===product)
       {
@@ -143,18 +148,20 @@ const AddReview = () => {
 
     let item= (order.items)[itemIndex]
     try{
-      let isTrue=isPresent(item[0])
+      let copyState= [...allProducts]
+      let isTrue=isPresent(item[0],copyState)
       // let isTrue=null
       if(isTrue===null){ //the item is being added for the first time
-        // items.push([1,item[0],newRating,`review`])
-        allProducts.push([item[0],newRating,reviewText])
-        // temp= temp+1
+        temp=[item[0],newRating]
+        setProducts([...allProducts,temp])
       }
       else{
-        temp= allProducts[isTrue]
+        let copy= [...allProducts]
+        temp= copy[isTrue]
         temp[1]=newRating
         console.log(`ratigntemp is now ${temp}`)
-        allProducts[isTrue]=temp
+        copy[isTrue]=temp
+        setProducts(copy)
       }
 
 
@@ -164,37 +171,42 @@ const AddReview = () => {
     console.log(`items after rating ${allProducts}`)
   };
 
-
   const reviewChangeHandler = (event,itemIndex) =>{
-    console.log(`checking items first ${allProducts}`)
     let text= event.target.value
-    setReviewText(event.target.value)
-    console.log(`checking items ${allProducts}`)
-    console.log(`review handler is ${reviewText}`)
-    
+    setReviewText(event.target.value)   
+  }
+
+  
+  
+  const reviewSetting = (itemIndex)=>{
+    // event.preventDefault()
     let order= state[ind]
 
     let item= (order.items)[itemIndex]
     try{
-      let isTrue=isPresent(item[0])
+      let copyState= [...allReviews]
+      let isTrue=isPresent(item[0],copyState)
       console.log(`item id is ${item[0]}`)
       if(isTrue===null){
-        console.log(`in null`)
-        allProducts.push([item[0],0,text])
+        let newReview= [item[0],reviewText]
+        setReview([...allReviews,newReview])
       }
       else{
-        temp= allProducts[isTrue]
-        
-        temp[2]= text
-
+        let copy= [...allReviews]
+        temp= copy[isTrue]
+        temp[1]= reviewText
         console.log(`review temp is now ${temp}`)
-        allProducts[isTrue]=temp
+        copy[isTrue]=temp
+        setReview(copy)
       }
 
 
     }catch{
     }
-    console.log(`items after review ${allProducts}`)
+
+    // setReviewText("")
+    // console.log(`items after review ${Reviews}`)
+    console.log(`items after review ${allReviews}`)
   }
 
   const renderTableData = () => {
@@ -226,6 +238,10 @@ const AddReview = () => {
                   name="review"
                   placeholder="e.g. good"
                   onChange={(event)=>reviewChangeHandler(event,index)}
+                  // onBlur={(event)=>reviewSetting(event,index)}
+                  onBlur={() => {
+                    setTimeout(() => reviewSetting(index),5);
+                  }}
                 ></input>
   
                 </form>
@@ -245,14 +261,63 @@ const AddReview = () => {
         }
 
       });
-    }catch{}
+    }catch{
+      return (
+        <div>
+          <Modal
+            show={true}
+            onHide={() => handleClose(false)}
+            className="delete-modal"
+          >
+            <Modal.Header closeButton>
+              <Modal.Title>No orders available</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>There are no orders available for review.</Modal.Body>
+            <Modal.Footer>
+              <Link to="/Catalog">
+                <Button
+                  variant="primary"
+                  onClick={() => handleClose(false)}
+                  className="delete-primary"
+                >
+                  Shop More
+                </Button>
+              </Link>
+            </Modal.Footer>
+          </Modal>
+        </div>
+      );
+    }
   };
 
   const [msg, setMsg] = useState([``]);
 
-  async function sendData() {
+  const makeItemObject = () =>{
+
+    const rating= [...allProducts];
+    const reviews= [...allReviews];
+    let ratingAndReview=[]
+
+    for(let i=0; i<rating.length;i++)
+    {
+      for(let j=0;j<reviews.length;j++)
+      {
+        if(rating[i][0]===reviews[j][0])
+        {
+          console.log(`here`)
+          let temp=[rating[i][0],rating[i][1],reviews[j][1]]
+          ratingAndReview.push(temp)
+        }
+      }
+    }
+
+    console.log(`final sending array is ${ratingAndReview}`)
+    sendData(ratingAndReview)
+  }
+
+  async function sendData(items) {
     console.log(`token is  ${tokenID}`)
-    console.log(allProducts)
+    console.log(items)
     let order = state[ind]
     console.log(`order id of sending data is `,order.order_id)
 
@@ -268,7 +333,7 @@ const AddReview = () => {
         },
         body: JSON.stringify({
           "order_id": order.order_id,
-          "review": allProducts
+          "review": items
         })
       }
     );
@@ -328,7 +393,7 @@ const AddReview = () => {
       <button
         type="submit"
         className="confirmOrder-button-v2"
-        onClick={sendData}
+        onClick={makeItemObject}
       >Submit</button>
       <br/>
       <br/>
