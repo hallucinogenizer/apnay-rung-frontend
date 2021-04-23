@@ -13,6 +13,7 @@ const Notifications = () => {
   const session = sessionStorage.getItem("logged-in");
   let tokenID = localStorage.getItem("Token");
   const usertype = localStorage.getItem("TypeOfUser");
+  const [numNotif, setNumNotif] = useState(0);
 
   const [state, setState] = useState([
     {
@@ -24,17 +25,17 @@ const Notifications = () => {
   const GetNavbar = () =>{
      if (usertype === "customer"){
       return(
-        <CustomerNavbar/>
+        <CustomerNavbar key={callEffect}/>
       )
     }
     else if (usertype === "admin"){
       return (
-        <AdminNavbar/>
+        <AdminNavbar key={callEffect}/>
       )
     }
     else if (usertype === "seller"){
       return (
-        <SellerNavbar/>
+        <SellerNavbar key={callEffect}/>
       )
     }
   }
@@ -67,10 +68,14 @@ const Notifications = () => {
       (response) => {
         console.log(response);    
         setState(response);
-
+        console.log(response)
+        console.log(response.length)
+        setNumNotif(response.length)
+        // GetNavbar()
       }
     );
   }, [callEffect]);
+
 
   const [show, setShow] = useState(false);
   const [msg, setMsg] = useState([``]);
