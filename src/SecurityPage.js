@@ -67,6 +67,30 @@ const TempSecurity = () => {
     });
     console.log(values);
   };
+  
+  async function sendNotification() {
+
+    const response = await fetch(
+      "http://apnay-rung-api.herokuapp.com/notification/new",
+      {
+        method: "POST",
+        withCredentials: true,
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          title:`A new customer has signed up. Please visit View Customers for more details.`,
+          type:"message", 
+          details: null, 
+          admin_id : 1
+        })
+      }
+    );
+
+    console.log(`response from notification`, response)
+    window.location.href = "/Login";
+  }
 
   const submitHandler = async (e) => {
     console.log(`in submit handler`);
@@ -78,7 +102,7 @@ const TempSecurity = () => {
     console.log(`got here`);
     console.log(serverResponse);
     if (serverResponse.status === 201) {
-      window.location.href = "/Login";
+      sendNotification()
     }
   };
   useEffect(() => {
