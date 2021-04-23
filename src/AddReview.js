@@ -1,6 +1,7 @@
 import "./styles.css";
 import "./momina.css";
 import "./maham.css";
+import "./vafa.css";
 import CustomerNavbar from "./CustomerNavbar";
 import Memory from "./Memory";
 import BottomBar from "./BottomBar";
@@ -357,7 +358,7 @@ const AddReview = () => {
 
   const handleShow = () => setShow(true);
   return (
-    <div>
+    <div >
       {checkSession()}
       <CustomerNavbar />
       <Memory
@@ -365,7 +366,7 @@ const AddReview = () => {
         page=""
         current=" Add Review"
       />
-      {/* when three links needed in panel, include a '/' in the middle 'page' argument */}
+      <div className="min-height-div">
       <h1>Add Review</h1>
       <h2>Order ID: {getID()}</h2>
       <h2>Number of Items: {getItemLength()} </h2>
@@ -400,6 +401,7 @@ const AddReview = () => {
       <br/>
       <br/>
       <br/>
+      </div>
       <BottomBar />
       <Modal show={show} onHide={handleClose} className="delete-modal">
         <Modal.Header closeButton>

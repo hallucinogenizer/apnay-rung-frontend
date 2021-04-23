@@ -1,4 +1,5 @@
 import "./styles.css";
+import "./vafa.css";
 import AdminNavbar from "./AdminNavbar";
 import Memory from "./Memory";
 import BottomBar from "./BottomBar";
@@ -30,30 +31,6 @@ const AdminSettings = () => {
   const handleNewPass = (event) => {
     setNewPass(event.target.value);
   };
-
-  // useEffect(() => {
-  //   const getData = async (url) => {
-  //     const response = await fetch(url, {
-  //       method: "GET",
-  //       withCredentials: true,
-  //       credentials: "include",
-  //       headers: {
-  //         Authorization:
-  //         `Bearer ${tokenID}`,
-  //         "Content-Type": "application/json"
-  //       }
-  //     });
-  //     return response.json();
-  //   };
-  //   getData("https://apnay-rung-api.herokuapp.com/admin/info").then(
-  //   (response) => {
-  //     console.log(`printing response`,response)
-  //     setName(response.name)
-  //     console.log(`printing name`, name)
-  //     setEmail(response.email)
-  //   }
-  // );
-  // }, []);
 
   const handleBlur = async (e) => {
     e.preventDefault()
@@ -107,7 +84,7 @@ const AdminSettings = () => {
     <div className="bg-color">
       <AdminNavbar />
       <Memory panel="Admin Panel" page="" current="Account Settings" />{" "}
-      {/* when three links needed in panel, include a '/' in the middle 'page' argument */}
+
       <div className="min-height-div">
       <div className="settings-container-admin">
         <br />

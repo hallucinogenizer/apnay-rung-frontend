@@ -126,10 +126,11 @@ const AddProduct = () => {
   };
 
   return (
-    <div className="productForm">
+    <div >
       {checkSession()}
       <SellerNavbar />
       <Memory panel="Seller Panel " page="" current=" Add Product" />{" "}
+      <div className="min-height-div">
       <h1>Add Product</h1>
       <form
           enctype="multipart/form-data"
@@ -214,6 +215,7 @@ const AddProduct = () => {
           ></input>
         </div>
       </form>
+      </div>
       <BottomBar />
       <Modal show={show} onHide={handleClose} className="delete-modal">
         <Modal.Header closeButton>

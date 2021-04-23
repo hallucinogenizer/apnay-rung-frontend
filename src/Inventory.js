@@ -133,6 +133,7 @@ const Inventory = () => {
       {checkSession()}
       <SellerNavbar />
       <Memory panel="Seller Panel" page="" current="Inventory" />{" "}
+      <div className="min-height-div">
       <h1>Inventory </h1>
       <div className="table-responsive">
         <table className="table table-size">
@@ -147,6 +148,7 @@ const Inventory = () => {
           </thead>
           <tbody>{renderTableData()}</tbody>
         </table>
+      </div>
       </div>
       <BottomBar />
       <Modal show={show} onHide={handleClose} className="delete-modal">

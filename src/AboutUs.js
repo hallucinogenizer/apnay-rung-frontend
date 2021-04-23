@@ -5,8 +5,7 @@ import SellerNavbar from "./SellerNavbar";
 import Memory from "./Memory";
 import Logo from "./css/logo.png"
 import BottomBar from "./BottomBar";
-
-
+import "./vafa.css";
 
 const AboutUs = () => {
     const tokenID = localStorage.getItem("Token");
@@ -39,6 +38,7 @@ const AboutUs = () => {
         <div>
             {GetNavbar()}
             <Memory panel="About Us "/>
+            <div className="min-height-div">
             <div className="artisans-heading">About Us</div>
             <div className="who-are-we-div">
                 <span>
@@ -69,8 +69,10 @@ const AboutUs = () => {
                 <br />
 
             </div>
-
+          </div>
         <BottomBar />
+      
+        
         </div>
     )
 

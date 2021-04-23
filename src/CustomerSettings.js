@@ -251,11 +251,14 @@ const CustomerSettings = () => {
       {checkSession()}
       <CustomerNavbar />
       <Memory panel="Customer Panel " page="" current=" Account Settings" />{" "}
-      {/* when three links needed in panel, include a '/' in the middle 'page' argument */}
+      <div className="min-height-div">
         {
           displayPage()
         }
-        {/* <BottomBar /> */}
+        <br/>
+        <br/>
+        </div>
+        <BottomBar />
     </div>
   );
 };
