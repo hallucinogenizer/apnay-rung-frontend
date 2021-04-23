@@ -14,11 +14,12 @@ const Checkout = () => {
   const [bill_address, setBillAddress] = useState("");
   const [additional_info, setAdditionalInfo] = useState("");
   const [payment, setPayment] = useState("");
+  const [checkAddress, setCheckAddress] = useState(true);
   let tokenID = localStorage.getItem("Token");
   const session = sessionStorage.getItem("logged-in");
 
   const checkSession = () => {
-    if (session !== true){
+    if (session === false){
       localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
       window.location.href = '/Homepage';
     }
@@ -77,7 +78,16 @@ const Checkout = () => {
     setShipAddress(event.target.value);
   };
   const BillingAddressChangeHandler = (event) => {
-    setBillAddress(ship_address);
+    console.log(checkAddress)
+    if (checkAddress){
+      setBillAddress(ship_address);
+    }
+    else
+    {
+      setBillAddress("");
+    }
+    setCheckAddress(!checkAddress);
+    console.log(`billing address ${bill_address}`)
   };
   const BillingAddressAdd = (event) => {
     setBillAddress(event.target.value);
@@ -137,6 +147,7 @@ const Checkout = () => {
             // className="checkbox-form"
             type="checkbox"
             name="check-billing"
+            value={bill_address}
             onClick={BillingAddressChangeHandler}
           ></input>
           Same as Shipping Address
@@ -145,7 +156,7 @@ const Checkout = () => {
           className="input-form"
           type="text"
           name="bill_address"
-          value={BillingAddressAdd}
+          value={bill_address}
           onChange={BillingAddressAdd}
         ></input>
         <p className="label-form">Additional Information</p>

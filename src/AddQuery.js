@@ -15,9 +15,11 @@ const AddQuery = () =>{
   const [msg, setMsg] = useState([``]);
   const [show, setShow] = useState(false);
   // for testing eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsIm5hbWUiOiJUYWltb29yIFRhcmlxIiwidHlwZU9mVXNlciI6ImN1c3RvbWVyIiwiaWF0IjoxNjE2OTYxNzMwfQ.Dn0FATITkhrR7e5tkp_XAmdPfp-FKJGzdskczt9k2fw`
+  
   const checkSession = () => {
-    console.log("in here")
-    if (session !== true){
+    console.log("in here", session)
+    if (session === false){
+      console.log("it put me in here for some reason")
       localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
       window.location.href = '/Homepage';
     }

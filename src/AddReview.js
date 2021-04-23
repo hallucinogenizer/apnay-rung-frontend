@@ -53,7 +53,7 @@ const AddReview = () => {
   let id=0
   let itemLength=0
   const checkSession = () => {
-    if (session !== true){
+    if (session === false){
       localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
       window.location.href = '/Homepage';
     }

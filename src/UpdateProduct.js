@@ -25,7 +25,7 @@ const UpdateProduct = () => {
   const [stock, setStock] = useState(productData.stock);
 
   const checkSession = () => {
-    if (session !== true){
+    if (session === false){
       localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
       window.location.href = '/Homepage';
     }
@@ -43,7 +43,7 @@ const UpdateProduct = () => {
     
     console.log(img_response)
     if (response.status === 201 || response.status === 200 || response.status === 202) {
-      setMsg([`Product updated successfully!`, `Back to My Panel`]);
+      setMsg([`Product updated successfully!`, `OK`]);
       handleShow();
       localStorage.removeItem("update_product");
     }
@@ -120,9 +120,9 @@ const UpdateProduct = () => {
   }
   const handleClose = () => {
     setShow(false);
-    if(msg[1] === `Back to my Panel`)
+    if(msg[1] === `OK`)
     {
-        window.location.href = "/SellerPanel";
+        window.location.href = "/Inventory";
     }
   };
   const handleShow = () => setShow(true);
@@ -241,7 +241,7 @@ const UpdateProduct = () => {
             className="delete-primary"
             onClick={handleClose}
         >
-            {msg[1] !== "Back" ? <Link to="./SellerPanel">{msg[1]}</Link> : msg[1]}
+            {msg[1] !== "Back" ? <Link to="/Inventory">{msg[1]}</Link> : msg[1]}
         </Button>
         </Modal.Footer>
       </Modal>

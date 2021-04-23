@@ -17,7 +17,7 @@ const ViewOrders = () => {
     }
   ]);
   const checkSession = () => {
-    if (session !== true){
+    if (session === false){
       localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
       window.location.href = '/Homepage';
     }

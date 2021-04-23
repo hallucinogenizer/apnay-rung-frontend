@@ -17,7 +17,7 @@ const CreateTutorial = () =>{
     const session = sessionStorage.getItem("logged-in");
     // admin id`eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik11aGFtbWFkIFJvaGFuIEh1c3NhaW4iLCJ0eXBlT2ZVc2VyIjoiYWRtaW4iLCJpYXQiOjE2MTY4NDE4MTZ9.HJvh_8caLMReaDmJFCEklgtP9u86usbNIZ4FxOrIawk`
     const checkSession = () => {
-        if (session !== true){
+        if (session === false){
           localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
           window.location.href = '/Homepage';
         }
