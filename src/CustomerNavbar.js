@@ -7,10 +7,13 @@ import { Link } from "react-router-dom";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
-import { Badge } from 'styled-badge-component';
+import styled from "styled-components";
+import IconButton from '@material/react-icon-button';
+import Badge from '@material-ui/core/Badge';
 const CustomerNavbar = () => {
   let tokenID = localStorage.getItem("Token");
   const [userstate, setUserState] = useState([]);
+  const [numNotif, setNumNotif] = useState(0);
   useEffect(() => {
     const getData = async (url) => {
       const response = await fetch(url, {
@@ -29,11 +32,34 @@ const CustomerNavbar = () => {
       (response) => {
         console.log(`customer navbar response: ${response}`)
         setUserState(response);
-        
-        // console.log("intiil value", userstate);
       }
     );
     }, []);
+
+    useEffect(() => {
+      const getNotifications = async (url) => {
+        const response = await fetch(url, {
+          method: "GET",
+          withCredentials: true,
+          credentials: "include",
+          headers: {
+            Authorization:
+              `Bearer ${tokenID}`,
+            "Content-Type": "application/json"
+          }
+        });
+        return response.json();
+      };
+        getNotifications("https://apnay-rung-api.herokuapp.com/notification/all").then(
+        (response) => {
+          console.log(`customer navbar response notif`)
+          console.log(response)
+          console.log(response.length)
+          setNumNotif(response.length)
+        }
+      );
+      }, []);
+
     const LogoutClear = () =>{
       localStorage.removeItem("Token");
       localStorage.clear();
@@ -80,9 +106,15 @@ const CustomerNavbar = () => {
             <div className="navbar-nav ml-auto">
                 <Link to="/Notifications">
                     <a className="nav-item nav-link">
-                    <Badge color="primary" overlap="circle" badgeContent=" ">
+                    {/* <Badge badgeContent={5} color="">
                     <NotificationsNoneIcon />
-                    </Badge>
+                    {/* <span class="badge badge-light">7</span>
+                    </Badge> */}
+                      {/* <IconButton> */}
+                      <Badge badgeContent={numNotif} color="secondary">
+                        <NotificationsNoneIcon />
+                      </Badge>
+                      {/* </IconButton> */}
                     </a>
                 </Link>
                 <Link to="/ShoppingCart">
@@ -102,7 +134,7 @@ const CustomerNavbar = () => {
         </div>
         </nav>
     </div>
-    </div>
+  </div>
   )
 }
 
