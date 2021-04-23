@@ -112,6 +112,15 @@ hr{
   font-weight: 400;
 }
 
+.read-bio-link{
+  color:#d67d20;
+  font-size: 14px;
+  margin-left: 3.5%;
+  font-weight: 400;
+  margin-top: 0.5%;
+  cursor: pointer;
+}
+
 .rest-of-heroes-container{
   display: inline-block;
   margin-left: 2.7%;

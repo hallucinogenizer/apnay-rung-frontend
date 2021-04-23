@@ -2,6 +2,7 @@ import HomeNavbar from "./HomeNavbar";
 import CustomerNavbar from "./CustomerNavbar";
 import AdminNavbar from "./AdminNavbar";
 import SellerNavbar from "./SellerNavbar";
+import {useState,useEffect} from 'react';
 import Memory from "./Memory";
 import Artisan1 from "./css/1.png"
 import Artisan2 from "./css/2.png"
@@ -11,10 +12,15 @@ import Artisan5 from "./css/Artisan5.jpg"
 import Artisan6 from "./css/Artisan6.jpg"
 import Artisan7 from "./css/Artisan8.jpg"
 import SpotlightArtisan from "./css/ArtisanSpotlight.jpg"
+import BioPopup from './BioPopup';
+// import BottomBar from "./BottomBar";
+
 
 import "./vafa.css";
 
 const Artisans = () => {
+    const [viewForm, setViewForm] = useState(false)
+    const [sellerState, setSellerState] = useState([]);
     const tokenID = localStorage.getItem("Token");
     const usertype = localStorage.getItem("TypeOfUser");
 
@@ -40,6 +46,28 @@ const Artisans = () => {
           )
         }
     }
+    useEffect(() => {
+      const getData2 = async (url) => {
+        const response = await fetch(url, {
+          method: "GET",
+          withCredentials: true,
+          credentials: "include",
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik11aGFtbWFkIFJvaGFuIEh1c3NhaW4iLCJ0eXBlT2ZVc2VyIjoiYWRtaW4iLCJpYXQiOjE2MTY4NDE4MTZ9.HJvh_8caLMReaDmJFCEklgtP9u86usbNIZ4FxOrIawk",
+            "Content-Type": "application/json"
+          }
+        });
+        return response.json();
+      };
+   
+      getData2("https://apnay-rung-api.herokuapp.com/seller/all").then(
+        (response) => {
+          setSellerState(response);
+          console.log(response)
+        }
+      );
+    }, []);
 
     const displayTopPictures = () => {
         return(
@@ -71,6 +99,47 @@ const Artisans = () => {
         )
     }
 
+  const handleSetViewForm = () => setViewForm(true)
+
+  const handleBio = (name,location,bio) => {
+    const temp = 
+    {
+      name:name,
+      location: location, 
+      bio:bio
+    }
+    localStorage.setItem("artisan-content", JSON.stringify(temp));
+    handleSetViewForm();
+
+  }
+
+  const CheckBlocked = (blocked, name, location,profile_picture, bio, approved) => {
+    console.log(`printing blocked`, blocked)
+    if (blocked === false && approved === true){
+      return(
+      <div className="rest-of-heroes-container">
+        <img className="rest-of-heroes-img" src= {profile_picture} alt="seller"/>
+        <h3>{name}</h3>
+        <h5>{location}</h5>
+        <a onClick = {() => handleBio(name, location,bio)} className="read-bio-link">Click to read their story</a>
+      </div>
+      )
+    }
+  }
+
+    const renderSellers = () => {
+      return sellerState.map((seller, index) => {
+        const { seller_id, name, email, phone, location, bio, weeklyartisan, blocked, approved, profile_picture } = seller;
+        return (
+          <span>
+          {
+            CheckBlocked(blocked, name, location,profile_picture, bio, approved)
+          }
+          </span>
+        );
+      });
+    };
+
     return(
         <div>
         {GetNavbar()}
@@ -89,8 +158,10 @@ const Artisans = () => {
              displaySpotlightArtisan()
         }
         <div className="rest-of-heroes-heading">Rest of the Heroes</div>
-        <span>
-            <div className="rest-of-heroes-container">
+          {
+            renderSellers()
+          }
+            {/* <div className="rest-of-heroes-container">
             <img className="rest-of-heroes-img" src= {Artisan4} alt="seller"/>
             <h3>Shoaib Lala</h3>
             <h5>Peshawari Carpets</h5>
@@ -112,10 +183,10 @@ const Artisans = () => {
             <img className="rest-of-heroes-img" src= {Artisan7} alt="seller"/>
             <h3>Hashim Junaid</h3>
             <h5>Handmade carpets</h5>
-            </div>
-
-        </span>
-        
+            </div> */}   
+            <BioPopup trigger={viewForm} setTrigger={setViewForm} >
+          </BioPopup>
+          {/* <BottomBar />      */}
         </div>
     );
 }; 
