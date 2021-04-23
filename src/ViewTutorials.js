@@ -73,6 +73,7 @@ const ViewTutorials = () => {
             {checkSession()}
             <SellerNavbar />
             <Memory panel="Tutorials "/>
+            <div className="min-height-div">
             <div className="artisans-heading">View Tutorials</div>            
             <div>
             </div>
@@ -83,6 +84,7 @@ const ViewTutorials = () => {
             {
               renderTableData()
             }
+            </div>
             </div>
 
            <BottomBar /> 

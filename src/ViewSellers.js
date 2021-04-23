@@ -10,8 +10,6 @@ import FlashOnIcon from "@material-ui/icons/FlashOn";
 import { Modal, Button } from "react-bootstrap";
 // import "bootstrap/dist/css/bootstrap.css";
 const ViewSellers = () => {
-  const session = sessionStorage.getItem("logged-in");
-  let tokenID = localStorage.getItem("Token");
   const [state, setState] = useState([
     {
       seller_id: 0,
@@ -25,17 +23,17 @@ const ViewSellers = () => {
       profile_picture: null
     }
   ]);
-  const checkSession = () => {
-    if (session === false || session === null){
-      localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
-      window.location.href = '/Homepage';
-    }
-  }
+
   const [msg, setMsg] = useState([``]);
+
   const [show, setShow] = useState(false);
+
   const [id, setID] = useState(0);
+
   const [block, setBlock] = useState(false)
+
   const [callEffect,setCallEffect]= useState(false)
+
   const handleShow = (message,sellerID,blockStatus) => {
     setMsg(message)
     setID(sellerID)
@@ -45,7 +43,7 @@ const ViewSellers = () => {
   };
   const handleClose = (changeBlock) => {
     setShow(false);
-    if(changeBlock===true){
+    if(changeBlock==true){
       console.log(`sending to backend`)
       sendData()
     }
@@ -61,7 +59,7 @@ const ViewSellers = () => {
         withCredentials: true,
         credentials: "include",
         headers: {
-          Authorization: `Bearer ${tokenID}`,
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik11aGFtbWFkIFJvaGFuIEh1c3NhaW4iLCJ0eXBlT2ZVc2VyIjoiYWRtaW4iLCJpYXQiOjE2MTY4NDE4MTZ9.HJvh_8caLMReaDmJFCEklgtP9u86usbNIZ4FxOrIawk`,
           "Content-Type": "application/json"
         }
       }
@@ -75,33 +73,7 @@ const ViewSellers = () => {
     }  
   }
 
-  async function sendNotification(id) {
-
-
-    const response = await fetch(
-      "http://apnay-rung-api.herokuapp.com/notification/new",
-      {
-        method: "POST",
-        withCredentials: true,
-        credentials: "include",
-        headers: {
-          // Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik11aGFtbWFkIFJvaGFuIEh1c3NhaW4iLCJ0eXBlT2ZVc2VyIjoiYWRtaW4iLCJpYXQiOjE2MTY4NDE4MTZ9.HJvh_8caLMReaDmJFCEklgtP9u86usbNIZ4FxOrIawk`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          title:"Congratulations! You have been selected as Artisan of the Week", 
-          type:"message", 
-          details: null, 
-          seller_id : id
-        })
-      }
-    );
-
-    console.log(`response from notification`, response)
-
-  }
-
-  async function sendSpotlight(sellerID,status) {
+  async function sendSpotlight(sellerID) {
 
     const response = await fetch(
       ` http://apnay-rung-api.herokuapp.com/seller/spotlight/${sellerID}`,
@@ -110,7 +82,7 @@ const ViewSellers = () => {
         withCredentials: true,
         credentials: "include",
         headers: {
-          Authorization: `Bearer ${tokenID}`,
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik11aGFtbWFkIFJvaGFuIEh1c3NhaW4iLCJ0eXBlT2ZVc2VyIjoiYWRtaW4iLCJpYXQiOjE2MTY4NDE4MTZ9.HJvh_8caLMReaDmJFCEklgtP9u86usbNIZ4FxOrIawk`,
           "Content-Type": "application/json"
         }
       }
@@ -120,12 +92,7 @@ const ViewSellers = () => {
     if (response.status === 200 || response.status===202) {
       
       console.log(`processed ${!callEffect}`)
-      if(status===`spotlight`)
-      {
-        sendNotification(sellerID)
-      }
       setCallEffect(!callEffect)
-
     }  
   }
 
@@ -137,7 +104,7 @@ const ViewSellers = () => {
         credentials: "include",
         headers: {
           Authorization:
-            `Bearer ${tokenID}`,
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik11aGFtbWFkIFJvaGFuIEh1c3NhaW4iLCJ0eXBlT2ZVc2VyIjoiYWRtaW4iLCJpYXQiOjE2MTY4NDE4MTZ9.HJvh_8caLMReaDmJFCEklgtP9u86usbNIZ4FxOrIawk",
           "Content-Type": "application/json"
         }
       });
@@ -182,7 +149,7 @@ const ViewSellers = () => {
   const Spotlight = (weeklyartisan,sellerID) => {
     if (weeklyartisan === false) {
       return (
-        <button className="link-v2" onClick={()=>sendSpotlight(sellerID,`spotlight`)}>
+        <button className="link-v2" onClick={()=>sendSpotlight(sellerID)}>
           <FlashOnIcon
             style={{
               fontSize: "medium"
@@ -193,7 +160,7 @@ const ViewSellers = () => {
       );
     } else {
       return (
-        <button className="link-v2" onClick={()=>sendSpotlight(sellerID,`remove`)}>
+        <button className="link-v2" onClick={()=>sendSpotlight(sellerID)}>
           <FlashOnIcon
             style={{
               fontSize: "medium"
@@ -237,9 +204,10 @@ const ViewSellers = () => {
 
   return (
     <div>
-      {checkSession()}
       <AdminNavbar />
       <Memory panel="Admin Panel " page="" current=" View Sellers" />{" "}
+      {/* when three links needed in panel, include a '/' in the middle 'page' argument */}
+      <div className="min-height-div">
       <h1>View Sellers </h1>
       <div class="table-responsive">
         <table class="table table-size">
@@ -259,8 +227,7 @@ const ViewSellers = () => {
       <br />
       <br />
       <br />
-      <br />
-      <br />
+      </div>
       <BottomBar />
       <Modal show={show} onHide={handleClose} className="delete-modal">
         <Modal.Header closeButton>

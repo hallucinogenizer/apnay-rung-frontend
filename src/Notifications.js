@@ -16,7 +16,6 @@ const Notifications = () => {
   const [numNotif, setNumNotif] = useState(0);
 
   const [total, setTotal] = useState(0);
-  let tokenID = localStorage.getItem("Token");
 
   const [state, setState] = useState([
     {
@@ -172,6 +171,7 @@ const Notifications = () => {
       {checkSession()}
       {GetNavbar()}
       <Memory panel="" page="" current="Notifications" />{" "}
+      <div className="min-height-div">
       <h1>Notifications</h1>
       <br></br>
       <ul>
@@ -186,6 +186,7 @@ const Notifications = () => {
       <br />
       <br />
       <br />
+      </div>
       <BottomBar />
       <Modal show={show} onHide={handleClose} className="delete-modal">
         <Modal.Header closeButton>
