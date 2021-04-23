@@ -8,6 +8,7 @@ import { Modal, Button } from "react-bootstrap";
 
 const Inventory = () => {
   let tokenID = localStorage.getItem("Token");
+
   const session = sessionStorage.getItem("logged-in");
   const [state, setState] = useState([
     {
@@ -100,7 +101,7 @@ const Inventory = () => {
       return (
         <tr className="data">
           <td>
-            <img src={image[0]} alt="Italian Trulli" id="image" />
+            <img src={image} alt="Italian Trulli" id="image" />
           </td>
           <td>{title}</td>
           <td>{price}</td>

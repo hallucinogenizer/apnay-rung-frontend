@@ -14,6 +14,9 @@ const Notifications = () => {
   let tokenID = localStorage.getItem("Token");
   const usertype = localStorage.getItem("TypeOfUser");
 
+  const [total, setTotal] = useState(0);
+  let tokenID = localStorage.getItem("Token");
+
   const [state, setState] = useState([
     {
       date: 0,

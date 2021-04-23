@@ -73,6 +73,31 @@ const QueryForms = () => {
       setCallEffect(!callEffect)
     }  
   }
+  async function sendNotification(customerID) {
+
+    const response = await fetch(
+      "http://apnay-rung-api.herokuapp.com/notification/new",
+      {
+        method: "POST",
+        withCredentials: true,
+        credentials: "include",
+        headers: {
+          // Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik11aGFtbWFkIFJvaGFuIEh1c3NhaW4iLCJ0eXBlT2ZVc2VyIjoiYWRtaW4iLCJpYXQiOjE2MTY4NDE4MTZ9.HJvh_8caLMReaDmJFCEklgtP9u86usbNIZ4FxOrIawk`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          title:`Your query form has been received by the Admin. A response email will be sent within 2 days.`,
+          type:"message", 
+          details: null, 
+          customer_id : customerID
+        })
+      }
+    );
+
+    console.log(`response from notification`, response)
+
+  }
+
   const handleSetViewForm = () => setViewForm(true);
 
   const handleViewForm =(id,customer_id, subject,content) => {
@@ -83,6 +108,7 @@ const QueryForms = () => {
       subject: subject, 
       content: content 
     }
+    sendNotification(customer_id)
     localStorage.setItem("form-content", JSON.stringify(temp));
     handleSetViewForm();
   }

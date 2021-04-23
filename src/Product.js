@@ -224,13 +224,14 @@ const Product = () => {
         console.log(cart);
     
         let newProduct = {
-          productID: product.item_id,
-          productTitle: product.title,
-          quantity: qty,
-          price: product.price,
-          image: product.image,
-          sellerID: product.seller_id
-        };
+        productID: product.item_id,
+        productTitle: product.title,
+        quantity: qty,
+        price: product.price,
+        image: product.image,
+        totalQuantity: product.stock,
+        sellerID: product.seller_id
+      };
     
         if (cart == null) {
           cart = [];

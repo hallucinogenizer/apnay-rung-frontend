@@ -52,6 +52,32 @@ const AddQuery = () =>{
     console.log("in submit")
     sendData()
   }
+
+  async function sendNotification(sellerID,title) {
+
+    const response = await fetch(
+      "http://apnay-rung-api.herokuapp.com/notification/new",
+      {
+        method: "POST",
+        withCredentials: true,
+        credentials: "include",
+        headers: {
+          // Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik11aGFtbWFkIFJvaGFuIEh1c3NhaW4iLCJ0eXBlT2ZVc2VyIjoiYWRtaW4iLCJpYXQiOjE2MTY4NDE4MTZ9.HJvh_8caLMReaDmJFCEklgtP9u86usbNIZ4FxOrIawk`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          title:`You have received a new query form. Please visit Query Forms for more details.`,
+          type:"message", 
+          details: null, 
+          admin_id : 1
+        })
+      }
+    );
+
+    console.log(`response from notification`, response)
+
+  }
+
   async function sendData() { //to submit data to the backend
     console.log(`token is ${tokenID}`)
     const response = await fetch(
@@ -74,6 +100,7 @@ const AddQuery = () =>{
     console.log(subject, query)
     if (response.status === 201) {
       
+      sendNotification()
       setMsg([`Thank you. Your response has been recorded.`, `Back to My Panel`]);
       handleShow();
       // localStorage.removeItem("customerInformation");
@@ -90,7 +117,7 @@ const AddQuery = () =>{
       }
   
     };
-    const handleShow = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     const queryChangeHandler = (event) =>{
         console.log(event.target.value)
