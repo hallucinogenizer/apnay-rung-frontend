@@ -18,7 +18,7 @@ const AddQuery = () =>{
   
   const checkSession = () => {
     console.log("in here", session)
-    if (session === false){
+    if (session === false || session === null || session === null){
       console.log("it put me in here for some reason")
       localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
       window.location.href = '/Homepage';

@@ -64,7 +64,7 @@ const SellerNavbar = () => {
                 <Link to="/ViewInventory">
                 <a className="nav-item nav-link">Inventory</a>
                 </Link>
-                <Link to="/About Us">
+                <Link to="/AboutUs">
                 <a className="nav-item nav-link">About Us</a>
                 </Link>
                 
