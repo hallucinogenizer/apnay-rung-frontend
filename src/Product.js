@@ -177,24 +177,35 @@ const Product = () => {
 
   const renderReviews = () => {
     const reviewsofItem = reviews.slice();
-    return reviewsofItem.map((rev, index) => {
-      const { rating, review } = rev; //destructuring
-      return (
-        <div>
-          <p>
-            <div className="reviewer-name">Reviewer</div>
+    if(reviewsofItem.length!==0){
+      return reviewsofItem.map((rev, index) => {
+        const { rating, review } = rev; //destructuring
+        return (
+          <div>
+            <p>
+              <div className="reviewer-name">Reviewer</div>
+              <br />
+            </p>
+            <div className="reviewer-rating">
+              <Box component="fieldset" mb={3} borderColor="transparent">
+                <StyledRating name="read-only" value={rating} readOnly />
+                {review}
+              </Box>
+            </div>
             <br />
-          </p>
-          <div className="reviewer-rating">
-            <Box component="fieldset" mb={3} borderColor="transparent">
-              <StyledRating name="read-only" value={rating} readOnly />
-              {review}
-            </Box>
           </div>
-          <br />
+        );
+      });
+    }
+    else
+    {
+      return(
+        <div>
+          There are no reviews of this product yet.
         </div>
-      );
-    });
+      )
+    }
+
   };
   const[msg2,setMsg2]= useState([``])
   const [show2, setShow2] = useState(false);
@@ -335,6 +346,8 @@ const Product = () => {
       {GetNavbar()}
       <Memory panel="Catalog " current={product.title} />
       {renderProduct()}
+      <br/>
+      <br/>
       <BottomBar />
       <Modal
         show={show}
