@@ -6,11 +6,13 @@ import Logo from "./css/logo.png";
 import { Link } from "react-router-dom";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
-
+import styled from "styled-components";
+import IconButton from '@material/react-icon-button';
+import Badge from '@material-ui/core/Badge';
 const AdminNavbar = () => {
     let tokenID = localStorage.getItem("Token");
     const [userstate, setUserState] = useState([]);
-    
+    const [numNotif, setNumNotif] = useState(0);
     useEffect(() => {
         const getData = async (url) => {
           const response = await fetch(url, {
@@ -35,6 +37,27 @@ const AdminNavbar = () => {
         }
       );
       }, []);
+      useEffect(() => {
+        const getNotifications = async (url) => {
+          const response = await fetch(url, {
+            method: "GET",
+            withCredentials: true,
+            credentials: "include",
+            headers: {
+              Authorization:
+                `Bearer ${tokenID}`,
+              "Content-Type": "application/json"
+            }
+          });
+          return response.json();
+        };
+          getNotifications("https://apnay-rung-api.herokuapp.com/notification/all").then(
+          (response) => {
+            setNumNotif(response.length)
+          }
+        );
+        }, []);
+  
       const LogoutClear = () =>{
         localStorage.removeItem("Token");
         localStorage.clear();
@@ -72,7 +95,9 @@ const AdminNavbar = () => {
             <div className="navbar-nav ml-auto">
                 <Link to="/AdminPanel">
                     <a className="nav-item nav-link">
-                    <NotificationsNoneIcon />
+                    <Badge badgeContent={numNotif} color="secondary">
+                        <NotificationsNoneIcon />
+                      </Badge>
                     </a>
                 </Link>
                 <Link to="/Homepage" >
