@@ -10,14 +10,11 @@ import home from "./css/home.png";
 import wpf from "./css/wpf.png";
 import gpp from "./css/gpp.png";
 import handshake from "./css/handshake.png";
-//import pk from "./css/pk.svg";
 import pk from "./css/pak-map.svg"
 import { Link } from "react-router-dom";
 import React, { useState,useEffect } from "react";
 import TopHeading from "./css/finaltop.png";
 import { Modal, Button } from "react-bootstrap";
-//temporary//
-
 import "bootstrap/dist/css/bootstrap.css";
 
 const Homepage = () => {
@@ -80,10 +77,9 @@ const Homepage = () => {
         return response.json();
       };
   
-      getData("https://apnay-rung-api.herokuapp.com/inventory/limit/8").then(
+      getData("https://apnay-rung-api.herokuapp.com/inventory/featured").then(
         (response) => {
           setProductState(response);
-          console.log(`I am here:${response}`)
         }
       );
     }, []);
@@ -100,7 +96,6 @@ const Homepage = () => {
       getData2("https://apnay-rung-api.herokuapp.com/seller/limit/3").then(
         (response) => {
           setSellerState(response);
-          console.log(`I am here:${response}`)
         }
       );
     }, []);
@@ -128,15 +123,16 @@ const Homepage = () => {
       const { name, location, profile_picture } = seller;
       return (
         <div className="seller-main">
+          <Link to="/Artisans">
           <img
             className="main-artist-image"
             src={profile_picture}
             alt="seller"
           />
+          </Link>
             <br/>
             <p className="main-text-seller">{name}</p>
             <p className="main-text-seller2">{location}</p>
-        
         </div>
       );
     });
@@ -149,7 +145,6 @@ const Homepage = () => {
       {GetNavbar()}
       <span>
         <img className="logo-main" src={TopHeading} alt="logo" />
-        {/* <h1 className="main-title">APNAY RUNG</h1> */}
       </span>
       <div className="container">
         <img className="home-background" src={home} alt="home" />

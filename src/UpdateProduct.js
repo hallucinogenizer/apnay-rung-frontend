@@ -8,7 +8,7 @@ import { Modal, Button } from "react-bootstrap";
 
 const UpdateProduct = () => {
   let productData = JSON.parse(localStorage.getItem("update_product"))
-  // console.log(productData)
+  const session = sessionStorage.getItem("logged-in");
   let tokenID = localStorage.getItem("Token");
   const [msg, setMsg] = useState([``]);
   const [imageUpdate, setImageUpdate] = useState(false);
@@ -23,10 +23,15 @@ const UpdateProduct = () => {
   const [category, setCategory] = useState(productData.category);
   const [price, setPrice] = useState(productData.price);
   const [stock, setStock] = useState(productData.stock);
+
+  const checkSession = () => {
+    if (session !== true){
+      localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+      window.location.href = '/Homepage';
+    }
+  }
   const SubmitHandler = async(event) => {
     event.preventDefault();
-    
-    console.log("in submit")
     let img_response = 0;
     if (imageUpdate){
       img_response = await sendImage();
@@ -51,7 +56,6 @@ const UpdateProduct = () => {
     const form = document.getElementById("empty-form");
     const fileObj = new FormData(form);
     fileObj.append("image", values.file, values.fileName);
-    console.log("IM ERERREER")
     console.log(fileObj)
     try{
       const response = await fetch(
@@ -106,7 +110,6 @@ const UpdateProduct = () => {
       tempFile: e.target.files[0].name
     });
     setImageUpdate(true);
-    console.log(values);
   };
 
   const setFile = (event) => {
@@ -137,13 +140,11 @@ const UpdateProduct = () => {
     setPrice(event.target.value);
   };
   const StockChangeHandler = (event) => {
-    console.log(
-      `in change handler ${event.target.name}, ${event.target.value}`
-    );
     setStock(event.target.value);
   };
   return (
     <div className="productForm">
+      {checkSession()}
       <SellerNavbar />
       <Memory panel="Seller Panel " page="" current=" Update Product" />{" "}
       <h1>Update Product</h1>

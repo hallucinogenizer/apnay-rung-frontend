@@ -37,10 +37,9 @@ const SellerPanel = () => {
   const classes = makeStyles(iconStyles)();
   return (
     <div>
-      {/* {checkSession()} */}
+      {checkSession()}
       <SellerNavbar />
       <Memory panel="Seller Panel" /> {/* <page="" current="" /> */}
-      {/* when three links needed in panel, include a '/' in the middle 'page' argument */}
       <h1>Seller Panel</h1>
       <br></br>
       <br></br>
@@ -60,7 +59,7 @@ const SellerPanel = () => {
             </Link>
           </div>
           <div className="box-left-left">
-          <Link to="/Tutorials" className="router-link">
+          <Link to="/ViewTutorials" className="router-link">
             <button href="#cart" className="panel-box">
               <span className="icons">
                 <CastForEducationIcon
@@ -111,7 +110,7 @@ const SellerPanel = () => {
             </Link>
           </div>
           <div className="box-right-right">
-          <Link to="/CurrentOrders" className="router-link">
+          <Link to="/ViewCurrentOrders" className="router-link">
             <button href="#cart" className="panel-box">
               <span className="icons">
                 <MenuIcon

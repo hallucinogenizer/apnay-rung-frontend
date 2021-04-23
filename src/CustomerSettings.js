@@ -16,11 +16,17 @@ const CustomerSettings = () => {
   const [customerData, setCustomerData] = useState({})
   const [errors, setErrors] = useState({});
   const [check, setCheck] = useState([]);
+  const session = sessionStorage.getItem("logged-in");
 
   let tokenID = localStorage.getItem("Token");
   let updatePass = false;
 
-
+  const checkSession = () => {
+    if (session !== true){
+      localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+      window.location.href = '/Homepage';
+    }
+  }
   const handleName = (event) => {
     setName(event.target.value);
     setCheck([1]);
@@ -29,31 +35,26 @@ const CustomerSettings = () => {
   const handleEmail = (event) => {
     setEmail(event.target.value);
     setCheck([1]);
-
   };
 
   const handleCurrPass = (event) => {
     setCurrPass(event.target.value);
     setCheck([1]);
-
   };
 
   const handleNewPass = (event) => {
     setNewPass(event.target.value);
     setCheck([1]);
-
   };
 
   const handlePhoneNo = (event) => {
     setPhoneNo(event.target.value);
     setCheck([1]);
-
   };
 
   const handleAddress = (event) => {
     setAddress(event.target.value);
     setCheck([1]);
-
   };
 
   async function verifyPass() {
@@ -71,7 +72,6 @@ const CustomerSettings = () => {
         })
       }
     );
-    // console.log(response.json());
     return response.json();
   }
 
@@ -92,70 +92,29 @@ const CustomerSettings = () => {
     getData("https://apnay-rung-api.herokuapp.com/customer/info").then(
     (response) => {
       setCustomerData(response)
-      console.log(`printing customer data`, customerData)
-      console.log(`printing response`,response)
       setName(response.name)
-      console.log(`printing name`, name)
       setEmail(response.email)
       setPhoneNo(response.phone)
-      setAddress(response.address)
+      setAddress(response.location)
     }
   );
   }, []);
 
-  
-
-  // async function postData() {
-  //   const form = document.getElementById("empty-form");
-  //   const fileObj = new FormData(form);
-  //   fileObj.append("name", name);
-  //   fileObj.append("email", email);
-  //   if (updatePass === true){
-  //     fileObj.append("password", newPass);
-  //     fileObj.append("passwordChanged", true)
-  //   }else{
-  //     fileObj.append("password", "");
-  //     fileObj.append("passwordChanged", false)
-  //   }
-  //   // fileObj.append("profile_picture", values.file, values.fileName);
-  //   fileObj.append("address", address);
-  //   fileObj.append("phone", phoneNo);
-
-  //   // console.log(temp);
-  //   // console.log(questions_data);
-  //   const response = await fetch(
-  //     "https://apnay-rung-api.herokuapp.com/customer/update",
-  //     {
-  //       method: "PATCH",
-  //       withCredentials: true,
-  //       credentials: "include",
-  //       headers: {
-  //         Authorization:
-  //         `Bearer ${tokenID}`,
-  //         "Content-Type": "application/json"
-  //       },
-  //       body: fileObj
-  //     }
-  //   );
-  //   return response;
-  // }
-
   async function postData() {
-    let passChanged = false
+    const form = document.getElementById("empty-form");
+    const fileObj = new FormData(form);
+    fileObj.append("name", name);
+    fileObj.append("email", email);
     if (updatePass === true){
-      passChanged = true
+      fileObj.append("password", newPass);
+      fileObj.append("passwordChanged", true)
     }else{
-      setNewPass("")
-      passChanged = false
+      fileObj.append("password", "");
+      fileObj.append("passwordChanged", false)
     }
-    const temp = {
-      name: name, 
-      email: email, 
-      password: newPass, 
-      passwordChanged: passChanged, 
-      address: address, 
-      phone: phoneNo, 
-    }
+    fileObj.append("address", address);
+    fileObj.append("phone", phoneNo);
+
     const response = await fetch(
       "https://apnay-rung-api.herokuapp.com/customer/update",
       {
@@ -167,7 +126,7 @@ const CustomerSettings = () => {
           `Bearer ${tokenID}`,
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(temp)
+        body: fileObj
       }
     );
     return response;
@@ -186,30 +145,22 @@ const CustomerSettings = () => {
       console.log(`oh shit`)
       setErrors({...errors, currPass: 'Password is incorrect'})
     }
-
-
   }
   const handleBlur2 = async (e) => {
-    console.log(`in new pass blurrr`)
     if (newPass){
-      console.log(`curr pass`, currPass)
       if (!currPass){
         setErrors({...errors, currPass: 'Enter current password first'})
       }else if (newPass.length < 6){
       setErrors({...errors, newPass: 'Must have 6 characters at least'})
     }else{
       setErrors({...errors, newPass: ''})
-
     }
-  }
+    }
   }
 
   const submitHandler = async(e) => {
     e.preventDefault();
-
     const serverResponse = await postData();
-    console.log(`printing response`, serverResponse)
-
   }
 
   const displayPage = () => {
@@ -223,7 +174,7 @@ const CustomerSettings = () => {
             method="POST"
             id="empty-form"
           ></form>
-          <form className="settings-form" enctype="multipart/form-data" onSubmit={submitHandler} >
+          <form className="settings-form" enctype="multipart/form-data">
             <p className="label-form">Name:</p>
             <input
               className="input-form"
@@ -297,6 +248,7 @@ const CustomerSettings = () => {
 
   return (
     <div className="bg-color">
+      {checkSession()}
       <CustomerNavbar />
       <Memory panel="Customer Panel " page="" current=" Account Settings" />{" "}
       {/* when three links needed in panel, include a '/' in the middle 'page' argument */}

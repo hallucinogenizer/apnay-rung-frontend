@@ -9,43 +9,8 @@ import { FeaturedPlayList } from "@material-ui/icons";
 
 
 const ViewAllProducts = () => {
-  // let state = {
-  //   //state is by default an object
-  //   products: [
-  //     {
-  //       productID: "00199",
-  //       productTitle: "Clay Pot",
-  //       sellerID: "1",
-  //       sellerName: "Wasif",
-  //       category: "Pots",
-  //       price: "200"
-  //     },
-  //     {
-  //       productID: "00199",
-  //       productTitle: "Clay Pot",
-  //       sellerID: "1",
-  //       sellerName: "Wasif",
-  //       category: "Pots",
-  //       price: "200"
-  //     },
-  //     {
-  //       productID: "00199",
-  //       productTitle: "Clay Pot",
-  //       sellerID: "1",
-  //       sellerName: "Wasif",
-  //       category: "Pots",
-  //       price: "200"
-  //     },
-  //     {
-  //       productID: "00199",
-  //       productTitle: "Clay Pot",
-  //       sellerID: "1",
-  //       sellerName: "Wasif",
-  //       category: "Pots",
-  //       price: "200"
-  //     }
-  //   ]
-  // };
+  const tokenID = localStorage.getItem("Token");
+  const session = sessionStorage.getItem("logged-in");
   const [state, setState] = useState([
     {
       item_id: 0,
@@ -61,14 +26,19 @@ const ViewAllProducts = () => {
       }
   ]);
   const [callEffect,setCallEffect]= useState(false)
+  const checkSession = () => {
+    if (session !== true){
+      localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+      window.location.href = '/Homepage';
+    }
+  }
 
   useEffect(() => {
     const getData = async (url) => {
       const response = await fetch(url, {
         method: "GET",
-        withCredentials: true,
-        credentials: "include",
-      });
+        withCredentials: false
+        });
       return response.json();
     };
     getData("https://apnay-rung-api.herokuapp.com/inventory/all").then(
@@ -87,7 +57,7 @@ const ViewAllProducts = () => {
         withCredentials: true,
         credentials: "include",
         headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik11aGFtbWFkIFJvaGFuIEh1c3NhaW4iLCJ0eXBlT2ZVc2VyIjoiYWRtaW4iLCJpYXQiOjE2MTY4NDE4MTZ9.HJvh_8caLMReaDmJFCEklgtP9u86usbNIZ4FxOrIawk`,
+          Authorization: `Bearer ${tokenID}`,
           "Content-Type": "application/json"
         }
       }
@@ -111,15 +81,11 @@ const ViewAllProducts = () => {
         withCredentials: true,
         credentials: "include",
         headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik11aGFtbWFkIFJvaGFuIEh1c3NhaW4iLCJ0eXBlT2ZVc2VyIjoiYWRtaW4iLCJpYXQiOjE2MTY4NDE4MTZ9.HJvh_8caLMReaDmJFCEklgtP9u86usbNIZ4FxOrIawk`,
+          Authorization: `Bearer ${tokenID}`,
           "Content-Type": "application/json"
         }
       }
     );
-
-    console.log(`printing in remove`, response);
-
-
   }
 
   const Featured = (isFeatured,id) => {
@@ -153,13 +119,7 @@ const ViewAllProducts = () => {
     async function getData(url) {
       const response = await fetch(url, {
         method: "GET",
-        withCredentials: true,
-        credentials: "include",
-        headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik11aGFtbWFkIFJvaGFuIEh1c3NhaW4iLCJ0eXBlT2ZVc2VyIjoiYWRtaW4iLCJpYXQiOjE2MTY4NDE4MTZ9.HJvh_8caLMReaDmJFCEklgtP9u86usbNIZ4FxOrIawk",
-          "Content-Type": "application/json"
-        }
+        withCredentials: false
       });
 
       return response.json();
@@ -208,6 +168,7 @@ const ViewAllProducts = () => {
 
   return (
     <div>
+      {checkSession()}
       <AdminNavbar />
       <Memory panel="Admin Panel " page="" current=" View All Products" />{" "}
       {/* when three links needed in panel, include a '/' in the middle 'page' argument */}

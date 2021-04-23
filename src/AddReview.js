@@ -42,6 +42,7 @@ const Star = ({ starId, rating, onMouseEnter, onMouseLeave, onClick }) => {
 const AddReview = () => {
   const [state, setState] = useState([]);
   let tokenID = localStorage.getItem("Token");
+  const session = sessionStorage.getItem("logged-in");
   const [callEffect,setCallEffect]= useState(false)
   // tokenID= `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsIm5hbWUiOiJUYWltb29yIFRhcmlxIiwidHlwZU9mVXNlciI6ImN1c3RvbWVyIiwiaWF0IjoxNjE2OTYxNzMwfQ.Dn0FATITkhrR7e5tkp_XAmdPfp-FKJGzdskczt9k2fw`;
   const [ind, setIndex] = useState(0)
@@ -51,7 +52,12 @@ const AddReview = () => {
   let Reviews=[]
   let id=0
   let itemLength=0
-
+  const checkSession = () => {
+    if (session !== true){
+      localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+      window.location.href = '/Homepage';
+    }
+  }
   useEffect(() => {
     const getData = async (url) => {
       const response = await fetch(url, {
@@ -60,7 +66,7 @@ const AddReview = () => {
         credentials: "include",
         headers: {
           Authorization:
-            `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsIm5hbWUiOiJUYWltb29yIFRhcmlxIiwidHlwZU9mVXNlciI6ImN1c3RvbWVyIiwiaWF0IjoxNjE2OTUwOTY3fQ.3EzhjAnpyXPcaAcSLWSDuS-XVOJmY-k2fzVthKnm4AA`,
+            `Bearer ${tokenID}`,
           "Content-Type": "application/json"
         }
       });
@@ -107,7 +113,6 @@ const AddReview = () => {
       setReviewText("")
       setReview([])
     }
-    
   }
 
   const getID = () => {
@@ -123,8 +128,6 @@ const AddReview = () => {
       return (order.items).length
     }catch{}
   }
-
-  // let allProducts=[] //this array will store all items, their ratings and reviews to send to backend
   let temp=[]
 
   const isPresent= (product,arr) => {
@@ -163,11 +166,8 @@ const AddReview = () => {
         copy[isTrue]=temp
         setProducts(copy)
       }
-
-
     }catch{
     }
-    
     console.log(`items after rating ${allProducts}`)
   };
 
@@ -175,9 +175,6 @@ const AddReview = () => {
     let text= event.target.value
     setReviewText(event.target.value)   
   }
-
-  
-  
   const reviewSetting = (itemIndex)=>{
     // event.preventDefault()
     let order= state[ind]
@@ -199,13 +196,9 @@ const AddReview = () => {
         copy[isTrue]=temp
         setReview(copy)
       }
-
-
     }catch{
     }
 
-    // setReviewText("")
-    // console.log(`items after review ${Reviews}`)
     console.log(`items after review ${allReviews}`)
   }
 
@@ -328,7 +321,7 @@ const AddReview = () => {
         withCredentials: true,
         credentials: "include",
         headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsIm5hbWUiOiJUYWltb29yIFRhcmlxIiwidHlwZU9mVXNlciI6ImN1c3RvbWVyIiwiaWF0IjoxNjE2OTYxNzMwfQ.Dn0FATITkhrR7e5tkp_XAmdPfp-FKJGzdskczt9k2fw`,
+          Authorization: `Bearer ${tokenID}`,
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
@@ -356,16 +349,16 @@ const AddReview = () => {
 
   const handleClose = () => {
     setShow(false);
-    if(msg[1]==`Back to Panel`)
+    if(msg[1]===`Back to Panel`)
     {
       window.location.href = "/Panel";
     }
-
   };
 
   const handleShow = () => setShow(true);
   return (
     <div>
+      {checkSession()}
       <CustomerNavbar />
       <Memory
         panel="Customer Panel "

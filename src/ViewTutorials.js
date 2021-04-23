@@ -9,6 +9,7 @@ import "react-modal-video/scss/modal-video.scss";
 
 
 const ViewTutorials = () => {
+  const session = sessionStorage.getItem("logged-in");
   const [state, setState] = useState([
     {
       tutorial_id: 0,
@@ -23,40 +24,6 @@ const ViewTutorials = () => {
     const [videos, setVideos] = useState([])
     let tokenID = localStorage.getItem("Token");
 
-    
-    const videosArray = [
-        {
-            heading: "How to use Apnay Rung", 
-            description: "Watch this video to find to navigate through this website. Click here to view.",
-            ID: "vvF7uiBH-8I"
-        },
-        {
-            heading: "How to add a new product", 
-            description: "Watch this video to find out how to add new products to your inventory. Click here to view.",
-            ID: "vvF7uiBH-8I"
-        },
-        {
-            heading: "How to delete a product", 
-            description: "Watch this video to find out how to delete products from your inventory. Click here to view.",
-            ID: "vvF7uiBH-8I"
-        },
-        {
-            heading: "How to view Inventory", 
-            description: "Watch this video to find out how to access your inventory. Click here to view.",
-            ID: "vvF7uiBH-8I"
-        },
-        {
-            heading: "How to process orders", 
-            description: "Watch this video to find out how to view and process orders that you have recieved. Click here to view.",
-            ID: "vvF7uiBH-8I"
-        },
-        {
-            heading: "How to access Sales Reports", 
-            description: "Watch this video to find out how to access your monthly sales report. Click here to view.",
-            ID: "vvF7uiBH-8I"
-        }
-    ]
-    
     useEffect(() => {
         const getData = async (url) => {
           const response = await fetch(url, {
@@ -95,13 +62,18 @@ const ViewTutorials = () => {
         );
       });
     };
-
+    const checkSession = () => {
+      if (session !== true){
+        localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+        window.location.href = '/Homepage';
+      }
+    }
     return(
         <div>
+            {checkSession()}
             <SellerNavbar />
             <Memory panel="Tutorials "/>
             <div className="artisans-heading">View Tutorials</div>            
-            {/* <BottomBar /> */}
             <div>
             </div>
             <React.Fragment>
@@ -113,7 +85,7 @@ const ViewTutorials = () => {
             }
             </div>
 
-           {/* <BottomBar />  */}
+           <BottomBar /> 
         </div>
 
     )

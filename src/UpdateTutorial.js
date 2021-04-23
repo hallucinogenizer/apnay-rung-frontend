@@ -6,14 +6,14 @@ import Memory from "./Memory";
 import BottomBar from "./BottomBar";
 import { Link } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
-const CreateTutorial = () =>{
-    //add post request to send to backend and uncomment Link on submit button
+const UpdateTutorial = () =>{
     let tutorialData = JSON.parse(localStorage.getItem("update_tutorial"))
     const tutorial_id = tutorialData.tutorial_id;
     const [title, setTitle] = useState(tutorialData.title);
     const [description, setDescription] = useState(tutorialData.description);
     const [link, setLink] = useState(tutorialData.content);
     let tokenID = localStorage.getItem("Token");
+    const session = sessionStorage.getItem("logged-in");
     const [msg, setMsg] = useState([``]);
     const [show, setShow] = useState(false);
     // admin id`eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik11aGFtbWFkIFJvaGFuIEh1c3NhaW4iLCJ0eXBlT2ZVc2VyIjoiYWRtaW4iLCJpYXQiOjE2MTY4NDE4MTZ9.HJvh_8caLMReaDmJFCEklgtP9u86usbNIZ4FxOrIawk`
@@ -24,6 +24,12 @@ const CreateTutorial = () =>{
         console.log("in submit")
         sendData()
     }
+    const checkSession = () => {
+        if (session !== true){
+          localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+          window.location.href = '/Homepage';
+        }
+      }
     async function sendData() {
         console.log(`token is ${tokenID}`)
         const response = await fetch(
@@ -33,7 +39,7 @@ const CreateTutorial = () =>{
             withCredentials: true,
             credentials: "include",
             headers: {
-              Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik11aGFtbWFkIFJvaGFuIEh1c3NhaW4iLCJ0eXBlT2ZVc2VyIjoiYWRtaW4iLCJpYXQiOjE2MTY4NDE4MTZ9.HJvh_8caLMReaDmJFCEklgtP9u86usbNIZ4FxOrIawk`,
+              Authorization: `Bearer ${tokenID}`,
               "Content-Type": "application/json"
             },
             body: JSON.stringify({
@@ -65,19 +71,17 @@ const CreateTutorial = () =>{
     const handleShow = () => setShow(true);
 
     const titleChangeHandler = (event)=>{
-        console.log(`title: ${event.target.value}`)
         setTitle(event.target.value);
     }
     const descriptionChangeHandler = (event)=>{
-        console.log(`desc: ${event.target.value}`)
         setDescription(event.target.value);
     }
     const linkChangeHandler = (event)=>{
-        console.log(`link: ${event.target.value}`)
         setLink(event.target.value);
     }
     return (
         <div>
+            {checkSession()}
             <AdminNavbar/>
             <Memory panel="Admin" page="Tutorials" current="Create Tutorial"/>
             <h1>Update Tutorial</h1>
@@ -138,4 +142,4 @@ const CreateTutorial = () =>{
         </div>
     )
 }
-export default CreateTutorial;
+export default UpdateTutorial;

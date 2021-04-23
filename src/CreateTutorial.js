@@ -14,8 +14,14 @@ const CreateTutorial = () =>{
     let tokenID = localStorage.getItem("Token");
     const [msg, setMsg] = useState([``]);
     const [show, setShow] = useState(false);
+    const session = sessionStorage.getItem("logged-in");
     // admin id`eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik11aGFtbWFkIFJvaGFuIEh1c3NhaW4iLCJ0eXBlT2ZVc2VyIjoiYWRtaW4iLCJpYXQiOjE2MTY4NDE4MTZ9.HJvh_8caLMReaDmJFCEklgtP9u86usbNIZ4FxOrIawk`
-
+    const checkSession = () => {
+        if (session !== true){
+          localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+          window.location.href = '/Homepage';
+        }
+      }
     const SubmitHandler = (event) => {
         event.preventDefault();
         console.log("in submit")
@@ -61,19 +67,17 @@ const CreateTutorial = () =>{
     const handleShow = () => setShow(true);
 
     const titleChangeHandler = (event)=>{
-        console.log(`title: ${event.target.value}`)
         setTitle(event.target.value);
     }
     const descriptionChangeHandler = (event)=>{
-        console.log(`desc: ${event.target.value}`)
         setDescription(event.target.value);
     }
     const linkChangeHandler = (event)=>{
-        console.log(`link: ${event.target.value}`)
         setLink(event.target.value);
     }
     return (
         <div>
+            {checkSession()}
             <AdminNavbar/>
             <Memory panel="Admin" page="Tutorials" current="Create Tutorial"/>
             <h1>Create New Tutorial</h1>
@@ -85,6 +89,7 @@ const CreateTutorial = () =>{
                 name="title"
                 placeholder="Enter a title for your video tutorial"
                 onChange={titleChangeHandler}
+                required
                 ></input>
                 <p className="label-form">Description</p>
                 <textarea
@@ -95,14 +100,16 @@ const CreateTutorial = () =>{
                 onChange={descriptionChangeHandler}
                 rows="4"
                 cols="50"
+                required
                 ></textarea>
                 <p className="label-form"> Link ID</p>
                 <input
                 className="input-form"
                 type="text"
                 name="link"
-                placeholder="Enter Youtube URL of video"
+                placeholder="Enter Youtube ID of video"
                 onChange={linkChangeHandler}
+                required
                 ></input>
                 <div className="checkout-buttons">
                 <input

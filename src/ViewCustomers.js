@@ -9,6 +9,8 @@ import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import { Modal, Button } from "react-bootstrap";
 
 const ViewCustomers = () => {
+  const session = sessionStorage.getItem("logged-in");
+  let tokenID = localStorage.getItem("Token");
   const [state, setState] = useState([
     {
       customer_id: 0,
@@ -19,17 +21,17 @@ const ViewCustomers = () => {
       blocked: false
     }
   ]);
-
+  const checkSession = () => {
+    if (session !== true){
+      localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+      window.location.href = '/Homepage';
+    }
+  }
   const [msg, setMsg] = useState([``]);
-
   const [show, setShow] = useState(false);
-
   const [id, setID] = useState(0);
-
   const [block, setBlock] = useState(false)
-
   const [callEffect,setCallEffect]= useState(false)
-
   const handleShow = (message,customerID,blockStatus) => {
     setMsg(message)
     console.log(`customer id is ${customerID}`)
@@ -40,7 +42,7 @@ const ViewCustomers = () => {
   };
   const handleClose = (changeBlock) => {
     setShow(false);
-    if(changeBlock==true){
+    if(changeBlock===true){
       console.log(`sending to backend`)
       sendData()
     }
@@ -55,7 +57,7 @@ const ViewCustomers = () => {
         withCredentials: true,
         credentials: "include",
         headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik11aGFtbWFkIFJvaGFuIEh1c3NhaW4iLCJ0eXBlT2ZVc2VyIjoiYWRtaW4iLCJpYXQiOjE2MTY4NDE4MTZ9.HJvh_8caLMReaDmJFCEklgtP9u86usbNIZ4FxOrIawk`,
+          Authorization: `Bearer ${tokenID}`,
           "Content-Type": "application/json"
         }
       }
@@ -73,7 +75,7 @@ const ViewCustomers = () => {
         credentials: "include",
         headers: {
           Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik11aGFtbWFkIFJvaGFuIEh1c3NhaW4iLCJ0eXBlT2ZVc2VyIjoiYWRtaW4iLCJpYXQiOjE2MTY4NDE4MTZ9.HJvh_8caLMReaDmJFCEklgtP9u86usbNIZ4FxOrIawk",
+            `Bearer ${tokenID}`,
           "Content-Type": "application/json"
         }
       });
@@ -132,9 +134,9 @@ const ViewCustomers = () => {
 
   return (
     <div>
+      {checkSession()}
       <AdminNavbar />
       <Memory panel="Admin Panel " page="" current=" View All Customers" />{" "}
-      {/* when three links needed in panel, include a '/' in the middle 'page' argument */}
       <h1>View All Customers </h1>
       <div class="table-responsive">
         <table class="table table-size">

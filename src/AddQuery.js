@@ -8,12 +8,20 @@ import { Link } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
 const AddQuery = () =>{
   let tokenID = localStorage.getItem("Token");
+  const session = sessionStorage.getItem("logged-in");
   const [userstate, setUserState] = useState([]);
   const [query, setQuery] = useState("");
   const [subject, setSubject] = useState("");
   const [msg, setMsg] = useState([``]);
   const [show, setShow] = useState(false);
   // for testing eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsIm5hbWUiOiJUYWltb29yIFRhcmlxIiwidHlwZU9mVXNlciI6ImN1c3RvbWVyIiwiaWF0IjoxNjE2OTYxNzMwfQ.Dn0FATITkhrR7e5tkp_XAmdPfp-FKJGzdskczt9k2fw`
+  const checkSession = () => {
+    console.log("in here")
+    if (session !== true){
+      localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+      window.location.href = '/Homepage';
+    }
+  }
   useEffect(() => { //for getting user's name for display
       const getData = async (url) => {
         const response = await fetch(url, {
@@ -22,7 +30,7 @@ const AddQuery = () =>{
           credentials: "include",
           headers: {
             Authorization:
-              `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsIm5hbWUiOiJUYWltb29yIFRhcmlxIiwidHlwZU9mVXNlciI6ImN1c3RvbWVyIiwiaWF0IjoxNjE2OTYxNzMwfQ.Dn0FATITkhrR7e5tkp_XAmdPfp-FKJGzdskczt9k2fw`,
+              `Bearer ${tokenID}`,
             "Content-Type": "application/json"
           }
         });
@@ -51,7 +59,7 @@ const AddQuery = () =>{
         withCredentials: true,
         credentials: "include",
         headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsIm5hbWUiOiJUYWltb29yIFRhcmlxIiwidHlwZU9mVXNlciI6ImN1c3RvbWVyIiwiaWF0IjoxNjE2OTYxNzMwfQ.Dn0FATITkhrR7e5tkp_XAmdPfp-FKJGzdskczt9k2fw`,
+          Authorization: `Bearer ${tokenID}`,
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
@@ -92,6 +100,7 @@ const AddQuery = () =>{
     }
     return (
       <div>
+          {checkSession()}
           <CustomerNavbar/>
           <Memory panel="Customer Panel" current="Forms"/>
           <h1>Contact Apnay Rung</h1>
@@ -106,18 +115,21 @@ const AddQuery = () =>{
               <input
                   className="input-form"
                   type="text"
-                  // name="subject"
+                  name="subject"
                   onChange={subjectChangeHandler}
+                  required
               ></input>
               <p className="label-form">Content</p>
               <textarea
               className="input-des-2"
               type="text"
+              name="content"
               // name="additional_info"
               placeholder="e.g. Hi. I have a query. Can you help?"
               onChange={queryChangeHandler}
               rows="4"
               cols="50"
+              required
               ></textarea>
               <div className="checkout-buttons">
               {/* <Link to="/CustomerPanel"> */}
