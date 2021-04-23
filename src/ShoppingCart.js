@@ -1,17 +1,17 @@
 import "./styles.css";
 import "./momina.css";
 import CustomerNavbar from "./CustomerNavbar";
+import HomeNavbar from "./HomeNavbar";
+
 import Memory from "./Memory";
 import BottomBar from "./BottomBar";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import { useState, useRef, useEffect } from "react";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
-// import Modal from "react-bootstrap/Modal";
-// import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-// const [qty, setQuantity] = useState(1);
+
 
 const Counter = (props) => {
   const [qty, setQuantity] = useState(props.qty);
@@ -69,8 +69,24 @@ const ShoppingCart = () => {
   const fromLocalStorage = JSON.parse(localStorage.getItem("shoppingCart"));
   const [state, setState] = useState(fromLocalStorage);
   const [total, setTotal] = useState(0);
+  let tokenID = localStorage.getItem("Token");
+  const usertype = localStorage.getItem("TypeOfUser");
+  const [msg2, setMsg2] = useState([``]);
+  const [panel, setPanel] = useState("");
 
   //The below block of code will give the initial total bill before any increments/decrements
+  const GetNavbar = () =>{
+    if (tokenID === null){
+      return (
+        <HomeNavbar/>
+      )
+    }
+    else if (usertype === "customer"){
+      return(
+        <CustomerNavbar/>
+      )
+    }
+  }
   
   const getBill = () =>{
     let cost = 0;
@@ -80,38 +96,27 @@ const ShoppingCart = () => {
         cost = cost + quantity * price;
       });
     } catch {}
-    // setTotal(cost)
     return cost
   }
-  // getBill()
-
-  // console.log(cost);
-
   const [show, setShow] = useState(false);
+  const [show2, setShow2] = useState(false);
   const [indexDelete, setIndex] = useState(0);
 
   const handleClose = (isDelete) => {
     setShow(false);
-    // console.log(indexDelete);
     if (isDelete) {
       let copyState = state.slice();
-      // console.log(state);
-      // console.log(copyState);
       copyState.splice(indexDelete, 1);
-      // console.log(copyState);
       localStorage.removeItem("shoppingCart");
       localStorage.setItem("shoppingCart", JSON.stringify(copyState));
       setState(copyState);
     }
   };
   const handleShow = (index) => {
-    // console.log(index);
     setIndex(index);
     setShow(true);
   };
-  
-  // const setTotal= useRef(0)
-
+  const handleShow2 = () => setShow2(true);
   const renderTableData = () => {
     try {
       return state.map((product, index) => {
@@ -179,12 +184,35 @@ const ShoppingCart = () => {
       );
     }
   };
+  const handleClose2 = () => {
+    setShow2(false);
+    if(msg2[1] === `Back`)
+    {
+      window.location.href = "/ShoppingCart";
+    }
 
+  };
+  const checkLoggedIn = () =>{
+    if (tokenID !== null){
+      window.location.href = '/Checkout';
+    }
+    else
+    {
+      setMsg2([`You must Log In to continue to Checkout.`, `Back`]);
+      handleShow2();
+    }
+  }
+  const PanelCheck = () =>{
+    if (usertype === "customer"){
+      setPanel("Customer")
+    } 
+  }
   return (
     <div>
-      <CustomerNavbar />
-      <Memory panel="Customer Panel " page="" current=" Shopping Cart" />{" "}
-      {/* when three links needed in panel, include a '/' in the middle 'page' argument */}
+      {GetNavbar()}
+      {PanelCheck()}
+      <Memory panel={panel} page="" current=" Shopping Cart" />{" "}
+      
       <h1>Shopping Cart</h1>
       <div className="table-responsive">
         <table className="table table-size">
@@ -213,13 +241,14 @@ const ShoppingCart = () => {
           </Link>
         </div>
         <div className="inner">
-          <Link to="/Checkout">
+          {/* <Link to="/Checkout"> */}
             <input
               type="submit"
               className="checkout-button"
               value="Checkout"
+              onClick={checkLoggedIn}
             ></input>
-          </Link>
+          {/* </Link> */}
         </div>
       </div>
       <BottomBar />
@@ -246,6 +275,21 @@ const ShoppingCart = () => {
             className="delete-primary"
           >
             Delete Product
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal show={show2} onHide={handleClose2} className="delete-modal">
+        <Modal.Header closeButton>
+          <Modal.Title>Log In</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{msg2[0]}</Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="primary"
+            className="delete-primary"
+            onClick={handleClose2}
+          >
+         {msg2[1] !== "Back" ? <Link to="./ShoppingCart">{msg2[1]}</Link> : msg2[1]}
           </Button>
         </Modal.Footer>
       </Modal>

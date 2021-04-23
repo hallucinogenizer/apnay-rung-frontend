@@ -428,3 +428,13 @@ hr{
   color: #2e2e2e; 
   font-size: 19px;
 }
+
+.min-height-div{
+  min-height: 510px;
+}
+
+.add-to-featured{
+  font-size:14px;
+  color: #d67d20;
+  margin-left: -1%;
+}

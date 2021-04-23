@@ -16,6 +16,7 @@ const SellerSettings = () => {
   const [sellerData, setSellerData] = useState({})
   const [bio, setBio] = useState();
   const [picture, setPicture] = useState([]);
+  const [showPicture, setShowPicture] = useState([])
   let tokenID = localStorage.getItem("Token");
   let updatePass = false;
 
@@ -46,29 +47,56 @@ const SellerSettings = () => {
     setAddress(event.target.value);
   };
 
-  const handlePicture = (event) => {
-    console.log(`picture`, picture)
-    setPicture([...picture,URL.createObjectURL(event.target.files[0])])
+  const handleBio = (event) => {
+    setBio(event.target.value);
   }
-  async function postData() {
+
+  async function sendPicture() {
     const form = document.getElementById("empty-form");
     const fileObj = new FormData(form);
-    fileObj.append("name", name);
-    fileObj.append("email", email);
-    if (updatePass === true){
-      fileObj.append("password", newPass);
-      fileObj.append("passwordChanged", true)
-    }else{
-      fileObj.append("password", "");
-      fileObj.append("passwordChanged", false)
-    }
-    // fileObj.append("profile_picture", values.file, values.fileName);
-    fileObj.append("address", address);
-    fileObj.append("phone", phoneNo);
-    fileObj.append("bio", bio);
-
+    console.log(`picture`, picture)
+    fileObj.append("profile_picture", picture[picture.length-1]);
     // console.log(temp);
     // console.log(questions_data);
+    const response = await fetch(
+      "https://apnay-rung-api.herokuapp.com/seller/update/profile_picture",
+      {
+        method: "POST",
+        withCredentials: true,
+        credentials: "include",
+        headers: {
+          Authorization:
+          `Bearer ${tokenID}`,
+        },
+        body: fileObj
+      }
+    );
+    return response;
+  }
+
+  const handlePicture = (event) => {
+    console.log(`picture`, picture)
+    setPicture([...picture,event.target.files[0]])
+    setShowPicture([...picture,URL.createObjectURL(event.target.files[0])])
+  }
+
+  async function postData() {
+    let passChanged = false
+    if (updatePass === true){
+      passChanged = true
+    }else{
+      setNewPass("")
+      passChanged = false
+    }
+    const temp = {
+      name: name, 
+      email: email, 
+      password: newPass, 
+      passwordChanged: passChanged, 
+      location: address, 
+      phone: phoneNo, 
+      bio: bio
+    }
     const response = await fetch(
       "https://apnay-rung-api.herokuapp.com/seller/update",
       {
@@ -80,7 +108,7 @@ const SellerSettings = () => {
           `Bearer ${tokenID}`,
           "Content-Type": "application/json"
         },
-        body: fileObj
+        body: JSON.stringify(temp)
       }
     );
     return response;
@@ -89,8 +117,11 @@ const SellerSettings = () => {
   const submitHandler = async(e) => {
     e.preventDefault()
 
-    const serverResponse = await postData()
-    console.log(`in submitHandler`, serverResponse)
+    const serverResponseData = await postData()
+    const serverResponsePicture = await sendPicture()
+    console.log(`in submitHandler`, serverResponseData)
+    console.log(`in submitHandler`, serverResponsePicture)
+
   }
 
   const handleBlur = async (e) => {
@@ -144,7 +175,6 @@ const SellerSettings = () => {
     getData("https://apnay-rung-api.herokuapp.com/seller/info").then(
     (response) => {
       setSellerData(response)
-      console.log(`printing seller data`, sellerData)
       console.log(`printing response`,response)
       setName(response.name)
       console.log(`printing name`, name)
@@ -154,8 +184,11 @@ const SellerSettings = () => {
       setBio(response.bio)
       if (response.profile_picture === null){
         setPicture([...picture,DefaultImg])
+        setShowPicture([...showPicture, DefaultImg])
       }else{
         setPicture([...picture,response.profile_picture])
+        setShowPicture([...showPicture, response.profile_picture])
+
       }
     }
   );
@@ -179,7 +212,7 @@ const SellerSettings = () => {
                     <input
                         className="seller-settings-img"
                         type="image"
-                        src={picture[picture.length-1]}
+                        src={showPicture[showPicture.length-1]}
                     />
                 </div>
                 <div className="label-name-seller-settings">Name</div>
@@ -239,20 +272,20 @@ const SellerSettings = () => {
               onChange={handlePhoneNo}
             ></input>
             <br />
-            <p className="label-form">Add/Update bio</p>
+            <p className="label-form">Update your city</p>
             <input
               className="input-form"
               type="text"
-              value={bio}
-              onChange={handlePhoneNo}
+              value={address}
+              onChange={handleAddress}
             ></input>
             <br />
-            <p className="label-form">Update Location</p>
+            <p className="label-form">Add/Update bio</p>
             <textarea
               className="input-des"
               type="text"
-              value={address}
-              onChange={handleAddress}
+              value={bio}
+              onChange={handleBio}
               rows="4"
               cols="50"
             ></textarea>
