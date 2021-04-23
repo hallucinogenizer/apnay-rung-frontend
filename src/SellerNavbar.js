@@ -65,7 +65,7 @@ const SellerNavbar = () => {
                 <a className="nav-item nav-link">Inventory</a>
                 </Link>
                 <Link to="/About Us">
-                <a className="nav-item nav-link">About US</a>
+                <a className="nav-item nav-link">About Us</a>
                 </Link>
                 
             </div>
@@ -80,7 +80,9 @@ const SellerNavbar = () => {
                     <ExitToAppIcon className="rotate-180" />Logout
                     </a>
                 </Link>
+                <Link to="/SellerPanel" >
                 <a className="nav-item nav-link">{userstate.name}</a> 
+                </Link>
             </div>
                 
         </div>

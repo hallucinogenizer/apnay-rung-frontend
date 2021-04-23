@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
-
+import { Badge } from 'styled-badge-component';
 const CustomerNavbar = () => {
   let tokenID = localStorage.getItem("Token");
   const [userstate, setUserState] = useState([]);
@@ -80,7 +80,9 @@ const CustomerNavbar = () => {
             <div className="navbar-nav ml-auto">
                 <Link to="/Notifications">
                     <a className="nav-item nav-link">
+                    <Badge color="primary" overlap="circle" badgeContent=" ">
                     <NotificationsNoneIcon />
+                    </Badge>
                     </a>
                 </Link>
                 <Link to="/ShoppingCart">
@@ -91,7 +93,9 @@ const CustomerNavbar = () => {
                     <ExitToAppIcon className="rotate-180" />Logout
                     </a>
                 </Link>
+                <Link to="/CustomerPanel" >
                 <a className="nav-item nav-link">{userstate.name}</a>
+                </Link>
                 
             </div>
                 
