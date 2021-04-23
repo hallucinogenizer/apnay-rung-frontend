@@ -157,6 +157,7 @@ const QueryForms = () => {
       {checkSession()}
       <AdminNavbar />
       <Memory panel="Admin Panel " page="" current=" Query Forms" />{" "}
+      <div className="min-height-div">
       <h1>Query Forms </h1>
       <div className="table-responsive">
         <table className="table table-size">
@@ -171,6 +172,7 @@ const QueryForms = () => {
           </thead>
           <tbody>{renderTableData()}</tbody>
         </table>
+      </div>
       </div>
       <FormPopup trigger={viewForm} setTrigger={setViewForm}>
       </FormPopup>

@@ -8,8 +8,9 @@ import Login from "./Login";
 import ForgotPassword from "./ForgotPassword";
 import ResetPassword from "./ResetPassword";
 import Artisans from "./Artisans.js";
+import AddReview from "./AddReview";
 import AboutUs from "./AboutUs";
-// import Temp from "./Temp";
+import Notifications from "./Notifications"
 
 // Admin Pages
 import AdminPanel from "./AdminPanel";
@@ -18,7 +19,9 @@ import QueryForms from "./QueryForms";
 import ViewSellers from "./ViewSellers"
 import ViewAllProducts from "./ViewAllProducts";
 import AdminSettings from "./AdminSettings";
-import ApproveSellers from "./ApproveSellers";
+import CreateTutorial from "./CreateTutorial";
+import Tutorials from "./Tutorials";
+import ViewCustomers from "./ViewCustomers";
 
 // Customer Pages
 import CustomerPanel from "./CustomerPanel";
@@ -29,7 +32,6 @@ import SecurityPage from "./SecurityPage";
 import OrderConfirmation from "./OrderConfirmation";
 import CustomerSettings from "./CustomerSettings";
 import AddQuery from "./AddQuery";
-import AddReview from "./AddReview";
 
 // Seller Pages
 import SellerPanel from "./SellerPanel";
@@ -37,8 +39,9 @@ import SignupSeller from "./SignUpSeller";
 import UploadCNIC from "./UploadCNIC";
 import SellerSettings from "./SellerSettings";
 import ViewTutorials from "./ViewTutorials";
-import AddProduct from "./AddProduct";
 import Inventory from "./Inventory";
+import UpdateProduct from "./UpdateProduct";
+import ViewCurrentOrders from "./ViewCurrentOrders";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 export default function App() {
@@ -53,7 +56,9 @@ export default function App() {
           <Route path="/ViewSellers" exact component={ViewSellers} />
           <Route path="/ViewAllProducts" exact component={ViewAllProducts} />
           <Route path="/AdminSettings" exact component={AdminSettings} />
-          <Route path="/ApproveSellers" exact component={ApproveSellers} />
+          <Route path="/CreateTutorial" exact component={CreateTutorial} />
+          <Route path="/Tutorials" exact component={Tutorials} />
+          <Route path="/ViewCustomers" exact component={ViewCustomers} />
 
 
 
@@ -70,6 +75,8 @@ export default function App() {
           <Route path="/AddReview" exact component={AddReview}/>
           <Route path="/AddQuery" exact component={AddQuery}/>
 
+          
+
 
           {/* Sellers Pages */}
           <Route path="/SellerPanel" exact component={SellerPanel} />
@@ -77,12 +84,16 @@ export default function App() {
           <Route path="/UploadCNIC" exact component={UploadCNIC} />
           <Route path="/SellerSettings" exact component={SellerSettings} />
           <Route path="/ViewTutorials" exact component={ViewTutorials} />
-          <Route path="/AddProduct" exact component={AddProduct} />
           <Route path="/Inventory" exact component={Inventory} />
+          <Route path="/UpdateProduct" exact component={UpdateProduct} />
+          <Route path="/ViewCurrentOrders" exact component={ViewCurrentOrders} />
+
+
+
 
 
           {/* Common Pages */}
-          {/* <Route path="/" exact component={Temp} /> */}
+          <Route path="/" exact component={Homepage} />
           <Route path="/Homepage" exact component={Homepage} />
           <Route path="/Catalog" exact component={Catalog} />
           <Route path="/Product" exact component={Product} />
@@ -91,6 +102,8 @@ export default function App() {
           <Route path="/ResetPassword" exact component={ResetPassword} />
           <Route path="/Artisans" exact component={Artisans} />
           <Route path="/AboutUs" exact component={AboutUs} />
+          <Route path="/Notifications" exact component={Notifications} />
+
 
 
 

@@ -4,7 +4,8 @@ import Memory from "./Memory";
 import "./styles.css";
 import { useState, useEffect } from "react";
 import DefaultImg from "./css/upload-picture.jpeg"
-import BottomBar from "./BottomBar";
+
+
 const SellerSettings = () => {
   const [name, setName] = useState();
   const [email, setEmail] = useState();
@@ -13,19 +14,15 @@ const SellerSettings = () => {
   const [phoneNo, setPhoneNo] = useState();
   const [address, setAddress] = useState();
   const [sellerData, setSellerData] = useState({})
+  const [errors, setErrors] = useState({});
   const [bio, setBio] = useState();
   const [picture, setPicture] = useState([]);
   const [showPicture, setShowPicture] = useState([])
   let tokenID = localStorage.getItem("Token");
   let updatePass = false;
-  const session = sessionStorage.getItem("logged-in");
 
-  const checkSession = () => {
-    if (session === false || session === null){
-      localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
-      window.location.href = '/Homepage';
-    }
-  }
+
+
   const handleName = (event) => {
     setName(event.target.value);
   };
@@ -35,6 +32,7 @@ const SellerSettings = () => {
   };
 
   const handleCurrPass = (event) => {
+    console.log(`printing pass`, event.target.value)
     setCurrPass(event.target.value);
   };
 
@@ -57,7 +55,10 @@ const SellerSettings = () => {
   async function sendPicture() {
     const form = document.getElementById("empty-form");
     const fileObj = new FormData(form);
+    console.log(`picture`, picture)
     fileObj.append("profile_picture", picture[picture.length-1]);
+    // console.log(temp);
+    // console.log(questions_data);
     const response = await fetch(
       "https://apnay-rung-api.herokuapp.com/seller/update/profile_picture",
       {
@@ -75,13 +76,12 @@ const SellerSettings = () => {
   }
 
   const handlePicture = (event) => {
+    console.log(`picture`, picture)
     setPicture([...picture,event.target.files[0]])
     setShowPicture([...picture,URL.createObjectURL(event.target.files[0])])
   }
 
   async function postData() {
-    const form = document.getElementById("empty-form");
-
     let passChanged = false
     if (updatePass === true){
       passChanged = true
@@ -92,7 +92,7 @@ const SellerSettings = () => {
     const temp = {
       name: name, 
       email: email, 
-      passChanged: newPass, 
+      password: newPass, 
       passwordChanged: passChanged, 
       location: address, 
       phone: phoneNo, 
@@ -117,18 +117,42 @@ const SellerSettings = () => {
 
   const submitHandler = async(e) => {
     e.preventDefault()
+
     const serverResponseData = await postData()
     const serverResponsePicture = await sendPicture()
+    console.log(`in submitHandler`, serverResponseData)
+    console.log(`in submitHandler`, serverResponsePicture)
+
   }
 
   const handleBlur = async (e) => {
     e.preventDefault()
+    console.log(`in blurrr`)
     const serverResponse = await verifyPass()
-    // if (serverResponse.verified === true){
-    //   // console.log(`wohoo`)
-    // }else{
-    //   // console.log(`oh shit`)
-    // }
+    console.log(`printing blur resp`, serverResponse)
+    if (serverResponse.verified === true){
+      console.log(`wohoo`)
+      setErrors({...errors, currPass: '                     '})
+      updatePass = true;
+    }else{
+      console.log(`oh shit`)
+      setErrors({...errors, currPass: 'Password is incorrect'})
+    }
+  }
+
+  const handleBlur2 = async (e) => {
+    console.log(`in new pass blurrr`)
+    if (newPass){
+      console.log(`curr pass`, currPass)
+      if (!currPass){
+        setErrors({...errors, currPass: 'Enter current password first'})
+      }else if (newPass.length < 6){
+      setErrors({...errors, newPass: 'Must have 6 characters at least'})
+    }else{
+      setErrors({...errors, newPass: ''})
+
+    }
+  }
   }
 
   async function verifyPass() {
@@ -136,6 +160,7 @@ const SellerSettings = () => {
       email: email, 
       password: currPass
     }
+    console.log(`temp`, temp)
     const response = await fetch(
       "https://apnay-rung-api.herokuapp.com/verify",
       {
@@ -147,6 +172,7 @@ const SellerSettings = () => {
         body: JSON.stringify(temp)
       }
     );
+    // console.log(response.json());
     return response.json();
   }
   useEffect(() => {
@@ -166,7 +192,9 @@ const SellerSettings = () => {
     getData("https://apnay-rung-api.herokuapp.com/seller/info").then(
     (response) => {
       setSellerData(response)
+      console.log(`printing response`,response)
       setName(response.name)
+      console.log(`printing name`, name)
       setEmail(response.email)
       setPhoneNo(response.phone)
       setAddress(response.location)
@@ -182,6 +210,7 @@ const SellerSettings = () => {
     }
   );
   }, []);
+
 
   const displayPage = () => {
     return (
@@ -232,6 +261,14 @@ const SellerSettings = () => {
             <br />
             <br />
             <span>
+            {errors.currPass && (
+              <div className="err-settings-currPass">{errors.currPass}</div>
+            )}
+            {errors.newPass && (
+              <div className="err-settings-newPass">{errors.newPass}</div>
+            )}
+            </span>
+            <span>
               <label className="label-form-cp">Current Password</label>
               <label className="label-form-np">New Password</label>
             </span>
@@ -249,6 +286,7 @@ const SellerSettings = () => {
                 type="password"
                 value={newPass}
                 onChange={handleNewPass}
+                onBlur = {handleBlur2}
               ></input>
             </span>
             <br />
@@ -283,19 +321,25 @@ const SellerSettings = () => {
       </div>
     )
   }
+
+ 
   return (
     <div className="bg-color">
-      {checkSession()}
       <SellerNavbar />
-      <Memory panel="Seller Panel " page="" current=" Account Settings" />{" "}
+      <Memory panel="Customer Panel " page="" current=" Account Settings" />{" "}
+      {/* when three links needed in panel, include a '/' in the middle 'page' argument */}
         {
           displayPage()
         }
         <br/>
         <br/>
-        <BottomBar />
+        {/* <BottomBar /> */}
     </div>
   );
+
+
+
+
 }
 
 export default SellerSettings;

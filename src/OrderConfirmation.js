@@ -188,6 +188,7 @@ const OrderConfirmation = () => {
         current=" Order Confirmation"
       />{" "}
       {/* when three links needed in panel, include a '/' in the middle 'page' argument */}
+      <div className="min-height-div">
       <h1>Order Confirmation</h1>
       <h2>Order Details</h2>
       <div className="table-responsive">
@@ -219,11 +220,11 @@ const OrderConfirmation = () => {
         value="Confirm Order"
         onClick={sendData}
       ></input>
+      </div>
       <br/>
       <br/>
       <br/>
-      <br/>
-      <br/>
+
       <BottomBar />
       <Modal show={show} onHide={handleClose} className="delete-modal">
         <Modal.Header closeButton>

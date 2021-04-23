@@ -137,6 +137,7 @@ const ViewCustomers = () => {
       {checkSession()}
       <AdminNavbar />
       <Memory panel="Admin Panel " page="" current=" View All Customers" />{" "}
+      <div className="min-height-div">
       <h1>View All Customers </h1>
       <div class="table-responsive">
         <table class="table table-size">
@@ -156,8 +157,7 @@ const ViewCustomers = () => {
       <br />
       <br />
       <br />
-      <br />
-      <br />
+      </div>
       <BottomBar />
       <Modal show={show} onHide={handleClose} className="delete-modal">
         <Modal.Header closeButton>

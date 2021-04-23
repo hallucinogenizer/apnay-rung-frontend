@@ -116,6 +116,7 @@ const Tutorials = () =>{
       {checkSession()}
       <AdminNavbar />
       <Memory panel="Admin Panel" page="Panel" current="Tutorials" />
+      <div className="min-height-div">
       <h1>View All Tutorials </h1>
       <div className="table-responsive">
         <table className="table table-size">
@@ -128,6 +129,10 @@ const Tutorials = () =>{
           </thead>
           <tbody>{renderTableData()}</tbody>
         </table>
+      </div>
+      <br/>
+      <br/>
+
       </div>
       <BottomBar />
       <Modal show={show} onHide={handleClose} className="delete-modal">

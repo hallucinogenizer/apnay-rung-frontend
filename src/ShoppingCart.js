@@ -235,7 +235,7 @@ const ShoppingCart = () => {
     <div>
       {GetNavbar()}
       <Memory panel={PanelCheck} page="" current=" Shopping Cart" />{" "}
-      
+      <div className="min-height-div">
       <h1>Shopping Cart</h1>
       <div className="table-responsive">
         <table className="table table-size">
@@ -271,6 +271,7 @@ const ShoppingCart = () => {
               onClick={()=>checkLoggedIn()}
             ></input>
         </div>
+      </div>
       </div>
       <BottomBar />
       <Modal

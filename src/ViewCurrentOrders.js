@@ -242,6 +242,7 @@ const ViewCurrentOrders = () => {
         page=""
         current=" Current Orders"
       />{" "}
+      <div className="min-height-div">
       <h1>Current Orders</h1>
       <h2>Order Summary</h2>
       <div>
@@ -287,6 +288,7 @@ const ViewCurrentOrders = () => {
       <br />
       <br />
       <br />
+      </div>
       <BottomBar />
       <Modal show={show} onHide={handleClose} className="delete-modal">
         <Modal.Header closeButton>
