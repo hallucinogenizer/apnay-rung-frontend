@@ -146,10 +146,10 @@ const Homepage = () => {
       <span>
         <img className="logo-main" src={TopHeading} alt="logo" />
       </span>
-      <div className="container">
+
         <img className="home-background" src={home} alt="home" />
         <h2 className="home-text">DISCOVER | CONNECT | EMPOWER</h2>
-      </div>
+
       <p className="featured-prod">Featured Products </p>
       <div className="itemboxes">{renderProducts()}</div>
       <div className="orange-home-bar">
