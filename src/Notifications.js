@@ -42,7 +42,7 @@ const Notifications = () => {
   const [callEffect,setCallEffect]= useState(false)
   // const [check, setCheck]= useState(false); //Checks if anything has come from backend
   const checkSession = () => {
-    if (session === false){
+    if (session === false || session === null){
       localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
       window.location.href = '/Homepage';
     }

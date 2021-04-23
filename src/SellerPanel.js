@@ -21,7 +21,7 @@ const SellerPanel = () => {
   const session = sessionStorage.getItem("logged-in");
   const checkSession = () => {
     console.log("in here")
-    if (session === false){
+    if (session === false || session === null){
       localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
       window.location.href = '/Homepage';
     }

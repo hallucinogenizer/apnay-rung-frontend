@@ -196,7 +196,8 @@ const Product = () => {
       );
     });
   };
-
+  const[msg2,setMsg2]= useState([``])
+  const [show2, setShow2] = useState(false);
   const[msg,setMsg]= useState([``])
   const [show, setShow] = useState(false);
   const handleClose = () => {
@@ -205,40 +206,54 @@ const Product = () => {
   const handleShow = () => {
     setShow(true);
   };
+  const handleClose2 = () => {
+    setShow2(false);
+  };
+  const handleShow2 = () => {
+    setShow2(true);
+  };
+
 
   const addToCartHandler = (qty) => {
-
-    if(productData.inStock>=qty){
-      let cart = [];
-
-      cart = JSON.parse(localStorage.getItem("shoppingCart"));
-      console.log(cart);
+    if (usertype === `customer`)
+    {
+      if(productData.inStock>=qty){
+        let cart = [];
   
-      let newProduct = {
-        productID: product.item_id,
-        productTitle: product.title,
-        quantity: qty,
-        price: product.price,
-        image: product.image
-      };
-  
-      if (cart == null) {
-        cart = [];
-        cart[0] = newProduct;
-      } else {
-        cart.push(newProduct);
+        cart = JSON.parse(localStorage.getItem("shoppingCart"));
+        console.log(cart);
+    
+        let newProduct = {
+          productID: product.item_id,
+          productTitle: product.title,
+          quantity: qty,
+          price: product.price,
+          image: product.image,
+          sellerID: product.seller_id
+        };
+    
+        if (cart == null) {
+          cart = [];
+          cart[0] = newProduct;
+        } else {
+          cart.push(newProduct);
+        }
+    
+        localStorage.setItem("shoppingCart", JSON.stringify(cart));
+        setMsg([`Product Added`,`Product has been added to your cart.`])
+        handleShow()
       }
-  
-      localStorage.setItem("shoppingCart", JSON.stringify(cart));
-      setMsg([`Product Added`,`Product has been added to your cart.`])
-      handleShow()
+      else
+      {
+        setMsg([`We're sorry!`,`Product is out of stock or the desired quantity is not available.`])
+        handleShow()
+      }
     }
     else
     {
-      setMsg([`We're sorry!`,`Product is out of stock or the desired quantity is not available.`])
-      handleShow()
+      setMsg2(["Only Customers can purchase Products","OK"])
+      handleShow2()
     }
-    
   };
 
   // localStorage.removeItem("shoppingCart");
@@ -333,6 +348,25 @@ const Product = () => {
           <Button
             variant="primary"
             onClick={() => handleClose()}
+            className="delete-primary"
+          >
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal
+        show={show2}
+        onHide={() => handleClose2()}
+        className="delete-modal"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Error</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{msg2[0]}</Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="primary"
+            onClick={() => handleClose2()}
             className="delete-primary"
           >
             Close
