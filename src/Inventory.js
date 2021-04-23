@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
 
 const Inventory = () => {
+  let tokenID = localStorage.getItem("Token");
+  const session = sessionStorage.getItem("logged-in");
   const [state, setState] = useState([
     {
       image: "",
@@ -17,7 +19,12 @@ const Inventory = () => {
   ]);
 
   const [callEffect,setCallEffect]= useState(false)
-
+  const checkSession = () => {
+    if (session === false){
+      localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+      window.location.href = '/Homepage';
+    }
+  }
   useEffect(() => {
     async function getData(url) {
       const response = await fetch(url, {
@@ -26,7 +33,7 @@ const Inventory = () => {
         credentials: "include",
         headers: {
           Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6IlZhZmEgQmF0b29sIiwidHlwZU9mVXNlciI6InNlbGxlciIsImlhdCI6MTYxNjg0NDE3N30.xYaUcX7dmdqY5co2tMbVA_9jh0M1fVBB-AX0Aam5G7Y",
+            `Bearer ${tokenID}`,
           "Content-Type": "application/json"
         }
       });
@@ -36,7 +43,6 @@ const Inventory = () => {
 
     getData("https://apnay-rung-api.herokuapp.com/inventory/all/mine").then(
       (response) => {
-        console.log(response);
         setState(response);
       }
     );
@@ -60,7 +66,7 @@ const Inventory = () => {
         withCredentials: true,
         credentials: "include",
         headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6IlZhZmEgQmF0b29sIiwidHlwZU9mVXNlciI6InNlbGxlciIsImlhdCI6MTYxNjg0NDE3N30.xYaUcX7dmdqY5co2tMbVA_9jh0M1fVBB-AX0Aam5G7Y`,
+          Authorization: `Bearer ${tokenID}`,
           "Content-Type": "application/json"
         }
       }
@@ -68,7 +74,6 @@ const Inventory = () => {
     console.log(response);
 
     if (response.status === 200 || response.status === 201 || response.status === 202) {
-      
       console.log(`processed ${!callEffect}`)
       setCallEffect(!callEffect)
     } 
@@ -84,8 +89,7 @@ const Inventory = () => {
   };
   const handleClose = (changeBlock) => {
     setShow(false);
-    if(changeBlock==true){
-      console.log(`sending to backend`)
+    if(changeBlock===true){
       deleteProduct(id)
     }
     
@@ -125,10 +129,9 @@ const Inventory = () => {
 
   return (
     <div>
+      {checkSession()}
       <SellerNavbar />
-      {/* <Memory panel="" page="" current=" Inventory" />{" "} */}
       <Memory panel="Seller Panel" page="" current="Inventory" />{" "}
-      {/* when three links needed in panel, include a '/' in the middle 'page' argument */}
       <h1>Inventory </h1>
       <div className="table-responsive">
         <table className="table table-size">

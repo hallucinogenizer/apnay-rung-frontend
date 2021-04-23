@@ -3,8 +3,6 @@ import "./styles.css";
 import AdminNavbar from "./AdminNavbar";
 import Memory from "./Memory";
 import BottomBar from "./BottomBar";
-// import "bootstrap/dist/css/bootstrap.min.css";
-// import { Modal, Button } from "react-bootstrap";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 import SettingsIcon from "@material-ui/icons/Settings";
 import GroupOutlinedIcon from "@material-ui/icons/GroupOutlined";
@@ -20,8 +18,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const AdminPanel = () => {
   const session = sessionStorage.getItem("logged-in");
   const checkSession = () => {
-    console.log("in here")
-    if (session !== true){
+    if (session === false){
       localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
       window.location.href = '/Homepage';
     }
@@ -37,7 +34,7 @@ const AdminPanel = () => {
   const classes = makeStyles(iconStyles)();
   return (
     <div>
-      {/* {checkSession()} */}
+      {checkSession()}
       <AdminNavbar />
       <Memory panel="Admin Panel" /> 
       <h1>Admin Panel</h1>
@@ -46,14 +43,14 @@ const AdminPanel = () => {
       <div className="all-boxes">
         <div className="box-left">
           <div className="box-left-left">
-            <Link to="/AdminPanel" className="router-link">
+            <Link to="/ViewCustomers" className="router-link">
               <button href="#buyers" className="panel-box">
                 <span className="icons">
                   <GroupOutlinedIcon
                     className={classes.buttoncolor}
                   />
                 </span>
-                <span className="text">View All Buyers</span>
+                <span className="text">View All Customers</span>
               </button>
             </Link>
           </div>
@@ -70,7 +67,7 @@ const AdminPanel = () => {
             </Link>
           </div>
           <div className="box-left-left">
-            <Link to="/ViewAllOrders" className="router-link">
+            <Link to="/ViewOrders" className="router-link">
               <button href="#orders" className="panel-box">
                 <span className="icons">
                   <MenuIcon
@@ -109,7 +106,7 @@ const AdminPanel = () => {
 
         <div className="box-right">
           <div className="box-right-right">
-            <Link to="/ViewAllSellers" className="router-link">
+            <Link to="/ViewSellers" className="router-link">
               <button href="#sellers" className="panel-box">
                 <span className="icons">
                   <GroupIcon
@@ -145,18 +142,6 @@ const AdminPanel = () => {
             </Link>
           </div>
           <div className="box-right-right">
-            <Link to="/AdminSettings" className="router-link">
-              <button href="#settings" className="panel-box">
-                <span className="icons">
-                  <SettingsIcon
-                    className={classes.buttoncolor}
-                  />
-                </span>
-                <span className="text">Account Settings</span>
-              </button>
-            </Link>
-          </div>
-          <div className="box-right-right">
             <Link to="/ApproveSellers" className="router-link">
               <button href="#cart" className="panel-box">
                 <span className="icons">
@@ -165,6 +150,18 @@ const AdminPanel = () => {
                   />
                 </span>
                 <span className="text">Approve Sellers</span>
+              </button>
+            </Link>
+          </div>
+          <div className="box-right-right">
+            <Link to="/AdminSettings" className="router-link">
+              <button href="#cart" className="panel-box">
+                <span className="icons">
+                <SettingsIcon
+                    className={classes.buttoncolor}
+                  />
+                </span>
+                <span className="text">Account Settings</span>
               </button>
             </Link>
           </div>

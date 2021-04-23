@@ -1,5 +1,8 @@
 import "./styles.css";
 import AdminNavbar from "./AdminNavbar";
+import CustomerNavbar from "./CustomerNavbar";
+import SellerNavbar from "./SellerNavbar";
+
 import Memory from "./Memory";
 import BottomBar from "./BottomBar";
 import { Modal, Button } from "react-bootstrap";
@@ -7,6 +10,9 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const Notifications = () => {
+  const session = sessionStorage.getItem("logged-in");
+  let tokenID = localStorage.getItem("Token");
+  const usertype = localStorage.getItem("TypeOfUser");
 
   const [state, setState] = useState([
     {
@@ -15,10 +21,32 @@ const Notifications = () => {
       notification: ""
     }
   ]);
-
+  const GetNavbar = () =>{
+     if (usertype === "customer"){
+      return(
+        <CustomerNavbar/>
+      )
+    }
+    else if (usertype === "admin"){
+      return (
+        <AdminNavbar/>
+      )
+    }
+    else if (usertype === "seller"){
+      return (
+        <SellerNavbar/>
+      )
+    }
+  }
+  
   const [callEffect,setCallEffect]= useState(false)
   // const [check, setCheck]= useState(false); //Checks if anything has come from backend
-
+  const checkSession = () => {
+    if (session === false){
+      localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+      window.location.href = '/Homepage';
+    }
+  }
   useEffect(() => {
     async function getData(url) {
       const response = await fetch(url, {
@@ -27,7 +55,7 @@ const Notifications = () => {
         credentials: "include",
         headers: {
           Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik11aGFtbWFkIFJvaGFuIEh1c3NhaW4iLCJ0eXBlT2ZVc2VyIjoiYWRtaW4iLCJpYXQiOjE2MTY4NDE4MTZ9.HJvh_8caLMReaDmJFCEklgtP9u86usbNIZ4FxOrIawk",
+            `Bearer ${tokenID}`,
           "Content-Type": "application/json"
         }
       });
@@ -62,11 +90,10 @@ const Notifications = () => {
   };
   const handleClose = (changeBlock) => {
     setShow(false);
-    if(changeBlock==true){
+    if(changeBlock===true){
       console.log(`sending to backend, https://apnay-rung-api.herokuapp.com/notification/${action}`)
       sendData()
     }
-    
   };
 
 
@@ -79,7 +106,7 @@ const Notifications = () => {
         withCredentials: true,
         credentials: "include",
         headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik11aGFtbWFkIFJvaGFuIEh1c3NhaW4iLCJ0eXBlT2ZVc2VyIjoiYWRtaW4iLCJpYXQiOjE2MTY4NDE4MTZ9.HJvh_8caLMReaDmJFCEklgtP9u86usbNIZ4FxOrIawk`,
+          Authorization: `Bearer ${tokenID}`,
           "Content-Type": "application/json"
         }
       }
@@ -126,20 +153,17 @@ const Notifications = () => {
             </span>
           </div>
         )
-
       }
-
     }
     catch{
     }
-
   };
 
   return (
     <div>
-      <AdminNavbar />
-      <Memory panel="Admin Panel" page="" current="Notifications" />{" "}
-      {/* when three links needed in panel, include a '/' in the middle 'page' argument */}
+      {checkSession()}
+      {GetNavbar()}
+      <Memory panel="" page="" current="Notifications" />{" "}
       <h1>Notifications</h1>
       <br></br>
       <ul>

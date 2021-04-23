@@ -10,6 +10,8 @@ import FlashOnIcon from "@material-ui/icons/FlashOn";
 import { Modal, Button } from "react-bootstrap";
 // import "bootstrap/dist/css/bootstrap.css";
 const ViewSellers = () => {
+  const session = sessionStorage.getItem("logged-in");
+  let tokenID = localStorage.getItem("Token");
   const [state, setState] = useState([
     {
       seller_id: 0,
@@ -23,17 +25,17 @@ const ViewSellers = () => {
       profile_picture: null
     }
   ]);
-
+  const checkSession = () => {
+    if (session === false){
+      localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+      window.location.href = '/Homepage';
+    }
+  }
   const [msg, setMsg] = useState([``]);
-
   const [show, setShow] = useState(false);
-
   const [id, setID] = useState(0);
-
   const [block, setBlock] = useState(false)
-
   const [callEffect,setCallEffect]= useState(false)
-
   const handleShow = (message,sellerID,blockStatus) => {
     setMsg(message)
     setID(sellerID)
@@ -43,7 +45,7 @@ const ViewSellers = () => {
   };
   const handleClose = (changeBlock) => {
     setShow(false);
-    if(changeBlock==true){
+    if(changeBlock===true){
       console.log(`sending to backend`)
       sendData()
     }
@@ -59,7 +61,7 @@ const ViewSellers = () => {
         withCredentials: true,
         credentials: "include",
         headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik11aGFtbWFkIFJvaGFuIEh1c3NhaW4iLCJ0eXBlT2ZVc2VyIjoiYWRtaW4iLCJpYXQiOjE2MTY4NDE4MTZ9.HJvh_8caLMReaDmJFCEklgtP9u86usbNIZ4FxOrIawk`,
+          Authorization: `Bearer ${tokenID}`,
           "Content-Type": "application/json"
         }
       }
@@ -82,7 +84,7 @@ const ViewSellers = () => {
         withCredentials: true,
         credentials: "include",
         headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik11aGFtbWFkIFJvaGFuIEh1c3NhaW4iLCJ0eXBlT2ZVc2VyIjoiYWRtaW4iLCJpYXQiOjE2MTY4NDE4MTZ9.HJvh_8caLMReaDmJFCEklgtP9u86usbNIZ4FxOrIawk`,
+          Authorization: `Bearer ${tokenID}`,
           "Content-Type": "application/json"
         }
       }
@@ -104,7 +106,7 @@ const ViewSellers = () => {
         credentials: "include",
         headers: {
           Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik11aGFtbWFkIFJvaGFuIEh1c3NhaW4iLCJ0eXBlT2ZVc2VyIjoiYWRtaW4iLCJpYXQiOjE2MTY4NDE4MTZ9.HJvh_8caLMReaDmJFCEklgtP9u86usbNIZ4FxOrIawk",
+            `Bearer ${tokenID}`,
           "Content-Type": "application/json"
         }
       });
@@ -204,9 +206,9 @@ const ViewSellers = () => {
 
   return (
     <div>
+      {checkSession()}
       <AdminNavbar />
       <Memory panel="Admin Panel " page="" current=" View Sellers" />{" "}
-      {/* when three links needed in panel, include a '/' in the middle 'page' argument */}
       <h1>View Sellers </h1>
       <div class="table-responsive">
         <table class="table table-size">

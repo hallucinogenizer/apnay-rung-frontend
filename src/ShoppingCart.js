@@ -128,7 +128,6 @@ const ShoppingCart = () => {
           <tr className="data">
             <td><img className="shoppingCart-image" src={image} alt="Logo" /></td>
             <td>{productTitle}</td>
-            {/* <input className="text-center" type="number" min={quantity} /> */}
             <td>
               <Counter
                 key={quantity}

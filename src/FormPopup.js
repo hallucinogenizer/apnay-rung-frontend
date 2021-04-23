@@ -6,7 +6,6 @@ const FormPopup = (props) => {
     const form = JSON.parse(localStorage.getItem("form-content"));
 
     const handleClose = (e) => {
-        console.log(`im here hello`)
         props.setTrigger(false);
     }
     return (props.trigger) ? (

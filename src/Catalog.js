@@ -19,8 +19,7 @@ const Catalog = () => {
   const usertype = localStorage.getItem("TypeOfUser");
   const tokenID = localStorage.getItem("Token");
   const province = JSON.parse(localStorage.getItem("map_province"));
-  
-  console.log("token", tokenID);
+ 
   const GetNavbar = () =>{
     if (tokenID === null){
       return (
@@ -45,7 +44,6 @@ const Catalog = () => {
   }
   const MapProvinces = () =>{
       setCallMap(false);
-      console.log(`in map provinces: ${province}`)
     if (province !== null) {
         if (province === `Punjab`){
         PunjabProducts();
@@ -55,7 +53,6 @@ const Catalog = () => {
         SindhProducts();
         }
         else if(province === `Balochistan`){
-            console.log("in blaochistan if")
             BalochistanProducts();
         }
         else if (province === `KPK`){
@@ -71,7 +68,6 @@ const Catalog = () => {
         {
             console.log("didnt mathc anywhere")
         }
-        // localStorage.removeItem("map_province")
     }
   }
   useEffect(() => {
