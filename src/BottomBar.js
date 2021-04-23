@@ -7,8 +7,8 @@ const BottomBar = () => {
     <nav className="navbar navbar-expand-md navbar-light bg-dark">
       <p>
         Copyright © Apnay Rung 2021 <span className="footer_span">|</span>{" "}
-        WhatsApp: 03214466789 <span className="footer_span"> |</span> Email: <span className="bottom-bar">apnayrung@gmail.com</span>
-      </p>""
+        WhatsApp: 03214466789 <span className="footer_span"> |</span> Email: <span ><a href="mailto: apnayrung@gmail.com" className="email-link">apnayrung@gmail.com</a></span>
+      </p>
     </nav>
     </div>
   );
