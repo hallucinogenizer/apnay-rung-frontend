@@ -2,7 +2,7 @@ import "./styles.css";
 import AdminNavbar from "./AdminNavbar";
 import Memory from "./Memory";
 import BottomBar from "./BottomBar";
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import back_image from "./css/back.png";
 
 const AdminSettings = () => {
@@ -10,6 +10,10 @@ const AdminSettings = () => {
   const [email, setEmail] = useState();
   const [currPass, setCurrPass] = useState();
   const [newPass, setNewPass] = useState();
+  const [errors, setErrors] = useState({});
+  let tokenID = localStorage.getItem("Token");
+  let updatePass = false;
+
 
   const handleName = (event) => {
     setName(event.target.value);
@@ -27,20 +31,90 @@ const AdminSettings = () => {
     setNewPass(event.target.value);
   };
 
+  // useEffect(() => {
+  //   const getData = async (url) => {
+  //     const response = await fetch(url, {
+  //       method: "GET",
+  //       withCredentials: true,
+  //       credentials: "include",
+  //       headers: {
+  //         Authorization:
+  //         `Bearer ${tokenID}`,
+  //         "Content-Type": "application/json"
+  //       }
+  //     });
+  //     return response.json();
+  //   };
+  //   getData("https://apnay-rung-api.herokuapp.com/admin/info").then(
+  //   (response) => {
+  //     console.log(`printing response`,response)
+  //     setName(response.name)
+  //     console.log(`printing name`, name)
+  //     setEmail(response.email)
+  //   }
+  // );
+  // }, []);
+
+  const handleBlur = async (e) => {
+    e.preventDefault()
+    console.log(`in blurrr`)
+    const serverResponse = await verifyPass()
+    console.log(`printing blur resp`, serverResponse)
+    if (serverResponse.verified === true){
+      console.log(`wohoo`)
+      setErrors({...errors, currPass: '                     '})
+      updatePass = true;
+    }else{
+      console.log(`oh shit`)
+      setErrors({...errors, currPass: 'Password is incorrect'})
+    }
+  }
+  const handleBlur2 = async (e) => {
+    console.log(`in new pass blurrr`)
+    if (newPass){
+      console.log(`curr pass`, currPass)
+      if (!currPass){
+        setErrors({...errors, currPass: 'Enter current password first'})
+      }else if (newPass.length < 6){
+      setErrors({...errors, newPass: 'Must have 6 characters at least'})
+    }else{
+      setErrors({...errors, newPass: ''})
+
+    }
+  }
+  }
+
+  async function verifyPass() {
+    const response = await fetch(
+      "https://apnay-rung-api.herokuapp.com/verify",
+      {
+        method: "POST",
+        withCredentials: false,
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          email: email,
+          password: currPass
+        })
+      }
+    );
+    // console.log(response.json());
+    return response.json();
+  }
+
   return (
-    <div>
+    <div className="bg-color">
       <AdminNavbar />
       <Memory panel="Admin Panel" page="" current="Account Settings" />{" "}
       {/* when three links needed in panel, include a '/' in the middle 'page' argument */}
-      <span>
-        <a className="back-btn">
-          <img src={back_image} width="26" />
-          <h1 className="back-btn-page-title">Account Settings</h1>
-        </a>
-      </span>
+      <div className="min-height-div">
+      <div className="settings-container-admin">
+        <br />
+          <div className="settings-heading">Account Settings</div>
       <br />
       <br />
-      <form>
+      <form className="settings-form">
         <p className="label-form">Name:</p>
         <input
           className="input-form"
@@ -59,6 +133,14 @@ const AdminSettings = () => {
         <br />
         <br />
         <span>
+            {errors.currPass && (
+              <div className="err-settings-currPass">{errors.currPass}</div>
+            )}
+            {errors.newPass && (
+              <div className="err-settings-newPass">{errors.newPass}</div>
+            )}
+            </span>
+        <span>
           <label className="label-form-cp">Current Password:</label>
           <label className="label-form-np">New Password:</label>
         </span>
@@ -68,19 +150,23 @@ const AdminSettings = () => {
             className="input-form-cp"
             type="text"
             value={currPass}
+            onBlur = {handleBlur}
             onChange={handleCurrPass}
           ></input>
           <input
             className="input-form-np"
             type="text"
             value={newPass}
+            onBlur = {handleBlur2}
             onChange={handleNewPass}
           ></input>
         </span>
       </form>
       <br />
-      <input type="submit" className="submit-button" value="Submit"></input>
-      <BottomBar />
+      <input type="submit" className="submit-button" value="Save"></input>
+      </div>
+      </div>
+      <BottomBar style={{backgroundColor:"#2e2e2e"}}/>
     </div>
   );
 };
