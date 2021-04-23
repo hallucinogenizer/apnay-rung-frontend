@@ -18,6 +18,15 @@ const CreateTutorial = () =>{
     const [show, setShow] = useState(false);
     // admin id`eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik11aGFtbWFkIFJvaGFuIEh1c3NhaW4iLCJ0eXBlT2ZVc2VyIjoiYWRtaW4iLCJpYXQiOjE2MTY4NDE4MTZ9.HJvh_8caLMReaDmJFCEklgtP9u86usbNIZ4FxOrIawk`
 
+    const usertype = localStorage.getItem("TypeOfUser");
+    const session = sessionStorage.getItem("logged-in");
+    const checkSession = () => {
+        if (session === false || session === null || usertype==="seller" || usertype==="customer"){
+          localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+          window.location.href = '/Homepage';
+        }
+    }
+
     const SubmitHandler = (event) => {
         event.preventDefault();
         

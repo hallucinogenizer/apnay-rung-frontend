@@ -8,6 +8,7 @@ import BottomBar from "./BottomBar";
 import { Link } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
 const AddQuery = () =>{
+  const usertype = localStorage.getItem("TypeOfUser");
   let tokenID = localStorage.getItem("Token");
   const session = sessionStorage.getItem("logged-in");
   const [userstate, setUserState] = useState([]);
@@ -19,7 +20,7 @@ const AddQuery = () =>{
   
   const checkSession = () => {
     console.log("in here", session)
-    if (session === false || session === null || session === null){
+    if (session === false || session === null || session === null || usertype==="seller" || usertype==="admin"){
       console.log("it put me in here for some reason")
       localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
       window.location.href = '/Homepage';

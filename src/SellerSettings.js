@@ -20,6 +20,15 @@ const SellerSettings = () => {
   const [showPicture, setShowPicture] = useState([])
   let tokenID = localStorage.getItem("Token");
   let updatePass = false;
+  const session = sessionStorage.getItem("logged-in");
+  const usertype = localStorage.getItem("TypeOfUser");
+
+  const checkSession = () => {
+    if (session === false || session === null || usertype==="admin" || usertype==="customer"){
+      localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+      window.location.href = '/Homepage';
+    }
+  }
 
 
 
@@ -325,6 +334,7 @@ const SellerSettings = () => {
  
   return (
     <div className="bg-color">
+      {checkSession()}
       <SellerNavbar />
       <Memory panel="Customer Panel " page="" current=" Account Settings" />{" "}
       {/* when three links needed in panel, include a '/' in the middle 'page' argument */}

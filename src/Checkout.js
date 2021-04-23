@@ -7,6 +7,7 @@ import BottomBar from "./BottomBar";
 import { Link } from "react-router-dom";
 const Checkout = () => {
 
+  const usertype = localStorage.getItem("TypeOfUser");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -19,7 +20,7 @@ const Checkout = () => {
   const session = sessionStorage.getItem("logged-in");
 
   const checkSession = () => {
-    if (session === false || session === null){
+    if (session === false || session === null || usertype==="seller" || usertype==="admin"){
       localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
       window.location.href = '/Homepage';
     }

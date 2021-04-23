@@ -14,6 +14,15 @@ const AdminSettings = () => {
   const [errors, setErrors] = useState({});
   let tokenID = localStorage.getItem("Token");
   let updatePass = false;
+  const session = sessionStorage.getItem("logged-in");
+  const usertype = localStorage.getItem("TypeOfUser");
+
+  const checkSession = () => {
+    if (session === false || session === null || usertype==="seller" || usertype==="customer"){
+      localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+      window.location.href = '/Homepage';
+    }
+  }
 
 
   const handleName = (event) => {
@@ -82,6 +91,7 @@ const AdminSettings = () => {
 
   return (
     <div className="bg-color">
+      {checkSession()}
       <AdminNavbar />
       <Memory panel="Admin Panel" page="" current="Account Settings" />{" "}
 

@@ -9,6 +9,7 @@ import { Modal, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const AddProduct = () => {
+  const usertype = localStorage.getItem("TypeOfUser");
   const session = sessionStorage.getItem("logged-in");
   let tokenID = localStorage.getItem("Token");
   const [title, setTitle] = useState("");
@@ -25,7 +26,7 @@ const AddProduct = () => {
   const [show, setShow] = useState(false);
 
   const checkSession = () => {
-    if (session === false || session === null){
+    if (session === false || session === null || usertype==="admin" || usertype==="customer"){
       localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
       window.location.href = '/Homepage';
     }

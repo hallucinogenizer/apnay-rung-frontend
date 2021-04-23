@@ -19,13 +19,14 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const SellerPanel = () => {
   const session = sessionStorage.getItem("logged-in");
+  const usertype = localStorage.getItem("TypeOfUser");
+
   const checkSession = () => {
-    console.log("in here")
-    if (session === false || session === null){
-      localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
-      window.location.href = '/Homepage';
+      if (session === false || session === null || usertype==="admin" || usertype==="customer"){
+        localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+        window.location.href = '/Homepage';
+      }
     }
-  }
   const iconStyles = ()=> {
     return {
       buttoncolor: {

@@ -41,6 +41,7 @@ const Star = ({ starId, rating, onMouseEnter, onMouseLeave, onClick }) => {
 };
 
 const AddReview = () => {
+  const usertype = localStorage.getItem("TypeOfUser");
   const [state, setState] = useState([]);
   let tokenID = localStorage.getItem("Token");
   const session = sessionStorage.getItem("logged-in");
@@ -54,7 +55,7 @@ const AddReview = () => {
   let id=0
   let itemLength=0
   const checkSession = () => {
-    if (session === false || session === null){
+    if (session === false || session === null || usertype==="seller" || usertype==="admin"){
       localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
       window.location.href = '/Homepage';
     }
