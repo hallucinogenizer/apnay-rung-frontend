@@ -81,8 +81,6 @@ const SellerSettings = () => {
   }
 
   async function postData() {
-    const form = document.getElementById("empty-form");
-
     let passChanged = false
     if (updatePass === true){
       passChanged = true
@@ -93,29 +91,12 @@ const SellerSettings = () => {
     const temp = {
       name: name, 
       email: email, 
-      passChanged: newPass, 
+      password: newPass, 
       passwordChanged: passChanged, 
       location: address, 
       phone: phoneNo, 
       bio: bio
     }
-    // const fileObj = new FormData();
-    // fileObj.append("name", name);
-    // fileObj.append("email", email);
-    // if (updatePass === true){
-    //   fileObj.append("password", newPass);
-    //   fileObj.append("passwordChanged", true)
-    // }else{
-    //   fileObj.append("password", "");
-    //   fileObj.append("passwordChanged", false)
-    // }
-    // // fileObj.append("profile_picture", values.file, values.fileName);
-    // fileObj.append("address", address);
-    // fileObj.append("phone", phoneNo);
-    // fileObj.append("bio", bio);
-
-    // console.log(temp);
-    // console.log(questions_data);
     const response = await fetch(
       "https://apnay-rung-api.herokuapp.com/seller/update",
       {

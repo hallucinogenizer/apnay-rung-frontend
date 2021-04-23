@@ -98,14 +98,34 @@ const CustomerSettings = () => {
       console.log(`printing name`, name)
       setEmail(response.email)
       setPhoneNo(response.phone)
-      setAddress(response.location)
+      setAddress(response.address)
     }
   );
   }, []);
 
-  // useEffect(() => {
-  //   const sendData = async (url) => {
-  //     const response = await fetch(url, {
+  
+
+  // async function postData() {
+  //   const form = document.getElementById("empty-form");
+  //   const fileObj = new FormData(form);
+  //   fileObj.append("name", name);
+  //   fileObj.append("email", email);
+  //   if (updatePass === true){
+  //     fileObj.append("password", newPass);
+  //     fileObj.append("passwordChanged", true)
+  //   }else{
+  //     fileObj.append("password", "");
+  //     fileObj.append("passwordChanged", false)
+  //   }
+  //   // fileObj.append("profile_picture", values.file, values.fileName);
+  //   fileObj.append("address", address);
+  //   fileObj.append("phone", phoneNo);
+
+  //   // console.log(temp);
+  //   // console.log(questions_data);
+  //   const response = await fetch(
+  //     "https://apnay-rung-api.herokuapp.com/customer/update",
+  //     {
   //       method: "PATCH",
   //       withCredentials: true,
   //       credentials: "include",
@@ -113,48 +133,29 @@ const CustomerSettings = () => {
   //         Authorization:
   //         `Bearer ${tokenID}`,
   //         "Content-Type": "application/json"
-  //       }
-  //     });
-  //     return response.json();
-  //   };
-  //   sendData("https://apnay-rung-api.herokuapp.com/customer/update").then(
-  //   (response) => {
-  //     setSellerData(response)
-  //     console.log(`printing seller data`, sellerData)
-  //     console.log(`printing response`,response)
-  //     setName(response.name)
-  //     console.log(`printing name`, name)
-  //     setEmail(response.email)
-  //     setPhoneNo(response.phone)
-  //     setAddress(response.location)
-  //     setBio(response.bio)
-  //     if (response.profile_picture === null){
-  //       setPicture([...picture,DefaultImg])
-  //     }else{
-  //       setPicture([...picture,response.profile_picture])
+  //       },
+  //       body: fileObj
   //     }
-  //   }
-  // );
-  // }, []);
+  //   );
+  //   return response;
+  // }
 
   async function postData() {
-    const form = document.getElementById("empty-form");
-    const fileObj = new FormData(form);
-    fileObj.append("name", name);
-    fileObj.append("email", email);
+    let passChanged = false
     if (updatePass === true){
-      fileObj.append("password", newPass);
-      fileObj.append("passwordChanged", true)
+      passChanged = true
     }else{
-      fileObj.append("password", "");
-      fileObj.append("passwordChanged", false)
+      setNewPass("")
+      passChanged = false
     }
-    // fileObj.append("profile_picture", values.file, values.fileName);
-    fileObj.append("address", address);
-    fileObj.append("phone", phoneNo);
-
-    // console.log(temp);
-    // console.log(questions_data);
+    const temp = {
+      name: name, 
+      email: email, 
+      password: newPass, 
+      passwordChanged: passChanged, 
+      address: address, 
+      phone: phoneNo, 
+    }
     const response = await fetch(
       "https://apnay-rung-api.herokuapp.com/customer/update",
       {
@@ -166,7 +167,7 @@ const CustomerSettings = () => {
           `Bearer ${tokenID}`,
           "Content-Type": "application/json"
         },
-        body: fileObj
+        body: JSON.stringify(temp)
       }
     );
     return response;
@@ -209,8 +210,6 @@ const CustomerSettings = () => {
     const serverResponse = await postData();
     console.log(`printing response`, serverResponse)
 
-
-
   }
 
   const displayPage = () => {
@@ -224,7 +223,7 @@ const CustomerSettings = () => {
             method="POST"
             id="empty-form"
           ></form>
-          <form className="settings-form" enctype="multipart/form-data">
+          <form className="settings-form" enctype="multipart/form-data" onSubmit={submitHandler} >
             <p className="label-form">Name:</p>
             <input
               className="input-form"
