@@ -10,12 +10,15 @@ import ResetPassword from "./ResetPassword";
 import Artisans from "./Artisans.js";
 import AddReview from "./AddReview";
 import AboutUs from "./AboutUs";
+import Temp from "./Temp";
 
 // Admin Pages
 import AdminPanel from "./AdminPanel";
 import ViewAllOrders from "./ViewOrders";
 import QueryForms from "./QueryForms";
 import ViewSellers from "./ViewSellers"
+import ViewAllProducts from "./ViewAllProducts";
+import AdminSettings from "./AdminSettings";
 
 // Customer Pages
 import CustomerPanel from "./CustomerPanel";
@@ -44,6 +47,10 @@ export default function App() {
           <Route path="/ViewAllOrders" exact component={ViewAllOrders} />
           <Route path="/ViewQueryForms" exact component={QueryForms} />
           <Route path="/ViewSellers" exact component={ViewSellers} />
+          <Route path="/ViewAllProducts" exact component={ViewAllProducts} />
+          <Route path="/AdminSettings" exact component={AdminSettings} />
+
+
 
 
 
@@ -68,7 +75,7 @@ export default function App() {
 
 
           {/* Common Pages */}
-          <Route path="/" exact component={Homepage} />
+          <Route path="/" exact component={Temp} />
           <Route path="/Homepage" exact component={Homepage} />
           <Route path="/Catalog" exact component={Catalog} />
           <Route path="/Product" exact component={Product} />

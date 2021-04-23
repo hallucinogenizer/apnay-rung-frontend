@@ -7,7 +7,8 @@ import { Modal, Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
 
 const ApproveSellers = () => {
-
+  const session = sessionStorage.getItem("logged-in");
+  let tokenID = localStorage.getItem("Token");
   const [state, setState] = useState([
     {
       seller_id: 0,
@@ -21,6 +22,12 @@ const ApproveSellers = () => {
       profile_picture: null
     }
   ]);
+  const checkSession = () => {
+    if (session === false || session === null){
+      localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+      window.location.href = '/Homepage';
+    }
+  }
 
   const [callEffect,setCallEffect]= useState(false)
   const [approval, setApprove] = useState(`approve`)
@@ -35,7 +42,7 @@ const ApproveSellers = () => {
         withCredentials: true,
         credentials: "include",
         headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik11aGFtbWFkIFJvaGFuIEh1c3NhaW4iLCJ0eXBlT2ZVc2VyIjoiYWRtaW4iLCJpYXQiOjE2MTY4NDE4MTZ9.HJvh_8caLMReaDmJFCEklgtP9u86usbNIZ4FxOrIawk`,
+          Authorization: `Bearer ${tokenID}`,
           "Content-Type": "application/json"
         }
       }
@@ -94,7 +101,7 @@ const ApproveSellers = () => {
   };
   const handleClose = (changeBlock) => {
     setShow(false);
-    if(changeBlock==true){
+    if(changeBlock === true){
       console.log(`sending to backend`)
       sendData()
       if(approval===`approve`)
@@ -118,7 +125,7 @@ const ApproveSellers = () => {
         credentials: "include",
         headers: {
           Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik11aGFtbWFkIFJvaGFuIEh1c3NhaW4iLCJ0eXBlT2ZVc2VyIjoiYWRtaW4iLCJpYXQiOjE2MTY4NDE4MTZ9.HJvh_8caLMReaDmJFCEklgtP9u86usbNIZ4FxOrIawk",
+            `Bearer ${tokenID}`,
           "Content-Type": "application/json"
         }
       });
@@ -165,6 +172,7 @@ const ApproveSellers = () => {
 
   return (
     <div>
+      {checkSession()}
       <AdminNavbar />
       <Memory panel="Admin Panel " page="" current=" Approve Sellers" />{" "}
       {/* when three links needed in panel, include a '/' in the middle 'page' argument */}

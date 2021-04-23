@@ -27,15 +27,15 @@ const HomeNavbar = () => {
                 <Link to="/Catalog">
                 <a className="nav-item nav-link">Catalog</a>
                 </Link>
-                <Link to="/Artisana">
+                <Link to="/Artisans">
                 <a className="nav-item nav-link">Artisans</a>
                 </Link>
                 <Link to="/AboutUs">
                 <a className="nav-item nav-link">About Us</a>
                 </Link>
-                <Link to="/Contact">
+                {/* <Link to="/AddQuery">
                 <a className="nav-item nav-link">Contact</a>
-                </Link>
+                </Link> */}
             </div>
             <div className="navbar-nav ml-auto">
                 <Link to="/ShoppingCart">

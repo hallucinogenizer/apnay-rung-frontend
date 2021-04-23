@@ -8,6 +8,8 @@ import FormPopup from './FormPopup';
 import { Modal, Button } from "react-bootstrap";
 
 const QueryForms = () => {
+  const session = sessionStorage.getItem("logged-in");
+  let tokenID = localStorage.getItem("Token");
   const [viewForm, setViewForm] = useState(false)
   const [callEffect,setCallEffect]= useState(false)
   const [show, setShow] = useState(false);
@@ -22,7 +24,12 @@ const QueryForms = () => {
     }
   ]);
 
-
+  const checkSession = () => {
+    if (session === false || session === null){
+      localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+      window.location.href = '/Homepage';
+    }
+  }
   useEffect(() => {
     const getData = async (url) => {
       const response = await fetch(url, {
@@ -31,7 +38,7 @@ const QueryForms = () => {
         credentials: "include",
         headers: {
           Authorization:
-          `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik11aGFtbWFkIFJvaGFuIEh1c3NhaW4iLCJ0eXBlT2ZVc2VyIjoiYWRtaW4iLCJpYXQiOjE2MTY4NDE4MTZ9.HJvh_8caLMReaDmJFCEklgtP9u86usbNIZ4FxOrIawk`,
+          `Bearer ${tokenID}`,
           "Content-Type": "application/json"
         }
       });
@@ -54,7 +61,7 @@ const QueryForms = () => {
         withCredentials: true,
         credentials: "include",
         headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik11aGFtbWFkIFJvaGFuIEh1c3NhaW4iLCJ0eXBlT2ZVc2VyIjoiYWRtaW4iLCJpYXQiOjE2MTY4NDE4MTZ9.HJvh_8caLMReaDmJFCEklgtP9u86usbNIZ4FxOrIawk`,
+          Authorization: `Bearer ${tokenID}`,
           "Content-Type": "application/json"
         }
       }
@@ -66,7 +73,6 @@ const QueryForms = () => {
       setCallEffect(!callEffect)
     }  
   }
-
   async function sendNotification(customerID) {
 
     const response = await fetch(
@@ -92,7 +98,6 @@ const QueryForms = () => {
 
   }
 
-
   const handleSetViewForm = () => setViewForm(true);
 
   const handleViewForm =(id,customer_id, subject,content) => {
@@ -111,12 +116,11 @@ const QueryForms = () => {
   const handleShow = (formID) => {
     setID(formID)
     setShow(true)
-    
   };
 
   const handleClose = (isDelete) => {
     setShow(false);
-    if(isDelete==true){
+    if(isDelete===true){
       console.log(`sending to backend`)
       sendData()
     }
@@ -150,9 +154,9 @@ const QueryForms = () => {
 
   return (
     <div>
+      {checkSession()}
       <AdminNavbar />
       <Memory panel="Admin Panel " page="" current=" Query Forms" />{" "}
-      {/* when three links needed in panel, include a '/' in the middle 'page' argument */}
       <h1>Query Forms </h1>
       <div className="table-responsive">
         <table className="table table-size">

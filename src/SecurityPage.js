@@ -136,7 +136,9 @@ const TempSecurity = () => {
     return (
       <div>
         <form onSubmit={submitHandler}>
+          <Link to="./Homepage">
           <img src={Logo} className="cnic-logo" alt="our logo" />
+          </Link>
           <div className="security-heading">Sign up</div>
           <div class="btn-group" role="group" aria-label="Basic example">
             <Link to="/SecurityPage">
@@ -169,7 +171,7 @@ const TempSecurity = () => {
             )}
           </div>
           <br />
-          <div className="form-inputs">
+          <div className="form-inputs-security">
             <select
               className="security-form-left"
               name="question1"
@@ -207,7 +209,7 @@ const TempSecurity = () => {
             )}
           </div>
           <br />
-          <div className="form-inputs">
+          <div className="form-inputs-security">
             <select
               className="security-form-left"
               name="question2"

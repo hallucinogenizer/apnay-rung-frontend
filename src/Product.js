@@ -8,19 +8,13 @@ import React from "react";
 import { useState, useEffect } from "react";
 import "./styles.css";
 import "./maham.css";
-import CustomerNavBar from "./CustomerNavbar";
 import { Modal, Button } from "react-bootstrap";
-
-// import ProductImage from "./css/product-image.png";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
-// import { Button } from "@material-ui/core";
-// import Button from "@material-ui/core/Button";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { Box } from "@material-ui/core";
 import { Rating } from "@material-ui/lab";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
-// import Typography from "@material-ui/core/Typography";
 
 const Counter = (props) => {
   const increment = () => {
@@ -59,17 +53,12 @@ const Counter = (props) => {
 
 const useStyles = makeStyles((theme) => ({
   button: {
-    // margin: theme.spacing(1),
     color: "#ffffff",
     backgroundColor: "#d67d20",
-    // marginLeft: "51%",
-    // marginTop: "-14%"
   }
 }));
 const StyledRating = withStyles({
   root: {
-    // marginTop: "-100%",
-    // marginLeft: "30%"
   },
   iconFilled: {
     color: "#d67d20"
@@ -138,7 +127,6 @@ const Product = () => {
       let reviewArray=[];
       try{
         response.map((element,ind)=>{
-          console.log(`element of review`)
           console.log(response[ind][2])
           if (allReviews.length === 0) {
             allReviews[0] = {
@@ -177,8 +165,6 @@ const Product = () => {
     getSellerBio(
       `https://apnay-rung-api.herokuapp.com/seller/id/${sellerid}`
     ).then((response) => {
-      console.log(`seller bio ${response.bio}`);
-      console.log(response);
       setSellerBio(response.bio);
       setSellerName(response.name)
     });
@@ -187,19 +173,12 @@ const Product = () => {
   let ArtisanData = {
     name: sellerName
   };
-
-  // console.log(`helo`);
-  console.log(ArtisanData.name);
-
   const [value] = React.useState(productData.rating);
 
   const renderReviews = () => {
-    console.log(`my ${reviews}`);
     const reviewsofItem = reviews.slice();
     return reviewsofItem.map((rev, index) => {
       const { rating, review } = rev; //destructuring
-      console.log(`momib`);
-      console.log(review);
       return (
         <div>
           <p>
@@ -217,7 +196,8 @@ const Product = () => {
       );
     });
   };
-
+  const[msg2,setMsg2]= useState([``])
+  const [show2, setShow2] = useState(false);
   const[msg,setMsg]= useState([``])
   const [show, setShow] = useState(false);
   const handleClose = () => {
@@ -226,16 +206,24 @@ const Product = () => {
   const handleShow = () => {
     setShow(true);
   };
+  const handleClose2 = () => {
+    setShow2(false);
+  };
+  const handleShow2 = () => {
+    setShow2(true);
+  };
+
 
   const addToCartHandler = (qty) => {
-
-    if(productData.inStock>=qty){
-      let cart = [];
-
-      cart = JSON.parse(localStorage.getItem("shoppingCart"));
-      console.log(cart);
+    if (usertype === `customer`)
+    {
+      if(productData.inStock>=qty){
+        let cart = [];
   
-      let newProduct = {
+        cart = JSON.parse(localStorage.getItem("shoppingCart"));
+        console.log(cart);
+    
+        let newProduct = {
         productID: product.item_id,
         productTitle: product.title,
         quantity: qty,
@@ -244,24 +232,29 @@ const Product = () => {
         totalQuantity: product.stock,
         sellerID: product.seller_id
       };
-  
-      if (cart == null) {
-        cart = [];
-        cart[0] = newProduct;
-      } else {
-        cart.push(newProduct);
+    
+        if (cart == null) {
+          cart = [];
+          cart[0] = newProduct;
+        } else {
+          cart.push(newProduct);
+        }
+    
+        localStorage.setItem("shoppingCart", JSON.stringify(cart));
+        setMsg([`Product Added`,`Product has been added to your cart.`])
+        handleShow()
       }
-  
-      localStorage.setItem("shoppingCart", JSON.stringify(cart));
-      setMsg([`Product Added`,`Product has been added to your cart.`])
-      handleShow()
+      else
+      {
+        setMsg([`We're sorry!`,`Product is out of stock or the desired quantity is not available.`])
+        handleShow()
+      }
     }
     else
     {
-      setMsg([`We're sorry!`,`Product is out of stock or the desired quantity is not available.`])
-      handleShow()
+      setMsg2(["Only Customers can purchase Products","OK"])
+      handleShow2()
     }
-    
   };
 
   // localStorage.removeItem("shoppingCart");
@@ -341,7 +334,6 @@ const Product = () => {
     <div>
       {GetNavbar()}
       <Memory panel="Catalog " current={product.title} />
-      {/* <a id=back-btn><img src=/css/back.png width="26"></a> */}
       {renderProduct()}
       <BottomBar />
       <Modal
@@ -357,6 +349,25 @@ const Product = () => {
           <Button
             variant="primary"
             onClick={() => handleClose()}
+            className="delete-primary"
+          >
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal
+        show={show2}
+        onHide={() => handleClose2()}
+        className="delete-modal"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Error</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{msg2[0]}</Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="primary"
+            onClick={() => handleClose2()}
             className="delete-primary"
           >
             Close

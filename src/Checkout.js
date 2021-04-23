@@ -5,7 +5,7 @@ import CustomerNavbar from "./CustomerNavbar";
 import Memory from "./Memory";
 import BottomBar from "./BottomBar";
 import { Link } from "react-router-dom";
-const NewCheckout = () => {
+const Checkout = () => {
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -14,7 +14,16 @@ const NewCheckout = () => {
   const [bill_address, setBillAddress] = useState("");
   const [additional_info, setAdditionalInfo] = useState("");
   const [payment, setPayment] = useState("");
+  const [checkAddress, setCheckAddress] = useState(true);
   let tokenID = localStorage.getItem("Token");
+  const session = sessionStorage.getItem("logged-in");
+
+  const checkSession = () => {
+    if (session === false || session === null){
+      localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+      window.location.href = '/Homepage';
+    }
+  }
   useEffect(() => {
     const getData = async (url) => {
       const response = await fetch(url, {
@@ -57,47 +66,41 @@ const NewCheckout = () => {
     localStorage.setItem("customerInformation", JSON.stringify(state_data));
   };
   const NameChangeHandler = (event) => {
-    console.log(
-      `in change handler ${event.target.name}, ${event.target.value}`
-    );
     setName(event.target.value);
   };
   const EmailChangeHandler = (event) => {
-    console.log(
-      `in change handler ${event.target.name}, ${event.target.value}`
-    );
     setEmail(event.target.value);
   };
   const PhoneChangeHandler = (event) => {
-    console.log(
-      `in change handler ${event.target.name}, ${event.target.value}`
-    );
     setPhone(event.target.value);
   };
   const ShippingChangeHandler = (event) => {
-    console.log(
-      `in change handler ${event.target.name}, ${event.target.value}`
-    );
     setShipAddress(event.target.value);
   };
   const BillingAddressChangeHandler = (event) => {
-    setBillAddress(ship_address);
+    console.log(checkAddress)
+    if (checkAddress){
+      setBillAddress(ship_address);
+    }
+    else
+    {
+      setBillAddress("");
+    }
+    setCheckAddress(!checkAddress);
+    console.log(`billing address ${bill_address}`)
   };
   const BillingAddressAdd = (event) => {
     setBillAddress(event.target.value);
   };
   const InfoChangeHandler = (event) => {
-    console.log(
-      `in change handler ${event.target.name}, ${event.target.value}`
-    );
     setAdditionalInfo(event.target.value);
   };
   const PaymentChangeHandler = (event) => {
-    console.log(`in change handler, ${event.target.value}`);
     setPayment(event.target.value);
   };
   return (
     <div className="CheckoutForm">
+      {checkSession()}
       <CustomerNavbar />
       <Memory
         panel="Customer Panel "
@@ -112,7 +115,6 @@ const NewCheckout = () => {
           type="text"
           name="name"
           value={name}
-          // value={initialValue.name}
           onChange={NameChangeHandler}
         ></input>
         <p className="label-form"> Customer Email Address </p>
@@ -145,6 +147,7 @@ const NewCheckout = () => {
             // className="checkbox-form"
             type="checkbox"
             name="check-billing"
+            value={bill_address}
             onClick={BillingAddressChangeHandler}
           ></input>
           Same as Shipping Address
@@ -153,7 +156,7 @@ const NewCheckout = () => {
           className="input-form"
           type="text"
           name="bill_address"
-          value={BillingAddressAdd}
+          value={bill_address}
           onChange={BillingAddressAdd}
         ></input>
         <p className="label-form">Additional Information</p>
@@ -219,4 +222,4 @@ const NewCheckout = () => {
     </div>
   );
 };
-export default NewCheckout;
+export default Checkout;

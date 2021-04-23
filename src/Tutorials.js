@@ -7,12 +7,20 @@ import { Link } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
 
 const Tutorials = () =>{
+  const session = sessionStorage.getItem("logged-in");
+  let tokenID = localStorage.getItem("Token");
   const [state, setState] = useState([
     {
       id: "",
       title: "",
     }
   ]);
+  const checkSession = () => {
+    if (session === false || session === null){
+      localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+      window.location.href = '/Homepage';
+    }
+  }
   const [callEffect,setCallEffect]= useState(false);
   useEffect(() => {
     async function getData(url) {
@@ -22,7 +30,7 @@ const Tutorials = () =>{
         credentials: "include",
         headers: {
           Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6IlZhZmEgQmF0b29sIiwidHlwZU9mVXNlciI6InNlbGxlciIsImlhdCI6MTYxNjg0NDE3N30.xYaUcX7dmdqY5co2tMbVA_9jh0M1fVBB-AX0Aam5G7Y",
+            `Bearer ${tokenID}`,
           "Content-Type": "application/json"
         }
       });
@@ -51,7 +59,7 @@ const Tutorials = () =>{
         withCredentials: true,
         credentials: "include",
         headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik11aGFtbWFkIFJvaGFuIEh1c3NhaW4iLCJ0eXBlT2ZVc2VyIjoiYWRtaW4iLCJpYXQiOjE2MTY4NDE4MTZ9.HJvh_8caLMReaDmJFCEklgtP9u86usbNIZ4FxOrIawk`,
+          Authorization: `Bearer ${tokenID}`,
           "Content-Type": "application/json"
         }
       }
@@ -76,10 +84,8 @@ const Tutorials = () =>{
   const handleClose = (changeBlock) => {
     setShow(false);
     if(changeBlock === true){
-      console.log(`sending to backend`)
       deleteTutorial(id)
     }
-    
   };
 
   const renderTableData = () => {
@@ -107,6 +113,7 @@ const Tutorials = () =>{
 
   return (
     <div>
+      {checkSession()}
       <AdminNavbar />
       <Memory panel="Admin Panel" page="Panel" current="Tutorials" />
       <h1>View All Tutorials </h1>

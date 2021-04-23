@@ -9,6 +9,7 @@ import { Modal, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const AddProduct = () => {
+  const session = sessionStorage.getItem("logged-in");
   let tokenID = localStorage.getItem("Token");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -22,7 +23,13 @@ const AddProduct = () => {
   const [stock, setStock] = useState(0);
   const [msg, setMsg] = useState([``]);
   const [show, setShow] = useState(false);
-  
+
+  const checkSession = () => {
+    if (session === false || session === null){
+      localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+      window.location.href = '/Homepage';
+    }
+  }
   const SubmitHandler = async(event) => {
     event.preventDefault();
     setPrice(parseInt(price))
@@ -79,7 +86,7 @@ const AddProduct = () => {
           withCredentials: true,
           credentials: "include",
           headers: {Authorization:
-            `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsIm5hbWUiOiJyb2hhbiIsInR5cGVPZlVzZXIiOiJzZWxsZXIiLCJpYXQiOjE2MTgwNTY1NTl9.tLCUDNdB0thVcK58QLx6itWMSW6FNYssLahnWueLrF0`
+            `Bearer ${tokenID}`
           },
           body: fileObj
         }  
@@ -120,6 +127,7 @@ const AddProduct = () => {
 
   return (
     <div className="productForm">
+      {checkSession()}
       <SellerNavbar />
       <Memory panel="Seller Panel " page="" current=" Add Product" />{" "}
       <h1>Add Product</h1>
@@ -136,6 +144,7 @@ const AddProduct = () => {
           name="title"
           placeholder="e.g. Shawl"
           onChange={TitleChangeHandler}
+          required
         ></input>
         <p className="label-form"> Product Description </p>
         <textarea
@@ -146,6 +155,7 @@ const AddProduct = () => {
           onChange={DescriptionChangeHandler}
           rows="4"
           cols="50"
+          required
         ></textarea>
         <p className="label-form"> Product Category </p>
         <select
@@ -173,6 +183,7 @@ const AddProduct = () => {
               accept="image/*, application/pdf"
               onChange={fileHandler}
               id="upload-photo"
+              required
             />
             <button className="upload" onClick = {setFile}>Upload</button>
           </div>
@@ -183,6 +194,7 @@ const AddProduct = () => {
           name="price"
           placeholder="e.g. 2000"
           onChange={PriceChangeHandler}
+          required
         ></input>
         <p className="label-form">Number of Pieces in Stock</p>
         <input
@@ -191,6 +203,7 @@ const AddProduct = () => {
           name="stock"
           placeholder="e.g. 20"
           onChange={StockChangeHandler}
+          required
         ></input>
         <br />
         <div className="checkout-buttons">

@@ -5,9 +5,9 @@ import BottomBar from "./BottomBar";
 import { useState, useEffect } from "react";
 import { Modal, Button } from "react-bootstrap";
 
-
 const ViewOrders = () => {
-
+  const session = sessionStorage.getItem("logged-in");
+  let tokenID = localStorage.getItem("Token");
   const [state, setState] = useState([
     {
       order_id: 0,
@@ -16,7 +16,12 @@ const ViewOrders = () => {
       timestamp: ""
     }
   ]);
-
+  const checkSession = () => {
+    if (session === false || session === null){
+      localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+      window.location.href = '/Homepage';
+    }
+  }
   useEffect(() => {
     async function getData(url) {
       const response = await fetch(url, {
@@ -25,7 +30,7 @@ const ViewOrders = () => {
         credentials: "include",
         headers: {
           Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik11aGFtbWFkIFJvaGFuIEh1c3NhaW4iLCJ0eXBlT2ZVc2VyIjoiYWRtaW4iLCJpYXQiOjE2MTY4NDE4MTZ9.HJvh_8caLMReaDmJFCEklgtP9u86usbNIZ4FxOrIawk",
+            `Bearer ${tokenID}`,
           "Content-Type": "application/json"
         }
       });
@@ -49,7 +54,6 @@ const ViewOrders = () => {
             <td>{item[0]}</td>
           </tr>
         )
-
       })
   }
   const getItemTitle= (items) => {
@@ -97,6 +101,7 @@ const ViewOrders = () => {
 
   return (
     <div>
+      {checkSession()}
       <AdminNavbar />
       <Memory panel="Admin Panel " page="" current=" View Orders" />{" "}
       {/* when three links needed in panel, include a '/' in the middle 'page' argument */}

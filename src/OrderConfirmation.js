@@ -14,7 +14,7 @@ const OrderConfirmation = () => {
   const [state, setState] = useState(fromLocalStorage);
   let tokenID = localStorage.getItem("Token");
   const[sellers, setSellers] = useState([])
-  // tokenID= `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsIm5hbWUiOiJUYWltb29yIFRhcmlxIiwidHlwZU9mVXNlciI6ImN1c3RvbWVyIiwiaWF0IjoxNjE2OTYxNzMwfQ.Dn0FATITkhrR7e5tkp_XAmdPfp-FKJGzdskczt9k2fw`;
+  const session = sessionStorage.getItem("logged-in");
   let total = 0;
   let items = [];
 
@@ -32,6 +32,12 @@ const OrderConfirmation = () => {
       }
     });
   };
+  const checkSession = () => {
+    if (session === false || session === null){
+      localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+      window.location.href = '/Homepage';
+    }
+  }
 
   const renderBill = () => {
     let bill = 0;
@@ -147,7 +153,7 @@ const OrderConfirmation = () => {
 
     console.log(response);
 
-    if (response.status === 201) {
+    if (response.status === 201 || response.status === 200 || response.status === 202) {
       
       setMsg([`You order has been placed.`, `Back to Home`]);
       handleShow();
@@ -164,7 +170,7 @@ const OrderConfirmation = () => {
 
   const handleClose = () => {
     setShow(false);
-    if(msg[1]==`Back to Home`)
+    if(msg[1]===`Back to Home`)
     {
       window.location.href = "/Homepage";
     }
@@ -174,6 +180,7 @@ const OrderConfirmation = () => {
   const handleShow = () => setShow(true);
   return (
     <div>
+      {checkSession()}
       <CustomerNavbar />
       <Memory
         panel="Customer Panel "

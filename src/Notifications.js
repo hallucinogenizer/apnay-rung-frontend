@@ -1,5 +1,8 @@
 import "./styles.css";
 import AdminNavbar from "./AdminNavbar";
+import CustomerNavbar from "./CustomerNavbar";
+import SellerNavbar from "./SellerNavbar";
+
 import Memory from "./Memory";
 import BottomBar from "./BottomBar";
 import { Modal, Button } from "react-bootstrap";
@@ -7,6 +10,9 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const Notifications = () => {
+  const session = sessionStorage.getItem("logged-in");
+  let tokenID = localStorage.getItem("Token");
+  const usertype = localStorage.getItem("TypeOfUser");
 
   const [total, setTotal] = useState(0);
   let tokenID = localStorage.getItem("Token");
@@ -18,10 +24,32 @@ const Notifications = () => {
       notification: ""
     }
   ]);
-
+  const GetNavbar = () =>{
+     if (usertype === "customer"){
+      return(
+        <CustomerNavbar/>
+      )
+    }
+    else if (usertype === "admin"){
+      return (
+        <AdminNavbar/>
+      )
+    }
+    else if (usertype === "seller"){
+      return (
+        <SellerNavbar/>
+      )
+    }
+  }
+  
   const [callEffect,setCallEffect]= useState(false)
   // const [check, setCheck]= useState(false); //Checks if anything has come from backend
-
+  const checkSession = () => {
+    if (session === false || session === null){
+      localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+      window.location.href = '/Homepage';
+    }
+  }
   useEffect(() => {
     async function getData(url) {
       const response = await fetch(url, {
@@ -30,7 +58,7 @@ const Notifications = () => {
         credentials: "include",
         headers: {
           Authorization:
-            `Bearer ${tokenID} `,
+            `Bearer ${tokenID}`,
           "Content-Type": "application/json"
         }
       });
@@ -65,11 +93,10 @@ const Notifications = () => {
   };
   const handleClose = (changeBlock) => {
     setShow(false);
-    if(changeBlock==true){
+    if(changeBlock===true){
       console.log(`sending to backend, https://apnay-rung-api.herokuapp.com/notification/${action}`)
       sendData()
     }
-    
   };
 
 
@@ -129,20 +156,17 @@ const Notifications = () => {
             </span>
           </div>
         )
-
       }
-
     }
     catch{
     }
-
   };
 
   return (
     <div>
-      <AdminNavbar />
-      <Memory panel="Admin Panel" page="" current="Notifications" />{" "}
-      {/* when three links needed in panel, include a '/' in the middle 'page' argument */}
+      {checkSession()}
+      {GetNavbar()}
+      <Memory panel="" page="" current="Notifications" />{" "}
       <h1>Notifications</h1>
       <br></br>
       <ul>

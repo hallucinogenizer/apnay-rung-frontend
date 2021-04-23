@@ -62,21 +62,25 @@ const ForgotPassword = () => {
     setIsSubmitting(true);
 
     const answer1 = localStorage.getItem("answer1");
-    const serverCheck = await getData(1, answer1);
+    let serverCheck = await getData(1, answer1);
+    console.log(`printing response`, serverCheck);
 
-    if (serverCheck.verfied === true) {
+    if (serverCheck.verified === true) {
       console.log(`Im hereee`);
 
-      const answer2 = localStorage.getItem("answer1");
-      serverCheck = await getData(2, answer2);
-
-      if (serverCheck.verified === true) {
-        window.location.href = "/ResetPassword";
+      const answer2 = localStorage.getItem("answer2");
+      let serverCheck2 = await getData(2, answer2);
+      console.log(`printing response 2`, serverCheck2);
+      if (serverCheck2.verified === true) {
+        // window.location.href = "/ResetPassword";
+        console.log(`in true`);
       } else {
         handleShow2();
       }
     } else {
       console.log(`got here :()`);
+      handleShow2();
+
     }
   };
 
@@ -92,7 +96,7 @@ const ForgotPassword = () => {
       ...values,
       [e.target.name]: e.target.value
     });
-    console.log(values);
+    console.log(`printing values`,values);
 
     if (e.target.name === "answer1") {
       localStorage.setItem("answer1", e.target.value);
@@ -149,7 +153,9 @@ const ForgotPassword = () => {
         <div>
           <form onSubmit={submitHandler}>
             {/* navigation.setParams({ param: "value"}) */}
+            <Link to="/Homepage">
             <img src={Logo} className="forgot-pass-logo" alt="our logo" />
+            </Link>
             <div className="forgot-pass-heading">Forgot Password</div>
             <div>
               <span>
@@ -195,7 +201,7 @@ const ForgotPassword = () => {
               Reset Password
             </button>
             <br />
-            <span className="orsignup">
+            <span className="orlogin-option-signup">
               Or
               <Link to="/SignupCustomer"> Sign up</Link>
             </span>
@@ -220,12 +226,13 @@ const ForgotPassword = () => {
         </Modal.Body>
         <Modal.Footer>
           <Link to="/Login">
-            <input
+            <Button
               variant="primary"
               type="submit"
               className="delete-primary"
-              value="Okay"
-            />
+            >
+              Okay
+              </Button>
           </Link>
         </Modal.Footer>
       </Modal>
@@ -235,14 +242,7 @@ const ForgotPassword = () => {
         </Modal.Header>
         <Modal.Body>Your answers are incorrect</Modal.Body>
         <Modal.Footer>
-          <Link to="/ForgotPassword">
-            <input
-              variant="primary"
-              type="submit"
-              className="delete-primary"
-              value="Okay"
-            />
-          </Link>
+
         </Modal.Footer>
       </Modal>
     </div>
