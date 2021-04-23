@@ -19,6 +19,7 @@ const ViewCurrentOrders = () => {
   const [orderData, setOrderData]= useState([])
   const [id, setId]= useState(0)
   const [callEffect,setCallEffect]= useState(false)
+  const [empty,SetEmpty]=useState(false)
   const checkSession = () => {
     if (session === false || session === null){
       localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
@@ -69,6 +70,10 @@ const ViewCurrentOrders = () => {
       const orders= filterOrders(response)
       setOrderData(orders);
       console.log(orderData)
+      if(orders.length===0)
+      {
+        SetEmpty(true)
+      }
     }
   );
   }, [callEffect]);
@@ -295,6 +300,22 @@ const ViewCurrentOrders = () => {
             onClick={handleClose}
           >
             {msg[1] !== "Back" ? <Link to="./Homepage">{msg[1]}</Link> : msg[1]}
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={empty} onHide={handleClose} className="delete-modal">
+        <Modal.Header closeButton>
+          <Modal.Title>No new orders</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>You have no new orders</Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="primary"
+            className="delete-primary"
+            onClick={handleClose}
+          >
+            <Link to="./SellerPanel">Return to Panel</Link>
           </Button>
         </Modal.Footer>
       </Modal>
