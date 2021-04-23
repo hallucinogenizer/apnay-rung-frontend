@@ -24,12 +24,14 @@ const QueryForms = () => {
     }
   ]);
 
+  const usertype = localStorage.getItem("TypeOfUser");
+
   const checkSession = () => {
-    if (session === false || session === null){
-      localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
-      window.location.href = '/Homepage';
+      if (session === false || session === null || usertype==="seller" || usertype==="customer"){
+        localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+        window.location.href = '/Homepage';
+      }
     }
-  }
   useEffect(() => {
     const getData = async (url) => {
       const response = await fetch(url, {

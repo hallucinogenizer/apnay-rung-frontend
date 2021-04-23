@@ -24,12 +24,14 @@ const UpdateProduct = () => {
   const [price, setPrice] = useState(productData.price);
   const [stock, setStock] = useState(productData.stock);
 
+  const usertype = localStorage.getItem("TypeOfUser");
+
   const checkSession = () => {
-    if (session === false || session === null){
-      localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
-      window.location.href = '/Homepage';
+      if (session === false || session === null || usertype==="customer" || usertype==="admin"){
+        localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+        window.location.href = '/Homepage';
+      }
     }
-  }
   const SubmitHandler = async(event) => {
     event.preventDefault();
     let img_response = 0;

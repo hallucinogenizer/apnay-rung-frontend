@@ -18,6 +18,8 @@ const CustomerPanel = () => {
   let link = ``;
   const session = sessionStorage.getItem("logged-in");
   const storage = JSON.parse(localStorage.getItem("shoppingCart"));
+  const usertype = localStorage.getItem("TypeOfUser");
+
  
   if (storage !== null) {
     link = "/ShoppingCart";
@@ -25,7 +27,7 @@ const CustomerPanel = () => {
     link = "/CustomerPanel";
   }
   const checkSession = () => {
-    if (session === false || session === null){
+    if (session === false || session === null || usertype==="seller" || usertype==="admin"){
       localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
       window.location.href = '/Homepage';
     }

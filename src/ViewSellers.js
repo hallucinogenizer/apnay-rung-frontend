@@ -10,6 +10,15 @@ import FlashOnIcon from "@material-ui/icons/FlashOn";
 import { Modal, Button } from "react-bootstrap";
 // import "bootstrap/dist/css/bootstrap.css";
 const ViewSellers = () => {
+  const session = sessionStorage.getItem("logged-in");
+  const usertype = localStorage.getItem("TypeOfUser");
+  const checkSession = () => {
+      if (session === false || session === null || usertype==="seller" || usertype==="customer"){
+        localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+        window.location.href = '/Homepage';
+      }
+  }
+
   const [state, setState] = useState([
     {
       seller_id: 0,

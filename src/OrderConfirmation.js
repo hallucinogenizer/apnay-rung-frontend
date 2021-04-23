@@ -32,12 +32,14 @@ const OrderConfirmation = () => {
       }
     });
   };
+  const usertype = localStorage.getItem("TypeOfUser");
+
   const checkSession = () => {
-    if (session === false || session === null){
-      localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
-      window.location.href = '/Homepage';
+      if (session === false || session === null || usertype==="seller" || usertype==="admin"){
+        localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+        window.location.href = '/Homepage';
+      }
     }
-  }
 
   const renderBill = () => {
     let bill = 0;

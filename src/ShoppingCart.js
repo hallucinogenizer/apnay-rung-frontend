@@ -81,6 +81,14 @@ const ShoppingCart = () => {
   const usertype = localStorage.getItem("TypeOfUser");
   const [msg2, setMsg2] = useState([``]);
   const [panel, setPanel] = useState("");
+  // const usertype = localStorage.getItem("TypeOfUser");
+
+  // const checkSession = () => {
+  //   if (usertype==="admin" || usertype==="seller"){
+  //     localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+  //     window.location.href = '/Homepage';
+  //   }
+  // }
 
   //The below block of code will give the initial total bill before any increments/decrements
   const GetNavbar = () =>{

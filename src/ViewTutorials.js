@@ -62,12 +62,14 @@ const ViewTutorials = () => {
         );
       });
     };
+    const usertype = localStorage.getItem("TypeOfUser");
     const checkSession = () => {
-      if (session === false || session === null){
-        localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
-        window.location.href = '/Homepage';
-      }
+        if (session === false || session === null || usertype==="admin" || usertype==="customer"){
+          localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+          window.location.href = '/Homepage';
+        }
     }
+  
     return(
         <div>
             {checkSession()}
