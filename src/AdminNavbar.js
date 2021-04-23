@@ -80,7 +80,9 @@ const AdminNavbar = () => {
                     <ExitToAppIcon className="rotate-180" />Logout
                     </a>
                 </Link>
+                <Link to="/AdminPanel" >
                 <a className="nav-item nav-link">{userstate.name}</a>
+                </Link>
                 
             </div>
                 
