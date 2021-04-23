@@ -97,35 +97,14 @@ const SignupSeller = () => {
     }
   }, [errors]);
 
-  // async function postData() {
-  //   const response = await fetch(
-  //     "https://apnay-rung-api.herokuapp.com/customer/new",
-  //     {
-  //       method: "POST",
-  //       withCredentials: true,
-  //       credentials: "include",
-  //       headers: {
-  //         Authorization:
-  //           "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsIm5hbWUiOiJUYWltb29yIFRhcmlxIiwidHlwZU9mVXNlciI6ImN1c3RvbWVyIiwiaWF0IjoxNjE2OTYxNzMwfQ.Dn0FATITkhrR7e5tkp_XAmdPfp-FKJGzdskczt9k2fw",
-  //         "Content-Type": "application/json"
-  //       },
-  //       body: JSON.stringify({
-  //         name: values.userName,
-  //         email: values.email,
-  //         password: values.password,
-  //         address: values.address,
-  //         phone: values.phonenumber
-  //       })
-  //     }
-  // //   );
-  //   console.log(response);
-  // }
 
   const displayPage = () => {
     return (
       <div>
         <form onSubmit={submitHandler}>
-          <img src={Logo} className="signup-img" alt="our logo" />
+          <Link to="/Homepage">
+            <img src={Logo} className="signup-img" alt="our logo" />
+          </Link>
           <div className="signup-heading">
             <p>Sign up</p>
           </div>
@@ -159,7 +138,7 @@ const SignupSeller = () => {
           </div>
           <br />
           <div />
-          <div className="form-inputs">
+          <div className="form-inputs-security">
             <input
               type="text"
               name="userName"
@@ -188,7 +167,7 @@ const SignupSeller = () => {
             )}
           </div>
           <br />
-          <div className="form-inputs">
+          <div className="form-inputs-security">
             <input
               type="password"
               name="password"
@@ -217,7 +196,7 @@ const SignupSeller = () => {
             )}
           </div>
           <br />
-          <div className="form-inputs">
+          <div className="form-inputs-security">
             <input
               type="text"
               name="address"
@@ -250,7 +229,7 @@ const SignupSeller = () => {
 
   return (
     <div className="image">
-      <div className="content">
+      <div className="content-seller">
         {!isSubmitted ? displayPage() : ""}
         {/* <SignupSuccess /> */}
       </div>

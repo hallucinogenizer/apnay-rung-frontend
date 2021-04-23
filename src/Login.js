@@ -58,9 +58,11 @@ const TempLogin = () => {
         localStorage.setItem("TypeOfUser", serverResponse.typeOfUser);
         sessionStorage.setItem("logged-in", true);
         if (serverResponse.typeOfUser === "customer") {
-          window.location.href = "/Catalog";
+          window.location.href = "/Homepage";
         } else if (serverResponse.typeOfUser === "seller") {
           window.location.href = "/SellerPanel";
+        }else if (serverResponse.typeOfUser === "admin"){
+          window.location.href = "/AdminPanel";
         }
       }else{
         console.log(`in incorrect pass branch`);
@@ -121,7 +123,7 @@ const TempLogin = () => {
     }else{
       console.log(`im hereee`)
       const userQuestions = await postData();
-      console.log(userQuestions);
+      console.log(`printing user questions`,userQuestions);
       localStorage.setItem("Question1", userQuestions[0]);
       localStorage.setItem("Question2", userQuestions[1]);
       window.location.href = "/ForgotPassword"
@@ -135,11 +137,8 @@ const TempLogin = () => {
       "https://apnay-rung-api.herokuapp.com/securityquestions",
       {
         method: "POST",
-        withCredentials: true,
-        credentials: "include",
+        withCredentials: false,
         headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsIm5hbWUiOiJUYWltb29yIFRhcmlxIiwidHlwZU9mVXNlciI6ImN1c3RvbWVyIiwiaWF0IjoxNjE2OTYxNzMwfQ.Dn0FATITkhrR7e5tkp_XAmdPfp-FKJGzdskczt9k2fw",
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
@@ -154,7 +153,9 @@ const TempLogin = () => {
     return (
       <div>
         <form className="form" onSubmit={submitHandler}>
+          <Link to="/Homepage">
           <img src={Logo} className="login-img" alt="our logo" />
+          </Link>
           <div className="login-heading">Log in</div>
           <br />
           <br />
@@ -213,38 +214,29 @@ const TempLogin = () => {
       <div className="content-login">{!isSubmitted ? displayPage() : ""}</div>
       <Modal show={show} onHide={handleClose} className="delete-modal">
         <Modal.Header closeButton>
-          <Modal.Title>Password Reset</Modal.Title>
+          <Modal.Title>Incorrect Password</Modal.Title>
         </Modal.Header>
         <Modal.Body>Your password is incorrect. Please try again.</Modal.Body>
-        <Modal.Footer>
-          <Link to="/Login">
-            <input
-              variant="primary"
-              type="submit"
-              className="delete-primary"
-              value="Okay"
-              onClick={handleClose}
-            />
-          </Link>
-        </Modal.Footer>
-      </Modal>
-      <Modal show={show1} onHide={handleClose1} className="delete-modal">
-        <Modal.Header closeButton>
-          <Modal.Title>Password reset</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>You need to enter your email.</Modal.Body>
         <Modal.Footer>
           <Link to="/Login">
             <Button
               variant="primary"
               type="submit"
               className="delete-primary"
-              value="Okay"
-              onClick={handleClose1}
+              onClick={handleClose}
             >
-              <Link to="./Login">Okay</Link>
-              </Button>
+            Okay
+            </Button>
           </Link>
+        </Modal.Footer>
+      </Modal>
+      <Modal show={show1} onHide={handleClose1} className="delete-modal">
+        <Modal.Header closeButton className="modal-heading">
+          <Modal.Title>Password reset</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>You need to enter your email.</Modal.Body>
+        <Modal.Footer>
+
         </Modal.Footer>
       </Modal>
     </div>

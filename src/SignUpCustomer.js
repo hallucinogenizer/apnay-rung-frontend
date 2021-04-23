@@ -102,7 +102,9 @@ const SignupCustomer = () => {
     return (
       <div>
         <form onSubmit={submitHandler}>
+          <Link to="/Homepage">
           <img src={Logo} className="signup-img" alt="our logo" />
+          </Link>
           <div className="signup-heading">
             <p>Sign up</p>
           </div>
@@ -155,7 +157,6 @@ const SignupCustomer = () => {
             />
           </div>
           <br />
-          <br />
           <div>
             {errors.password && (
               <div className="err-left">{errors.password} </div>
@@ -183,7 +184,6 @@ const SignupCustomer = () => {
               onChange={changeHandler}
             />
           </div>
-          <br />
           <br />
           <div>
             {errors.address && (

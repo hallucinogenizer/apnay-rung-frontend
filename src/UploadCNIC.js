@@ -169,7 +169,9 @@ const UploadCNIC = () => {
           id="empty-form"
         ></form>
         <form onSubmit={submitHandler} enctype="multipart/form-data">
+          <Link to="/Homepage">
           <img src={Logo} className="cnic-logo" alt="our logo" />
+          </Link>
           <div className="cnic-heading">Sign up</div>
           <div class="btn-group" role="group" aria-label="Basic example">
             <Link to="/SignupCustomer">
