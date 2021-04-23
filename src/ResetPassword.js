@@ -89,7 +89,6 @@ const ResetPassword = () => {
     setCheck([1])
   };
   async function postData(password) {
-    localStorage.setItem("Email", "vafabatool@live.com");
     const userEmail = localStorage.getItem("Email");
     console.log(`printing email`, userEmail);
     const temp = {
@@ -115,7 +114,9 @@ const ResetPassword = () => {
       <div>
         <div>
           <form onSubmit={submitHandler}>
+            <Link to ="/Homepage">
             <img src={Logo} className="reset-pass-logo" alt="our logo" />
+            </Link>
             <div className="forgot-pass-heading">Reset Password</div>
             <br />
             <div>
