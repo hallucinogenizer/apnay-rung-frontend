@@ -130,3 +130,18 @@
   border: none;
   background-color: transparent;
 }
+
+.item-array {
+  overflow: hidden !important;
+  border-top: none !important;
+  background-color: transparent !important;
+  white-space: nowrap;
+}
+
+.item-array td {
+  border: none !important;
+}
+
+.remove-wrapping {
+  white-space: nowrap;
+}

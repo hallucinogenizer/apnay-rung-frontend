@@ -1,41 +1,17 @@
 import "./styles.css";
+import "./momina.css";
 import AdminNavbar from "./AdminNavbar";
 import Memory from "./Memory";
 import BottomBar from "./BottomBar";
 import {useState,useEffect} from 'react';
 import FormPopup from './FormPopup';
+import { Modal, Button } from "react-bootstrap";
 
 const QueryForms = () => {
-  // let state = {
-  //   //state is by default an object
-  //   customers: [
-  //     {
-  //       id: 1,
-  //       name: "Wasif",
-  //       email: "wasif@email.com",
-  //       message: "Hello, you website rocks. How did you Make it?"
-  //     },
-  //     {
-  //       id: 2,
-  //       name: "Wasif",
-  //       email: "wasif@email.com",
-  //       message: "Hello, you website rocks. How did you Make it?"
-  //     },
-  //     {
-  //       id: 3,
-  //       name: "Wasif",
-  //       email: "wasif@email.com",
-  //       message: "Hello, you website rocks. How did you Make it?"
-  //     },
-  //     {
-  //       id: 4,
-  //       name: "Wasif",
-  //       email: "wasif@email.com",
-  //       message: "Hello, you website rocks. How did you Make it?"
-  //     }
-  //   ]
-  // };
   const [viewForm, setViewForm] = useState(false)
+  const [callEffect,setCallEffect]= useState(false)
+  const [show, setShow] = useState(false);
+  const [id, setID] = useState(0);
   const [state, setState] = useState([
     {
       message_id: 0,
@@ -67,7 +43,30 @@ const QueryForms = () => {
       setState(response)
     }
   );
-  }, []);
+  }, [callEffect]);
+
+  async function sendData() {
+
+    const response = await fetch(
+      `https://apnay-rung-api.herokuapp.com/message/${id} `,
+      {
+        method: "DELETE",
+        withCredentials: true,
+        credentials: "include",
+        headers: {
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik11aGFtbWFkIFJvaGFuIEh1c3NhaW4iLCJ0eXBlT2ZVc2VyIjoiYWRtaW4iLCJpYXQiOjE2MTY4NDE4MTZ9.HJvh_8caLMReaDmJFCEklgtP9u86usbNIZ4FxOrIawk`,
+          "Content-Type": "application/json"
+        }
+      }
+    );
+    console.log(response);
+
+    if (response.status === 200 || response.status === 201 || response.status === 202 ) {
+      console.log(`processed ${!callEffect}`)
+      setCallEffect(!callEffect)
+    }  
+  }
+
 
   const handleSetViewForm = () => setViewForm(true);
 
@@ -83,32 +82,40 @@ const QueryForms = () => {
     handleSetViewForm();
   }
 
+  const handleShow = (formID) => {
+    setID(formID)
+    setShow(true)
+    
+  };
 
+  const handleClose = (isDelete) => {
+    setShow(false);
+    if(isDelete==true){
+      console.log(`sending to backend`)
+      sendData()
+    }
+  };
 
   const renderTableData = () => {
     return state.map((form, index) => {
-      const { id, subject, content,customer_id, timestamp} = form; //destructuring
+      const { message_id, subject, content,customer_id, timestamp} = form; //destructuring
       let time = timestamp.split(':')
       time = time[0]
 
       return (
         <tr className="data">
           <td>{customer_id}</td>
-          <td>{id}</td>
+          <td>{message_id}</td>
           <td>{subject}</td>
           <td>{time}</td>
           <td>
-            <span>
-            <div>
-          <button className="view-btn" onClick={() => handleViewForm(id,customer_id, subject,content)}>
+            <button className="link-v2" onClick={() => handleViewForm(id,customer_id, subject,content)}>
               View
             </button>
-            <div>|</div>
-            </div>
-            <button className="link">
+            |
+            <button className="link-v2" onClick={()=>handleShow(message_id)}>
                Delete
             </button>
-            </span>
           </td>
         </tr>
       );
@@ -136,7 +143,29 @@ const QueryForms = () => {
         </table>
       </div>
       <FormPopup trigger={viewForm} setTrigger={setViewForm}>
-          </FormPopup>
+      </FormPopup>
+      <Modal show={show} onHide={handleClose} className="delete-modal">
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Delete</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to delete this form?</Modal.Body>
+        <Modal.Footer>
+        <Button
+            variant="secondary"
+            className="delete-secondary"
+            onClick={()=>handleClose(false)}
+          >
+            Don't Delete
+          </Button>
+          <Button
+            variant="primary"
+            className="delete-primary"
+            onClick={()=>handleClose(true)}
+          >
+            Delete Form
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <BottomBar />
     </div>
   );

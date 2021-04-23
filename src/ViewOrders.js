@@ -2,69 +2,94 @@ import "./styles.css";
 import AdminNavbar from "./AdminNavbar";
 import Memory from "./Memory";
 import BottomBar from "./BottomBar";
+import { useState, useEffect } from "react";
+import { Modal, Button } from "react-bootstrap";
+
 
 const ViewOrders = () => {
-  let state = {
-    //state is by default an object
-    orders: [
-      {
-        orderID: "1",
-        customerID: "1",
-        customerName: "Wasif",
-        productID: "00199",
-        itemTitle: "Clay Pot",
-        datePlaced: "10-May-2020",
-        totalAmount: "200"
-      },
-      {
-        orderID: "1",
-        customerID: "1",
-        customerName: "Wasif",
-        productID: "00199",
-        itemTitle: "Clay Pot",
-        datePlaced: "10-May-2020",
-        totalAmount: "200"
-      },
-      {
-        orderID: "1",
-        customerID: "1",
-        customerName: "Wasif",
-        productID: "00199",
-        itemTitle: "Clay Pot",
-        datePlaced: "10-May-2020",
-        totalAmount: "200"
-      },
-      {
-        orderID: "1",
-        customerID: "1",
-        customerName: "Wasif",
-        productID: "00199",
-        itemTitle: "Clay Pot",
-        datePlaced: "10-May-2020",
-        totalAmount: "200"
+
+  const [state, setState] = useState([
+    {
+      order_id: 0,
+      customer_id: 0,
+      items: [],
+      timestamp: ""
+    }
+  ]);
+
+  useEffect(() => {
+    async function getData(url) {
+      const response = await fetch(url, {
+        method: "GET",
+        withCredentials: true,
+        credentials: "include",
+        headers: {
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik11aGFtbWFkIFJvaGFuIEh1c3NhaW4iLCJ0eXBlT2ZVc2VyIjoiYWRtaW4iLCJpYXQiOjE2MTY4NDE4MTZ9.HJvh_8caLMReaDmJFCEklgtP9u86usbNIZ4FxOrIawk",
+          "Content-Type": "application/json"
+        }
+      });
+
+      return response.json();
+    }
+
+    getData("http://apnay-rung-api.herokuapp.com/order/all ").then(
+      (response) => {
+        console.log(response);
+        setState(response);
       }
-    ]
-  };
+    );
+  }, []);
+
+  const getItemID= (items) => {
+      return items.map((item, index)=> {
+
+        return(
+          <tr className="item-array">
+            <td>{item[0]}</td>
+          </tr>
+        )
+
+      })
+  }
+  const getItemTitle= (items) => {
+    return items.map((item, index)=> {
+      return(
+        <tr className="item-array">
+          <td>{item[3]}</td>
+        </tr>
+      )
+    })
+  }
+
+  const getTotal= (items) => {
+    let total = 0
+    items.map((item, index)=> {
+      total= total + (item[1])*(item[2])
+    })
+    return total
+  }
 
   const renderTableData = () => {
-    return state.orders.map((order, index) => {
+    return state.map((order, index) => {
       const {
-        orderID,
-        customerID,
-        customerName,
-        productID,
-        itemTitle,
-        datePlaced,
-        totalAmount
+        order_id,
+        customer_id,
+        items,
+        timestamp
       } = order; //destructuring
+
+      let date= (timestamp.split(" "))[0]
+      // console.log(order_id)
+      // console.log(`items ${items}`)
       return (
         <tr class="data">
-          <td>{orderID}</td>
-          <td>{customerID}</td>
-          <td>{productID}</td>
-          <td>{itemTitle}</td>
-          <td>{datePlaced}</td>
-          <td>PKR {totalAmount}</td>
+          <td>{order_id}</td>
+          <td>{customer_id}</td>
+          <td>{getItemID(items)}</td>
+          <td>{getItemTitle(items)}</td>
+          <td>{date}</td>
+          <td>PKR {getTotal(items)}</td>
         </tr>
       );
     });
@@ -80,12 +105,12 @@ const ViewOrders = () => {
         <table class="table table-size">
           <thead>
             <tr class="top-row">
-              <th>Order ID</th>
-              <th>Customer ID</th>
-              <th>Product ID</th>
-              <th>Item Title</th>
-              <th>Date Placed</th>
-              <th>Total Amount</th>
+              <th className="remove-wrapping">Order ID</th>
+              <th className="remove-wrapping">Customer ID</th>
+              <th className="remove-wrapping">Product ID</th>
+              <th className="remove-wrapping">Item Title</th>
+              <th className="remove-wrapping">Date Placed</th>
+              <th className="remove-wrapping">Total Amount</th>
             </tr>
           </thead>
           <tbody>{renderTableData()}</tbody>
