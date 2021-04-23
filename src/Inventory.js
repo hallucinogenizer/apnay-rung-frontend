@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
 
 const Inventory = () => {
+  let tokenID = localStorage.getItem("Token");
   const [state, setState] = useState([
     {
       image: "",
@@ -26,7 +27,7 @@ const Inventory = () => {
         credentials: "include",
         headers: {
           Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6IlZhZmEgQmF0b29sIiwidHlwZU9mVXNlciI6InNlbGxlciIsImlhdCI6MTYxNjg0NDE3N30.xYaUcX7dmdqY5co2tMbVA_9jh0M1fVBB-AX0Aam5G7Y",
+            `Bearer ${tokenID}`,
           "Content-Type": "application/json"
         }
       });
@@ -60,7 +61,7 @@ const Inventory = () => {
         withCredentials: true,
         credentials: "include",
         headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6IlZhZmEgQmF0b29sIiwidHlwZU9mVXNlciI6InNlbGxlciIsImlhdCI6MTYxNjg0NDE3N30.xYaUcX7dmdqY5co2tMbVA_9jh0M1fVBB-AX0Aam5G7Y`,
+          Authorization: `Bearer ${tokenID}`,
           "Content-Type": "application/json"
         }
       }
@@ -96,7 +97,7 @@ const Inventory = () => {
       return (
         <tr className="data">
           <td>
-            <img src={image[0]} alt="Italian Trulli" id="image" />
+            <img src={image} alt="Italian Trulli" id="image" />
           </td>
           <td>{title}</td>
           <td>{price}</td>

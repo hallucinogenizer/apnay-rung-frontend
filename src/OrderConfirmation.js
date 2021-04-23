@@ -13,6 +13,7 @@ const OrderConfirmation = () => {
   const customerInfo = JSON.parse(localStorage.getItem("customerInformation"));
   const [state, setState] = useState(fromLocalStorage);
   let tokenID = localStorage.getItem("Token");
+  const[sellers, setSellers] = useState([])
   // tokenID= `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsIm5hbWUiOiJUYWltb29yIFRhcmlxIiwidHlwZU9mVXNlciI6ImN1c3RvbWVyIiwiaWF0IjoxNjE2OTYxNzMwfQ.Dn0FATITkhrR7e5tkp_XAmdPfp-FKJGzdskczt9k2fw`;
   let total = 0;
   let items = [];
@@ -59,6 +60,61 @@ const OrderConfirmation = () => {
 
   const [msg, setMsg] = useState([``]);
 
+  async function sendNotification(id) {
+
+    sellers.map( async (id,index)=>{
+      const response = await fetch(
+        "http://apnay-rung-api.herokuapp.com/notification/new",
+        {
+          method: "POST",
+          withCredentials: true,
+          credentials: "include",
+          headers: {
+            // Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik11aGFtbWFkIFJvaGFuIEh1c3NhaW4iLCJ0eXBlT2ZVc2VyIjoiYWRtaW4iLCJpYXQiOjE2MTY4NDE4MTZ9.HJvh_8caLMReaDmJFCEklgtP9u86usbNIZ4FxOrIawk`,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            title:"A new order has been placed. Please visit Current Orders for more details.", 
+            type:"message", 
+            details: null, 
+            seller_id : id
+          })
+        }
+      );
+  
+      console.log(`response from notification`, response)
+    })
+  }
+
+  const isPresent= (sellerID,arr) => {
+
+    console.log(`items length is ${arr.length}`)
+    for(let i=0; i< arr.length; i++){
+      if(arr[i]===sellerID)
+      {
+        return true
+      }
+    }
+    return false
+  } //if item is already present
+
+  const extractSellers=()=>{
+
+    let allSellers=[]
+    state.map((product,index)=>{
+      const { sellerID } = product;
+      let isTrue= isPresent(sellerID,allSellers)
+      if(isTrue===false){
+        console.log(`is true ${isTrue}`)
+        allSellers.push(sellerID)
+      }
+    })
+
+    console.log(`all sellers are ${allSellers}`)
+    setSellers(allSellers)
+    
+  }
+
   async function sendData() {
     infoObject();
     console.log(`token is  ${tokenID}`)
@@ -95,6 +151,8 @@ const OrderConfirmation = () => {
       
       setMsg([`You order has been placed.`, `Back to Home`]);
       handleShow();
+      extractSellers()
+      sendNotification()
       localStorage.removeItem("shoppingCart");
       localStorage.removeItem("customerInformation");
     } else {

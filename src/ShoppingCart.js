@@ -15,16 +15,24 @@ import { Link } from "react-router-dom";
 
 const Counter = (props) => {
   const [qty, setQuantity] = useState(props.qty);
-  const increment = async () => {
-    setQuantity((qty) => qty + 1);
-    props.costFunc(props.totalBill + props.price);
 
-    let storage = await JSON.parse(localStorage.getItem("shoppingCart"));
-    storage[props.ind].quantity = 1 + storage[props.ind].quantity;
-    // console.log(storage[props.ind].quantity);
-    localStorage.removeItem("shoppingCart");
-    localStorage.setItem("shoppingCart", JSON.stringify(storage));
-    props.stateFunc(storage);
+  const increment = async () => {
+    if(qty!==props.maxQty)
+    {
+      setQuantity((qty) => qty + 1);
+      props.costFunc(props.totalBill + props.price);
+  
+      let storage = await JSON.parse(localStorage.getItem("shoppingCart"));
+      storage[props.ind].quantity = 1 + storage[props.ind].quantity;
+      // console.log(storage[props.ind].quantity);
+      localStorage.removeItem("shoppingCart");
+      localStorage.setItem("shoppingCart", JSON.stringify(storage));
+      props.stateFunc(storage);
+    }
+    else{
+      props.showFunc(true);
+    }
+
   };
   const decrement = async () => {
     if (qty >1) {
@@ -102,6 +110,17 @@ const ShoppingCart = () => {
   const [show2, setShow2] = useState(false);
   const [indexDelete, setIndex] = useState(0);
 
+  
+  const [exceed, setExceed]= useState(false)
+
+  const showQtyExceed= () => {
+    setExceed(true)
+  }
+
+  const closeQtyExceed= () => {
+    setExceed(false)
+  }
+
   const handleClose = (isDelete) => {
     setShow(false);
     if (isDelete) {
@@ -120,7 +139,7 @@ const ShoppingCart = () => {
   const renderTableData = () => {
     try {
       return state.map((product, index) => {
-        const { productID, productTitle, quantity, price, image } = product; //destructuring
+        const { productID, productTitle, quantity, price, image, totalQuantity } = product; //destructuring
         // console.log(quantity);
         let ind = index;
 
@@ -138,6 +157,9 @@ const ShoppingCart = () => {
                 price={price}
                 ind={ind}
                 stateFunc={setState}
+                maxQty={totalQuantity}
+                showFunc={setExceed}
+                // closeModal={()=>this.handleClose()}
               />
             </td>
             <td>PKR {price}</td>
@@ -204,14 +226,16 @@ const ShoppingCart = () => {
   }
   const PanelCheck = () =>{
     if (usertype === "customer"){
-      setPanel("Customer")
+      console.log(`type of user`)
+      return "Customer"
     } 
+    return ""
   }
+
   return (
     <div>
       {GetNavbar()}
-      {PanelCheck()}
-      <Memory panel={panel} page="" current=" Shopping Cart" />{" "}
+      <Memory panel={PanelCheck} page="" current=" Shopping Cart" />{" "}
       
       <h1>Shopping Cart</h1>
       <div className="table-responsive">
@@ -241,14 +265,12 @@ const ShoppingCart = () => {
           </Link>
         </div>
         <div className="inner">
-          {/* <Link to="/Checkout"> */}
             <input
               type="submit"
               className="checkout-button"
               value="Checkout"
-              onClick={checkLoggedIn}
+              onClick={()=>checkLoggedIn()}
             ></input>
-          {/* </Link> */}
         </div>
       </div>
       <BottomBar />
@@ -278,6 +300,7 @@ const ShoppingCart = () => {
           </Button>
         </Modal.Footer>
       </Modal>
+
       <Modal show={show2} onHide={handleClose2} className="delete-modal">
         <Modal.Header closeButton>
           <Modal.Title>Log In</Modal.Title>
@@ -287,9 +310,25 @@ const ShoppingCart = () => {
           <Button
             variant="primary"
             className="delete-primary"
-            onClick={handleClose2}
+            onClick={()=>handleClose2()}
           >
          {msg2[1] !== "Back" ? <Link to="./ShoppingCart">{msg2[1]}</Link> : msg2[1]}
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={exceed} onHide={closeQtyExceed} className="delete-modal">
+        <Modal.Header closeButton>
+          <Modal.Title>Unavailable</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>The required quantity is not available.</Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="primary"
+            className="delete-primary"
+            onClick={()=>closeQtyExceed()}
+          >
+          Back
           </Button>
         </Modal.Footer>
       </Modal>

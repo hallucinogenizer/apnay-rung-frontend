@@ -9,43 +9,7 @@ import { FeaturedPlayList } from "@material-ui/icons";
 
 
 const ViewAllProducts = () => {
-  // let state = {
-  //   //state is by default an object
-  //   products: [
-  //     {
-  //       productID: "00199",
-  //       productTitle: "Clay Pot",
-  //       sellerID: "1",
-  //       sellerName: "Wasif",
-  //       category: "Pots",
-  //       price: "200"
-  //     },
-  //     {
-  //       productID: "00199",
-  //       productTitle: "Clay Pot",
-  //       sellerID: "1",
-  //       sellerName: "Wasif",
-  //       category: "Pots",
-  //       price: "200"
-  //     },
-  //     {
-  //       productID: "00199",
-  //       productTitle: "Clay Pot",
-  //       sellerID: "1",
-  //       sellerName: "Wasif",
-  //       category: "Pots",
-  //       price: "200"
-  //     },
-  //     {
-  //       productID: "00199",
-  //       productTitle: "Clay Pot",
-  //       sellerID: "1",
-  //       sellerName: "Wasif",
-  //       category: "Pots",
-  //       price: "200"
-  //     }
-  //   ]
-  // };
+
   const [state, setState] = useState([
     {
       item_id: 0,
@@ -79,7 +43,32 @@ const ViewAllProducts = () => {
   );
   }, []);
 
-  const makeFeatured = async(id) => {
+  async function sendNotification(sellerID,title) {
+
+    const response = await fetch(
+      "http://apnay-rung-api.herokuapp.com/notification/new",
+      {
+        method: "POST",
+        withCredentials: true,
+        credentials: "include",
+        headers: {
+          // Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik11aGFtbWFkIFJvaGFuIEh1c3NhaW4iLCJ0eXBlT2ZVc2VyIjoiYWRtaW4iLCJpYXQiOjE2MTY4NDE4MTZ9.HJvh_8caLMReaDmJFCEklgtP9u86usbNIZ4FxOrIawk`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          title:`Congratulations! Your product ${title} has been added to featured products.`,
+          type:"message", 
+          details: null, 
+          seller_id : sellerID
+        })
+      }
+    );
+
+    console.log(`response from notification`, response)
+
+  }
+
+  const makeFeatured = async(id,sellerID,title) => {
     const response = await fetch(
       ` https://apnay-rung-api.herokuapp.com/inventory/featured/set/${id}`,
       {
@@ -97,6 +86,7 @@ const ViewAllProducts = () => {
 
     if (response.status === 200 || response.status===202) {
       
+      sendNotification(sellerID,title)
       console.log(`processed ${!callEffect}`)
       setCallEffect(!callEffect)
     } 
@@ -122,11 +112,11 @@ const ViewAllProducts = () => {
 
   }
 
-  const Featured = (isFeatured,id) => {
+  const Featured = (isFeatured,id,sellerID,title) => {
     console.log(`printing is featured`, isFeatured)
     if (isFeatured === false){
       return (
-        <a href="#delete" className="link" style={{whiteSpace:"nowrap"}} onClick= {() => makeFeatured(id)}>
+        <a href="#delete" className="link" style={{whiteSpace:"nowrap"}} onClick= {() => makeFeatured(id,sellerID,title)}>
           <FlashOnIcon
             style={{
               fontSize: "medium"
@@ -199,7 +189,7 @@ const ViewAllProducts = () => {
           <td>{price}</td>
           <td>{stock}</td>
           <td>
-            {Featured(featured,item_id)}
+            {Featured(featured,item_id,seller_id,title)}
           </td>
         </tr>
       );

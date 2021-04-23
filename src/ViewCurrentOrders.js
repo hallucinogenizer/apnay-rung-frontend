@@ -27,7 +27,7 @@ const ViewCurrentOrders = () => {
         credentials: "include",
         headers: {
           Authorization:
-            `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwibmFtZSI6IlRhaW1vb3IgVGFyaXEiLCJ0eXBlT2ZVc2VyIjoic2VsbGVyIiwiaWF0IjoxNjE2OTUwMTgwfQ.5sLboKcaMf5D96MJUSxsv4lynZ9k-J0lQ5w_C40I_Bo`,
+            `Bearer ${tokenID}`,
           "Content-Type": "application/json"
         }
       });
@@ -68,13 +68,6 @@ const ViewCurrentOrders = () => {
     }
   );
   }, [callEffect]);
-
-  
-
-  // console.log(`hello length is`)
-  // console.log(orderData.length)
-  // console.log(orderData[0])
-
 
   const renderTableData = () => {
     try{
@@ -145,10 +138,6 @@ const ViewCurrentOrders = () => {
             <br/>
             Address: {order.s_address}
             <br/>
-            City: {order.city}
-            <br/>
-            Country: {order.country}
-            <br/>
             Phone Number: {order.phone}
           </div>
           
@@ -185,7 +174,36 @@ const ViewCurrentOrders = () => {
     
   }
 
-  async function sendData(url) {
+  async function sendNotification(orderStatus) {
+
+    let index = ind
+    let order = orderData[index]
+    let customerID = order.customer_id
+
+    const response = await fetch(
+      "http://apnay-rung-api.herokuapp.com/notification/new",
+      {
+        method: "POST",
+        withCredentials: true,
+        credentials: "include",
+        headers: {
+          // Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik11aGFtbWFkIFJvaGFuIEh1c3NhaW4iLCJ0eXBlT2ZVc2VyIjoiYWRtaW4iLCJpYXQiOjE2MTY4NDE4MTZ9.HJvh_8caLMReaDmJFCEklgtP9u86usbNIZ4FxOrIawk`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          title:`Your order #${order.order_id} has been ${orderStatus}`,
+          type:"message", 
+          details: null, 
+          customer_id : customerID
+        })
+      }
+    );
+
+    console.log(`response from notification`, response)
+
+  }
+
+  async function sendData(url,orderStatus) {
     // console.log(`token is  ${tokenID}`)
 
     const response = await fetch(
@@ -207,10 +225,13 @@ const ViewCurrentOrders = () => {
       setCallEffect(!callEffect)
       setMsg([`Request has been processed.`, `Back`]);
       handleShow();
+      sendNotification(orderStatus)
     } else {
       setMsg([`Your request could not be processed.Try again.`, `Back`]);
       handleShow();
     }
+
+
   }
 
   const handleShow = () => setShow(true);
@@ -247,11 +268,11 @@ const ViewCurrentOrders = () => {
           <div className="checkout-buttons">
               <button
                 className="submit-button-cancel"
-                onClick={()=>sendData(`https://apnay-rung-api.herokuapp.com/order/cancel/${getID()}`)}
+                onClick={()=>sendData(`https://apnay-rung-api.herokuapp.com/order/cancel/${getID()}`,`cancelled`)}
               ><ClearIcon/> Cancel Order</button>
               <button
                 className="submit-button-confirm"
-                onClick={()=>sendData(`https://apnay-rung-api.herokuapp.com/order/confirm/${getID()}`)}
+                onClick={()=>sendData(`https://apnay-rung-api.herokuapp.com/order/confirm/${getID()}`,`confirmed`)}
               ><DoneIcon /> Confirm Order</button>
           </div>
         </div>
