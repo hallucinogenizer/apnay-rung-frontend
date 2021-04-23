@@ -52,9 +52,10 @@ const CustomerPanel = () => {
   const classes = makeStyles(iconStyles)();
   return (
     <div>
-      {/* {checkSession()} */}
+      {checkSession()}
       <CustomerNavbar currentPage="CustomerPanel" />
       <Memory panel="Customer Panel" /> {/* <page="" current="" /> */}
+      <div className="min-height-div">
       <h1>Customer Panel</h1>
       <br></br>
       <br></br>
@@ -116,6 +117,7 @@ const CustomerPanel = () => {
             </Link>
           </div>
         </div>
+      </div>
       </div>
       <BottomBar />
       <Modal show={show} onHide={handleClose} className="delete-modal">

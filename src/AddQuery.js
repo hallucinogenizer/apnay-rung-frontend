@@ -1,5 +1,6 @@
 import "./styles.css";
 import "./maham.css";
+import "./vafa.css";
 import React, { useState, useEffect } from "react";
 import CustomerNavbar from "./CustomerNavbar";
 import Memory from "./Memory";
@@ -128,10 +129,11 @@ const AddQuery = () =>{
         setSubject(event.target.value)
     }
     return (
-      <div>
+      <div >
           {checkSession()}
           <CustomerNavbar/>
           <Memory panel="Customer Panel" current="Forms"/>
+          <div className="min-height-div">
           <h1>Contact Apnay Rung</h1>
           <div>
               <h3 className="contact-form">Hello {userstate.name}!</h3>
@@ -172,6 +174,7 @@ const AddQuery = () =>{
               {/* </Link> */}
               </form>
               <br/>
+          </div>
           </div>
           <BottomBar/>
           <Modal show={show} onHide={handleClose} className="delete-modal">

@@ -107,6 +107,7 @@ const Checkout = () => {
         page="Shopping Cart"
         current=" Checkout"
       />{" "}
+      <div className="min-height-div">
       <h1>Checkout</h1>
       <form className="form-product" onSubmit={SubmitHandler}>
         <p className="label-form"> Customer Name </p>
@@ -218,6 +219,7 @@ const Checkout = () => {
       <br />
       <br />
       <br />
+      </div>
       <BottomBar />
     </div>
   );

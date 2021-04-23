@@ -253,7 +253,7 @@ const Catalog = () => {
       {GetNavbar()}
       {checkMap()}
       <Memory panel="" page="" current="Catalog" />{" "}
-      {/* when three links needed in panel, include a '/' in the middle 'page' argument */}
+      <div className="min-height-div">
       <h1>Catalog</h1>
       <br></br>
       <ul className="sortbar">
@@ -292,7 +292,7 @@ const Catalog = () => {
       <br />
       <div className="space"></div>
       <div className="catalog-adjust">{renderProducts()}</div>
-      
+      </div>
       <BottomBar />
     </div>
   );

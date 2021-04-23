@@ -175,7 +175,7 @@ const ApproveSellers = () => {
       {checkSession()}
       <AdminNavbar />
       <Memory panel="Admin Panel " page="" current=" Approve Sellers" />{" "}
-      {/* when three links needed in panel, include a '/' in the middle 'page' argument */}
+      <div className="min-height-div">
       <h1>Approve Sellers</h1>
       <div className="table-responsive">
         <table className="table table-size">
@@ -197,6 +197,7 @@ const ApproveSellers = () => {
       <br />
       <br />
       <br />
+      </div>
       <BottomBar />
       <Modal show={showPicture} onHide={closePicture} className="delete-modal">
         <Modal.Header closeButton>

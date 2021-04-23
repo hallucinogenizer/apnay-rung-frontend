@@ -1,5 +1,6 @@
 import React from "react";
 import "./styles.css";
+import "./maham.css";
 // momina
 const BottomBar = () => {
   return (

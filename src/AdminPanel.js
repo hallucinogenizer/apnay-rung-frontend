@@ -1,4 +1,5 @@
 import "./styles.css";
+import "./vafa.css";
 // import { useState } from "react";
 import AdminNavbar from "./AdminNavbar";
 import Memory from "./Memory";
@@ -37,6 +38,7 @@ const AdminPanel = () => {
       {checkSession()}
       <AdminNavbar />
       <Memory panel="Admin Panel" /> 
+      <div className="min-height-div">
       <h1>Admin Panel</h1>
       <br></br>
       <br></br>
@@ -166,6 +168,7 @@ const AdminPanel = () => {
             </Link>
           </div>
         </div>
+      </div>
       </div>
       <BottomBar />
     </div>

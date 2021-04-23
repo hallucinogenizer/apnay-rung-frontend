@@ -13,9 +13,7 @@ import Artisan6 from "./css/Artisan6.jpg"
 import Artisan7 from "./css/Artisan8.jpg"
 import SpotlightArtisan from "./css/ArtisanSpotlight.jpg"
 import BioPopup from './BioPopup';
-// import BottomBar from "./BottomBar";
-
-
+ import BottomBar from "./BottomBar";
 import "./vafa.css";
 
 const Artisans = () => {
@@ -144,6 +142,7 @@ const Artisans = () => {
         <div>
         {GetNavbar()}
         <Memory panel="Artisans "/>
+        <div className="min-height-div">
         <div className ="artisans-heading">Meet the Artisans</div>
         {displayTopPictures()
         }
@@ -161,32 +160,10 @@ const Artisans = () => {
           {
             renderSellers()
           }
-            {/* <div className="rest-of-heroes-container">
-            <img className="rest-of-heroes-img" src= {Artisan4} alt="seller"/>
-            <h3>Shoaib Lala</h3>
-            <h5>Peshawari Carpets</h5>
-            </div>
-
-            <div className="rest-of-heroes-container">
-            <img className="rest-of-heroes-img" src= {Artisan5} alt="seller"/>
-            <h3>Maryam Noor</h3>
-            <h5>Jute rugs</h5>
-            </div>
-
-            <div className="rest-of-heroes-container">
-            <img className="rest-of-heroes-img" src= {Artisan6} alt="seller"/>
-            <h3>Amjad Sahab</h3>
-            <h5>Hala pottery</h5>
-            </div>
-
-            <div className="rest-of-heroes-container">
-            <img className="rest-of-heroes-img" src= {Artisan7} alt="seller"/>
-            <h3>Hashim Junaid</h3>
-            <h5>Handmade carpets</h5>
-            </div> */}   
             <BioPopup trigger={viewForm} setTrigger={setViewForm} >
           </BioPopup>
-          {/* <BottomBar />      */}
+          </div>
+          <BottomBar />
         </div>
     );
 }; 

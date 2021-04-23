@@ -93,7 +93,7 @@ const AdminNavbar = () => {
                 {/* <a  className="nav-item nav-link disabled" tabindex="-1">Contact</a> */}
             </div>
             <div className="navbar-nav ml-auto">
-                <Link to="/AdminPanel">
+                <Link to="/Notifications">
                     <a className="nav-item nav-link">
                     <Badge badgeContent={numNotif} color="secondary">
                         <NotificationsNoneIcon />
