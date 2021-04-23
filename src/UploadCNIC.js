@@ -88,6 +88,32 @@ const UploadCNIC = () => {
     values.tempFile = values.file.name;
     console.log(values);
   };
+
+  async function sendNotification() {
+
+    const response = await fetch(
+      "http://apnay-rung-api.herokuapp.com/notification/new",
+      {
+        method: "POST",
+        withCredentials: true,
+        credentials: "include",
+        headers: {
+          // Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik11aGFtbWFkIFJvaGFuIEh1c3NhaW4iLCJ0eXBlT2ZVc2VyIjoiYWRtaW4iLCJpYXQiOjE2MTY4NDE4MTZ9.HJvh_8caLMReaDmJFCEklgtP9u86usbNIZ4FxOrIawk`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          title:`A new seller has signed up. Please visit Approve Sellers for more details.`,
+          type:"message", 
+          details: null, 
+          admin_id : 1
+        })
+      }
+    );
+
+    console.log(`response from notification`, response)
+    window.location.href = "/Login";
+  }
+
   const submitHandler = async (e) => {
     e.preventDefault();
 
@@ -100,7 +126,8 @@ const UploadCNIC = () => {
       console.log(serverResponse);
       if (serverResponse.status === 201) {
         console.log(`finally here`);
-        window.location.href = "/Login";
+        sendNotification()
+        
       }
     }
   };
