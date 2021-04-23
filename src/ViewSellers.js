@@ -26,7 +26,7 @@ const ViewSellers = () => {
     }
   ]);
   const checkSession = () => {
-    if (session === false){
+    if (session === false || session === null){
       localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
       window.location.href = '/Homepage';
     }

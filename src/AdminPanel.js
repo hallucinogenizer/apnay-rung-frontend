@@ -18,7 +18,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const AdminPanel = () => {
   const session = sessionStorage.getItem("logged-in");
   const checkSession = () => {
-    if (session === false){
+    if (session === false || session === null){
       localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
       window.location.href = '/Homepage';
     }
