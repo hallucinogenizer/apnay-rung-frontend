@@ -25,14 +25,11 @@ const CustomerPanel = () => {
     link = "/CustomerPanel";
   }
   const checkSession = () => {
-    console.log("in here")
-    if (session !== true){
+    if (session === false){
       localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
       window.location.href = '/Homepage';
     }
   }
-  
-
   const [show, setShow] = useState(false);
 
   const handleClose = () => {

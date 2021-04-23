@@ -12,13 +12,19 @@ import ClearIcon from '@material-ui/icons/Clear';
 
 const ViewCurrentOrders = () => {
   let tokenID = localStorage.getItem("Token");
+  const session = sessionStorage.getItem("logged-in");
   // tokenID= `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsIm5hbWUiOiJUYWltb29yIFRhcmlxIiwidHlwZU9mVXNlciI6ImN1c3RvbWVyIiwiaWF0IjoxNjE2OTYxNzMwfQ.Dn0FATITkhrR7e5tkp_XAmdPfp-FKJGzdskczt9k2fw`;
   let items = [];
   const [ind, setIndex] = useState(0)
   const [orderData, setOrderData]= useState([])
   const [id, setId]= useState(0)
   const [callEffect,setCallEffect]= useState(false)
-
+  const checkSession = () => {
+    if (session === false){
+      localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+      window.location.href = '/Homepage';
+    }
+  }
   useEffect(() => {
     const getData = async (url) => {
       const response = await fetch(url, {
@@ -27,7 +33,7 @@ const ViewCurrentOrders = () => {
         credentials: "include",
         headers: {
           Authorization:
-            `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwibmFtZSI6IlRhaW1vb3IgVGFyaXEiLCJ0eXBlT2ZVc2VyIjoic2VsbGVyIiwiaWF0IjoxNjE2OTUwMTgwfQ.5sLboKcaMf5D96MJUSxsv4lynZ9k-J0lQ5w_C40I_Bo`,
+            `Bearer ${tokenID}`,
           "Content-Type": "application/json"
         }
       });
@@ -42,10 +48,8 @@ const ViewCurrentOrders = () => {
           if(order_status===false){
             try{
               allOrders.push(order)
-              // setState([...order])
             }
             catch{
-              // setState([order])
               allOrders[0]=order
             }
           }
@@ -68,13 +72,6 @@ const ViewCurrentOrders = () => {
     }
   );
   }, [callEffect]);
-
-  
-
-  // console.log(`hello length is`)
-  // console.log(orderData.length)
-  // console.log(orderData[0])
-
 
   const renderTableData = () => {
     try{
@@ -116,8 +113,6 @@ const ViewCurrentOrders = () => {
       let index= ind
       let order = orderData[index]
       const { order_id, timestamp } = order;
-      // setId(order_id)
-      // console.log(`timestamp ${timestamp.parse()}`)
       return (
         <tr className="data">
           <td>Order ID: {order_id}</td>
@@ -125,7 +120,6 @@ const ViewCurrentOrders = () => {
         </tr>
       );
     }catch{}
-
   }
 
   const getID = () => {
@@ -154,12 +148,9 @@ const ViewCurrentOrders = () => {
           
         );
     }catch{}
-
-    
   }
 
   const [msg, setMsg] = useState([``]);
-
   const [show, setShow] = useState(false);
 
   const handleClose = () => {
@@ -167,7 +158,6 @@ const ViewCurrentOrders = () => {
     if (msg[1] == `Back to Home`) {
       window.location.href = "/Homepage";
     }
-
   };
 
   const NextPage = () => {
@@ -175,19 +165,14 @@ const ViewCurrentOrders = () => {
       setIndex((prev)=> prev+1)
       console.log(`new index is ${ind}`)
     }
-    
   }
-
   const PrevPage = () => {
     if(ind>0){
       setIndex((prev)=> prev-1)
     }
-    
   }
 
   async function sendData(url) {
-    // console.log(`token is  ${tokenID}`)
-
     const response = await fetch(
       `${url}`,
       {
@@ -195,7 +180,7 @@ const ViewCurrentOrders = () => {
         withCredentials: true,
         credentials: "include",
         headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6IlZhZmEgQmF0b29sIiwidHlwZU9mVXNlciI6InNlbGxlciIsImlhdCI6MTYxNjg0NDE3N30.xYaUcX7dmdqY5co2tMbVA_9jh0M1fVBB-AX0Aam5G7Y`,
+          Authorization: `Bearer ${tokenID}`,
           "Content-Type": "application/json"
         }
       }
@@ -216,13 +201,13 @@ const ViewCurrentOrders = () => {
   const handleShow = () => setShow(true);
   return (
     <div>
+      {checkSession()}
       <SellerNavbar />
       <Memory
         panel="Seller Panel "
         page=""
         current=" Current Orders"
       />{" "}
-      {/* when three links needed in panel, include a '/' in the middle 'page' argument */}
       <h1>Current Orders</h1>
       <h2>Order Summary</h2>
       <div>

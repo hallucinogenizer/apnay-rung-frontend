@@ -964,10 +964,10 @@ h4 {
 
 .panel-box {
   /* position: absolute; */
-  border: none;
+  /* border: none; */
   /* width: 100%; */
   width: 370px !important;
-  height: 60px !important;
+  /* height: 60px !important; */
   left: 303.5px !important;
   top: 723px !important;
   font-size: 24px;
@@ -977,7 +977,10 @@ h4 {
   text-align: center;
   background-color: #ffffff;
   border-style: outset;
-  box-shadow: 0px 0px 0px #2e2e2e(0, 0, 0, 0.07);
+  outline: none;
+  text-decoration: none;
+  border-color: #ebedeb;
+  box-shadow: 0px 0px 0px rgb(118,118,118);
   border-radius: 40px;
   border-color: none !important;
   background-image: linear-gradient(to left, #ffffff 72%, #d67d20 4%);
@@ -999,6 +1002,7 @@ h4 {
   text-align: center;
   margin-top: 4%;
   margin-bottom: 5%;
+  color:#424242;
 }
 .text-last {
   text-align: inline-flex;
