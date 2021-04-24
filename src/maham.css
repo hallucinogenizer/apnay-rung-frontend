@@ -214,16 +214,17 @@ li {
   border-radius: 7px;
   border: 1px solid #e5e5e5;
 }
+
 .upload{
-  width: fit-content;
-  height: 34px;
-  background-color: #424242;
-  color: #efefef;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-  margin-left: 5%;
-  display: block;
+    width: 15%;
+    background-color: #d67d20;
+    color: white;
+    font-size: 15.5px;
+    cursor: pointer; /* Pointer/hand icon */
+    border-radius: 4px;
+    display:inline-block;
+    border: none;
+    padding: 0.5%;
 }
 .input-product-image{
   justify-content: left;
@@ -233,4 +234,50 @@ li {
   margin-top: 0%;
   border-radius: 7px;
   border: 1px solid #e5e5e5;
+}
+.upload-file-product{
+  cursor: pointer;
+  width: 85%;
+  float: left;
+  /* margin-top: 1%; */
+  width: 70%;
+  height: 35%;
+  /* margin-top: 5%; */
+  padding: 0.5%;
+  border-radius: 7px;
+  border: 1px solid #e5e5e5;
+  background-color: #ffffff;
+  color:  #a9a8a8;
+  font-weight: semi-bold;
+  font-size: 15.5px;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-bottom: 1%;
+
+}
+
+.dropbtn {
+  background-color: #d67d20;
+  color: #2e2e2e;
+  padding: 1%;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  margin-right: 1%;
+  margin-bottom: 1%;
+  text-decoration: none;
+  cursor: pointer;
+}
+.dropbtn a {
+  text-decoration: none;
+  color: #2e2e2e;
+  
+}
+.image-product {
+  min-height: 100vh;
+  background-image: url("./css/temp1.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 30px;
+  top: 0%;
 }
