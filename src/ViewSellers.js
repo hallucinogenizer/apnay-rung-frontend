@@ -85,7 +85,7 @@ const ViewSellers = () => {
   async function sendSpotlight(sellerID) {
 
     const response = await fetch(
-      ` http://apnay-rung-api.herokuapp.com/seller/spotlight/${sellerID}`,
+      ` https://apnay-rung-api.herokuapp.com/seller/spotlight/${sellerID}`,
       {
         method: "PATCH",
         withCredentials: true,
