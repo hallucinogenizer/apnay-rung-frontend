@@ -26,7 +26,7 @@
   padding-right: 44px;
   padding-top: 1.5%;
   padding-bottom:1.5%;
-  height: 80%;
+  height: 83%;
   width: 45%;
   margin-left: 27.5%;
   margin-right: 27.5%;
@@ -275,6 +275,10 @@
   margin-left: 38.5%;
   font-size: 15px;
 }
+.orlogin{
+  margin-left: 41.5%;
+  font-size: 15px;
+}
 .orsignup {
   margin-left: 40%;
 }
@@ -365,6 +369,8 @@
   cursor: pointer; /* Pointer/hand icon */
   border-radius: 4px;
   display: inline-block;
+  border: none;
+  padding: 0.55%;
 }
 
 .cnic-label-form-left {
@@ -431,7 +437,24 @@
   background-color: #efefef;
 }
 
+.provinces-div {
+  color: #a9a8a8;
+  font-weight: semi-bold;
+  height: 32.5px;
+  font-size: 15px;
+  float: left;
+  /* margin-top: 1%; */
+  width: 47%;
+  /* margin-top: 5%; */
+  padding: 0.5%;
+  border-radius: 2px;
+  border: 1px solid #e5e5e5;
+  background-color: #efefef;
+}
+
 .security-form-right {
+  color: #a9a8a8;
+  font-weight: semi-bold;
   padding: 0.6% 2% 0.6% 2%;
   border-radius: 2px;
   float: right;

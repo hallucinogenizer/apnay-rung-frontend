@@ -2,6 +2,8 @@ import Logo from "./css/logo.png";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { QuestionAnswer } from "@material-ui/icons";
+import { Modal, Button} from "react-bootstrap";
+
 
 const TempSecurity = () => {
   const [button, setButton] = useState(`true`);
@@ -9,9 +11,9 @@ const TempSecurity = () => {
   const questions = {
     questionsArray: [
       "Choose a security question",
-      "What is the name of your cat?",
+      "What is the name of your friend?",
       "What is your birth city?",
-      "What is the color of your car?"
+      "What is your favorite color?"
     ]
   };
   const [values, setValues] = useState({
@@ -23,6 +25,16 @@ const TempSecurity = () => {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => {
+    setShow(false);
+    window.location.href = "/SignupCustomer";
+
+    
+  }
+  const handleShow = () => setShow(true);
+
 
   const submitForm = () => {
     // setIsSubmitted(true);
@@ -103,6 +115,8 @@ const TempSecurity = () => {
     console.log(serverResponse);
     if (serverResponse.status === 201) {
       sendNotification()
+    }else if (serverResponse.status === 400){
+      handleShow()
     }
   };
   useEffect(() => {
@@ -111,15 +125,15 @@ const TempSecurity = () => {
     }
   }, [errors]);
 
-  const handleClick = () => {
-    if (Object.keys(errors).length === 0 && isSubmitted) {
-      window.location.href = "/Login";
-    }
-  };
+  // const handleClick = () => {
+  //   if (Object.keys(errors).length === 0 && isSubmitted) {
+  //     window.location.href = "/Login";
+  //   }
+  // };
   async function postData() {
     console.log(`in post data`);
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-    console.log(userInfo);
+    console.log(`printing user info`,userInfo);
     console.log(values);
     const question1 = values.question1;
     const answer1 = values.answer1;
@@ -258,7 +272,7 @@ const TempSecurity = () => {
             Sign Up
           </button>
           <br />
-          <div className="orlogin-option-signup">
+          <div className="orlogin">
             Or
             <Link to="/Login"> Log in</Link>
           </div>
@@ -272,6 +286,15 @@ const TempSecurity = () => {
         {!isSubmitted ? displayPage() : ""}
         {/* <SignupSuccess /> */}
       </div>
+      <Modal show={show} onHide={handleClose} className="delete-modal">
+        <Modal.Header closeButton className="modal-heading">
+          <Modal.Title>Error</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>An account exists with this email.</Modal.Body>
+        <Modal.Footer>
+
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
