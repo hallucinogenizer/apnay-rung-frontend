@@ -18,7 +18,6 @@ const AddProduct = () => {
   const [values, setValues] = useState({
     fileName:"Click here to choose file",
     file: "",
-    tempFile: ""
   });
   const [price, setPrice] = useState(0);
   const [stock, setStock] = useState(0);
@@ -52,16 +51,16 @@ const AddProduct = () => {
   const fileHandler = (e) => {
     console.log(e.target.files[0])
     setValues({
-      fileName: "",
-      file: e.target.files[0],
+      ...values,
+      [e.target.name]: e.target.files[0],
       tempFile: e.target.files[0].name
     });
+    values.tempFile = values.file.name;
     // values.tempFile = values.file.name;
     console.log(values);
   };
 
-  const setFile = (event) => {
-    event.preventDefault();
+  const setFile = () => {
     if (values.tempFile){
       values.fileName = values.tempFile
     }

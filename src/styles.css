@@ -545,6 +545,7 @@ input[type="file"] {
 }
 
 .input-form {
+  font-size: 15px;
   justify-content: left;
   width: 90%;
   height: 30px;
@@ -557,6 +558,18 @@ input[type="file"] {
 }
 .category-dropdown{
   color: #979595;
+  justify-content: left;
+  width: 90%;
+  height: 30px;
+  margin-left: 5%;
+  margin-top: -3%;
+  /* margin-top: 1%; */
+  padding: 0.5%;
+  border-radius: 7px;
+  border: 1px solid #e5e5e5;
+}
+.category-dropdown-update{
+  color: #000;;
   justify-content: left;
   width: 90%;
   height: 30px;
@@ -610,7 +623,7 @@ input[type="file"] {
   font-size: 13px;
   height: 26px;
   background-color: #d67d20;
-  color: #efefef;
+  color: #ffffff;
   border: none;
   border-radius: 3px;
   cursor: pointer;
@@ -620,6 +633,21 @@ input[type="file"] {
   float: right;
   display: block;
 
+}
+.update-button2 {
+  width: 14%;
+  font-size: 13px;
+  height: 26px;
+  background-color: #d67d20;
+  color: #ffffff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-top: 4%;
+  /* margin-left: 30%; */
+  margin-right: 5%;
+  float: right;
+  display: block;
 }
 .submit-button3 {
   width: fit-content;
