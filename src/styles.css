@@ -307,6 +307,9 @@ table th {
   float: right !important;
   margin-right: 0.8% !important;
 }
+.space-bottom{
+  margin-top: 15%;
+}
 
 .sortbars {
   -webkit-box-sizing: content-box;
@@ -779,15 +782,6 @@ h4 {
   /* display: inline-block; */
 }
 
-/* Box {
-  float: left;
-  margin-left: 50%;
-  margin-top: -24%;
-} */
-/* .artisan-product-page {
-  display: inline-block;
-  /* margin-left: 8%;
-} */
 .button-shopping {
   /* float: left; */
   margin-left: 7%;
@@ -889,19 +883,33 @@ h4 {
   display: inline-block;
   margin-left: 29%;
 }
+.home-main-title{
+  position:relative;
+  margin-top: 1%;
+}
+.main-sellers{
+  margin-top: 2%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
 
 .home-background {
+  margin-top: 1%;
+  position: relative;
   height: 350px;
   width: 100% !important;
 }
 .home-text {
   z-index: 0;
+  /* display: inline; */
   position: absolute;
-  text-align: center !important;
-  top: 45%;
+  margin-left: 16.5%;
+  margin-right: 11.5%;
+  top: 57%;
   color: #ffffff;
-  font-size: 350%;
-
+  font-size: 290%;
+  font-display: bold;
 }
 .main {
   width: 80%;
@@ -946,6 +954,7 @@ h4 {
   font-size: larger;
   font-weight: 400;
 }
+
 .grey-grey {
   background-color: #efefef;
   width: 100% !important;
@@ -955,19 +964,7 @@ h4 {
   text-align: center;
 
 }
-.space-bottom{
-  margin-top: 15%;
-}
-.home-main-title{
-  position:relative;
-  margin-top: 1%;
-}
-.main-sellers{
-  margin-top: 2%;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-}
+
 .grey-home-bar {
   background-color: #efefef;
   height: 5%;
@@ -1148,7 +1145,15 @@ h4 {
   background-repeat: no-repeat;
   padding: 30px;
 }
+.home-text {
+  z-index: 0;
+  position: absolute;
+  text-align: center !important;
+  top: 45%;
+  color: #ffffff;
+  font-size: 350%;
 
+}
 .featured-prod {
   
   margin-left: 4.5%;
