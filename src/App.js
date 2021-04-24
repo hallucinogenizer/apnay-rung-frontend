@@ -21,6 +21,7 @@ import ViewAllProducts from "./ViewAllProducts";
 import AdminSettings from "./AdminSettings";
 import CreateTutorial from "./CreateTutorial";
 import Tutorials from "./Tutorials";
+import UpdateTutorial from "./UpdateTutorial";
 import ViewCustomers from "./ViewCustomers";
 
 // Customer Pages
@@ -58,6 +59,7 @@ export default function App() {
           <Route path="/AdminSettings" exact component={AdminSettings} />
           <Route path="/CreateTutorial" exact component={CreateTutorial} />
           <Route path="/Tutorials" exact component={Tutorials} />
+          <Route path="/UpdateTutorial" exact component={UpdateTutorial} />
           <Route path="/ViewCustomers" exact component={ViewCustomers} />
 
 

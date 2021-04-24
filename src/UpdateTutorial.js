@@ -88,7 +88,8 @@ const CreateTutorial = () =>{
     return (
         <div>
             <AdminNavbar/>
-            <Memory panel="Admin" page="Tutorials" current="Create Tutorial"/>
+            <Memory panel="Admin" page="Tutorials" current="Update Tutorial"/>
+            <div className="min-height-div">
             <h1>Update Tutorial</h1>
             <form className="form-product">
                 <p className="label-form"> Title </p>
@@ -128,6 +129,7 @@ const CreateTutorial = () =>{
             </form>
             <br/>
             <br/>
+            </div>
             <BottomBar/>
             <Modal show={show} onHide={handleClose} className="delete-modal">
                 <Modal.Header closeButton>

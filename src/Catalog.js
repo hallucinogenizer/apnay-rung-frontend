@@ -264,10 +264,10 @@ const Catalog = () => {
           <a onClick={SortAlpha}>Sort A-Z</a>
         </li>
         <li className="dropbtn">
-          <a onClick={SortPriceAsc}>Sort $ - $$</a>
+          <a onClick={SortPriceAsc}>Price (Low to High)</a>
         </li>
         <li className="dropdown">
-          <button className="dropbtn">Filter by Region</button>
+          <li className="dropbtn">Filter by Region
           <div className="dropdown-content" id="mydropdown">
             <a onClick={PunjabProducts}>Punjab</a>
             <a onClick={SindhProducts}>Sindh</a>
@@ -276,6 +276,7 @@ const Catalog = () => {
             <a onClick={GilgitProducts}>Gilgit-Baltistan</a>
             <a onClick={KashmirProducts}>Kashmir</a>
           </div>
+          </li>
         </li>
         
       </ul>
