@@ -18,15 +18,15 @@ const SellerSettings = () => {
   const [bio, setBio] = useState();
   const [picture, setPicture] = useState([]);
   const [showPicture, setShowPicture] = useState([])
-  let tokenID = localStorage.getItem("Token");
+  let tokenID = sessionStorage.getItem("Token");
   let updatePass = false;
   const session = sessionStorage.getItem("logged-in");
-  const usertype = localStorage.getItem("TypeOfUser");
   const [callEffect,setCallEffect]= useState(false)
+  const usertype = sessionStorage.getItem("TypeOfUser");
 
   const checkSession = () => {
     if (session === false || session === null || usertype==="admin" || usertype==="customer"){
-      localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+      sessionStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
       window.location.href = '/Homepage';
     }
   }

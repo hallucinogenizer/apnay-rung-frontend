@@ -16,9 +16,9 @@ const Catalog = () => {
   const [searchValue, setSearchValue] = useState("");
   const [callMap, setCallMap] =useState(true);
   const [callEffect, setCallEffect] = useState(false);
-  const usertype = localStorage.getItem("TypeOfUser");
-  const tokenID = localStorage.getItem("Token");
-  const province = JSON.parse(localStorage.getItem("map_province"));
+  const usertype = sessionStorage.getItem("TypeOfUser");
+  const tokenID = sessionStorage.getItem("Token");
+  const province = JSON.parse(sessionStorage.getItem("map_province"));
  
   const GetNavbar = () =>{
     if (tokenID === null){
@@ -88,9 +88,9 @@ const Catalog = () => {
   }, [callEffect]);
 
   const sendID = (product) => {
-    localStorage.removeItem("productID");
-    localStorage.removeItem("map_province");
-    localStorage.setItem("productID", JSON.stringify(product));
+    sessionStorage.removeItem("productID");
+    sessionStorage.removeItem("map_province");
+    sessionStorage.setItem("productID", JSON.stringify(product));
   };
 
   const renderProducts = () => {
@@ -264,10 +264,10 @@ const Catalog = () => {
           <a onClick={SortAlpha}>Sort A-Z</a>
         </li>
         <li className="dropbtn">
-          <a onClick={SortPriceAsc}>Sort $ - $$</a>
+          <a onClick={SortPriceAsc}>Price (Low to High)</a>
         </li>
         <li className="dropdown">
-          <button className="dropbtn">Filter by Region</button>
+          <li className="dropbtn">Filter by Region
           <div className="dropdown-content" id="mydropdown">
             <a onClick={PunjabProducts}>Punjab</a>
             <a onClick={SindhProducts}>Sindh</a>
@@ -276,6 +276,7 @@ const Catalog = () => {
             <a onClick={GilgitProducts}>Gilgit-Baltistan</a>
             <a onClick={KashmirProducts}>Kashmir</a>
           </div>
+          </li>
         </li>
         
       </ul>

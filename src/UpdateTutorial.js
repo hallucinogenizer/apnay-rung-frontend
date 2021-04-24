@@ -8,21 +8,21 @@ import { Link } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
 const CreateTutorial = () =>{
     //add post request to send to backend and uncomment Link on submit button
-    let tutorialData = JSON.parse(localStorage.getItem("update_tutorial"))
+    let tutorialData = JSON.parse(sessionStorage.getItem("update_tutorial"))
     const tutorial_id = tutorialData.tutorial_id;
     const [title, setTitle] = useState(tutorialData.title);
     const [description, setDescription] = useState(tutorialData.description);
     const [link, setLink] = useState(tutorialData.content);
-    let tokenID = localStorage.getItem("Token");
+    let tokenID = sessionStorage.getItem("Token");
     const [msg, setMsg] = useState([``]);
     const [show, setShow] = useState(false);
     // admin id`eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik11aGFtbWFkIFJvaGFuIEh1c3NhaW4iLCJ0eXBlT2ZVc2VyIjoiYWRtaW4iLCJpYXQiOjE2MTY4NDE4MTZ9.HJvh_8caLMReaDmJFCEklgtP9u86usbNIZ4FxOrIawk`
 
-    const usertype = localStorage.getItem("TypeOfUser");
+    const usertype = sessionStorage.getItem("TypeOfUser");
     const session = sessionStorage.getItem("logged-in");
     const checkSession = () => {
         if (session === false || session === null || usertype==="seller" || usertype==="customer"){
-          localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+          sessionStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
           window.location.href = '/Homepage';
         }
     }
@@ -57,7 +57,7 @@ const CreateTutorial = () =>{
         if (response.status === 201 || response.status === 202 || response.status === 200) {
           setMsg([`Tutorial Updated!`,`OK`]);
           handleShow();
-          localStorage.removeItem("update_tutorial");
+          sessionStorage.removeItem("update_tutorial");
         } else {
           setMsg([`There was an error updating the tutorial.`, `Back`]);
           handleShow();
@@ -88,7 +88,8 @@ const CreateTutorial = () =>{
     return (
         <div>
             <AdminNavbar/>
-            <Memory panel="Admin" page="Tutorials" current="Create Tutorial"/>
+            <Memory panel="Admin" page="Tutorials" current="Update Tutorial"/>
+            <div className="min-height-div">
             <h1>Update Tutorial</h1>
             <form className="form-product">
                 <p className="label-form"> Title </p>
@@ -128,6 +129,7 @@ const CreateTutorial = () =>{
             </form>
             <br/>
             <br/>
+            </div>
             <BottomBar/>
             <Modal show={show} onHide={handleClose} className="delete-modal">
                 <Modal.Header closeButton>

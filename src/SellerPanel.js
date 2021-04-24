@@ -19,11 +19,11 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const SellerPanel = () => {
   const session = sessionStorage.getItem("logged-in");
-  const usertype = localStorage.getItem("TypeOfUser");
+  const usertype = sessionStorage.getItem("TypeOfUser");
 
   const checkSession = () => {
       if (session === false || session === null || usertype==="admin" || usertype==="customer"){
-        localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+        sessionStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
         window.location.href = '/Homepage';
       }
     }
@@ -41,10 +41,11 @@ const SellerPanel = () => {
       {checkSession()}
       <SellerNavbar />
       <Memory panel="Seller Panel" /> {/* <page="" current="" /> */}
-      <h1>Seller Panel</h1>
-      <br></br>
-      <br></br>
-      <div className="all-boxes">
+      <div className="min-height-div">
+        <h1>Seller Panel</h1>
+        <br></br>
+        <br></br>
+        <div className="all-boxes">
         <div className="box-left">
           
           <div className="box-left-left">
@@ -124,6 +125,7 @@ const SellerPanel = () => {
           </div>
         </div>
       </div>
+    </div>
       <BottomBar />
     </div>
   );

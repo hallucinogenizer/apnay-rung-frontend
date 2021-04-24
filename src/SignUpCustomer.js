@@ -65,8 +65,8 @@ const SignupCustomer = () => {
       address: values.address,
       phone: values.phonenumber
     };
-    localStorage.getItem("userInfo");
-    localStorage.setItem("userInfo", JSON.stringify(tempObject));
+    sessionStorage.getItem("userInfo");
+    sessionStorage.setItem("userInfo", JSON.stringify(tempObject));
     window.location.href = "/SecurityPage";
   };
 
@@ -216,7 +216,7 @@ const SignupCustomer = () => {
             Next Step
           </button>
           <br />
-          <span className="orlogin-option-signup">
+          <span className="orlogin">
             Or
             <Link to="/Login"> Log in</Link>
           </span>

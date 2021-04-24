@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 
 const FormPopup = (props) => {
-    const form = JSON.parse(localStorage.getItem("form-content"));
+    const form = JSON.parse(sessionStorage.getItem("form-content"));
 
     const handleClose = (e) => {
         props.setTrigger(false);

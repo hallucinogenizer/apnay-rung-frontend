@@ -4,7 +4,7 @@ import Logo from "./css/logo.png";
 
 const UploadCNIC = () => {
   const [values, setValues] = useState({
-    fileName: "Click here to choose file",
+    fileName: "click here to choose file",
     file: "",
     question1: "",
     answer1: "",
@@ -16,6 +16,8 @@ const UploadCNIC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [check, setCheck] = useState([]);
+  const [button, setButton] = useState(`true`);
+
 
   const submitForm = () => {
     //setIsSubmitted(true);
@@ -23,35 +25,36 @@ const UploadCNIC = () => {
 
   const questions = {
     questionsArray: [
-      "Choose a security question",
-      "What is the name of your cat?",
+      "choose a security question",
+      "What is the name of your friend?",
       "What is your birth city?",
-      "What is the color of your car?"
+      "What is your favorite color?"
     ]
   };
+
   const validate = () => {
     let errors = {};
 
     if (!values.file) {
-      errors.file = "image is required";
+      errors.file = "Image is required";
     }
     if (!values.question1) {
-      errors.question1 = "select question";
+      errors.question1 = "Select question";
     } else if (values.question1 === "Choose a security question") {
-      errors.question1 = "select question";
+      errors.question1 = "Select question";
     }
     if (!values.question2) {
-      errors.question2 = "select question";
+      errors.question2 = "Select question";
     } else if (values.question2 === "Choose a security question") {
-      errors.question2 = "select question";
+      errors.question2 = "Select question";
     } else if (values.question2 === values.question1) {
-      errors.question2 = "questions must be different";
+      errors.question2 = "Questions must be different";
     }
     if (!values.answer1) {
-      errors.answer1 = "answer required";
+      errors.answer1 = "Answer required";
     }
     if (!values.answer2) {
-      errors.answer2 = "answer required";
+      errors.answer2 = "Answer required";
     }
     return errors;
   };
@@ -139,7 +142,7 @@ const UploadCNIC = () => {
   }, [errors]);
 
   async function postData() {
-    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    const userInfo = JSON.parse(sessionStorage.getItem("userInfo"));
     console.log(`in post data`);
     console.log(userInfo);
     console.log(values);
@@ -187,6 +190,10 @@ const UploadCNIC = () => {
     }
   }
 
+  const switchButton = () => {
+    setButton(!button);
+  };
+
   const displayPage = () => {
     return (
       <div>
@@ -202,10 +209,14 @@ const UploadCNIC = () => {
           <div className="cnic-heading">Sign up</div>
           <div class="btn-group" role="group" aria-label="Basic example">
             <Link to="/SignupCustomer">
-              <input type="submit" value="Customer" className="btnfalse" />
+              <input type="submit" value="Customer" className={`btn${!button}`}
+                onClick={switchButton}
+                style={{ borderRadius: "5px 0px 0px 5px" }}/>
             </Link>
             <Link to="/SignupSeller">
-              <input type="submit" value="Seller" className="btntrue" />
+              <input type="submit" value="Seller" className={`btn${button}`}
+                onClick={switchButton}
+                style={{ borderRadius: "0px 5px 5px 0px" }}/>
             </Link>
           </div>
           <br />
@@ -226,9 +237,12 @@ const UploadCNIC = () => {
               id="upload-photo"
             />
             <button className="upload-btn" onClick = {setFile}>Upload</button>
+            {/* <input type="submit" className="next-step-btn" value="Sign Up" /> */}
+
           </span>
           <br />
           <br />
+
           <div>
             {errors.question1 && (
               <div className="err-left">{errors.question1}</div>
@@ -266,6 +280,7 @@ const UploadCNIC = () => {
           </span>
           <br />
           <br />
+
           <div>
             {errors.question2 && (
               <div className="err-left">{errors.question2}</div>
@@ -298,7 +313,7 @@ const UploadCNIC = () => {
           </span>
           <input type="submit" className="next-step-btn" value="Sign Up" />
           <br />
-          <span className="orlogin-option-signup">
+          <span className="orlogin">
             Or
             <Link to="/Login"> Log in</Link>
           </span>
