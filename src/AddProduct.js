@@ -60,6 +60,7 @@ const AddProduct = () => {
     console.log(values);
   };
 
+  
   const setFile = () => {
     if (values.tempFile){
       values.fileName = values.tempFile
