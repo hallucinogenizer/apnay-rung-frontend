@@ -320,7 +320,7 @@ const ShoppingCart = () => {
             className="delete-primary"
             onClick={()=>handleClose2()}
           >
-         {msg2[1] !== "Back" ? <Link to="./ShoppingCart">{msg2[1]}</Link> : msg2[1]}
+         {msg2[1] !== "Back" ? <Link to="./ShoppingCart"><a>{msg2[1]}</a></Link> : msg2[1]}
           </Button>
         </Modal.Footer>
       </Modal>
