@@ -216,7 +216,7 @@ const TempLogin = () => {
         <Modal.Header closeButton>
           <Modal.Title>Incorrect Password</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Your password is incorrect. Please try again.</Modal.Body>
+        <Modal.Body>Your email or password is incorrect. Please try again.</Modal.Body>
         <Modal.Footer>
           <Link to="/Login">
             <Button

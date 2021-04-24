@@ -18,6 +18,18 @@ const SignupSeller = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [button, setButton] = useState(`true`);
 
+  const provinces = {
+    provincesArray: [
+      "choose your province",
+      "Punjab",
+      "Sindh",
+      "Balochistan", 
+      "Khyber Pakhtunkhwa", 
+      "Kashmir", 
+      "Gilgit-Baltistan"
+    ]
+  };
+
   const validate = () => {
     let errors = {};
 
@@ -44,6 +56,8 @@ const SignupSeller = () => {
     }
 
     if (!values.address) {
+      errors.address = "Address required";
+    }else if (values.address === "Choose your province") {
       errors.address = "Address required";
     }
 
@@ -157,7 +171,6 @@ const SignupSeller = () => {
             />
           </div>
           <br />
-          <br />
           <div>
             {errors.password && (
               <div className="err-left">{errors.password} </div>
@@ -186,7 +199,6 @@ const SignupSeller = () => {
             />
           </div>
           <br />
-          <br />
           <div>
             {errors.address && (
               <div className="err-left">{errors.address} </div>
@@ -197,14 +209,30 @@ const SignupSeller = () => {
           </div>
           <br />
           <div className="form-inputs-security">
-            <input
+            {/* <input
               type="text"
               name="address"
               className="signup-label-form-left"
-              placeholder="city"
+              placeholder="province"
               value={values.address}
               onChange={changeHandler}
-            />
+            /> */}
+            <select
+              className="provinces-div"
+              name="address"
+              onChange={changeHandler}
+            >
+              {provinces.provincesArray.map((province) => (
+                <option
+                  title={province}
+                  // name="question1"
+                  // onChange={changeHandler}
+                  value={values.address}
+                >
+                  {province}
+                </option>
+              ))}
+            </select>
             <input
               type="tel"
               name="phonenumber"
@@ -218,7 +246,7 @@ const SignupSeller = () => {
             Next Step
           </button>
           <br />
-          <span className="orlogin-option-signup">
+          <span className="orlogin">
             Or
             <Link to="/Login"> Log in</Link>
           </span>

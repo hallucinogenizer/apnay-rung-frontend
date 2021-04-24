@@ -216,7 +216,7 @@ const SignupCustomer = () => {
             Next Step
           </button>
           <br />
-          <span className="orlogin-option-signup">
+          <span className="orlogin">
             Or
             <Link to="/Login"> Log in</Link>
           </span>
