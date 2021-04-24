@@ -139,7 +139,7 @@ const UploadCNIC = () => {
   }, [errors]);
 
   async function postData() {
-    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    const userInfo = JSON.parse(sessionStorage.getItem("userInfo"));
     console.log(`in post data`);
     console.log(userInfo);
     console.log(values);

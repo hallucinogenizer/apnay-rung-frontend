@@ -31,13 +31,13 @@ const ForgotPassword = () => {
 
   const submitForm = () => {
     // setIsSubmitted(true);
-    // localStorage.setItem(1, values.answer1);
-    // localStorage.setItem(2, values.answer2);
+    // sessionStorage.setItem(1, values.answer1);
+    // sessionStorage.setItem(2, values.answer2);
     // window.location.href = "/ResetPassword";
   };
   const SecurityQuestions = [
-    localStorage.getItem("Question1"),
-    localStorage.getItem("Question2")
+    sessionStorage.getItem("Question1"),
+    sessionStorage.getItem("Question2")
   ];
 
   // const { changeHandler, submitHandler, values, errors } = UseForm(
@@ -61,14 +61,14 @@ const ForgotPassword = () => {
     setErrors(validate(values));
     setIsSubmitting(true);
 
-    const answer1 = localStorage.getItem("answer1");
+    const answer1 = sessionStorage.getItem("answer1");
     let serverCheck = await getData(1, answer1);
     console.log(`printing response`, serverCheck);
 
     if (serverCheck.verified === true) {
       console.log(`Im hereee`);
 
-      const answer2 = localStorage.getItem("answer2");
+      const answer2 = sessionStorage.getItem("answer2");
       let serverCheck2 = await getData(2, answer2);
       console.log(`printing response 2`, serverCheck2);
       if (serverCheck2.verified === true) {
@@ -99,9 +99,9 @@ const ForgotPassword = () => {
     console.log(`printing values`,values);
 
     if (e.target.name === "answer1") {
-      localStorage.setItem("answer1", e.target.value);
+      sessionStorage.setItem("answer1", e.target.value);
     } else if (e.target.name === "answer2") {
-      localStorage.setItem("answer2", e.target.value);
+      sessionStorage.setItem("answer2", e.target.value);
     }
   };
 
@@ -124,7 +124,7 @@ const ForgotPassword = () => {
   
 
   async function getData(questionNum, answer) {
-    const userEmail = localStorage.getItem("Email");
+    const userEmail = sessionStorage.getItem("Email");
     console.log(`printing email`, userEmail);
     const temp = {
       email: userEmail,

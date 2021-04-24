@@ -7,7 +7,7 @@ import { Modal, Button } from "react-bootstrap";
 
 const ViewOrders = () => {
   const session = sessionStorage.getItem("logged-in");
-  let tokenID = localStorage.getItem("Token");
+  let tokenID = sessionStorage.getItem("Token");
   const [state, setState] = useState([
     {
       order_id: 0,
@@ -16,10 +16,10 @@ const ViewOrders = () => {
       timestamp: ""
     }
   ]);
-  const usertype = localStorage.getItem("TypeOfUser");
+  const usertype = sessionStorage.getItem("TypeOfUser");
   const checkSession = () => {
       if (session === false || session === null || usertype==="seller" || usertype==="customer"){
-        localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+        sessionStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
         window.location.href = '/Homepage';
       }
   }

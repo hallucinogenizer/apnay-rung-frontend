@@ -17,8 +17,8 @@ import React, { useState } from "react";
 const CustomerPanel = () => {
   let link = ``;
   const session = sessionStorage.getItem("logged-in");
-  const storage = JSON.parse(localStorage.getItem("shoppingCart"));
-  const usertype = localStorage.getItem("TypeOfUser");
+  const storage = JSON.parse(sessionStorage.getItem("shoppingCart"));
+  const usertype = sessionStorage.getItem("TypeOfUser");
 
  
   if (storage !== null) {
@@ -28,7 +28,7 @@ const CustomerPanel = () => {
   }
   const checkSession = () => {
     if (session === false || session === null || usertype==="seller" || usertype==="admin"){
-      localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+      sessionStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
       window.location.href = '/Homepage';
     }
   }

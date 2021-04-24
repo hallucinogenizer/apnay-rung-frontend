@@ -11,8 +11,8 @@ import { Link } from "react-router-dom";
 
 const Notifications = () => {
   const session = sessionStorage.getItem("logged-in");
-  let tokenID = localStorage.getItem("Token");
-  const usertype = localStorage.getItem("TypeOfUser");
+  let tokenID = sessionStorage.getItem("Token");
+  const usertype = sessionStorage.getItem("TypeOfUser");
   const [numNotif, setNumNotif] = useState(0);
 
   const [total, setTotal] = useState(0);
@@ -46,7 +46,7 @@ const Notifications = () => {
   // const [check, setCheck]= useState(false); //Checks if anything has come from backend
   const checkSession = () => {
     if (session === false || session === null){
-      localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+      sessionStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
       window.location.href = '/Homepage';
     }
   }

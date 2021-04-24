@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
 
 const Inventory = () => {
-  let tokenID = localStorage.getItem("Token");
+  let tokenID = sessionStorage.getItem("Token");
 
   const session = sessionStorage.getItem("logged-in");
   const [state, setState] = useState([
@@ -20,11 +20,11 @@ const Inventory = () => {
   ]);
 
   const [callEffect,setCallEffect]= useState(false)
-  const usertype = localStorage.getItem("TypeOfUser");
+  const usertype = sessionStorage.getItem("TypeOfUser");
 
   const checkSession = () => {
       if (session === false || session === null || usertype==="admin" || usertype==="customer"){
-        localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+        sessionStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
         window.location.href = '/Homepage';
       }
     }
@@ -52,13 +52,13 @@ const Inventory = () => {
   }, [callEffect]);
 
   const viewProduct = (product) => {
-    localStorage.removeItem("productID");
-    localStorage.setItem("productID", JSON.stringify(product));
+    sessionStorage.removeItem("productID");
+    sessionStorage.setItem("productID", JSON.stringify(product));
   }; //add product to local storage
 
   const updateProduct= (product) => {
-    localStorage.removeItem("update_product");
-    localStorage.setItem("update_product", JSON.stringify(product));
+    sessionStorage.removeItem("update_product");
+    sessionStorage.setItem("update_product", JSON.stringify(product));
   }
 
   async function deleteProduct(itemID){

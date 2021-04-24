@@ -7,9 +7,9 @@ import { Link } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
 
 const UpdateProduct = () => {
-  let productData = JSON.parse(localStorage.getItem("update_product"))
+  let productData = JSON.parse(sessionStorage.getItem("update_product"))
   const session = sessionStorage.getItem("logged-in");
-  let tokenID = localStorage.getItem("Token");
+  let tokenID = sessionStorage.getItem("Token");
   const [msg, setMsg] = useState([``]);
   const [imageUpdate, setImageUpdate] = useState(false);
   const [show, setShow] = useState(false);
@@ -24,11 +24,11 @@ const UpdateProduct = () => {
   const [price, setPrice] = useState(productData.price);
   const [stock, setStock] = useState(productData.stock);
 
-  const usertype = localStorage.getItem("TypeOfUser");
+  const usertype = sessionStorage.getItem("TypeOfUser");
 
   const checkSession = () => {
       if (session === false || session === null || usertype==="customer" || usertype==="admin"){
-        localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+        sessionStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
         window.location.href = '/Homepage';
       }
     }
@@ -47,7 +47,7 @@ const UpdateProduct = () => {
     if (response.status === 201 || response.status === 200 || response.status === 202) {
       setMsg([`Product updated successfully!`, `OK`]);
       handleShow();
-      localStorage.removeItem("update_product");
+      sessionStorage.removeItem("update_product");
     }
      else {
       setMsg([`There was an error while updating the product.`, `Back`]);

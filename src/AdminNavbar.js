@@ -10,7 +10,7 @@ import styled from "styled-components";
 import IconButton from '@material/react-icon-button';
 import Badge from '@material-ui/core/Badge';
 const AdminNavbar = () => {
-    let tokenID = localStorage.getItem("Token");
+    let tokenID = sessionStorage.getItem("Token");
     const [userstate, setUserState] = useState([]);
     const [numNotif, setNumNotif] = useState(0);
     useEffect(() => {
@@ -59,8 +59,8 @@ const AdminNavbar = () => {
         }, []);
   
       const LogoutClear = () =>{
-        localStorage.removeItem("Token");
-        localStorage.clear();
+        sessionStorage.removeItem("Token");
+        sessionStorage.clear();
         sessionStorage.clear();
       }
     return (
