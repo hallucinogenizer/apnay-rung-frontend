@@ -38,7 +38,7 @@ const TempLogin = () => {
       [e.target.name]: e.target.value
     });
     if (e.target.name === "email") {
-      localStorage.setItem("Email", e.target.value);
+      sessionStorage.setItem("Email", e.target.value);
     }
     setCheck([1]);
   };
@@ -53,9 +53,9 @@ const TempLogin = () => {
       if (serverResponse.verified === true) {
         console.log(`got here`);
         const token = serverResponse.accessToken;
-        localStorage.setItem("Token", token);
-        localStorage.setItem("Email", values.email);
-        localStorage.setItem("TypeOfUser", serverResponse.typeOfUser);
+        sessionStorage.setItem("Token", token);
+        sessionStorage.setItem("Email", values.email);
+        sessionStorage.setItem("TypeOfUser", serverResponse.typeOfUser);
         sessionStorage.setItem("logged-in", true);
         if (serverResponse.typeOfUser === "customer") {
           window.location.href = "/Homepage";
@@ -124,15 +124,15 @@ const TempLogin = () => {
       console.log(`im hereee`)
       const userQuestions = await postData();
       console.log(`printing user questions`,userQuestions);
-      localStorage.setItem("Question1", userQuestions[0]);
-      localStorage.setItem("Question2", userQuestions[1]);
+      sessionStorage.setItem("Question1", userQuestions[0]);
+      sessionStorage.setItem("Question2", userQuestions[1]);
       window.location.href = "/ForgotPassword"
     }
 
   };
   async function postData() {
     console.log(`im in postData`);
-    const userEmail = localStorage.getItem("Email");
+    const userEmail = sessionStorage.getItem("Email");
     const response = await fetch(
       "https://apnay-rung-api.herokuapp.com/securityquestions",
       {

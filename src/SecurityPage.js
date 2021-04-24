@@ -132,8 +132,8 @@ const TempSecurity = () => {
   // };
   async function postData() {
     console.log(`in post data`);
-    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-    console.log(`printing user info`,userInfo);
+    const userInfo = JSON.parse(sessionStorage.getItem("userInfo"));
+    console.log(userInfo);
     console.log(values);
     const question1 = values.question1;
     const answer1 = values.answer1;

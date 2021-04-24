@@ -9,7 +9,7 @@ import { FeaturedPlayList } from "@material-ui/icons";
 
 
 const ViewAllProducts = () => {
-  const tokenID = localStorage.getItem("Token");
+  const tokenID = sessionStorage.getItem("Token");
   const session = sessionStorage.getItem("logged-in");
   const [state, setState] = useState([
     {
@@ -26,10 +26,10 @@ const ViewAllProducts = () => {
       }
   ]);
   const [callEffect,setCallEffect]= useState(false)
-  const usertype = localStorage.getItem("TypeOfUser");
+  const usertype = sessionStorage.getItem("TypeOfUser");
   const checkSession = () => {
       if (session === false || session === null || usertype==="seller" || usertype==="customer"){
-        localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+        sessionStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
         window.location.href = '/Homepage';
       }
   }

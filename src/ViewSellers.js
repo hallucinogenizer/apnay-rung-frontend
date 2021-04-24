@@ -11,10 +11,10 @@ import { Modal, Button } from "react-bootstrap";
 // import "bootstrap/dist/css/bootstrap.css";
 const ViewSellers = () => {
   const session = sessionStorage.getItem("logged-in");
-  const usertype = localStorage.getItem("TypeOfUser");
+  const usertype = sessionStorage.getItem("TypeOfUser");
   const checkSession = () => {
       if (session === false || session === null || usertype==="seller" || usertype==="customer"){
-        localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+        sessionStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
         window.location.href = '/Homepage';
       }
   }

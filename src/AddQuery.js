@@ -8,8 +8,8 @@ import BottomBar from "./BottomBar";
 import { Link } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
 const AddQuery = () =>{
-  const usertype = localStorage.getItem("TypeOfUser");
-  let tokenID = localStorage.getItem("Token");
+  const usertype = sessionStorage.getItem("TypeOfUser");
+  let tokenID = sessionStorage.getItem("Token");
   const session = sessionStorage.getItem("logged-in");
   const [userstate, setUserState] = useState([]);
   const [query, setQuery] = useState("");
@@ -22,7 +22,7 @@ const AddQuery = () =>{
     console.log("in here", session)
     if (session === false || session === null || session === null || usertype==="seller" || usertype==="admin"){
       console.log("it put me in here for some reason")
-      localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+      sessionStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
       window.location.href = '/Homepage';
     }
   }
@@ -105,7 +105,7 @@ const AddQuery = () =>{
       sendNotification()
       setMsg([`Thank you. Your response has been recorded.`, `Back to My Panel`]);
       handleShow();
-      // localStorage.removeItem("customerInformation");
+      // sessionStorage.removeItem("customerInformation");
     } else {
       setMsg([`There was an error while submitting your query/comment.`, `Back`]);
       handleShow();

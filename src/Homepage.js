@@ -20,9 +20,9 @@ import "bootstrap/dist/css/bootstrap.css";
 const Homepage = () => {
   const [productState, setProductState] = useState([]);
   const [sellerState, setSellerState] = useState([]);
-  const tokenID = localStorage.getItem("Token");
-  const usertype = localStorage.getItem("TypeOfUser");
-  let message = JSON.parse(localStorage.getItem("msg"));
+  const tokenID = sessionStorage.getItem("Token");
+  const usertype = sessionStorage.getItem("TypeOfUser");
+  let message = JSON.parse(sessionStorage.getItem("msg"));
   const [msg, setMsg] = useState([``]);
   const [show, setShow] = useState(false);
 
@@ -33,7 +33,7 @@ const Homepage = () => {
         console.log("also in here")
         setMsg([message, "OK"]);
         message = null;
-        localStorage.removeItem("msg")
+        sessionStorage.removeItem("msg")
         handleShow();
       } 
    }
@@ -100,8 +100,8 @@ const Homepage = () => {
       );
     }, []);
   const sendID = (product) => {
-    localStorage.removeItem("productID");
-    localStorage.setItem("productID", JSON.stringify(product));
+    sessionStorage.removeItem("productID");
+    sessionStorage.setItem("productID", JSON.stringify(product));
   };
   const renderProducts = () => {
     return productState.map((product, index) => {
@@ -138,7 +138,7 @@ const Homepage = () => {
     });
   };
   const addProvince = (province) =>{
-    localStorage.setItem("map_province", JSON.stringify(province));
+    sessionStorage.setItem("map_province", JSON.stringify(province));
   }
   return (
     <div>

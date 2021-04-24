@@ -70,8 +70,8 @@ const StyledRating = withStyles({
 const Product = () => {
   const [qty, setQuantity] = useState(1);
   const classes = useStyles();
-  const tokenID = localStorage.getItem("Token");
-  const usertype = localStorage.getItem("TypeOfUser");
+  const tokenID = sessionStorage.getItem("Token");
+  const usertype = sessionStorage.getItem("TypeOfUser");
 
   const GetNavbar = () =>{
     if (tokenID === null){
@@ -96,7 +96,7 @@ const Product = () => {
     }
   }
 
-  const product = JSON.parse(localStorage.getItem("productID"));
+  const product = JSON.parse(sessionStorage.getItem("productID"));
   
   let productData = {
     name: product.title,
@@ -226,12 +226,12 @@ const Product = () => {
 
 
   const addToCartHandler = (qty) => {
-    if (usertype === `customer`)
+    if (usertype === `customer` || usertype === null)
     {
       if(productData.inStock>=qty){
         let cart = [];
   
-        cart = JSON.parse(localStorage.getItem("shoppingCart"));
+        cart = JSON.parse(sessionStorage.getItem("shoppingCart"));
         console.log(cart);
     
         let newProduct = {
@@ -251,7 +251,7 @@ const Product = () => {
           cart.push(newProduct);
         }
     
-        localStorage.setItem("shoppingCart", JSON.stringify(cart));
+        sessionStorage.setItem("shoppingCart", JSON.stringify(cart));
         setMsg([`Product Added`,`Product has been added to your cart.`])
         handleShow()
       }
@@ -268,7 +268,7 @@ const Product = () => {
     }
   };
 
-  // localStorage.removeItem("shoppingCart");
+  // sessionStorage.removeItem("shoppingCart");
   const renderProduct = () => {
     const { productID, name, Price } = productData;
     let InStockArr = [];

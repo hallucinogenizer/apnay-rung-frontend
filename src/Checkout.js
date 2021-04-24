@@ -7,7 +7,7 @@ import BottomBar from "./BottomBar";
 import { Link } from "react-router-dom";
 const Checkout = () => {
 
-  const usertype = localStorage.getItem("TypeOfUser");
+  const usertype = sessionStorage.getItem("TypeOfUser");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -16,12 +16,12 @@ const Checkout = () => {
   const [additional_info, setAdditionalInfo] = useState("");
   const [payment, setPayment] = useState("");
   const [checkAddress, setCheckAddress] = useState(true);
-  let tokenID = localStorage.getItem("Token");
+  let tokenID = sessionStorage.getItem("Token");
   const session = sessionStorage.getItem("logged-in");
 
   const checkSession = () => {
     if (session === false || session === null || usertype==="seller" || usertype==="admin"){
-      localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+      sessionStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
       window.location.href = '/Homepage';
     }
   }
@@ -64,7 +64,7 @@ const Checkout = () => {
       payment: payment
     }
     // console.log(state_data);
-    localStorage.setItem("customerInformation", JSON.stringify(state_data));
+    sessionStorage.setItem("customerInformation", JSON.stringify(state_data));
   };
   const NameChangeHandler = (event) => {
     setName(event.target.value);

@@ -36,25 +36,25 @@ const UploadCNIC = () => {
     let errors = {};
 
     if (!values.file) {
-      errors.file = "image is required";
+      errors.file = "Image is required";
     }
     if (!values.question1) {
-      errors.question1 = "select question";
+      errors.question1 = "Select question";
     } else if (values.question1 === "Choose a security question") {
-      errors.question1 = "select question";
+      errors.question1 = "Select question";
     }
     if (!values.question2) {
-      errors.question2 = "select question";
+      errors.question2 = "Select question";
     } else if (values.question2 === "Choose a security question") {
-      errors.question2 = "select question";
+      errors.question2 = "Select question";
     } else if (values.question2 === values.question1) {
-      errors.question2 = "questions must be different";
+      errors.question2 = "Questions must be different";
     }
     if (!values.answer1) {
-      errors.answer1 = "answer required";
+      errors.answer1 = "Answer required";
     }
     if (!values.answer2) {
-      errors.answer2 = "answer required";
+      errors.answer2 = "Answer required";
     }
     return errors;
   };
@@ -142,7 +142,7 @@ const UploadCNIC = () => {
   }, [errors]);
 
   async function postData() {
-    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    const userInfo = JSON.parse(sessionStorage.getItem("userInfo"));
     console.log(`in post data`);
     console.log(userInfo);
     console.log(values);

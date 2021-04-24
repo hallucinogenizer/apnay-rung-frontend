@@ -19,11 +19,11 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const SellerPanel = () => {
   const session = sessionStorage.getItem("logged-in");
-  const usertype = localStorage.getItem("TypeOfUser");
+  const usertype = sessionStorage.getItem("TypeOfUser");
 
   const checkSession = () => {
       if (session === false || session === null || usertype==="admin" || usertype==="customer"){
-        localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+        sessionStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
         window.location.href = '/Homepage';
       }
     }

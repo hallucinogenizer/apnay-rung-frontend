@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 
 const BioPopup = (props) => {
-    const artisan = JSON.parse(localStorage.getItem("artisan-content"));
+    const artisan = JSON.parse(sessionStorage.getItem("artisan-content"));
 
     const handleClose = (e) => {
         console.log(`im here hello`)
