@@ -8,8 +8,8 @@ import BottomBar from "./BottomBar";
 import "./vafa.css";
 
 const AboutUs = () => {
-    const tokenID = localStorage.getItem("Token");
-    const usertype = localStorage.getItem("TypeOfUser");
+    const tokenID = sessionStorage.getItem("Token");
+    const usertype = sessionStorage.getItem("TypeOfUser");
 
     const GetNavbar = () =>{
         if (tokenID === null){

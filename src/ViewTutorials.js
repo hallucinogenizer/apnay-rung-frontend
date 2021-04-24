@@ -22,7 +22,7 @@ const ViewTutorials = () => {
     const [isOpen, setOpen] = useState(false)
     const [videoID, setVideoID] = useState('')
     const [videos, setVideos] = useState([])
-    let tokenID = localStorage.getItem("Token");
+    let tokenID = sessionStorage.getItem("Token");
 
     useEffect(() => {
         const getData = async (url) => {
@@ -62,10 +62,10 @@ const ViewTutorials = () => {
         );
       });
     };
-    const usertype = localStorage.getItem("TypeOfUser");
+    const usertype = sessionStorage.getItem("TypeOfUser");
     const checkSession = () => {
         if (session === false || session === null || usertype==="admin" || usertype==="customer"){
-          localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+          sessionStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
           window.location.href = '/Homepage';
         }
     }

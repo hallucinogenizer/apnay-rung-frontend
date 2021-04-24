@@ -8,8 +8,8 @@ import { useState, useEffect } from "react";
 
 const ApproveSellers = () => {
   const session = sessionStorage.getItem("logged-in");
-  const usertype = localStorage.getItem("TypeOfUser");
-  let tokenID = localStorage.getItem("Token");
+  const usertype = sessionStorage.getItem("TypeOfUser");
+  let tokenID = sessionStorage.getItem("Token");
   const [state, setState] = useState([
     {
       seller_id: 0,
@@ -25,7 +25,7 @@ const ApproveSellers = () => {
   ]);
   const checkSession = () => {
     if (session === false || session === null || usertype==="seller" || usertype==="customer"){
-      localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+      sessionStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
       window.location.href = '/Homepage';
     }
   }

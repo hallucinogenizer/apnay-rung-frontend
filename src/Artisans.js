@@ -19,8 +19,8 @@ import "./vafa.css";
 const Artisans = () => {
     const [viewForm, setViewForm] = useState(false)
     const [sellerState, setSellerState] = useState([]);
-    const tokenID = localStorage.getItem("Token");
-    const usertype = localStorage.getItem("TypeOfUser");
+    const tokenID = sessionStorage.getItem("Token");
+    const usertype = sessionStorage.getItem("TypeOfUser");
 
     const GetNavbar = () =>{
         if (tokenID === null){
@@ -106,7 +106,7 @@ const Artisans = () => {
       location: location, 
       bio:bio
     }
-    localStorage.setItem("artisan-content", JSON.stringify(temp));
+    sessionStorage.setItem("artisan-content", JSON.stringify(temp));
     handleSetViewForm();
 
   }

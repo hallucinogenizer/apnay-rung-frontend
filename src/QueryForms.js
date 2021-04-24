@@ -9,7 +9,7 @@ import { Modal, Button } from "react-bootstrap";
 
 const QueryForms = () => {
   const session = sessionStorage.getItem("logged-in");
-  let tokenID = localStorage.getItem("Token");
+  let tokenID = sessionStorage.getItem("Token");
   const [viewForm, setViewForm] = useState(false)
   const [callEffect,setCallEffect]= useState(false)
   const [show, setShow] = useState(false);
@@ -24,11 +24,11 @@ const QueryForms = () => {
     }
   ]);
 
-  const usertype = localStorage.getItem("TypeOfUser");
+  const usertype = sessionStorage.getItem("TypeOfUser");
 
   const checkSession = () => {
       if (session === false || session === null || usertype==="seller" || usertype==="customer"){
-        localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+        sessionStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
         window.location.href = '/Homepage';
       }
     }
@@ -111,7 +111,7 @@ const QueryForms = () => {
       content: content 
     }
     sendNotification(customer_id)
-    localStorage.setItem("form-content", JSON.stringify(temp));
+    sessionStorage.setItem("form-content", JSON.stringify(temp));
     handleSetViewForm();
   }
 

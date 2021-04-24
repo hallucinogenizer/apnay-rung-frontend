@@ -41,9 +41,9 @@ const Star = ({ starId, rating, onMouseEnter, onMouseLeave, onClick }) => {
 };
 
 const AddReview = () => {
-  const usertype = localStorage.getItem("TypeOfUser");
+  const usertype = sessionStorage.getItem("TypeOfUser");
   const [state, setState] = useState([]);
-  let tokenID = localStorage.getItem("Token");
+  let tokenID = sessionStorage.getItem("Token");
   const session = sessionStorage.getItem("logged-in");
   const [callEffect,setCallEffect]= useState(false)
   // tokenID= `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsIm5hbWUiOiJUYWltb29yIFRhcmlxIiwidHlwZU9mVXNlciI6ImN1c3RvbWVyIiwiaWF0IjoxNjE2OTYxNzMwfQ.Dn0FATITkhrR7e5tkp_XAmdPfp-FKJGzdskczt9k2fw`;
@@ -56,7 +56,7 @@ const AddReview = () => {
   let itemLength=0
   const checkSession = () => {
     if (session === false || session === null || usertype==="seller" || usertype==="admin"){
-      localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+      sessionStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
       window.location.href = '/Homepage';
     }
   }

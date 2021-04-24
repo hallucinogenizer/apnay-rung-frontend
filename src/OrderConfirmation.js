@@ -9,10 +9,10 @@ import { Modal, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const OrderConfirmation = () => {
-  const fromLocalStorage = JSON.parse(localStorage.getItem("shoppingCart"));
-  const customerInfo = JSON.parse(localStorage.getItem("customerInformation"));
-  const [state, setState] = useState(fromLocalStorage);
-  let tokenID = localStorage.getItem("Token");
+  const fromsessionStorage = JSON.parse(sessionStorage.getItem("shoppingCart"));
+  const customerInfo = JSON.parse(sessionStorage.getItem("customerInformation"));
+  const [state, setState] = useState(fromsessionStorage);
+  let tokenID = sessionStorage.getItem("Token");
   const[sellers, setSellers] = useState([])
   const session = sessionStorage.getItem("logged-in");
   let total = 0;
@@ -21,7 +21,7 @@ const OrderConfirmation = () => {
   let address = customerInfo.shipping_address;
 
   const infoObject = () => {
-    fromLocalStorage.map((product, index) => {
+    fromsessionStorage.map((product, index) => {
       if (items.length === 0) {
         // console.log(items);
         let subtotal = product.quantity * product.price;
@@ -32,11 +32,11 @@ const OrderConfirmation = () => {
       }
     });
   };
-  const usertype = localStorage.getItem("TypeOfUser");
+  const usertype = sessionStorage.getItem("TypeOfUser");
 
   const checkSession = () => {
       if (session === false || session === null || usertype==="seller" || usertype==="admin"){
-        localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+        sessionStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
         window.location.href = '/Homepage';
       }
     }
@@ -161,8 +161,8 @@ const OrderConfirmation = () => {
       handleShow();
       extractSellers()
       sendNotification()
-      localStorage.removeItem("shoppingCart");
-      localStorage.removeItem("customerInformation");
+      sessionStorage.removeItem("shoppingCart");
+      sessionStorage.removeItem("customerInformation");
     } else {
       setMsg([`You order could not be placed.Try again.`, `Back`]);
       handleShow();

@@ -22,11 +22,11 @@ const Counter = (props) => {
       setQuantity((qty) => qty + 1);
       props.costFunc(props.totalBill + props.price);
   
-      let storage = await JSON.parse(localStorage.getItem("shoppingCart"));
+      let storage = await JSON.parse(sessionStorage.getItem("shoppingCart"));
       storage[props.ind].quantity = 1 + storage[props.ind].quantity;
       // console.log(storage[props.ind].quantity);
-      localStorage.removeItem("shoppingCart");
-      localStorage.setItem("shoppingCart", JSON.stringify(storage));
+      sessionStorage.removeItem("shoppingCart");
+      sessionStorage.setItem("shoppingCart", JSON.stringify(storage));
       props.stateFunc(storage);
     }
     else{
@@ -39,11 +39,11 @@ const Counter = (props) => {
       setQuantity((qty) => qty - 1);
       props.costFunc(props.totalBill - props.price);
 
-      let storage = await JSON.parse(localStorage.getItem("shoppingCart"));
+      let storage = await JSON.parse(sessionStorage.getItem("shoppingCart"));
       storage[props.ind].quantity = storage[props.ind].quantity - 1;
       // console.log(storage[props.ind].quantity);
-      localStorage.removeItem("shoppingCart");
-      localStorage.setItem("shoppingCart", JSON.stringify(storage));
+      sessionStorage.removeItem("shoppingCart");
+      sessionStorage.setItem("shoppingCart", JSON.stringify(storage));
       props.stateFunc(storage);
     }
   };
@@ -74,18 +74,18 @@ const Counter = (props) => {
 };
 
 const ShoppingCart = () => {
-  const fromLocalStorage = JSON.parse(localStorage.getItem("shoppingCart"));
-  const [state, setState] = useState(fromLocalStorage);
+  const fromsessionStorage = JSON.parse(sessionStorage.getItem("shoppingCart"));
+  const [state, setState] = useState(fromsessionStorage);
   const [total, setTotal] = useState(0);
-  let tokenID = localStorage.getItem("Token");
-  const usertype = localStorage.getItem("TypeOfUser");
+  let tokenID = sessionStorage.getItem("Token");
+  const usertype = sessionStorage.getItem("TypeOfUser");
   const [msg2, setMsg2] = useState([``]);
   const [panel, setPanel] = useState("");
-  // const usertype = localStorage.getItem("TypeOfUser");
+  // const usertype = sessionStorage.getItem("TypeOfUser");
 
   // const checkSession = () => {
   //   if (usertype==="admin" || usertype==="seller"){
-  //     localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+  //     sessionStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
   //     window.location.href = '/Homepage';
   //   }
   // }
@@ -134,8 +134,8 @@ const ShoppingCart = () => {
     if (isDelete) {
       let copyState = state.slice();
       copyState.splice(indexDelete, 1);
-      localStorage.removeItem("shoppingCart");
-      localStorage.setItem("shoppingCart", JSON.stringify(copyState));
+      sessionStorage.removeItem("shoppingCart");
+      sessionStorage.setItem("shoppingCart", JSON.stringify(copyState));
       setState(copyState);
     }
   };

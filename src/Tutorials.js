@@ -8,18 +8,18 @@ import { Modal, Button } from "react-bootstrap";
 
 const Tutorials = () =>{
   const session = sessionStorage.getItem("logged-in");
-  let tokenID = localStorage.getItem("Token");
+  let tokenID = sessionStorage.getItem("Token");
   const [state, setState] = useState([
     {
       id: "",
       title: "",
     }
   ]);
-  const usertype = localStorage.getItem("TypeOfUser");
+  const usertype = sessionStorage.getItem("TypeOfUser");
 
   const checkSession = () => {
       if (session === false || session === null || usertype==="seller" || usertype==="customer"){
-        localStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
+        sessionStorage.setItem("msg",JSON.stringify("Please Log in to Continue"))
         window.location.href = '/Homepage';
       }
     }
@@ -49,8 +49,8 @@ const Tutorials = () =>{
   },[callEffect]);
 
   const updateTutorial= (tutorial) => {
-    localStorage.removeItem("update_tutorial");
-    localStorage.setItem("update_tutorial", JSON.stringify(tutorial));
+    sessionStorage.removeItem("update_tutorial");
+    sessionStorage.setItem("update_tutorial", JSON.stringify(tutorial));
   }
 
   async function deleteTutorial(tutorialID){

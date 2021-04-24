@@ -89,7 +89,7 @@ const ResetPassword = () => {
     setCheck([1])
   };
   async function postData(password) {
-    const userEmail = localStorage.getItem("Email");
+    const userEmail = sessionStorage.getItem("Email");
     console.log(`printing email`, userEmail);
     const temp = {
       email: userEmail,
