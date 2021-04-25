@@ -158,7 +158,8 @@ li {
   text-align: left !important;
 } */
 .productpage-div{
-  display:inline-block;
+  margin-left: 5%;
+  float:left;
   width:100%;
 }
 .productpage-image{
@@ -171,7 +172,8 @@ li {
   margin-top:3%;
 }
 .productpage-artisan{
-  margin-top: 5%;
+  margin-top: 7%;
+  padding-top: 2%;
 }
 .checkout-buttons{
   display:block;
@@ -191,11 +193,7 @@ li {
   margin-left:5%;
   color:#d67d20;
 }
-.label-form-2{
-  margin-left:5%;
-  color: #d67d20;
-  font-weight: 500;
-}
+
 .input-des-2{
   text-align: left;
   width: 90%;
@@ -214,6 +212,18 @@ li {
   border-radius: 7px;
   border: 1px solid #e5e5e5;
 }
+
+.upload{
+    width: 15%;
+    background-color: #d67d20;
+    color: white;
+    font-size: 15.5px;
+    cursor: pointer; /* Pointer/hand icon */
+    border-radius: 4px;
+    display:inline-block;
+    border: none;
+    padding: 0.5%;
+}
 .input-product-image{
   justify-content: left;
   width: 70%;
@@ -222,14 +232,6 @@ li {
   margin-top: 0%;
   border-radius: 7px;
   border: 1px solid #e5e5e5;
-}
-.image-product {
-  min-height: 100vh;
-  background-image: url("./css/temp1.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  padding: 30px;
-  top: 0%;
 }
 .upload-file-product{
   cursor: pointer;
@@ -251,14 +253,30 @@ li {
   margin-bottom: 1%;
 
 }
-.upload{
-  width: 15%;
+
+.dropbtn {
   background-color: #d67d20;
-  color: white;
-  font-size: 15.5px;
-  cursor: pointer; /* Pointer/hand icon */
-  border-radius: 4px;
-  display:inline-block;
+  color: #2e2e2e;
+  padding: 1%;
+  font-size: 16px;
   border: none;
-  padding: 0.5%;
+  border-radius: 5px;
+  margin-right: 1%;
+  margin-bottom: 1%;
+  text-decoration: none;
+  cursor: pointer;
+}
+.dropbtn a {
+  text-decoration: none;
+  color: #2e2e2e;
+  
+}
+
+.image-product {
+  min-height: 100vh;
+  background-image: url("./css/temp1.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 30px;
+  top: 0%;
 }
