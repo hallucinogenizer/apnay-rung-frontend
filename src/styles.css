@@ -292,9 +292,9 @@ tr:last-of-type td:last-of-type {
 }
 
 .deleteAll {
-  padding-left: 64% !important;
   float: right;
-  margin-right: 17%;
+  margin-top:1.7%;
+  margin-right: 19%;
 }
 .date {
   top: 517px;
@@ -307,20 +307,18 @@ tr:last-of-type td:last-of-type {
 }
 
 .datetime {
-  margin-left: 7%;
+  margin-left: 11.5%;
   margin-right: auto;
   margin-top: 3%;
   vertical-align: middle;
   float: left;
 }
 .notificationBox {
-  width: 70%;
+  width: 60%;
   height: 111px;
   left: 339px;
-  top: 517px;
-  margin: auto;
-  margin-left: auto;
-  margin-right: auto;
+  margin-top: 1.5%;
+  margin-left: 22%;
 
   background: #f9f9f9;
   border: 1px solid #f9f9f9;
