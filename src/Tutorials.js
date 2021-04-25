@@ -134,7 +134,7 @@ const Tutorials = () =>{
       </div>
       <br/>
       <br/>
-
+      <br/>
       </div>
       <BottomBar />
       <Modal show={show} onHide={handleClose} className="delete-modal">
