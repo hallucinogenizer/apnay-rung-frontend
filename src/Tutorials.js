@@ -1,6 +1,6 @@
 import "./styles.css";
 import { useState, useEffect } from "react";
-import AdminNavbar from "./SellerNavbar";
+import AdminNavbar from "./AdminNavbar";
 import Memory from "./Memory";
 import BottomBar from "./BottomBar";
 import { Link } from "react-router-dom";
