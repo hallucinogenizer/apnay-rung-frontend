@@ -97,6 +97,11 @@ const Inventory = () => {
     if(changeBlock===true){
       deleteProduct(id)
     }
+    else if(empty===true)
+    {
+      SetEmpty(false)
+      window.location.href = "/SellerPanel"; 
+    }
     
   };
   const renderTableData = () => {
@@ -157,7 +162,7 @@ const Inventory = () => {
       <BottomBar />
       <Modal show={show} onHide={handleClose} className="delete-modal">
         <Modal.Header closeButton>
-          <Modal.Title>Confirm Delete</Modal.Title>
+          <Modal.Title>Confirm Block</Modal.Title>
         </Modal.Header>
         <Modal.Body>Are you sure you want to delete this product?</Modal.Body>
         <Modal.Footer>
@@ -189,7 +194,7 @@ const Inventory = () => {
             className="delete-primary"
             onClick={()=>handleClose(false)}
           >
-            <Link to="./AddProduct">Add Products</Link>
+            <Link to="./SellerPanel">Back to Panel</Link>
           </Button>
         </Modal.Footer>
       </Modal>
