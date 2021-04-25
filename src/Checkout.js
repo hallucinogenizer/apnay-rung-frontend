@@ -105,7 +105,7 @@ const Checkout = () => {
       <CustomerNavbar />
       <Memory
         panel="Customer Panel "
-        page="Shopping Cart"
+        page=" Shopping Cart "
         current=" Checkout"
       />{" "}
       <div className="min-height-div" className="image-product">
