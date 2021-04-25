@@ -171,10 +171,15 @@
   border-top: none !important;
   background-color: transparent !important;
   white-space: nowrap;
+  padding-left: 5% !important  
+
+
 }
 
 .item-array td {
   border: none !important;
+  padding-left: 5% !important  
+
 }
 
 .remove-wrapping {
