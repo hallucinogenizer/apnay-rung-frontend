@@ -123,7 +123,7 @@ const CreateTutorial = () =>{
                 <div className="checkout-buttons">
                 <input
                     type="submit"
-                    className="tutorial-btn"
+                    className="tutorial-btn-update"
                     value="Save"
                     onClick={SubmitHandler}
                 ></input>
