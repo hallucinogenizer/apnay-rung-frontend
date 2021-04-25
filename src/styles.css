@@ -985,13 +985,13 @@ h4 {
   pointer-events: none;
   color: #aaa;
 }
-.featured-prod {
+/* .featured-prod {
   margin-left: 8%;
   font-display: bold;
   font-size: 25px;
   margin-top: 2%;
   color: #2e2e2e;
-}
+} */
 .orange-home-bar {
   background-color: #d67d20;
   padding-top: 0.5%;
