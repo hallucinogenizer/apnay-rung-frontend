@@ -72,7 +72,7 @@ const ForgotPassword = () => {
       let serverCheck2 = await getData(2, answer2);
       console.log(`printing response 2`, serverCheck2);
       if (serverCheck2.verified === true) {
-        // window.location.href = "/ResetPassword";
+        window.location.href = "/ResetPassword";
         console.log(`in true`);
       } else {
         handleShow2();
