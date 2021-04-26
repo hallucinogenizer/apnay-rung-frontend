@@ -73,13 +73,13 @@ const TempLogin = () => {
           console.log(`in approval false`)
           if (serverResponse.approved === false){
             handleShow2()
-          }else{
-            errors.password = "password is incorrect";
-            handleShow();
-
           }
+        }else{
+          errors.password = "password is incorrect";
+          handleShow();
 
         }
+
  
       }
     } 
