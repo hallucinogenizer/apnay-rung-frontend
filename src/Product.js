@@ -183,10 +183,6 @@ const Product = () => {
         const { rating, review } = rev; //destructuring
         return (
           <div>
-            <p>
-              <div className="reviewer-name">Reviewer</div>
-              <br />
-            </p>
             <div className="reviewer-rating">
               <Box component="fieldset" mb={3} borderColor="transparent">
                 <StyledRating name="read-only" value={rating} readOnly />
