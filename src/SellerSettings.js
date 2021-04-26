@@ -382,7 +382,7 @@ const SellerSettings = () => {
     <div className="bg-color">
       {checkSession()}
       <SellerNavbar />
-      <Memory panel="Customer Panel " page="" current=" Account Settings" />{" "}
+      <Memory panel=" Seller Panel " page="" current=" Account Settings" />{" "}
       {/* when three links needed in panel, include a '/' in the middle 'page' argument */}
       <div className="min-height-div image-settings">
         {
