@@ -5,9 +5,9 @@
 
 <h3> How to run? </h3>
 <p> To run the frontend on an offline machine, you should have Node installed on your machine. You can dowload and install from this link: https://nodejs.org/en/ </p>
- * Download the zip folder
- * Open a terminal window in Zip Folder and run the following commands:
-   * `npm install`
-   * `npm start`
+1. Download the zip folder <br/>
+2. Open a terminal window in Zip Folder and run the following commands:<br/>
+3. npm install<br/>
+4. npm start<br/>
  
  <p> To view the Backend repository for this project, visit: https://github.com/hallucinogenizer/Apnay-Rung-Backend </p>
