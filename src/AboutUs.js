@@ -8,6 +8,7 @@ import BottomBar from "./BottomBar";
 import "./vafa.css";
 
 const AboutUs = () => {
+
     const tokenID = sessionStorage.getItem("Token");
     const usertype = sessionStorage.getItem("TypeOfUser");
 
